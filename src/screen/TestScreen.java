@@ -1,11 +1,8 @@
 package screen;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-
 import java.util.ArrayList;
+
+import javafx.scene.control.Button;
 
 public class TestScreen extends Screen {
 
@@ -14,14 +11,12 @@ public class TestScreen extends Screen {
         components = new ArrayList<>();
 
         Button btn = new Button();
-        btn.setText("Go to TestScreen2");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                ScreenManager.changeScreen(new TestScreen2());
-            }
+        btn.setText("Go to DrawApp");
+        
+        btn.setOnAction(e->{
+        	ScreenManager.changeScreen(new DrawApp());
         });
-
+        
         components.add(btn);
     }
 

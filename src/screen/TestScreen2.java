@@ -1,10 +1,8 @@
 package screen;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-
 import java.util.ArrayList;
+
+import javafx.scene.control.Button;
 
 public class TestScreen2 extends Screen {
 
@@ -14,11 +12,8 @@ public class TestScreen2 extends Screen {
 
         Button btn = new Button();
         btn.setText("Go Back");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                ScreenManager.previousScreen();
-            }
+        btn.setOnAction(e->{
+        	ScreenManager.previousScreen();
         });
 
         components.add(btn);
