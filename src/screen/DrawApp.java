@@ -10,31 +10,33 @@ public class DrawApp extends Screen {
 
 	@Override
 	public void start() {
-        components = new ArrayList<>();
-        
-        Canvas canvas = new Canvas(1280, 720);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        
-        gc.setLineWidth(5);
-        gc.setFill(Color.BLACK);
-        
-        canvas.setOnMousePressed(mouse->{
-        	gc.beginPath();
-        	gc.lineTo(mouse.getX(), mouse.getY());
-        });
-        
-        canvas.setOnMouseDragged(mouse->{
-        	gc.stroke();
-        	gc.lineTo(mouse.getX(), mouse.getY());
-        });
-        
-        canvas.setOnMouseReleased(mouse->{
-        	gc.stroke();
-        	gc.lineTo(mouse.getX(), mouse.getY());
-        	gc.closePath();
-        });
-        
-        components.add(canvas);
+		components = new ArrayList<>();
+
+		Canvas canvas = new Canvas(1280, 720);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+
+		gc.setLineWidth(5);
+		gc.setFill(Color.BLACK);
+
+		canvas.setOnMousePressed(mouse -> {
+			gc.beginPath();
+			gc.lineTo(mouse.getX(), mouse.getY());
+		});
+
+		canvas.setOnMouseDragged(mouse ->
+
+		{
+			gc.stroke();
+			gc.lineTo(mouse.getX(), mouse.getY());
+		});
+
+		canvas.setOnMouseReleased(mouse -> {
+			gc.stroke();
+			gc.lineTo(mouse.getX(), mouse.getY());
+			gc.closePath();
+		});
+
+		components.add(canvas);
 
 	}
 
