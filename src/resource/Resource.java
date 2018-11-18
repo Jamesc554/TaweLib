@@ -9,6 +9,8 @@ import java.util.Dictionary;
  * @author Peter Daish
  * @version 0.1
  * @since 11/11/2018
+ * 
+ * 
  */
 public abstract class Resource {
 	protected String year;
