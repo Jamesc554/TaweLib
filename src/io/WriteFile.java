@@ -6,6 +6,10 @@ import org.json.simple.JSONObject;
 
 import user.User;
 
+/**
+ * @author Samuel Jankinson
+ */
+
 public class WriteFile extends IO {
 	@SuppressWarnings({ "unchecked" })
 	// will add borrow history etc after discussed with meeting.
@@ -55,8 +59,8 @@ public class WriteFile extends IO {
     	
     }
     
-    public static void removeUsers(String usersData) {
-    	
+    public static boolean removeUsers(String username) {
+    	return false;
     }
     
     public static void removeResources(String resourceData) {
