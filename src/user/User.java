@@ -35,7 +35,7 @@ public class User {
         setAccountBalance(accountBalance);
         setProfImage(profImage);
     }
-    protected void setUserName(String userName){}
+    protected void setUserName(String userName){this.userName = userName;}
     protected void setFirstName(String firstName){this.firstName = firstName;}
     public void setLastName(String lastName){this.lastName = lastName;}
     public void setMobileNumber(String mobileNumber){this.mobileNumber = mobileNumber;}
@@ -47,7 +47,7 @@ public class User {
     protected void setAccountBalance(int amount){this.accountBalance = amount;}
 
     public String getUserName(){return this.userName;}
-    public String getFirstName(){return this.lastName;}
+    public String getFirstName(){return this.firstName;}
     public String getLastName(){return this.lastName;}
     public String getMobileNumber(){return this.mobileNumber;}
     public String getFirstLineAddress(){return this.firstLineAddress;}
