@@ -2,12 +2,17 @@ package screen;
 
 import java.util.ArrayList;
 
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class DrawApp extends Screen {
 
@@ -15,9 +20,7 @@ public class DrawApp extends Screen {
 	public void start() {
 		components = new ArrayList<>();
 
-		Canvas canvas = new Canvas(640, 380);
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		GridPane grid = new GridPane();
+
 		
 		ToggleGroup tools = new ToggleGroup();
 		RadioButton paintBrushBtn = new RadioButton("Paint Brush");
@@ -28,6 +31,22 @@ public class DrawApp extends Screen {
 		paintBucketBtn.setToggleGroup(tools);
 		
 		ColorPicker cPicker = new ColorPicker();
+		
+		HBox header = new HBox(8);
+		header.setPrefWidth(1280);
+		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, cPicker);
+		header.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+		
+		Canvas canvas = new Canvas(1280, 650);
+		HBox drawWindow = new HBox(10);
+		drawWindow.getChildren().add(canvas);
+		
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		
+		VBox content = new VBox(10);
+		
+		content.getChildren().addAll(header, drawWindow);
+		content.setAlignment(Pos.TOP_LEFT);
 		
 
 		gc.setLineWidth(5);
@@ -49,12 +68,7 @@ public class DrawApp extends Screen {
 			gc.closePath();
 		});
 
-		grid.add(canvas, 0, 0);
-		grid.add(paintBrushBtn, 0, 1);
-		grid.add(paintBucketBtn, 1, 1);
-		grid.add(cPicker, 2, 0);
-		
-		components.add(grid);
+		components.add(content);
 
 	}
 
