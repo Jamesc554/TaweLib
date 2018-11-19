@@ -7,6 +7,14 @@ import javafx.stage.Stage;
 
 import java.util.Stack;
 
+/**
+ * <h1>ScreenManager</h1>
+ * <p>ScreenManager is responsible for controlling what Screen is currently being drawn to the display, and how we
+ * traverse between those screens</p>
+ * @author James Carter
+ * @version 0.1
+ * @since 11/11/2018
+ */
 public class ScreenManager extends Application {
 
     private static Stack<Screen> loadedScreens = new Stack<>();
@@ -18,13 +26,21 @@ public class ScreenManager extends Application {
         launch(args);
     }
 
+    /**
+     * Inherited from Application, entry point for the JavaFX App
+     * @param primaryStage
+     */
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         stage = primaryStage;
         stage.setTitle("SEGroup2 - Software Engineering Project");
         changeScreen(new TestScreen());
     }
 
+    /**
+     * Gets the current Screen being displayed.
+     * @return The currently displayed Screen
+     */
     public static Screen getCurrentScreen(){
         if (!loadedScreens.empty())
             return loadedScreens.peek();
@@ -32,6 +48,9 @@ public class ScreenManager extends Application {
         return null;
     }
 
+    /**
+     * Pops the current Screen of the top of the stack and sets the current Screen to the next on the stack
+     */
     public static void previousScreen(){
         if (loadedScreens.size() > 1) {
             loadedScreens.pop();
@@ -40,6 +59,11 @@ public class ScreenManager extends Application {
             System.out.println("You are already on the last screen, you cannot go back any further");
     }
 
+    /**
+     * Puts a new Screen on top of the Stack so that is now the current Screen.
+     * @param screen
+     * The new Screen
+     */
     public static void changeScreen(Screen screen){
         screen.start();
         loadedScreens.push(screen);
