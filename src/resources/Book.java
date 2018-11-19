@@ -14,7 +14,7 @@ public class Book extends Resource {
 	private String genre; //Genre of book (Optional)
 	private String isbn;//ISBN of book (Optional)
 	private ArrayList<String> languages; //The array of languages the book is currently available in (Optional).
-	
+
 	
 	/**
 	 * The base constructor for Book including all optional attributes.
@@ -208,9 +208,8 @@ public class Book extends Resource {
 	 * @param borrowHistory
 	 * The borrow history of each copy of this book.
 	 */
-	public Book(String author, String isbn, String publisher, String year, String title, String thumbnailImg,
-			String uniqueID, Dictionary dictionaryOfCopies, 
-			Queue queueOfReservations, Dictionary borrowHistory) {
+	public Book(String author, String isbn, Queue queueOfReservations, String publisher, String year, String title, String thumbnailImg,
+			String uniqueID, Dictionary dictionaryOfCopies, Dictionary borrowHistory) {
 		
 		//Set all the inherited values from Resource...
 		super(year, title, thumbnailImg, uniqueID, dictionaryOfCopies, queueOfReservations, borrowHistory);
@@ -219,7 +218,6 @@ public class Book extends Resource {
 		this.author = author;
 		this.isbn = isbn;
 		this.publisher = publisher;
-		//isbn is left blank due to being optional extra.
 	}
 	
 	/**
@@ -247,19 +245,18 @@ public class Book extends Resource {
 	 * @param borrowHistory
 	 * The borrow history of each copy of this book.
 	 */
-	public Book(String author, String isbn, ArrayList<String> lang, String publisher, String year, String title, String thumbnailImg,
-			String uniqueID, Dictionary dictionaryOfCopies, 
-			Queue queueOfReservations, Dictionary borrowHistory) {
-		
+	public Book(String author, String isbn, String publisher, String year, String title, String thumbnailImg,
+			String uniqueID, Dictionary dictionaryOfCopies,
+			Queue queueOfReservations, Dictionary borrowHistory,  ArrayList<String> lang) {
+
 		//Set all the inherited values from Resource...
 		super(year, title, thumbnailImg, uniqueID, dictionaryOfCopies, queueOfReservations, borrowHistory);
-		
+
 		//Set all non-inherited values
 		this.author = author;
-		this.isbn = isbn;
+ 		this.isbn = isbn;
 		this.languages = lang;
 		this.publisher = publisher;
-		//isbn is left blank due to being optional extra.
 	}
 
 	/* #############################################################
