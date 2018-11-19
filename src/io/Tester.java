@@ -4,6 +4,10 @@ import java.io.UnsupportedEncodingException;
 
 import user.User;
 
+/**
+ * @author Samuel Jankinson
+ */
+
 public class Tester {
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
 		User user1 = new User("ben22", "ben", "smith", "07947147999", "123 Berry Road", "Swansea", "SA20AB", "Sketty", 430, "ben22profile.jpg");

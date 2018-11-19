@@ -1,4 +1,9 @@
 package io;
+
+/**
+ * @author Samuel Jankinson
+ */
+
 public abstract class IO {
 	private static String usersFilePath = "./users.json";
 	private static String resourceFilePath = "./resources.json";

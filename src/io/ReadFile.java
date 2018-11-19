@@ -9,6 +9,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * @author Samuel Jankinson
+ */
+
 public class ReadFile extends IO{
 	private static FileReader file = null;
 	private static BufferedReader reader = null;
