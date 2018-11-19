@@ -42,7 +42,7 @@ public class TestScreen extends Screen {
         });
         
         Button searchResultScreen = new Button();
-        searchResultScreen.setText("Go to DrawApp");
+        searchResultScreen.setText("Go to SearchResultsScreen");
         
         searchResultScreen.setOnAction(e->{
         	ScreenManager.changeScreen(new SearchResultScreen());
