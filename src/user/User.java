@@ -32,7 +32,7 @@ public class User {
         setSecondLineAddress(secondLineAddress);
         setPostCode(postCode);
         setTownName(townName);
-        this.accountBalance = accountBalance;
+        setAccountBalance(accountBalance);
         setProfImage(profImage);
     }
     protected void setUserName(String userName){}
@@ -44,6 +44,7 @@ public class User {
     public void setPostCode(String postCode){this.postCode = postCode;}
     public void setTownName(String townName){this.townName = townName;}
     public void setProfImage(String profImage){this.profImage = profImage;}
+    protected void setAccountBalance(int amount){this.accountBalance = amount;}
 
     public String getUserName(){return this.userName;}
     public String getFirstName(){return this.lastName;}
