@@ -4,21 +4,23 @@ import java.io.IOException;
 
 import org.json.simple.JSONObject;
 
+import user.User;
+
 public class WriteFile extends IO {
-	@SuppressWarnings({ "unchecked", "resource" })
-	// currently you have to pass in loads of things. Once users class has been made, you can simply just pass in the user object.
-	public static void writeUsers(String username, String firstName, String lastName, String mobileNumber, String firstLineAddress, String secondLineAddress, String postCode, String townName, String imageAddress, int accountBalance) {
+	@SuppressWarnings({ "unchecked" })
+	// will add borrow history etc after discussed with meeting.
+	public static void writeUsers(User user) {
 		JSONObject object = new JSONObject();
-		object.put("username", username);
-		object.put("firstName", firstName);
-		object.put("lastName", lastName);
-		object.put("mobileNumber", mobileNumber);
-		object.put("firstLineAddress", firstLineAddress);
-		object.put("secondLineAddress", secondLineAddress);
-		object.put("postCode", postCode);
-		object.put("townName", townName);
-		object.put("imageAddress", imageAddress);
-		object.put("accountBalance", Integer.toString(accountBalance));
+		object.put("username", user.getUserName());
+		object.put("firstName", user.getFirstName());
+		object.put("lastName", user.getLastName());
+		object.put("mobileNumber", user.getMobileNumber());
+		object.put("firstLineAddress", user.getFirstLineAddress());
+		object.put("secondLineAddress", user.getSecondLineAddress());
+		object.put("postCode", user.getPostCode());
+		object.put("townName", user.getTownName());
+		object.put("imageAddress", user.getProfImage());
+		object.put("accountBalance", user.getAccountBalance());
 		try {
 			FileWriter file = new FileWriter(IO.getUsersFilePath(), true);
 			file.write(object.toJSONString() + "\n");
