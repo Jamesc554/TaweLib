@@ -263,7 +263,7 @@ public class Book extends Resource {
 	}
 
 	/* #############################################################
-	 * ########  BELOW IS THE CONSTRUCTORS WITH "lang" IN  ########
+	 * ########  BELOW IS THE CONSTRUCTOR WITH "lang" IN  ########
 	 * #############################################################
 	 */
 	
@@ -303,4 +303,66 @@ public class Book extends Resource {
 		//isbn is left blank due to being optional extra.
 	}
 
+
+
+	/* #############################################################
+	 * ########  BELOW ARE THE GETTERS AND SETTERS OF BOOK  ########
+	 * #############################################################
+	 */
+	
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public ArrayList<String> getLanguages() {
+		return languages;
+	}
+
+	public void setLanguages(ArrayList<String> languages) {
+		this.languages = languages;
+	}
+	
+	public void addLanguage(String newLang) {
+		this.languages.add(newLang);
+	}
+	
+	public void removeLanguage(String langToRemove) {
+		//search through arrayList and remove language selected.
+		for (int i = 0; i < this.languages.size(); i++) {
+			if (this.languages.get(i) == langToRemove) {
+				this.languages.remove(i);
+			} else {
+				//print can't find book.
+			}
+		}
+	}
+	
 }
