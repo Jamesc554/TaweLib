@@ -1,8 +1,10 @@
 package resources;
+
+import utils.Queue;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Dictionary;
-//import java.util.Queue; --Don't need since we're implementing Queue ourselves.
 /**
  * <h1>Resource</h1>
  * <p>Resource is an abstract class which provides essential attributes for all resource types

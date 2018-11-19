@@ -1,6 +1,7 @@
 package resources;
 import java.util.ArrayList;
 import java.util.Dictionary;
+import utils.Queue;
 
 /**
  * This class models a Library book.
