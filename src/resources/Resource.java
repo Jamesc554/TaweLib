@@ -5,6 +5,10 @@ import utils.Queue;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
+
+import user.User;
 /**
  * <h1>Resource</h1>
  * <p>Resource is an abstract class which provides essential attributes for all resource types
@@ -19,10 +23,10 @@ public abstract class Resource {
 	protected String title;
 	protected String thumbnailImageRef;
 	protected String uniqueID;
-	protected Dictionary dictionaryOfCopies;
-	protected Queue queueOfReservations;
-	protected Dictionary borrowHistory;//Dictionary of copy history i.e. loan date users who loaned etc.
-	protected ArrayList<String[][][]> copyHistory;
+	protected Queue<User> queueOfReservations;
+	protected Map<String, String> dictionaryOfCopies;
+	protected Map<String, String[]> borrowHistory;//Dictionary of copy history i.e. loan date users who loaned etc.
+	protected String[] copyHistory;
 	/**
 	 * Base Constructor for all resources.
 	 * @param year
@@ -41,17 +45,15 @@ public abstract class Resource {
 	 *  A dictionary which stores the borrow history of a copy of a resource.
 	 */
 	public Resource(String year, String title,
-		String thumbnailImageRef, String uniqueID, Dictionary dictOfCopies, 
-		Queue queueOfReservations, Dictionary borrowHistory) {
+		String thumbnailImageRef, String uniqueID) {
 		
 		this.year = year;
 		this.title = title;
 		this.thumbnailImageRef = thumbnailImageRef;
 		this.uniqueID = uniqueID;
-		this.dictionaryOfCopies = dictOfCopies;
-		this.queueOfReservations = queueOfReservations;
-		this.borrowHistory = borrowHistory;
-		
+		this.queueOfReservations = new Queue<User>();
+		this.dictionaryOfCopies = new HashMap<String, String>();
+		this.borrowHistory = new HashMap<String, String[]>();
 	}
 
 
@@ -123,7 +125,7 @@ public abstract class Resource {
 	 * @return dictionaryOfCopies
 	 */
 
-	public Dictionary getDictionaryOfCopies() {
+	public Map getDictionaryOfCopies() {
 		return dictionaryOfCopies;
 	}
 	/**
@@ -139,7 +141,7 @@ public abstract class Resource {
 	 * @return borrowHistory.
 	 */
 
-	public Dictionary getBorrowHistory() {
+	public Map getBorrowHistory() {
 		return borrowHistory;
 	}
 	
@@ -150,7 +152,7 @@ public abstract class Resource {
 	 * @param loanHistory
 	 * The loan history of this copy
 	 */
-	public void setBorrowHistory(String copyID, String[][][] loanHistory) {
+	public void setBorrowHistory(String copyID, String[] loanHistory) {
 		/*loanHistory will store [user][dLoan][dRet]
 		 * [user] = userID of user who loaned this copy
 		 * [dLoan]= date this copy was loaned
@@ -162,7 +164,7 @@ public abstract class Resource {
 		 *	borrowHistory will store a key of copyID and an array of that copy's loan history
 		 *	in the format above.
 		 */
-		copyHistory.add(loanHistory);
+		copyHistory = loanHistory;
 		borrowHistory.put(copyID, copyHistory);
 	}
 	
@@ -173,8 +175,8 @@ public abstract class Resource {
 	 * @param dateAdded
 	 * The date this copy is added to the library.
 	 */
-	public void addToCopies(String copyID, Date dateAdded) {
-		dictionaryOfCopies.put(uniqueID, dateAdded);
+	public void addToCopies(String copyID, String dateAdded) {
+		dictionaryOfCopies.put(copyID, dateAdded);
 	}
 	
 }
