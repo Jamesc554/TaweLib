@@ -8,6 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -31,6 +32,8 @@ public class DrawApp extends Screen {
 
 		ColorPicker cPicker = new ColorPicker();
 		
+		Spinner<Integer> brushSize = new Spinner<Integer>(0, 64, 4);
+		
 		Button saveBtn = new Button("Save");
 		saveBtn.setOnAction(e->{
 			// TODO: Save Functionality, maybe use WriteFile, unsure yet.
@@ -38,7 +41,7 @@ public class DrawApp extends Screen {
 
 		HBox header = new HBox(8);
 		header.setPrefWidth(1280);
-		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, cPicker, saveBtn);
+		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, cPicker, brushSize, saveBtn);
 		header.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 
 		Canvas canvas = new Canvas(1280, 650);
@@ -52,9 +55,9 @@ public class DrawApp extends Screen {
 		content.getChildren().addAll(header, drawWindow);
 		content.setAlignment(Pos.TOP_LEFT);
 
-		gc.setLineWidth(5);
 
 		canvas.setOnMousePressed(mouse -> {
+			gc.setLineWidth((double) brushSize.getValueFactory().getValue());
 			if (paintBrushBtn.isSelected()) {
 				gc.setStroke(cPicker.getValue());
 				gc.beginPath();

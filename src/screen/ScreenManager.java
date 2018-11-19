@@ -72,7 +72,8 @@ public class ScreenManager extends Application {
 
     private static void setupScreen(){
         StackPane root = new StackPane();
-        root.getChildren().addAll(getCurrentScreen().getComponents());
+        if (getCurrentScreen().getComponents() != null)
+        	root.getChildren().addAll(getCurrentScreen().getComponents());
         stage.setScene(new Scene(root, WIDTH, HEIGHT));
         stage.show();
     }
