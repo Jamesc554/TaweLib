@@ -6,6 +6,9 @@ import java.util.List;
 
 public abstract class Screen {
 
+    /**
+     *
+     */
     protected List<Node> components;
 
     // TODO: start implementation
