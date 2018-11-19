@@ -57,6 +57,11 @@ public class Book extends Resource {
 		this.languages = lang;
 	}
 	
+	/*############################################################
+	  ######  BELOW ARE THE CONSTRUCTORS WITH "genre" IN  ########
+	  ############################################################
+	*/
+	
 	/**
 	 * This constructor for Book including genre attribute.
 	 * @param author
@@ -173,4 +178,128 @@ public class Book extends Resource {
 		this.languages = lang;
 		//isbn is left blank due to being optional extra.
 	}
+
+	/* #############################################################
+	 * ########  BELOW ARE THE CONSTRUCTORS WITH "isbn" IN  ########
+	 * #############################################################
+	 */
+	
+	/**
+	 * This constructor for Book including genre and languages attributes.
+	 * @param author
+	 * The author of the book.
+	 * @param isbn
+	 * The ISBN of this book.
+	 * @param publisher
+	 * The publisher of the book.
+	 * @param year
+	 * The year the book was published.
+	 * @param title
+	 * The title of the book.
+	 * @param thumbnailImg
+	 * The filepath of the book's avatar.
+	 * @param uniqueID
+	 * The unique id of the book.
+	 * @param dictionaryOfCopies
+	 * To keep track of copies of this book.
+	 * @param queueOfReservations
+	 * To keep track of users who have reserved this book.
+	 * @param borrowHistory
+	 * The borrow history of each copy of this book.
+	 */
+	public Book(String author, String isbn, String publisher, String year, String title, String thumbnailImg,
+			String uniqueID, Dictionary dictionaryOfCopies, 
+			Queue queueOfReservations, Dictionary borrowHistory) {
+		
+		//Set all the inherited values from Resource...
+		super(year, title, thumbnailImg, uniqueID, dictionaryOfCopies, queueOfReservations, borrowHistory);
+		
+		//Set all non-inherited values
+		this.author = author;
+		this.isbn = isbn;
+		this.publisher = publisher;
+		//isbn is left blank due to being optional extra.
+	}
+	
+	/**
+	 * This constructor for Book including genre and languages attributes.
+	 * @param author
+	 * The author of the book.
+	 * @param isbn
+	 * The ISBN of this book.
+	 * @param lang
+	 * The languages this book is published in.
+	 * @param publisher
+	 * The publisher of the book.
+	 * @param year
+	 * The year the book was published.
+	 * @param title
+	 * The title of the book.
+	 * @param thumbnailImg
+	 * The filepath of the book's avatar.
+	 * @param uniqueID
+	 * The unique id of the book.
+	 * @param dictionaryOfCopies
+	 * To keep track of copies of this book.
+	 * @param queueOfReservations
+	 * To keep track of users who have reserved this book.
+	 * @param borrowHistory
+	 * The borrow history of each copy of this book.
+	 */
+	public Book(String author, String isbn, ArrayList<String> lang, String publisher, String year, String title, String thumbnailImg,
+			String uniqueID, Dictionary dictionaryOfCopies, 
+			Queue queueOfReservations, Dictionary borrowHistory) {
+		
+		//Set all the inherited values from Resource...
+		super(year, title, thumbnailImg, uniqueID, dictionaryOfCopies, queueOfReservations, borrowHistory);
+		
+		//Set all non-inherited values
+		this.author = author;
+		this.isbn = isbn;
+		this.languages = lang;
+		this.publisher = publisher;
+		//isbn is left blank due to being optional extra.
+	}
+
+	/* #############################################################
+	 * ########  BELOW IS THE CONSTRUCTORS WITH "lang" IN  ########
+	 * #############################################################
+	 */
+	
+	/** This constructor for Book including genre and languages attributes.
+	 * @param author
+	 * The author of the book.
+	 * @param lang
+	 * The languages this book is published in.
+	 * @param publisher
+	 * The publisher of the book.
+	 * @param year
+	 * The year the book was published.
+	 * @param title
+	 * The title of the book.
+	 * @param thumbnailImg
+	 * The filepath of the book's avatar.
+	 * @param uniqueID
+	 * The unique id of the book.
+	 * @param dictionaryOfCopies
+	 * To keep track of copies of this book.
+	 * @param queueOfReservations
+	 * To keep track of users who have reserved this book.
+	 * @param borrowHistory
+	 * The borrow history of each copy of this book.
+	 */
+	public Book(String author, ArrayList<String> lang, String publisher, String year, String title, String thumbnailImg,
+			String uniqueID, Dictionary dictionaryOfCopies, 
+			Queue queueOfReservations, Dictionary borrowHistory) {
+		
+		//Set all the inherited values from Resource...
+		super(year, title, thumbnailImg, uniqueID, dictionaryOfCopies, queueOfReservations, borrowHistory);
+		
+		//Set all non-inherited values
+		this.author = author;
+		this.languages = lang;
+		this.publisher = publisher;
+		//isbn is left blank due to being optional extra.
+	}
+
 }
