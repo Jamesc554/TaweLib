@@ -5,12 +5,12 @@ package io;
  */
 
 public abstract class IO {
-	private static String usersFilePath = "./users.json";
-	private static String resourceFilePath = "./resources.json";
-	private static String outDataFilePath = "./outData.json";
-	private static String bookQueueFilePath = "./bookQueue.json";
-	private static String statsFilePath = "./stats.json";
-	private static String transactionFilePath = "./transactions.json";
+	private static String usersFilePath = "./data/users.json";
+	private static String resourceFilePath = "./data/resources.json";
+	private static String outDataFilePath = "./data/outData.json";
+	private static String bookQueueFilePath = "./data/bookQueue.json";
+	private static String statsFilePath = "./data/stats.json";
+	private static String transactionFilePath = "./data/transactions.json";
 	
 	public static String getUsersFilePath() {
 		return usersFilePath;
