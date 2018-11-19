@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -20,52 +21,66 @@ public class DrawApp extends Screen {
 	public void start() {
 		components = new ArrayList<>();
 
-
-		
 		ToggleGroup tools = new ToggleGroup();
 		RadioButton paintBrushBtn = new RadioButton("Paint Brush");
 		paintBrushBtn.setToggleGroup(tools);
 		paintBrushBtn.setSelected(true);
-		
+
 		RadioButton paintBucketBtn = new RadioButton("Paint Bucket");
 		paintBucketBtn.setToggleGroup(tools);
-		
+
 		ColorPicker cPicker = new ColorPicker();
 		
+		Button saveBtn = new Button("Save");
+		saveBtn.setOnAction(e->{
+			// TODO: Save Functionality, maybe use WriteFile, unsure yet.
+		});
+
 		HBox header = new HBox(8);
 		header.setPrefWidth(1280);
-		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, cPicker);
+		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, cPicker, saveBtn);
 		header.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
-		
+
 		Canvas canvas = new Canvas(1280, 650);
 		HBox drawWindow = new HBox(10);
 		drawWindow.getChildren().add(canvas);
-		
+
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		
+
 		VBox content = new VBox(10);
-		
+
 		content.getChildren().addAll(header, drawWindow);
 		content.setAlignment(Pos.TOP_LEFT);
-		
 
 		gc.setLineWidth(5);
 
 		canvas.setOnMousePressed(mouse -> {
-			gc.setStroke(cPicker.getValue());
-			gc.beginPath();
-			gc.lineTo(mouse.getX(), mouse.getY());
+			if (paintBrushBtn.isSelected()) {
+				gc.setStroke(cPicker.getValue());
+				gc.beginPath();
+				gc.lineTo(mouse.getX(), mouse.getY());
+			} else if (paintBucketBtn.isSelected()) {
+				// TODO: Paint Bucket Implementation
+			}
 		});
 
 		canvas.setOnMouseDragged(mouse -> {
-			gc.stroke();
-			gc.lineTo(mouse.getX(), mouse.getY());
+			if (paintBrushBtn.isSelected()) {
+				gc.stroke();
+				gc.lineTo(mouse.getX(), mouse.getY());
+			} else if (paintBucketBtn.isSelected()) {
+				// TODO: Paint Bucket Implementation
+			}
 		});
 
 		canvas.setOnMouseReleased(mouse -> {
-			gc.stroke();
-			gc.lineTo(mouse.getX(), mouse.getY());
-			gc.closePath();
+			if (paintBrushBtn.isSelected()) {
+				gc.stroke();
+				gc.lineTo(mouse.getX(), mouse.getY());
+				gc.closePath();
+			} else if (paintBucketBtn.isSelected()) {
+				// TODO: Paint Bucket Implementation
+			}
 		});
 
 		components.add(content);
