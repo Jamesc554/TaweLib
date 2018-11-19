@@ -35,7 +35,7 @@ public class User {
         setAccountBalance(accountBalance);
         setProfImage(profImage);
     }
-    protected void setUserName(String userName){}
+    protected void setUserName(String userName){this.userName = userName;}
     protected void setFirstName(String firstName){this.firstName = firstName;}
     public void setLastName(String lastName){this.lastName = lastName;}
     public void setMobileNumber(String mobileNumber){this.mobileNumber = mobileNumber;}
