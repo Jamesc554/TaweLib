@@ -5,7 +5,7 @@ package screen;
  * @author Etienne Badoche
  * @version 1.0
  */
-public class ResourceScreeen extends Screen {
+public class ResourceScreen extends Screen {
 
     @Override
     public void start() {
