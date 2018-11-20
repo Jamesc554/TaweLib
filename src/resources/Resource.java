@@ -56,7 +56,11 @@ public abstract class Resource {
 		this.borrowHistory = new HashMap<String, String[]>();
 	}
 
-
+	/* #############################################################
+	 * ########BELOW ARE THE GETTERS AND SETTERS OF Resource########
+	 * #############################################################
+	 */
+	
 	/**
 	 * Finds the year the resource was published
 	 * @return year 
@@ -168,6 +172,11 @@ public abstract class Resource {
 		borrowHistory.put(copyID, copyHistory);
 	}
 	
+	/* #############################################################
+	 * ########  BELOW ARE THE COMPLEX METHODS OF Resource  ########
+	 * #############################################################
+	 */
+	
 	/**
 	 * Adds a new copy to this Resource.
 	 * @param copyID
@@ -178,5 +187,9 @@ public abstract class Resource {
 	public void addToCopies(String copyID, String dateAdded) {
 		dictionaryOfCopies.put(copyID, dateAdded);
 	}
-	
+
+	public void removeCopy(String uniqueID) {
+		//Remove from dictionary of copies a copy based off of its uniqueID
+		this.dictionaryOfCopies.remove(uniqueID);
+	}
 }

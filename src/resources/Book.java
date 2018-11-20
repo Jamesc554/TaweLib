@@ -155,6 +155,11 @@ public class Book extends Resource {
 		this.languages = languages;
 	}
 	
+	/* #############################################################
+	 * ########  BELOW ARE THE COMPLEX METHODS OF BOOK  	########
+	 * #############################################################
+	 */
+	
 	/**
 	 * Adds a new language to this book
 	 * @param newLang
