@@ -188,8 +188,12 @@ public abstract class Resource {
 		dictionaryOfCopies.put(copyID, dateAdded);
 	}
 
-	public void removeCopy(String uniqueID) {
+	/**
+	 * Removes a copy from the Resource
+	 * @param cpyID the unique ID of the copy to delete
+	 */
+	public void removeCopy(String cpyID) {
 		//Remove from dictionary of copies a copy based off of its uniqueID
-		this.dictionaryOfCopies.remove(uniqueID);
+		this.dictionaryOfCopies.remove(cpyID);
 	}
 }
