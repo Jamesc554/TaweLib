@@ -12,11 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -25,7 +21,10 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.TriangleMesh;
 import utils.Queue;
 
 public class DrawApp extends Screen {
@@ -51,6 +50,9 @@ public class DrawApp extends Screen {
 
 		RadioButton lineToolBtn = new RadioButton("Draw Line");
 		lineToolBtn.setToggleGroup(tools);
+
+		RadioButton shapeToolBtn = new RadioButton("Shape Tool");
+		shapeToolBtn.setToggleGroup(tools);
 
 		ColorPicker cPicker = new ColorPicker();
 
@@ -79,9 +81,13 @@ public class DrawApp extends Screen {
 			redo(canvas);
 		});
 
+		ComboBox<String> shapeSelector = new ComboBox<>();
+		shapeSelector.getItems().addAll("Rectangle", "Triangle", "Oval");
+		shapeSelector.setValue("Rectangle");
+
 		HBox header = new HBox(8);
 		header.setPrefWidth(1280);
-		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, lineToolBtn, cPicker, brushSize, saveBtn, undoBtn,
+		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, lineToolBtn, shapeToolBtn, shapeSelector, cPicker, brushSize, saveBtn, undoBtn,
 				redoBtn);
 		header.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 
@@ -93,11 +99,15 @@ public class DrawApp extends Screen {
 		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
 		Line line = new Line();
+		Rectangle rectangle = new Rectangle();
+		TriangleMesh triangle = new TriangleMesh();
+		Circle circle = new Circle();
 
 		canvas.setOnMousePressed(mouse -> {
 			addPreviousState(canvas);
 			gc.setLineWidth((double) brushSize.getValueFactory().getValue());
 			gc.setStroke(cPicker.getValue());
+			gc.setFill(cPicker.getValue());
 			if (paintBrushBtn.isSelected()) {
 				gc.beginPath();
 				gc.lineTo(mouse.getX(), mouse.getY());
@@ -108,6 +118,22 @@ public class DrawApp extends Screen {
 			} else if (lineToolBtn.isSelected()) {
 				line.setStartX(mouse.getX());
 				line.setStartY(mouse.getY());
+			} else if (shapeToolBtn.isSelected()){
+				switch (shapeSelector.getValue()){
+					case ("Rectangle"):
+						rectangle.setX(mouse.getX());
+						rectangle.setY(mouse.getY());
+						break;
+					case ("Triangle"):
+						// TODO: Triangle Implementation
+						break;
+					case ("Oval"):
+						circle.setCenterX(mouse.getX());
+						circle.setCenterY(mouse.getY());
+						break;
+					default:
+						break;
+				}
 			}
 		});
 
@@ -122,6 +148,24 @@ public class DrawApp extends Screen {
 				gc.drawImage(prevState, 0, 0);
 				prevState = convertToImage(canvas);
 				gc.strokeLine(line.getStartX(), line.getStartY(), mouse.getX(), mouse.getY());
+			} else if (shapeToolBtn.isSelected()){
+				gc.drawImage(prevState, 0, 0);
+				prevState = convertToImage(canvas);
+				switch (shapeSelector.getValue()){
+					case ("Rectangle"):
+						rectangle.setWidth(mouse.getX() - rectangle.getX());
+						rectangle.setHeight(mouse.getY() - rectangle.getY());
+						gc.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+						break;
+					case ("Triangle"):
+						break;
+					case ("Oval"):
+						circle.setRadius((mouse.getX() + mouse.getY()) - (circle.getCenterX() + circle.getCenterY()));
+						gc.fillOval(circle.getCenterX() - circle.getRadius() / 2, circle.getCenterY() - circle.getRadius() / 2, circle.getRadius(), circle.getRadius());
+						break;
+					default:
+						break;
+				}
 			}
 		});
 
@@ -139,6 +183,23 @@ public class DrawApp extends Screen {
 				gc.drawImage(prevState, 0, 0);
 				gc.strokeLine(line.getStartX(), line.getStartY(), mouse.getX(), mouse.getY());
 				prevState = convertToImage(canvas);
+			} else if (shapeToolBtn.isSelected()){
+				switch (shapeSelector.getValue()){
+					case ("Rectangle"):
+						gc.drawImage(prevState, 0, 0);
+						gc.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+						prevState = convertToImage(canvas);
+						break;
+					case ("Triangle"):
+						break;
+					case ("Oval"):
+						gc.drawImage(prevState, 0, 0);
+						gc.fillOval(circle.getCenterX() - circle.getRadius() / 2, circle.getCenterY() - circle.getRadius() / 2, circle.getRadius(), circle.getRadius());
+						prevState = convertToImage(canvas);
+						break;
+					default:
+						break;
+				}
 			}
 		});
 
@@ -169,6 +230,7 @@ public class DrawApp extends Screen {
 	private void undo(Canvas c) {
 		if (!previousStates.isEmpty()) {
 			futureStates.push(previousStates.peek());
+			prevState = previousStates.peek();
 			c.getGraphicsContext2D().drawImage(previousStates.pop(), 0, 0);
 		}
 	}
@@ -176,6 +238,7 @@ public class DrawApp extends Screen {
 	private void redo(Canvas c) {
 		if (!futureStates.isEmpty()) {
 			previousStates.push(futureStates.peek());
+			prevState = futureStates.peek();
 			c.getGraphicsContext2D().drawImage(futureStates.pop(), 0, 0);
 		}
 	}
@@ -190,30 +253,31 @@ public class DrawApp extends Screen {
 	}
 
 	private WritableImage floodFill(int x, int y, Color startC, Color newC, WritableImage img) {
-
-		// Check if this pixel is the same colour as the starting pixel
-
 		PixelReader pr = img.getPixelReader();
 		PixelWriter pw = img.getPixelWriter();
 
+		// if the pixel point you chose is the same colour that you want already.
 		if (startC == newC)
 			return img;
 		if (!pr.getColor(x, y).equals(startC))
 			return img;
 
 		Queue<int[]> queue = new Queue<int[]>();
-		pw.setColor(x, y, newC);
+		pw.setColor(x, y, newC); // Set the colour of the current node
 		int[] node = new int[2];
 		node[0] = x;
 		node[1] = y;
-		queue.enqueue(node);
+		queue.enqueue(node); // Add the node to the queue
 
+		// Until we run out of nodes
 		while (!queue.isEmpty()) {
+			// Take the node at the front of the queue
 			int[] n = queue.peek();
 			queue.dequeue();
 
 			// Check West
 			if (n[0] - 1 > 0)
+				// Set the colour of the node and add it to the queue
 				if (pr.getColor(n[0] - 1, n[1]).equals(startC)) {
 					pw.setColor(n[0] - 1, n[1], newC);
 					int[] newNode = new int[2];
@@ -224,6 +288,7 @@ public class DrawApp extends Screen {
 
 			// Check East
 			if (n[0] + 1 < img.getWidth())
+				// Set the colour of the node and add it to the queue
 				if (pr.getColor(n[0] + 1, n[1]).equals(startC)) {
 					pw.setColor(n[0] + 1, n[1], newC);
 					int[] newNode = new int[2];
@@ -234,6 +299,7 @@ public class DrawApp extends Screen {
 
 			// Check North
 			if (n[1] - 1 > 0)
+				// Set the colour of the node and add it to the queue
 				if (pr.getColor(n[0], n[1] - 1).equals(startC)) {
 					pw.setColor(n[0], n[1] - 1, newC);
 					int[] newNode = new int[2];
@@ -244,6 +310,7 @@ public class DrawApp extends Screen {
 
 			// Check South
 			if (n[1] + 1 < img.getHeight())
+				// Set the colour of the node and add it to the queue
 				if (pr.getColor(n[0], n[1] + 1).equals(startC)) {
 					pw.setColor(n[0], n[1] + 1, newC);
 					int[] newNode = new int[2];
