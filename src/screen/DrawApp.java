@@ -3,6 +3,7 @@ package screen;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import javax.imageio.ImageIO;
 
@@ -28,12 +29,17 @@ import javafx.scene.shape.Line;
 import utils.Queue;
 
 public class DrawApp extends Screen {
-	
+
 	WritableImage prevState = null;
-	
+
+	Stack<WritableImage> previousStates;
+	Stack<WritableImage> futureStates;
+
 	@Override
 	public void start() {
 		components = new ArrayList<>();
+		previousStates = new Stack<>();
+		futureStates = new Stack<>();
 
 		ToggleGroup tools = new ToggleGroup();
 		RadioButton paintBrushBtn = new RadioButton("Paint Brush");
@@ -45,7 +51,7 @@ public class DrawApp extends Screen {
 
 		RadioButton lineToolBtn = new RadioButton("Draw Line");
 		lineToolBtn.setToggleGroup(tools);
-		
+
 		ColorPicker cPicker = new ColorPicker();
 
 		Spinner<Integer> brushSize = new Spinner<Integer>(0, 64, 4);
@@ -61,9 +67,22 @@ public class DrawApp extends Screen {
 			saveImage(canvas);
 		});
 
+		Button undoBtn = new Button("Undo");
+		undoBtn.setOnAction(e -> {
+			undo(canvas);
+			undo(canvas);
+		});
+
+		Button redoBtn = new Button("Redo");
+		redoBtn.setOnAction(e -> {
+			redo(canvas);
+			redo(canvas);
+		});
+
 		HBox header = new HBox(8);
 		header.setPrefWidth(1280);
-		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, lineToolBtn, cPicker, brushSize, saveBtn);
+		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, lineToolBtn, cPicker, brushSize, saveBtn, undoBtn,
+				redoBtn);
 		header.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 
 		VBox content = new VBox(10);
@@ -72,18 +91,20 @@ public class DrawApp extends Screen {
 
 		gc.setFill(Color.WHITE);
 		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		
-		
+
 		Line line = new Line();
 
 		canvas.setOnMousePressed(mouse -> {
+			addPreviousState(canvas);
 			gc.setLineWidth((double) brushSize.getValueFactory().getValue());
 			gc.setStroke(cPicker.getValue());
 			if (paintBrushBtn.isSelected()) {
 				gc.beginPath();
 				gc.lineTo(mouse.getX(), mouse.getY());
+				prevState = convertToImage(canvas);
 			} else if (paintBucketBtn.isSelected()) {
 				gc.drawImage(paintBucket(cPicker.getValue(), (int) mouse.getX(), (int) mouse.getY(), canvas), 0, 0);
+				prevState = convertToImage(canvas);
 			} else if (lineToolBtn.isSelected()) {
 				line.setStartX(mouse.getX());
 				line.setStartY(mouse.getY());
@@ -92,7 +113,8 @@ public class DrawApp extends Screen {
 
 		canvas.setOnMouseDragged(mouse -> {
 			if (paintBrushBtn.isSelected()) {
-				gc.strokeOval(mouse.getX(), mouse.getY(), (double) brushSize.getValueFactory().getValue(), (double) brushSize.getValueFactory().getValue());
+				gc.strokeOval(mouse.getX(), mouse.getY(), (double) brushSize.getValueFactory().getValue(),
+						(double) brushSize.getValueFactory().getValue());
 				gc.lineTo(mouse.getX(), mouse.getY());
 			} else if (paintBucketBtn.isSelected()) {
 				// TODO: Paint Bucket Implementation
@@ -104,10 +126,13 @@ public class DrawApp extends Screen {
 		});
 
 		canvas.setOnMouseReleased(mouse -> {
+			addPreviousState(canvas);
 			if (paintBrushBtn.isSelected()) {
-				gc.strokeOval(mouse.getX(), mouse.getY(), (double) brushSize.getValueFactory().getValue(), (double) brushSize.getValueFactory().getValue());
+				gc.strokeOval(mouse.getX(), mouse.getY(), (double) brushSize.getValueFactory().getValue(),
+						(double) brushSize.getValueFactory().getValue());
 				gc.lineTo(mouse.getX(), mouse.getY());
 				gc.closePath();
+				prevState = convertToImage(canvas);
 			} else if (paintBucketBtn.isSelected()) {
 				// TODO: Paint Bucket Implementation
 			} else if (lineToolBtn.isSelected()) {
@@ -127,6 +152,32 @@ public class DrawApp extends Screen {
 		WritableImage wi = c.snapshot(sp, null);
 
 		return wi;
+	}
+
+	private void addPreviousState(Canvas c) {
+		if (!previousStates.isEmpty())
+			if (convertToImage(c).equals(previousStates.peek()))
+				return;
+
+		previousStates.push(convertToImage(c));
+	}
+
+	private void addFutureState(Canvas c) {
+		futureStates.push(convertToImage(c));
+	}
+
+	private void undo(Canvas c) {
+		if (!previousStates.isEmpty()) {
+			futureStates.push(previousStates.peek());
+			c.getGraphicsContext2D().drawImage(previousStates.pop(), 0, 0);
+		}
+	}
+
+	private void redo(Canvas c) {
+		if (!futureStates.isEmpty()) {
+			previousStates.push(futureStates.peek());
+			c.getGraphicsContext2D().drawImage(futureStates.pop(), 0, 0);
+		}
 	}
 
 	private WritableImage paintBucket(Color c, int startX, int startY, Canvas canvas) {
