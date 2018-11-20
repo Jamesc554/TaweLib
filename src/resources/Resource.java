@@ -149,6 +149,13 @@ public abstract class Resource {
 		return borrowHistory;
 	}
 	
+
+	
+	/* #############################################################
+	 * ########  BELOW ARE THE COMPLEX METHODS OF Resource  ########
+	 * #############################################################
+	 */
+	
 	/**
 	 * Adds the borrow history of a copy of this Resource.
 	 * @param copyID
@@ -172,11 +179,6 @@ public abstract class Resource {
 		borrowHistory.put(copyID, copyHistory);
 	}
 	
-	/* #############################################################
-	 * ########  BELOW ARE THE COMPLEX METHODS OF Resource  ########
-	 * #############################################################
-	 */
-	
 	/**
 	 * Adds a new copy to this Resource.
 	 * @param copyID
@@ -195,5 +197,13 @@ public abstract class Resource {
 	public void removeCopy(String cpyID) {
 		//Remove from dictionary of copies a copy based off of its uniqueID
 		this.dictionaryOfCopies.remove(cpyID);
+	}
+	
+	/**
+	 * Adds a User to copy request queue.
+	 * @param userForQueue the user who requested a copy.
+	 */
+	public void addUserToRequestQueue(User userForQueue){
+		this.queueOfReservations.enqueue(userForQueue);
 	}
 }
