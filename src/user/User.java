@@ -244,16 +244,31 @@ public class User {
     }
 
 	/**
-	 * Adds resource
-	 * @param resource
+	 * Adds a resource to users current loan.
+	 * @param resource The resource to be added to the current borrow.
 	 */
     public void addResource(Resource resource){this.resourceBorrow.add(resource);}
     //Not used as we do not collect stats
     protected void addResourceToHistory(String resourceID){}
-    public void addAccountBalance(int amount){this.accountBalance = this.accountBalance + amount;}
 
+	/**
+	 * Add balance to the account.
+	 * @param amount the amount to be added.
+	 */
+	public void addAccountBalance(int amount){this.accountBalance = this.accountBalance + amount;}
+
+	/**
+	 * Remove balance from account.
+	 * @param amount the amount to be removed from account.
+	 */
     public void subtractAccountBalance(int amount){this.accountBalance = this.accountBalance - amount;}
-    protected void addTransaction(int amount){
+
+	/**
+	 * Add's transaction to history of the user.
+	 * @param amount
+	 */
+	protected void addTransaction(int amount){
+		//Computes current system date
         SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String dateString = dataFormat.format(new Date());
 
@@ -263,6 +278,10 @@ public class User {
     }
     public void removeResource(String resourceID){}
 
+	/**
+	 * This methods returns all user information formatted for ease of debugging.
+	 * @return String of Info of user.
+	 */
     public String toString(){
         String names = "";
         for (Resource re : resourceBorrow){
