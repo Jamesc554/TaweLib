@@ -12,10 +12,16 @@ import javafx.geometry.Pos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -33,181 +39,205 @@ public class DrawApp extends Screen {
 
 	Stack<WritableImage> previousStates;
 	Stack<WritableImage> futureStates;
+	
+	// JavaFX Components
+	
+	// Toolbar \\
+	ToggleGroup tools = new ToggleGroup();
+	RadioButton paintBrushBtn = new RadioButton("Paint Brush");
+	RadioButton paintBucketBtn = new RadioButton("Paint Bucket");
+	RadioButton lineToolBtn = new RadioButton("Draw Line");
+	
+	RadioButton shapeToolBtn = new RadioButton("Shape Tool");
+	ComboBox<String> shapeSelector = new ComboBox<>();
+	
+	ColorPicker cPicker = new ColorPicker();
+	Spinner<Integer> brushSize = new Spinner<Integer>(0, 64, 4);
+
+	Button saveBtn = new Button("Save");
+	Button undoBtn = new Button("Undo");
+	Button redoBtn = new Button("Redo");
+	
+	// Canvas \\
+	Canvas canvas = new Canvas(256, 256);
+	GraphicsContext gc = canvas.getGraphicsContext2D();
+	
+	// Shapes \\
+	Line line = new Line();
+	Rectangle rectangle = new Rectangle();
+	TriangleMesh triangle = new TriangleMesh();
+	Circle circle = new Circle();
+	
+	// Layout \\
+	HBox drawWindow = new HBox(10);
+	HBox header = new HBox(8);
+	VBox content = new VBox(10);
 
 	@Override
 	public void start() {
 		components = new ArrayList<>();
 		previousStates = new Stack<>();
 		futureStates = new Stack<>();
+		
+		SetupToolbar();
+		SetupLayout();
 
-		ToggleGroup tools = new ToggleGroup();
-		RadioButton paintBrushBtn = new RadioButton("Paint Brush");
+		gc.setFill(Color.WHITE);
+		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+		canvas.setOnMousePressed(mouse -> CanvasMousePressed(mouse));
+		canvas.setOnMouseDragged(mouse -> CanvasMouseDragged(mouse));
+		canvas.setOnMouseReleased(mouse -> CanvasMouseReleased(mouse));
+
+
+	}
+	
+	
+	// Canavs Mouse Events \\
+	private void CanvasMousePressed(MouseEvent mouse) {
+		addPreviousState(canvas);
+		gc.setLineWidth((double) brushSize.getValueFactory().getValue());
+		gc.setStroke(cPicker.getValue());
+		gc.setFill(cPicker.getValue());
+		if (paintBrushBtn.isSelected()) {
+			gc.beginPath();
+			gc.lineTo(mouse.getX(), mouse.getY());
+			prevState = convertToImage(canvas);
+		} else if (paintBucketBtn.isSelected()) {
+			gc.drawImage(paintBucket(cPicker.getValue(), (int) mouse.getX(), (int) mouse.getY(), canvas), 0, 0);
+			prevState = convertToImage(canvas);
+		} else if (lineToolBtn.isSelected()) {
+			line.setStartX(mouse.getX());
+			line.setStartY(mouse.getY());
+		} else if (shapeToolBtn.isSelected()){
+			switch (shapeSelector.getValue()){
+				case ("Rectangle"):
+					rectangle.setX(mouse.getX());
+					rectangle.setY(mouse.getY());
+					break;
+				case ("Triangle"):
+					// TODO: Triangle Implementation
+					break;
+				case ("Oval"):
+					circle.setCenterX(mouse.getX());
+					circle.setCenterY(mouse.getY());
+					break;
+				default:
+					break;
+			}
+		}
+	}
+
+	private void CanvasMouseDragged(MouseEvent mouse) {
+		if (paintBrushBtn.isSelected()) {
+			gc.strokeOval(mouse.getX(), mouse.getY(), (double) brushSize.getValueFactory().getValue(),
+					(double) brushSize.getValueFactory().getValue());
+			gc.lineTo(mouse.getX(), mouse.getY());
+		} else if (paintBucketBtn.isSelected()) {
+			// TODO: Paint Bucket Implementation
+		} else if (lineToolBtn.isSelected()) {
+			gc.drawImage(prevState, 0, 0);
+			prevState = convertToImage(canvas);
+			gc.strokeLine(line.getStartX(), line.getStartY(), mouse.getX(), mouse.getY());
+		} else if (shapeToolBtn.isSelected()){
+			gc.drawImage(prevState, 0, 0);
+			prevState = convertToImage(canvas);
+			switch (shapeSelector.getValue()){
+				case ("Rectangle"):
+					rectangle.setWidth(mouse.getX() - rectangle.getX());
+					rectangle.setHeight(mouse.getY() - rectangle.getY());
+					gc.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+					break;
+				case ("Triangle"):
+					break;
+				case ("Oval"):
+					circle.setRadius((mouse.getX() + mouse.getY()) - (circle.getCenterX() + circle.getCenterY()));
+					gc.fillOval(circle.getCenterX() - circle.getRadius() / 2, circle.getCenterY() - circle.getRadius() / 2, circle.getRadius(), circle.getRadius());
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	
+	private void CanvasMouseReleased(MouseEvent mouse) {
+		addPreviousState(canvas);
+		if (paintBrushBtn.isSelected()) {
+			gc.strokeOval(mouse.getX(), mouse.getY(), (double) brushSize.getValueFactory().getValue(),
+					(double) brushSize.getValueFactory().getValue());
+			gc.lineTo(mouse.getX(), mouse.getY());
+			gc.closePath();
+			prevState = convertToImage(canvas);
+		} else if (paintBucketBtn.isSelected()) {
+			// TODO: Paint Bucket Implementation
+		} else if (lineToolBtn.isSelected()) {
+			gc.drawImage(prevState, 0, 0);
+			gc.strokeLine(line.getStartX(), line.getStartY(), mouse.getX(), mouse.getY());
+			prevState = convertToImage(canvas);
+		} else if (shapeToolBtn.isSelected()){
+			switch (shapeSelector.getValue()){
+				case ("Rectangle"):
+					gc.drawImage(prevState, 0, 0);
+					gc.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+					prevState = convertToImage(canvas);
+					break;
+				case ("Triangle"):
+					break;
+				case ("Oval"):
+					gc.drawImage(prevState, 0, 0);
+					gc.fillOval(circle.getCenterX() - circle.getRadius() / 2, circle.getCenterY() - circle.getRadius() / 2, circle.getRadius(), circle.getRadius());
+					prevState = convertToImage(canvas);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	
+	// Component Setup \\
+	private void SetupToolbar() {
 		paintBrushBtn.setToggleGroup(tools);
 		paintBrushBtn.setSelected(true);
 
-		RadioButton paintBucketBtn = new RadioButton("Paint Bucket");
 		paintBucketBtn.setToggleGroup(tools);
 
-		RadioButton lineToolBtn = new RadioButton("Draw Line");
 		lineToolBtn.setToggleGroup(tools);
 
-		RadioButton shapeToolBtn = new RadioButton("Shape Tool");
 		shapeToolBtn.setToggleGroup(tools);
 
-		ColorPicker cPicker = new ColorPicker();
-
-		Spinner<Integer> brushSize = new Spinner<Integer>(0, 64, 4);
-
-		Canvas canvas = new Canvas(256, 256);
-		HBox drawWindow = new HBox(10);
-		drawWindow.getChildren().add(canvas);
-		drawWindow.setAlignment(Pos.CENTER);
-
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-
-		Button saveBtn = new Button("Save");
 		saveBtn.setOnAction(e -> {
 			saveImage(canvas);
 		});
 
-		Button undoBtn = new Button("Undo");
 		undoBtn.setOnAction(e -> {
 			undo(canvas);
 			undo(canvas);
 		});
 
-		Button redoBtn = new Button("Redo");
 		redoBtn.setOnAction(e -> {
 			redo(canvas);
 			redo(canvas);
 		});
 
-		ComboBox<String> shapeSelector = new ComboBox<>();
 		shapeSelector.getItems().addAll("Rectangle", "Triangle", "Oval");
 		shapeSelector.setValue("Rectangle");
-
-		HBox header = new HBox(8);
+	}
+	
+	private void SetupLayout() {
 		header.setPrefWidth(1280);
 		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, lineToolBtn, shapeToolBtn, shapeSelector, cPicker, brushSize, saveBtn, undoBtn,
 				redoBtn);
 		header.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
-
-		VBox content = new VBox(10);
+		
+		drawWindow.getChildren().add(canvas);
+		drawWindow.setAlignment(Pos.CENTER);
+		
 		content.getChildren().addAll(header, drawWindow);
 		content.setAlignment(Pos.TOP_LEFT);
-
-		gc.setFill(Color.WHITE);
-		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-		Line line = new Line();
-		Rectangle rectangle = new Rectangle();
-		TriangleMesh triangle = new TriangleMesh();
-		Circle circle = new Circle();
-
-		canvas.setOnMousePressed(mouse -> {
-			addPreviousState(canvas);
-			gc.setLineWidth((double) brushSize.getValueFactory().getValue());
-			gc.setStroke(cPicker.getValue());
-			gc.setFill(cPicker.getValue());
-			if (paintBrushBtn.isSelected()) {
-				gc.beginPath();
-				gc.lineTo(mouse.getX(), mouse.getY());
-				prevState = convertToImage(canvas);
-			} else if (paintBucketBtn.isSelected()) {
-				gc.drawImage(paintBucket(cPicker.getValue(), (int) mouse.getX(), (int) mouse.getY(), canvas), 0, 0);
-				prevState = convertToImage(canvas);
-			} else if (lineToolBtn.isSelected()) {
-				line.setStartX(mouse.getX());
-				line.setStartY(mouse.getY());
-			} else if (shapeToolBtn.isSelected()){
-				switch (shapeSelector.getValue()){
-					case ("Rectangle"):
-						rectangle.setX(mouse.getX());
-						rectangle.setY(mouse.getY());
-						break;
-					case ("Triangle"):
-						// TODO: Triangle Implementation
-						break;
-					case ("Oval"):
-						circle.setCenterX(mouse.getX());
-						circle.setCenterY(mouse.getY());
-						break;
-					default:
-						break;
-				}
-			}
-		});
-
-		canvas.setOnMouseDragged(mouse -> {
-			if (paintBrushBtn.isSelected()) {
-				gc.strokeOval(mouse.getX(), mouse.getY(), (double) brushSize.getValueFactory().getValue(),
-						(double) brushSize.getValueFactory().getValue());
-				gc.lineTo(mouse.getX(), mouse.getY());
-			} else if (paintBucketBtn.isSelected()) {
-				// TODO: Paint Bucket Implementation
-			} else if (lineToolBtn.isSelected()) {
-				gc.drawImage(prevState, 0, 0);
-				prevState = convertToImage(canvas);
-				gc.strokeLine(line.getStartX(), line.getStartY(), mouse.getX(), mouse.getY());
-			} else if (shapeToolBtn.isSelected()){
-				gc.drawImage(prevState, 0, 0);
-				prevState = convertToImage(canvas);
-				switch (shapeSelector.getValue()){
-					case ("Rectangle"):
-						rectangle.setWidth(mouse.getX() - rectangle.getX());
-						rectangle.setHeight(mouse.getY() - rectangle.getY());
-						gc.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
-						break;
-					case ("Triangle"):
-						break;
-					case ("Oval"):
-						circle.setRadius((mouse.getX() + mouse.getY()) - (circle.getCenterX() + circle.getCenterY()));
-						gc.fillOval(circle.getCenterX() - circle.getRadius() / 2, circle.getCenterY() - circle.getRadius() / 2, circle.getRadius(), circle.getRadius());
-						break;
-					default:
-						break;
-				}
-			}
-		});
-
-		canvas.setOnMouseReleased(mouse -> {
-			addPreviousState(canvas);
-			if (paintBrushBtn.isSelected()) {
-				gc.strokeOval(mouse.getX(), mouse.getY(), (double) brushSize.getValueFactory().getValue(),
-						(double) brushSize.getValueFactory().getValue());
-				gc.lineTo(mouse.getX(), mouse.getY());
-				gc.closePath();
-				prevState = convertToImage(canvas);
-			} else if (paintBucketBtn.isSelected()) {
-				// TODO: Paint Bucket Implementation
-			} else if (lineToolBtn.isSelected()) {
-				gc.drawImage(prevState, 0, 0);
-				gc.strokeLine(line.getStartX(), line.getStartY(), mouse.getX(), mouse.getY());
-				prevState = convertToImage(canvas);
-			} else if (shapeToolBtn.isSelected()){
-				switch (shapeSelector.getValue()){
-					case ("Rectangle"):
-						gc.drawImage(prevState, 0, 0);
-						gc.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
-						prevState = convertToImage(canvas);
-						break;
-					case ("Triangle"):
-						break;
-					case ("Oval"):
-						gc.drawImage(prevState, 0, 0);
-						gc.fillOval(circle.getCenterX() - circle.getRadius() / 2, circle.getCenterY() - circle.getRadius() / 2, circle.getRadius(), circle.getRadius());
-						prevState = convertToImage(canvas);
-						break;
-					default:
-						break;
-				}
-			}
-		});
-
+		
 		components.add(content);
-
 	}
-
+	
 	private WritableImage convertToImage(Canvas c) {
 		SnapshotParameters sp = new SnapshotParameters();
 		sp.setFill(Color.TRANSPARENT);
