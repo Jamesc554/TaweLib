@@ -150,13 +150,13 @@ public abstract class Resource {
 	}
 	
 	/**
-	 * Set the borrow history of a copy of this Resource.
+	 * Adds the borrow history of a copy of this Resource.
 	 * @param copyID
 	 * This Copy's ID.
 	 * @param loanHistory
 	 * The loan history of this copy
 	 */
-	public void setBorrowHistory(String copyID, String[] loanHistory) {
+	public void addBorrowHistory(String copyID, String[] loanHistory) {
 		/*loanHistory will store [user][dLoan][dRet]
 		 * [user] = userID of user who loaned this copy
 		 * [dLoan]= date this copy was loaned
