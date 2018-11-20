@@ -58,9 +58,10 @@ public class DrawApp extends Screen {
 
 		Spinner<Integer> brushSize = new Spinner<Integer>(0, 64, 4);
 
-		Canvas canvas = new Canvas(1280, 650);
+		Canvas canvas = new Canvas(256, 256);
 		HBox drawWindow = new HBox(10);
 		drawWindow.getChildren().add(canvas);
+		drawWindow.setAlignment(Pos.CENTER);
 
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
