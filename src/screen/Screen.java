@@ -47,6 +47,8 @@ public abstract class Screen {
     }
 
     // TODO: Search implementation
-    public abstract void search();
+    public void search() {
+    	
+    }
 
 }

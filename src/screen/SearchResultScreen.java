@@ -13,11 +13,6 @@ public class SearchResultScreen extends Screen {
 
     }
 
-    @Override
-    public void search() {
-
-    }
-
     /**
      * Show more information for a particular Resource.
      */
