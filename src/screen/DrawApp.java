@@ -24,10 +24,13 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import utils.Queue;
 
 public class DrawApp extends Screen {
-
+	
+	WritableImage prevState = null;
+	
 	@Override
 	public void start() {
 		components = new ArrayList<>();
@@ -40,6 +43,9 @@ public class DrawApp extends Screen {
 		RadioButton paintBucketBtn = new RadioButton("Paint Bucket");
 		paintBucketBtn.setToggleGroup(tools);
 
+		RadioButton lineToolBtn = new RadioButton("Draw Line");
+		lineToolBtn.setToggleGroup(tools);
+		
 		ColorPicker cPicker = new ColorPicker();
 
 		Spinner<Integer> brushSize = new Spinner<Integer>(0, 64, 4);
@@ -57,7 +63,7 @@ public class DrawApp extends Screen {
 
 		HBox header = new HBox(8);
 		header.setPrefWidth(1280);
-		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, cPicker, brushSize, saveBtn);
+		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, lineToolBtn, cPicker, brushSize, saveBtn);
 		header.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 
 		VBox content = new VBox(10);
@@ -66,34 +72,48 @@ public class DrawApp extends Screen {
 
 		gc.setFill(Color.WHITE);
 		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		
+		
+		Line line = new Line();
 
 		canvas.setOnMousePressed(mouse -> {
 			gc.setLineWidth((double) brushSize.getValueFactory().getValue());
+			gc.setStroke(cPicker.getValue());
 			if (paintBrushBtn.isSelected()) {
-				gc.setStroke(cPicker.getValue());
 				gc.beginPath();
 				gc.lineTo(mouse.getX(), mouse.getY());
 			} else if (paintBucketBtn.isSelected()) {
 				gc.drawImage(paintBucket(cPicker.getValue(), (int) mouse.getX(), (int) mouse.getY(), canvas), 0, 0);
+			} else if (lineToolBtn.isSelected()) {
+				line.setStartX(mouse.getX());
+				line.setStartY(mouse.getY());
 			}
 		});
 
 		canvas.setOnMouseDragged(mouse -> {
 			if (paintBrushBtn.isSelected()) {
-				gc.stroke();
+				gc.strokeOval(mouse.getX(), mouse.getY(), (double) brushSize.getValueFactory().getValue(), (double) brushSize.getValueFactory().getValue());
 				gc.lineTo(mouse.getX(), mouse.getY());
 			} else if (paintBucketBtn.isSelected()) {
 				// TODO: Paint Bucket Implementation
+			} else if (lineToolBtn.isSelected()) {
+				gc.drawImage(prevState, 0, 0);
+				prevState = convertToImage(canvas);
+				gc.strokeLine(line.getStartX(), line.getStartY(), mouse.getX(), mouse.getY());
 			}
 		});
 
 		canvas.setOnMouseReleased(mouse -> {
 			if (paintBrushBtn.isSelected()) {
-				gc.stroke();
+				gc.strokeOval(mouse.getX(), mouse.getY(), (double) brushSize.getValueFactory().getValue(), (double) brushSize.getValueFactory().getValue());
 				gc.lineTo(mouse.getX(), mouse.getY());
 				gc.closePath();
 			} else if (paintBucketBtn.isSelected()) {
 				// TODO: Paint Bucket Implementation
+			} else if (lineToolBtn.isSelected()) {
+				gc.drawImage(prevState, 0, 0);
+				gc.strokeLine(line.getStartX(), line.getStartY(), mouse.getX(), mouse.getY());
+				prevState = convertToImage(canvas);
 			}
 		});
 
