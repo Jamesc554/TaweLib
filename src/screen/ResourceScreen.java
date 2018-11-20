@@ -12,11 +12,6 @@ public class ResourceScreen extends Screen {
 
     }
 
-    @Override
-    public void search() {
-
-    }
-
     /**
      * Event handling for editing a Resource.
      */

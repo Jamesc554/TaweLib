@@ -90,10 +90,4 @@ public class DrawApp extends Screen {
 
 	}
 
-	@Override
-	public void search() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

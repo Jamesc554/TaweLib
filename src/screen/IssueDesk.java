@@ -12,11 +12,6 @@ public class IssueDesk extends Screen {
 
     }
 
-    @Override
-    public void search() {
-
-    }
-
     /**
      * Event handling to process payments.
      */

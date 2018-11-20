@@ -11,10 +11,5 @@ public class HomeScreen extends Screen {
     public void start() {
 
     }
-
-    // Should screen not be abstract to avoid repeating this?
-    @Override
-    public void search() {
-
-    }
+    
 }

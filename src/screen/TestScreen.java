@@ -53,9 +53,4 @@ public class TestScreen extends Screen {
         
         components.add(content);
     }
-
-    @Override
-    public void search() {
-
-    }
 }
