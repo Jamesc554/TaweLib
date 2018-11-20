@@ -35,7 +35,7 @@ public class Queue<T> {
     /**
      * Returns the element at the head of the queue
      */
-    public Object peek() throws NoSuchElementException {
+    public T peek() throws NoSuchElementException {
         if (isEmpty())
             throw new NoSuchElementException();
 
