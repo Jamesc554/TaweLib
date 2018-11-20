@@ -152,39 +152,101 @@ public class User {
 
 	/**
 	 * Returns the second line of address.
-	 * @return
+	 * @return string of second line of address.
 	 */
     public String getSecondLineAddress(){return this.secondLineAddress;}
-    public String getPostCode(){return this.postCode;}
+
+	/**
+	 * Returns the post code of the user.
+	 * @return a string representing the post code of the user
+	 */
+	public String getPostCode(){return this.postCode;}
+
+	/**
+	 * Returns the name of the town of the user
+	 * @return a string representation the name of the town of the usr.
+	 */
     public String getTownName(){return this.townName;}
-    public String getFullAddress(){
-        return getFirstLineAddress() + "\n" + getSecondLineAddress()
-                + "\n" + getTownName() + "\n" + getPostCode();
+
+	/**
+	 * This returns the full address formatted for postage
+	 * @return single String
+	 */
+	public String getFullAddress(){
+		String address = getFirstLineAddress();
+		if (!getSecondLineAddress().equals("")){
+			return address + getSecondLineAddress()
+					+ "\n" + getTownName() + "\n" + getPostCode();
+		}else{
+			return address + "\n" + getTownName() + "\n" + getPostCode();
+		}
     }
-    public String getProfImage(){return this.profImage;}
-    public Resource getResource(String resource){
+	/**
+	 * This returns the path to the profile image of the user
+	 * @return String
+	 */
+	public String getProfImage(){return this.profImage;}
+
+	/**
+	 * Get the resource with specific ID from the user currently borrowed
+	 * @param resourceID The unique ID of the user
+	 * @return Resource object representing resource with ID, returns null if unique ID does not match
+	 * any item in the list.
+	 */
+    public Resource getResource(String resourceID){
         for (Resource resourceObj : this.resourceBorrow){
-            if (resourceObj.getUniqueID().equals(resource)){
+            if (resourceObj.getUniqueID().equals(resourceID)){
                 return resourceObj;
             }
         }
         return null;
     }
-    public ArrayList getAllResources(){return this.resourceBorrow;}
+
+	/**
+	 * Returns full list of resources borrowed by the user.
+	 * @return ArrayList storing all Resource objects.
+	 */
+	public ArrayList getAllResources(){return this.resourceBorrow;}
+
+	/**
+	 * Returns all transaction history of the user.
+	 * @return a ArrayList. This arrayList holds arrays in the following way,
+	 * DateOfTransaction	Amount of Transaction
+	 */
     public ArrayList getTransactions(){return this.transactionHistory;}
-    public String getAccountBalance(){
-        String s = "";
-        if(String.valueOf(this.accountBalance).length() >= 3){
-            s = "£" + String.valueOf(this.accountBalance).substring(0, String.valueOf(this.accountBalance).length() - 2)
-                    +"."+String.valueOf(this.accountBalance).substring(String.valueOf(this.accountBalance).length() - 2);
-        }else if (String.valueOf(this.accountBalance).length() >= 2){
-            s = "£0."+String.valueOf(this.accountBalance);
-        }else if (String.valueOf(this.accountBalance).length() >= 1){
-            s = "£0.0"+String.valueOf(this.accountBalance);
+
+	/**
+	 * This returns the current account balance as a String. Following format "£X.XX".
+	 * @return a string representation of the balance.
+	 */
+	public String getAccountBalance(){
+		String s = "";
+		//Temp balance so main variable is not touched
+		int tempBal = this.accountBalance;
+		//If balance is negative and - symbol and make the balance positive
+		if(tempBal < 0){
+			s = "-";
+			tempBal = tempBal * -1;
+		}
+        //If the account has at least 3 digits
+        if(String.valueOf(tempBal).length() >= 3){
+        	//Take £ add everything but last two digits add . then put last two digits at the end.
+            s = s + "£" + String.valueOf(tempBal).substring(0, String.valueOf(tempBal).length() - 2)
+                    +"."+String.valueOf(tempBal).substring(String.valueOf(tempBal).length() - 2);
+        //If two digits. take two digits and add to the end of £0.
+        }else if (String.valueOf(tempBal).length() >= 2){
+            s = s +"£0."+String.valueOf(tempBal);
+            //If one digit add to the end of £0.0
+        }else if (String.valueOf(tempBal).length() >= 1){
+            s = s + "£0.0"+String.valueOf(tempBal);
         }
         return s;
     }
 
+	/**
+	 * Adds resource
+	 * @param resource
+	 */
     public void addResource(Resource resource){this.resourceBorrow.add(resource);}
     //Not used as we do not collect stats
     protected void addResourceToHistory(String resourceID){}
@@ -210,12 +272,12 @@ public class User {
         for (String[] a : transactionHistory){
             transInfo = transInfo + a[0] + " " +a[1]+"\n";
         }
-        return  "Username: "+ getUserName()
+        return  "Username: "+ getUserName() + "\n"
                 +"Name: " + getFirstName() + " " + getLastName() + "\n"
                 +"Mobile Number: " +getMobileNumber() + "\n"
-                +"Address:\n" + getFullAddress()
+                +"Address:\n" + getFullAddress() + "\n"
                 +"Currently Borrowed:\n"+ names
                 +"Transaction History: \n" + transInfo
-                +"Account balance: "+ getAccountBalance();
+                +"Account balance: "+ getAccountBalance()+"\n";
     }
 }
