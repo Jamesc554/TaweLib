@@ -47,31 +47,11 @@ public class WriteFile extends IO {
 	
     }
 
-    public static void writeTransactions(String transactionData) {
+    public static void writeTransaction(String transactionData) {
 	
     }
     
     public static void fullWrite(String usersData, String resourceData, String outData, String bookQueueData, String statsDate, String transactionData) {
-    	
-    }
-    
-    public static void removeUsers(String username) {
-    	
-    }
-    
-    public static void removeResources(String resourceData) {
-    	
-    }
-    
-    public static void removeOutData(String outData) {
-    	
-    }
-    
-    public static void removeBookQueue(String bookQueueData) {
-    	
-    }
-    
-    public static void removeTransactions(String transactionsData) {
     	
     }
     
