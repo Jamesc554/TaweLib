@@ -8,11 +8,11 @@ import java.util.Stack;
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuButton;
@@ -62,6 +62,7 @@ public class DrawApp extends Screen {
 	MenuItem zoomOutItem = new MenuItem("Zoom Out");
 	
 	MenuItem invertItem = new MenuItem("Invert Colours");
+	MenuItem grayscaleItem = new MenuItem("Convert to Grayscale");
 	
 	// Toolbar \\
 	ToggleGroup tools = new ToggleGroup();
@@ -107,7 +108,6 @@ public class DrawApp extends Screen {
 		canvas.setOnMousePressed(mouse -> CanvasMousePressed(mouse));
 		canvas.setOnMouseDragged(mouse -> CanvasMouseDragged(mouse));
 		canvas.setOnMouseReleased(mouse -> CanvasMouseReleased(mouse));
-
 
 	}
 	
@@ -217,7 +217,7 @@ public class DrawApp extends Screen {
 		fileBtn.getItems().addAll(saveItem, saveAsItem, loadItem, exitItem);
 		editBtn.getItems().addAll(undoItem, redoItem);
 		viewBtn.getItems().addAll(zoomInItem, zoomOutItem);
-		toolsBtn.getItems().addAll(invertItem);
+		toolsBtn.getItems().addAll(invertItem, grayscaleItem);
 		
 		// File Functions \\
 		saveItem.setOnAction(e ->{
@@ -250,8 +250,13 @@ public class DrawApp extends Screen {
 		// TODO: Zoom Functionality
 		
 		// Tools Functions \\
+		invertItem.setOnAction(e -> {
+			gc.drawImage(InvertImage(canvas), 0, 0);
+		});
 		
-		// TODO: Invert Functionality
+		grayscaleItem.setOnAction(e ->{
+			gc.drawImage(GrayscaleImage(canvas), 0, 0);
+		});
 	}
 	
 	private void SetupToolbar() {
@@ -411,5 +416,33 @@ public class DrawApp extends Screen {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private WritableImage InvertImage(Canvas c) {
+		WritableImage tmpImg = convertToImage(c);
+		PixelReader pr = tmpImg.getPixelReader();
+		PixelWriter pw = tmpImg.getPixelWriter();
+		
+		for (int x = 0; x < c.getWidth(); x++) {
+			for (int y = 0; y < c.getHeight(); y++) {
+				pw.setColor(x, y, pr.getColor(x, y).invert());
+			}
+		}
+		
+		return tmpImg;
+	}
+	
+	private WritableImage GrayscaleImage(Canvas c) {
+		WritableImage tmpImg = convertToImage(c);
+		PixelReader pr = tmpImg.getPixelReader();
+		PixelWriter pw = tmpImg.getPixelWriter();
+		
+		for (int x = 0; x < c.getWidth(); x++) {
+			for (int y = 0; y < c.getHeight(); y++) {
+				pw.setColor(x, y, pr.getColor(x, y).grayscale());
+			}
+		}
+		
+		return tmpImg;
 	}
 }
