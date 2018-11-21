@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.json.simple.JSONObject;
 
+import resources.Book;
 import user.User;
 
 /**
@@ -35,7 +36,16 @@ public class WriteFile extends IO {
 		}
 	}
 	
-    public static void writeResource(String resourceData) {
+    public static void writeBook(Book book) {
+		
+	}
+    
+    // will be changed to Dvd dvd and Laptop laptop when those classes are added to git.
+    public static void writeDvd(Book book) {
+		
+	}
+    
+    public static void writeLaptop(Book book) {
 		
 	}
     
