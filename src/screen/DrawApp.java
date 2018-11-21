@@ -15,6 +15,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleGroup;
@@ -42,6 +44,25 @@ public class DrawApp extends Screen {
 	
 	// JavaFX Components
 	
+	// Control Header \\
+	MenuButton fileBtn = new MenuButton("File");
+	MenuButton editBtn = new MenuButton("Edit");
+	MenuButton viewBtn = new MenuButton("View");
+	MenuButton toolsBtn = new MenuButton("Tools");
+	
+	MenuItem saveItem = new MenuItem("Save");
+	MenuItem saveAsItem = new MenuItem("Save As");
+	MenuItem loadItem = new MenuItem("Load");
+	MenuItem exitItem = new MenuItem("Exit");
+	
+	MenuItem undoItem = new MenuItem("Undo");
+	MenuItem redoItem = new MenuItem("Redo");
+	
+	MenuItem zoomInItem = new MenuItem("Zoom In");
+	MenuItem zoomOutItem = new MenuItem("Zoom Out");
+	
+	MenuItem invertItem = new MenuItem("Invert Colours");
+	
 	// Toolbar \\
 	ToggleGroup tools = new ToggleGroup();
 	RadioButton paintBrushBtn = new RadioButton("Paint Brush");
@@ -53,10 +74,6 @@ public class DrawApp extends Screen {
 	
 	ColorPicker cPicker = new ColorPicker();
 	Spinner<Integer> brushSize = new Spinner<Integer>(0, 64, 4);
-
-	Button saveBtn = new Button("Save");
-	Button undoBtn = new Button("Undo");
-	Button redoBtn = new Button("Redo");
 	
 	// Canvas \\
 	Canvas canvas = new Canvas(256, 256);
@@ -70,8 +87,9 @@ public class DrawApp extends Screen {
 	
 	// Layout \\
 	HBox drawWindow = new HBox(10);
+	HBox controlHeader = new HBox(4);
 	HBox header = new HBox(8);
-	VBox content = new VBox(10);
+	VBox content = new VBox(0);
 
 	@Override
 	public void start() {
@@ -79,6 +97,7 @@ public class DrawApp extends Screen {
 		previousStates = new Stack<>();
 		futureStates = new Stack<>();
 		
+		SetupControlHeader();
 		SetupToolbar();
 		SetupLayout();
 
@@ -91,7 +110,6 @@ public class DrawApp extends Screen {
 
 
 	}
-	
 	
 	// Canavs Mouse Events \\
 	private void CanvasMousePressed(MouseEvent mouse) {
@@ -195,6 +213,47 @@ public class DrawApp extends Screen {
 	}
 	
 	// Component Setup \\
+	private void SetupControlHeader() {
+		fileBtn.getItems().addAll(saveItem, saveAsItem, loadItem, exitItem);
+		editBtn.getItems().addAll(undoItem, redoItem);
+		viewBtn.getItems().addAll(zoomInItem, zoomOutItem);
+		toolsBtn.getItems().addAll(invertItem);
+		
+		// File Functions \\
+		saveItem.setOnAction(e ->{
+			saveImage(canvas);
+		});
+		
+		saveAsItem.setOnAction(e -> {
+			saveImage(canvas);
+		});
+		
+		// TODO: Load Image Functionality
+		
+		exitItem.setOnAction(e -> {
+			ScreenManager.previousScreen();
+		});
+		
+		// Edit Functions \\
+		undoItem.setOnAction(e -> {
+			undo(canvas);
+			undo(canvas);
+		});
+
+		redoItem.setOnAction(e -> {
+			redo(canvas);
+			redo(canvas);
+		});
+		
+		// View Functions \\
+		
+		// TODO: Zoom Functionality
+		
+		// Tools Functions \\
+		
+		// TODO: Invert Functionality
+	}
+	
 	private void SetupToolbar() {
 		paintBrushBtn.setToggleGroup(tools);
 		paintBrushBtn.setSelected(true);
@@ -205,34 +264,23 @@ public class DrawApp extends Screen {
 
 		shapeToolBtn.setToggleGroup(tools);
 
-		saveBtn.setOnAction(e -> {
-			saveImage(canvas);
-		});
-
-		undoBtn.setOnAction(e -> {
-			undo(canvas);
-			undo(canvas);
-		});
-
-		redoBtn.setOnAction(e -> {
-			redo(canvas);
-			redo(canvas);
-		});
-
 		shapeSelector.getItems().addAll("Rectangle", "Triangle", "Oval");
 		shapeSelector.setValue("Rectangle");
 	}
 	
 	private void SetupLayout() {
+		controlHeader.setPrefWidth(1280);
+		controlHeader.getChildren().addAll(fileBtn, editBtn, viewBtn, toolsBtn);
+		controlHeader.setBackground(new Background(new BackgroundFill(Color.LIGHTPINK, null, null)));
+		
 		header.setPrefWidth(1280);
-		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, lineToolBtn, shapeToolBtn, shapeSelector, cPicker, brushSize, saveBtn, undoBtn,
-				redoBtn);
+		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, lineToolBtn, shapeToolBtn, shapeSelector, cPicker, brushSize);
 		header.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 		
 		drawWindow.getChildren().add(canvas);
 		drawWindow.setAlignment(Pos.CENTER);
 		
-		content.getChildren().addAll(header, drawWindow);
+		content.getChildren().addAll(controlHeader, header, drawWindow);
 		content.setAlignment(Pos.TOP_LEFT);
 		
 		components.add(content);
