@@ -2,6 +2,7 @@ package io;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import resources.Book;
@@ -32,12 +33,40 @@ public class WriteFile extends IO {
 			file.flush();
 			file.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Error writing user to " + IO.getUsersFilePath() + " " + user.getUserName());
 		}
 	}
 	
-    public static void writeBook(Book book) {
-		
+    @SuppressWarnings("unchecked")
+	public static void writeBook(Book book) {
+    	JSONObject object = new JSONObject();
+    	JSONArray languageArray = new JSONArray();
+    	object.put("year", book.getYear());
+    	object.put("title", book.getTitle());
+    	object.put("thumbnailImg", book.getThumbnailImageRef());
+    	object.put("uniqueID", book.getUniqueID());
+    	object.put("author", book.getAuthor());
+    	object.put("genre", book.getGenre());
+    	object.put("isbn", book.getIsbn());
+    	object.put("publisher", book.getPublisher());
+    	
+    	for (String language : book.getLanguages()) {
+    		languageArray.add(language);
+    	}
+    	
+    	object.put("languages", languageArray);
+    	// Needed to be added (see below) - not currently stored yet.
+    	// QueueOfReservations
+    	// Map of copies
+    	// Map of borrowHistory
+    	try {
+    		FileWriter file = new FileWriter(IO.getResourceFilePath(), true);
+			file.write(object.toJSONString() + "\n");
+			file.flush();
+			file.close();
+    	} catch (IOException e) {
+    		System.out.println("Error writing book to " + IO.getResourceFilePath() + " " + book.getUniqueID());
+    	}
 	}
     
     // will be changed to Dvd dvd and Laptop laptop when those classes are added to git.
