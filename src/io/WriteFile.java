@@ -1,6 +1,7 @@
 package io;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -88,6 +89,27 @@ public class WriteFile extends IO {
 
     public static void writeTransaction(String transactionData) {
 	
+    }
+    
+    public static void overwriteUsers(ArrayList<User> user) {
+    	
+    }
+    
+    // Will be changed to laptop and dvd when those classes are added to git.
+    public static void overwriteResources(ArrayList<Book> book, ArrayList<Book> dvd, ArrayList<Book> laptop) {
+    	
+    }
+    
+    public static void overwriteOutData(String outData) {
+    	
+    }
+    
+    public static void overwriteBookQueues(String bookQueueData) {
+    	
+    }
+    
+    public static void overwriteTransactions(String transactionData) {
+    	
     }
     
     public static void fullWrite(String usersData, String resourceData, String outData, String bookQueueData, String statsDate, String transactionData) {
