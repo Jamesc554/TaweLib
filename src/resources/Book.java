@@ -40,8 +40,8 @@ public class Book extends Resource {
 		//Set all non-inherited values
 		this.author = author;
 		this.publisher = publisher;
-		this.genre = null;
-		this.isbn = null;
+		this.genre = genre;
+		this.isbn = isbn;
 		this.languages = new ArrayList<String>();
 		
 	}
