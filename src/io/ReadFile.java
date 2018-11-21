@@ -74,10 +74,6 @@ public class ReadFile extends IO{
 		return "";
 	}
 	
-	public static String readStats() {
-		return "";
-	}
-	
 	public static String readTransactions() {
 		return "";
 	}

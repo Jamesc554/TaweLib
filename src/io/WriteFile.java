@@ -35,7 +35,7 @@ public class WriteFile extends IO {
 		}
 	}
 	
-    public static void writeResources(String resourceData) {
+    public static void writeResource(String resourceData) {
 		
 	}
     
@@ -47,10 +47,6 @@ public class WriteFile extends IO {
 	
     }
 
-    public static void writeStats(String statsData) {
-	
-    }
-
     public static void writeTransactions(String transactionData) {
 	
     }
@@ -59,8 +55,8 @@ public class WriteFile extends IO {
     	
     }
     
-    public static boolean removeUsers(String username) {
-    	return false;
+    public static void removeUsers(String username) {
+    	
     }
     
     public static void removeResources(String resourceData) {
@@ -72,10 +68,6 @@ public class WriteFile extends IO {
     }
     
     public static void removeBookQueue(String bookQueueData) {
-    	
-    }
-    
-    public static void removeStats(String StatsData) {
     	
     }
     
