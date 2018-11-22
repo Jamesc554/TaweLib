@@ -3,8 +3,6 @@ package resources;
 import utils.Queue;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -204,5 +202,23 @@ public abstract class Resource {
 	 */
 	public void addUserToRequestQueue(User userForQueue){
 		this.queueOfReservations.enqueue(userForQueue);
+	}
+	
+	/**
+	 * Removes a User from request for a copy of a resource.
+	 * @return userAtFrontOfQueue the user who first requested a copy
+	 */
+	public User removeUserFromRequestQueue() {
+		User userAtFrontOfQueue = this.queueOfReservations.peek();
+		this.queueOfReservations.dequeue();
+		return userAtFrontOfQueue;
+	}
+	
+	/**
+	 * Gets the head of the queueOfReservations
+	 * @return queueOfReservations
+	 */
+	public User peekQueueOfReservations() {
+		return this.queueOfReservations.peek();
 	}
 }

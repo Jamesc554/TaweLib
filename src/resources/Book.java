@@ -13,7 +13,7 @@ import utils.Queue;
  */
 public class Book extends Resource {
 	
-	private static String highestBookID; //this is used to calculate a unique BookID.
+	private static String highestBookID = "BookID:0"; //this is used to calculate a unique BookID.
 	
 	private int highestCopyID = 0; // this is used to calculate a unique CopyID.
 	private String author; //Author of Book
@@ -37,9 +37,8 @@ public class Book extends Resource {
 	 */
 	public Book(String year,String title, String thumbnailImg, String uniqueID,
 			String author, String genre, String isbn, String publisher, ArrayList<String> lang) {
-		
 		//Set all the inherited values from Resource...
-		super(year, title, thumbnailImg, uniqueID);
+		super(year, title, thumbnailImg, generateBookID(uniqueID));
 		
 		//Set all non-inherited values
 		this.author = author;
@@ -59,6 +58,36 @@ public class Book extends Resource {
 	}
 	
 	/**
+	 * Generates a uniqueID for a book.
+	 * @param id The stated ID of the book being created.
+	 * @return highestBookID the book ID of the latest created book
+	 */
+	private static String generateBookID(String id) {
+		//split book ID into two strings if ID == null.
+		//convert anything after ": " into Int
+		//append 1
+		// convert back to String
+		//assign uniqueID
+		//
+		//If id != null.
+		//we are loading a book from a file thus set highestBookID to id.
+		if (id == null) {
+		String[] segmentsOfString = highestBookID.split(":");
+		String typeSegment = segmentsOfString[0];
+		String numberSegmentOfString = segmentsOfString[1];
+		
+		int numberOfID = Integer.parseInt(numberSegmentOfString);
+		numberOfID++;
+		
+		highestBookID = typeSegment + ":" + Integer.toString(numberOfID);
+		return highestBookID;
+		} else {
+			highestBookID = id;
+			return highestBookID;
+		}
+	}
+
+	/**
 	 * This Method Prints out this Book's attributes for testing purposes.
 	 */
 	public String toString() {
@@ -70,9 +99,9 @@ public class Book extends Resource {
 			   "\nGenre: " + this.genre +
 			   "\nISBN: " + this.isbn + 
 			   "\nLanguages: " + this.languages +
-			   "\nQueueOfReservations: " + this.queueOfReservations +
+			   "\nQueueOfReservations: " + this.queueOfReservations.isEmpty() +
 			   "\nMap Of copies: " + this.arrayListOfCopies + 
-			   "\nMap of borrowHistory: " + this.borrowHistory;
+			   "\nMap of borrowHistory: " + this.borrowHistory.values();
 	}
 	/* #############################################################
 	 * ########  BELOW ARE THE GETTERS AND SETTERS OF BOOK  ########
