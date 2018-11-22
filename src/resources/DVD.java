@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @since 18/11/2018
 */
 
-public class DVD {
+public class DVD extends Resource {
 	private String director;
 	private String runtime;
 	private String language;
@@ -27,7 +27,14 @@ public class DVD {
 	 * The list of available subtitle languages for the DVD 
 	 */
 	
-	public DVD (String director, String runtime, String language, ArrayList<String> subLang) {
+	public DVD (String year, String title, String thumbnailImageRef, String uniqueID,
+				String director, String runtime, String language, ArrayList<String> subLang) {
+		super(year, title, thumbnailImageRef, uniqueID);
+		this.director = director;
+		this.runtime = runtime;
+		this.language = language;
+		this.subLang = subLang;
+
 	}
 	/**
 	 * Finds the director of the DVD
