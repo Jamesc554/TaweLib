@@ -71,4 +71,35 @@ public class LibraryResources {
 	public ArrayList<Laptop> getListOfLaptops() {
 		return this.listOfLaptops;
 	}
+	protected void removeResource(String id){
+		String dataType = id.substring(0,1);
+		switch (dataType.toLowerCase()){
+			case "b":
+				for(int index = 0; index < listOfBooks.size(); index++){
+					if (listOfBooks.get(index).getUniqueID().equals(id)){
+						listOfBooks.remove(index);
+						break;
+					}
+				}
+				break;
+			case "l":
+				for(int index = 0; index < listOfLaptops.size(); index++){
+					if (listOfLaptops.get(index).getUniqueID().equals(id)){
+						listOfLaptops.remove(index);
+						break;
+					}
+				}
+				break;
+			case "d":
+				for(int index = 0; index < listOfDVD.size(); index++){
+					if (listOfDVD.get(index).getUniqueID().equals(id)){
+						listOfDVD.remove(index);
+						break;
+					}
+				}
+				break;
+			default:
+				break;
+		}
+	}
 }
