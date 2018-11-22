@@ -194,7 +194,7 @@ public abstract class Resource {
 	 * Removes a copy from the Resource
 	 */
 	public void removeCopy() {
-		//Remove from dictionary of copies, a copy based off of its uniqueID
+		//Remove from dictionary of copies, a copy the latest copy
 		this.arrayListOfCopies.remove(this.arrayListOfCopies.size() - 1);
 	}
 	

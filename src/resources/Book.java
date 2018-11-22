@@ -245,6 +245,9 @@ public class Book extends Resource {
 		return hCpyID;
 	}
 	
+	/**
+	 * Remove the latest copy of a book.
+	 */
 	@Override
 	public void removeCopy() {
 		if (this.arrayListOfCopies.size() >= 1) {
