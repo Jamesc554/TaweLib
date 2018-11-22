@@ -42,7 +42,16 @@ public class Book extends Resource {
 		this.publisher = publisher;
 		this.genre = genre;
 		this.isbn = isbn;
-		this.languages = new ArrayList<String>();
+		
+		//If lang from file is null, create a new arraylist. otherwise set languages to lang from file.
+		if(lang == null) {
+			
+			this.languages = new ArrayList<String>();
+		} else {
+			this.languages = lang;
+		}
+
+
 		
 	}
 	
