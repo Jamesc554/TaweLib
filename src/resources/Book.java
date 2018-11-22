@@ -12,6 +12,10 @@ import utils.Queue;
  * @since 18/11/2018
  */
 public class Book extends Resource {
+	
+	private static String highestBookID; //this is used to calculate a unique BookID.
+	private static String highestCopyID; // this is used to calculate a unique CopyID.
+	
 	private String author; //Author of Book
 	private String publisher; //Publisher of Book
 	private String genre; //Genre of book (Optional)
@@ -45,7 +49,6 @@ public class Book extends Resource {
 		
 		//If lang from file is null, create a new arraylist. otherwise set languages to lang from file.
 		if(lang == null) {
-			
 			this.languages = new ArrayList<String>();
 		} else {
 			this.languages = lang;
@@ -75,6 +78,10 @@ public class Book extends Resource {
 	 * ########  BELOW ARE THE GETTERS AND SETTERS OF BOOK  ########
 	 * #############################################################
 	 */
+	
+	public void setHighestBookID(String hBookID) {
+		this.highestBookID = hBookID;
+	}
 	
 	/**
 	 * Returns the author of the book
