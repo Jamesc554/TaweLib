@@ -6,7 +6,7 @@ package resources;
  * @version 0.0.0.1
  * @since 18/11/2018
  */
-public class Laptop {
+public class Laptop extends Resource {
 
 	private String manufacturer;
 	private String model;
@@ -21,7 +21,12 @@ public class Laptop {
 	 * @param operatingSys
 	 * The laptop's operating system
 	 */
-	public Laptop(String manufacturer, String model,  String operatingSys) {
+	public Laptop(String year, String title, String thumbnailImageRef, String uniqueID,
+				  String manufacturer, String model,  String operatingSys) {
+		super(year, title, thumbnailImageRef,uniqueID);
+		this.manufacturer = manufacturer;
+		this.model = model;
+		this.operatingSys = operatingSys;
 	}
 	
 	/**
