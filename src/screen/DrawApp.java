@@ -37,60 +37,60 @@ import utils.Queue;
 
 public class DrawApp extends Screen {
 
-	WritableImage prevState = null;
+	private WritableImage prevState = null;
 
-	Stack<WritableImage> previousStates;
-	Stack<WritableImage> futureStates;
+	private Stack<WritableImage> previousStates;
+	private Stack<WritableImage> futureStates;
 	
 	// JavaFX Components
 	
 	// Control Header \\
-	MenuButton fileBtn = new MenuButton("File");
-	MenuButton editBtn = new MenuButton("Edit");
-	MenuButton viewBtn = new MenuButton("View");
-	MenuButton toolsBtn = new MenuButton("Tools");
+	private MenuButton fileBtn = new MenuButton("File");
+	private MenuButton editBtn = new MenuButton("Edit");
+	private MenuButton viewBtn = new MenuButton("View");
+	private MenuButton toolsBtn = new MenuButton("Tools");
 	
-	MenuItem saveItem = new MenuItem("Save");
-	MenuItem saveAsItem = new MenuItem("Save As");
-	MenuItem loadItem = new MenuItem("Load");
-	MenuItem exitItem = new MenuItem("Exit");
+	private MenuItem saveItem = new MenuItem("Save");
+	private MenuItem saveAsItem = new MenuItem("Save As");
+	private MenuItem loadItem = new MenuItem("Load");
+	private MenuItem exitItem = new MenuItem("Exit");
 	
-	MenuItem undoItem = new MenuItem("Undo");
-	MenuItem redoItem = new MenuItem("Redo");
+	private MenuItem undoItem = new MenuItem("Undo");
+	private MenuItem redoItem = new MenuItem("Redo");
 	
-	MenuItem zoomInItem = new MenuItem("Zoom In");
-	MenuItem zoomOutItem = new MenuItem("Zoom Out");
+	private MenuItem zoomInItem = new MenuItem("Zoom In");
+	private MenuItem zoomOutItem = new MenuItem("Zoom Out");
 	
-	MenuItem invertItem = new MenuItem("Invert Colours");
-	MenuItem grayscaleItem = new MenuItem("Convert to Grayscale");
+	private MenuItem invertItem = new MenuItem("Invert Colours");
+	private MenuItem grayscaleItem = new MenuItem("Convert to Grayscale");
 	
 	// Toolbar \\
-	ToggleGroup tools = new ToggleGroup();
-	RadioButton paintBrushBtn = new RadioButton("Paint Brush");
-	RadioButton paintBucketBtn = new RadioButton("Paint Bucket");
-	RadioButton lineToolBtn = new RadioButton("Draw Line");
+	private ToggleGroup tools = new ToggleGroup();
+	private RadioButton paintBrushBtn = new RadioButton("Paint Brush");
+	private RadioButton paintBucketBtn = new RadioButton("Paint Bucket");
+	private RadioButton lineToolBtn = new RadioButton("Draw Line");
 	
-	RadioButton shapeToolBtn = new RadioButton("Shape Tool");
-	ComboBox<String> shapeSelector = new ComboBox<>();
+	private RadioButton shapeToolBtn = new RadioButton("Shape Tool");
+	private ComboBox<String> shapeSelector = new ComboBox<>();
 	
-	ColorPicker cPicker = new ColorPicker();
-	Spinner<Integer> brushSize = new Spinner<Integer>(0, 64, 4);
+	private ColorPicker cPicker = new ColorPicker();
+	private Spinner<Integer> brushSize = new Spinner<Integer>(0, 64, 4);
 	
 	// Canvas \\
-	Canvas canvas = new Canvas(256, 256);
-	GraphicsContext gc = canvas.getGraphicsContext2D();
+	private Canvas canvas = new Canvas(256, 256);
+	private GraphicsContext gc = canvas.getGraphicsContext2D();
 	
 	// Shapes \\
-	Line line = new Line();
-	Rectangle rectangle = new Rectangle();
-	TriangleMesh triangle = new TriangleMesh();
-	Circle circle = new Circle();
+	private Line line = new Line();
+	private Rectangle rectangle = new Rectangle();
+	private TriangleMesh triangle = new TriangleMesh();
+	private Circle circle = new Circle();
 	
 	// Layout \\
-	HBox drawWindow = new HBox(10);
-	HBox controlHeader = new HBox(4);
-	HBox header = new HBox(8);
-	VBox content = new VBox(0);
+	private HBox drawWindow = new HBox(10);
+	private HBox controlHeader = new HBox(4);
+	private HBox header = new HBox(8);
+	private VBox content = new VBox(0);
 
 	@Override
 	public void start() {
