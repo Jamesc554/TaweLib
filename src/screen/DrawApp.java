@@ -45,52 +45,52 @@ public class DrawApp extends Screen {
 	// JavaFX Components
 	
 	// Control Header \\
-	private MenuButton fileBtn = new MenuButton("File");
-	private MenuButton editBtn = new MenuButton("Edit");
-	private MenuButton viewBtn = new MenuButton("View");
-	private MenuButton toolsBtn = new MenuButton("Tools");
+	private final MenuButton fileBtn = new MenuButton("File");
+	private final MenuButton editBtn = new MenuButton("Edit");
+	private final MenuButton viewBtn = new MenuButton("View");
+	private final MenuButton toolsBtn = new MenuButton("Tools");
 	
-	private MenuItem saveItem = new MenuItem("Save");
-	private MenuItem saveAsItem = new MenuItem("Save As");
-	private MenuItem loadItem = new MenuItem("Load");
-	private MenuItem exitItem = new MenuItem("Exit");
+	private final MenuItem saveItem = new MenuItem("Save");
+	private final MenuItem saveAsItem = new MenuItem("Save As");
+	private final MenuItem loadItem = new MenuItem("Load");
+	private final MenuItem exitItem = new MenuItem("Exit");
 	
-	private MenuItem undoItem = new MenuItem("Undo");
-	private MenuItem redoItem = new MenuItem("Redo");
+	private final MenuItem undoItem = new MenuItem("Undo");
+	private final MenuItem redoItem = new MenuItem("Redo");
 	
-	private MenuItem zoomInItem = new MenuItem("Zoom In");
-	private MenuItem zoomOutItem = new MenuItem("Zoom Out");
+	private final MenuItem zoomInItem = new MenuItem("Zoom In");
+	private final MenuItem zoomOutItem = new MenuItem("Zoom Out");
 	
-	private MenuItem invertItem = new MenuItem("Invert Colours");
-	private MenuItem grayscaleItem = new MenuItem("Convert to Grayscale");
+	private final MenuItem invertItem = new MenuItem("Invert Colours");
+	private final MenuItem grayscaleItem = new MenuItem("Convert to Grayscale");
 	
 	// Toolbar \\
-	private ToggleGroup tools = new ToggleGroup();
-	private RadioButton paintBrushBtn = new RadioButton("Paint Brush");
-	private RadioButton paintBucketBtn = new RadioButton("Paint Bucket");
-	private RadioButton lineToolBtn = new RadioButton("Draw Line");
+	private final ToggleGroup tools = new ToggleGroup();
+	private final RadioButton paintBrushBtn = new RadioButton("Paint Brush");
+	private final RadioButton paintBucketBtn = new RadioButton("Paint Bucket");
+	private final RadioButton lineToolBtn = new RadioButton("Draw Line");
 	
-	private RadioButton shapeToolBtn = new RadioButton("Shape Tool");
-	private ComboBox<String> shapeSelector = new ComboBox<>();
+	private final RadioButton shapeToolBtn = new RadioButton("Shape Tool");
+	private final ComboBox<String> shapeSelector = new ComboBox<>();
 	
-	private ColorPicker cPicker = new ColorPicker();
-	private Spinner<Integer> brushSize = new Spinner<Integer>(0, 64, 4);
+	private final ColorPicker cPicker = new ColorPicker();
+	private final Spinner<Integer> brushSize = new Spinner<Integer>(0, 64, 4);
 	
 	// Canvas \\
-	private Canvas canvas = new Canvas(256, 256);
-	private GraphicsContext gc = canvas.getGraphicsContext2D();
+	private final Canvas canvas = new Canvas(256, 256);
+	private final GraphicsContext gc = canvas.getGraphicsContext2D();
 	
 	// Shapes \\
-	private Line line = new Line();
-	private Rectangle rectangle = new Rectangle();
-	private TriangleMesh triangle = new TriangleMesh();
-	private Circle circle = new Circle();
+	private final Line line = new Line();
+	private final Rectangle rectangle = new Rectangle();
+	private final TriangleMesh triangle = new TriangleMesh();
+	private final Circle circle = new Circle();
 	
 	// Layout \\
-	private HBox drawWindow = new HBox(10);
-	private HBox controlHeader = new HBox(4);
-	private HBox header = new HBox(8);
-	private VBox content = new VBox(0);
+	private final HBox drawWindow = new HBox(10);
+	private final HBox controlHeader = new HBox(4);
+	private final HBox header = new HBox(8);
+	private final VBox content = new VBox(0);
 
 	@Override
 	public void start() {
@@ -112,6 +112,12 @@ public class DrawApp extends Screen {
 	}
 	
 	// Canavs Mouse Events \\
+	
+	/**
+	 * The event called when the mouse is pressed on the canvas
+	 * @param mouse
+	 * The event object
+	 */
 	private void CanvasMousePressed(MouseEvent mouse) {
 		addPreviousState(canvas);
 		gc.setLineWidth((double) brushSize.getValueFactory().getValue());
@@ -146,6 +152,11 @@ public class DrawApp extends Screen {
 		}
 	}
 
+	/**
+	 * The event called when the mouse is dragged on the canvas
+	 * @param mouse
+	 * The event object
+	 */
 	private void CanvasMouseDragged(MouseEvent mouse) {
 		if (paintBrushBtn.isSelected()) {
 			gc.strokeOval(mouse.getX(), mouse.getY(), (double) brushSize.getValueFactory().getValue(),
@@ -178,6 +189,11 @@ public class DrawApp extends Screen {
 		}
 	}
 	
+	/**
+	 * The event called when the mouse is released on the canvas
+	 * @param mouse
+	 * The event object
+	 */
 	private void CanvasMouseReleased(MouseEvent mouse) {
 		addPreviousState(canvas);
 		if (paintBrushBtn.isSelected()) {
@@ -213,6 +229,10 @@ public class DrawApp extends Screen {
 	}
 	
 	// Component Setup \\
+	
+	/**
+	 * Initialisation of JavaFX components on the ControlHeader
+	 */
 	private void SetupControlHeader() {
 		fileBtn.getItems().addAll(saveItem, saveAsItem, loadItem, exitItem);
 		editBtn.getItems().addAll(undoItem, redoItem);
@@ -258,7 +278,10 @@ public class DrawApp extends Screen {
 			gc.drawImage(GrayscaleImage(canvas), 0, 0);
 		});
 	}
-	
+
+	/**
+	 * Initialisation of JavaFX components on the Toolbar
+	 */
 	private void SetupToolbar() {
 		paintBrushBtn.setToggleGroup(tools);
 		paintBrushBtn.setSelected(true);
@@ -273,6 +296,10 @@ public class DrawApp extends Screen {
 		shapeSelector.setValue("Rectangle");
 	}
 	
+
+	/**
+	 * Initialisation of JavaFX components for the layout
+	 */
 	private void SetupLayout() {
 		controlHeader.setPrefWidth(1280);
 		controlHeader.getChildren().addAll(fileBtn, editBtn, viewBtn, toolsBtn);
