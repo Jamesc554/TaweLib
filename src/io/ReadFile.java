@@ -10,6 +10,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import resources.Resource;
+import user.User;
+import utils.Queue;
+
 /**
  * @author Samuel Jankinson
  */
@@ -48,18 +52,22 @@ public class ReadFile extends IO{
 				user.add((String) object.get("accountBalance"));
 				
 				resourceArray = (JSONArray) object.get("resourceBorrow");
-				String resourceBorrow = "";
-				for (Object resource : resourceArray) {
-					String stringResource = (String) resource;
-					resourceBorrow = resourceBorrow + stringResource + ",";
+				String resourceBorrow = null;
+				if (resourceArray != null) {
+					for (Object resource : resourceArray) {
+						String stringResource = (String) resource;
+						resourceBorrow = resourceBorrow + stringResource + ",";
+					}
 				}
 				user.add(resourceBorrow);
 				
 				transactionArray = (JSONArray) object.get("transactionHistory");
-				String transactionHistory = "";
-				for (Object transaction : transactionArray) {
-					String stringTransaction = (String) transaction;
-					transactionHistory = transactionHistory + transaction + ",";
+				String transactionHistory = null;
+				if (transactionArray != null) {
+					for (Object transaction : transactionArray) {
+						String stringTransaction = (String) transaction;
+						transactionHistory = transactionHistory + stringTransaction + ",";
+					}
 				}
 				user.add(transactionHistory);
 				
