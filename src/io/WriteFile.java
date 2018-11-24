@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import resources.Book;
 import resources.Resource;
 import user.User;
+import utils.Queue;
 
 /**
  * @author Samuel Jankinson
@@ -58,6 +59,8 @@ public class WriteFile extends IO {
 	public static void writeBook(Book book) {
     	JSONObject object = new JSONObject();
     	JSONArray languageArray = new JSONArray();
+    	JSONArray bookQueueArray = new JSONArray();
+    	JSONArray listOfCopiesArray = new JSONArray();
     	object.put("year", book.getYear());
     	object.put("title", book.getTitle());
     	object.put("thumbnailImg", book.getThumbnailImageRef());
@@ -72,10 +75,18 @@ public class WriteFile extends IO {
     	}
     	object.put("languages", languageArray);
     	
-    	// Needed to be added (see below) - not currently stored yet.
-    	// QueueOfReservations
-    	// Map of copies
-    	// Map of borrowHistory
+    	Queue<User> bookQueue = book.getQueueOfReservations();
+    	while(!bookQueue.isEmpty()) {
+    		bookQueueArray.add(bookQueue.peek().getUserName());
+    		bookQueue.dequeue();
+    	}
+    	object.put("bookQueue", bookQueueArray);
+    	
+    	for (String copies : book.getArrayListOfCopies()) {
+    		listOfCopiesArray.add(copies);
+    	}
+    	object.put("listOfCopies", listOfCopiesArray);
+    	
     	try {
     		FileWriter file = new FileWriter(IO.getResourceFilePath(), true);
 			file.write(object.toJSONString() + "\n");
