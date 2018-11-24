@@ -52,7 +52,7 @@ public class ReadFile extends IO{
 				user.add((String) object.get("accountBalance"));
 				
 				resourceArray = (JSONArray) object.get("resourceBorrow");
-				String resourceBorrow = null;
+				String resourceBorrow = "";
 				if (resourceArray != null) {
 					for (Object resource : resourceArray) {
 						String stringResource = (String) resource;
@@ -62,7 +62,7 @@ public class ReadFile extends IO{
 				user.add(resourceBorrow);
 				
 				transactionArray = (JSONArray) object.get("transactionHistory");
-				String transactionHistory = null;
+				String transactionHistory = "";
 				if (transactionArray != null) {
 					for (Object transaction : transactionArray) {
 						String stringTransaction = (String) transaction;
@@ -90,8 +90,75 @@ public class ReadFile extends IO{
 		return userList;
 	}
 	
-	public static String readBooks() {
-		return "";
+	public static ArrayList<ArrayList> readBooks() {
+		JSONParser parser = new JSONParser();
+		JSONArray languageArray = new JSONArray();
+    	JSONArray bookQueueArray = new JSONArray();
+    	JSONArray listOfCopiesArray = new JSONArray();
+    	ArrayList<ArrayList> bookList = new ArrayList<ArrayList>();
+    	
+    	try {
+			file = new FileReader(IO.getResourceFilePath());
+			reader = new BufferedReader(file);
+			
+			while((currentLine = reader.readLine()) != null) {
+				JSONObject object = (JSONObject) parser.parse(currentLine);
+				ArrayList<String> book = new ArrayList<String>();
+				book.add((String) object.get("year"));
+				book.add((String) object.get("title"));
+				book.add((String) object.get("thumbnailImg"));
+				book.add((String) object.get("uniqueID"));
+				book.add((String) object.get("author"));
+				book.add((String) object.get("genre"));
+				book.add((String) object.get("isbn"));
+				book.add((String) object.get("publisher"));
+				
+				languageArray = (JSONArray) object.get("languages");
+				String languages = "";
+				if (languageArray != null) {
+					for (Object language : languageArray) {
+						String stringLanguage = (String) language;
+						languages = languages + stringLanguage + ",";
+					}
+				}
+				book.add(languages);
+				
+				bookQueueArray = (JSONArray) object.get("bookQueue");
+				String bookQueues = "";
+				if (bookQueueArray != null) {
+					for (Object bookQueue : bookQueueArray) {
+						String stringBookQueue = (String) bookQueue;
+						bookQueues = bookQueues + stringBookQueue + ",";
+					}
+				}
+				book.add(bookQueues);
+				
+				listOfCopiesArray = (JSONArray) object.get("resourceBorrow");
+				String listOfCopies = "";
+				if (listOfCopiesArray != null) {
+					for (Object copie : listOfCopiesArray) {
+						String stringCopie = (String) copie;
+						listOfCopies = listOfCopies + stringCopie + ",";
+					}
+				}
+				book.add(listOfCopies);
+				
+				bookList.add(book);
+			}
+			
+			reader.close();
+			file.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot find " + IO.getResourceFilePath());
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("ERROR reading file " + IO.getResourceFilePath());
+			e.printStackTrace();
+		} catch (ParseException e) {
+			System.out.println("ERROR parsing users JSON");
+			e.printStackTrace();
+		}
+    	return bookList;
 	}
 	
 	public static String readDvds() {

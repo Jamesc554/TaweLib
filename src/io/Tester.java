@@ -23,5 +23,6 @@ public class Tester {
 		WriteFile.writeUsers(user2);
 		WriteFile.writeBook(book1);
 		System.out.println(ReadFile.readUsers());
+		System.out.println(ReadFile.readBooks());
 	}
 }
