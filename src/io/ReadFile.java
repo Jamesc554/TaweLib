@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -26,6 +27,8 @@ public class ReadFile extends IO{
 	@SuppressWarnings("rawtypes")
 	public static ArrayList<ArrayList> readUsers() {
 		JSONParser parser = new JSONParser();
+		JSONArray resourceArray = new JSONArray();
+		JSONArray transactionArray = new JSONArray();
 		ArrayList<ArrayList> userList = new ArrayList<ArrayList>();
 		try {
 			file = new FileReader(IO.getUsersFilePath());
@@ -43,6 +46,23 @@ public class ReadFile extends IO{
 				user.add((String) object.get("townName"));
 				user.add((String) object.get("imageAddress"));
 				user.add((String) object.get("accountBalance"));
+				
+				resourceArray = (JSONArray) object.get("resourceBorrow");
+				String resourceBorrow = "";
+				for (Object resource : resourceArray) {
+					String stringResource = (String) resource;
+					resourceBorrow = resourceBorrow + stringResource + ",";
+				}
+				user.add(resourceBorrow);
+				
+				transactionArray = (JSONArray) object.get("transactionHistory");
+				String transactionHistory = "";
+				for (Object transaction : transactionArray) {
+					String stringTransaction = (String) transaction;
+					transactionHistory = transactionHistory + transaction + ",";
+				}
+				user.add(transactionHistory);
+				
 				userList.add(user);
 			}
 			
@@ -62,7 +82,15 @@ public class ReadFile extends IO{
 		return userList;
 	}
 	
-	public static String readResources() {
+	public static String readBooks() {
+		return "";
+	}
+	
+	public static String readDvds() {
+		return "";
+	}
+	
+	public static String readLaptops() {
 		return "";
 	}
 	
