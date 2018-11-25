@@ -7,7 +7,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import resources.Book;
+import resources.Resource;
 import user.User;
+import utils.Queue;
 
 /**
  * @author Samuel Jankinson
@@ -18,6 +20,8 @@ public class WriteFile extends IO {
 	// will add borrow history etc after discussed with meeting.
 	public static void writeUsers(User user) {
 		JSONObject object = new JSONObject();
+		JSONArray resourceArray = new JSONArray();
+		JSONArray transactionArray = new JSONArray();
 		object.put("username", user.getUserName());
 		object.put("firstName", user.getFirstName());
 		object.put("lastName", user.getLastName());
@@ -28,6 +32,19 @@ public class WriteFile extends IO {
 		object.put("townName", user.getTownName());
 		object.put("imageAddress", user.getProfImage());
 		object.put("accountBalance", user.getAccountBalance());
+		
+		for (Object resource : user.getAllResources()) {
+			resourceArray.add(((Resource) resource).getUniqueID());
+		}
+		object.put("resourceBorrow", resourceArray);
+		
+		ArrayList<String[]> test = user.getTransactions();
+		for (String[] transaction : test) {
+			transactionArray.add(transaction[0]);
+			transactionArray.add(transaction[1]);
+		}
+		object.put("transactionHistory", transactionArray);
+		
 		try {
 			FileWriter file = new FileWriter(IO.getUsersFilePath(), true);
 			file.write(object.toJSONString() + "\n");
@@ -42,6 +59,8 @@ public class WriteFile extends IO {
 	public static void writeBook(Book book) {
     	JSONObject object = new JSONObject();
     	JSONArray languageArray = new JSONArray();
+    	JSONArray bookQueueArray = new JSONArray();
+    	JSONArray listOfCopiesArray = new JSONArray();
     	object.put("year", book.getYear());
     	object.put("title", book.getTitle());
     	object.put("thumbnailImg", book.getThumbnailImageRef());
@@ -54,12 +73,20 @@ public class WriteFile extends IO {
     	for (String language : book.getLanguages()) {
     		languageArray.add(language);
     	}
-    	
     	object.put("languages", languageArray);
-    	// Needed to be added (see below) - not currently stored yet.
-    	// QueueOfReservations
-    	// Map of copies
-    	// Map of borrowHistory
+    	
+    	Queue<User> bookQueue = book.getQueueOfReservations();
+    	while(!bookQueue.isEmpty()) {
+    		bookQueueArray.add(bookQueue.peek().getUserName());
+    		bookQueue.dequeue();
+    	}
+    	object.put("bookQueue", bookQueueArray);
+    	
+    	for (String copies : book.getArrayListOfCopies()) {
+    		listOfCopiesArray.add(copies);
+    	}
+    	object.put("listOfCopies", listOfCopiesArray);
+    	
     	try {
     		FileWriter file = new FileWriter(IO.getResourceFilePath(), true);
 			file.write(object.toJSONString() + "\n");

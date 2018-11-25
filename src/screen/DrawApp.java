@@ -195,7 +195,6 @@ public class DrawApp extends Screen {
 	 * The event object
 	 */
 	private void CanvasMouseReleased(MouseEvent mouse) {
-		addPreviousState(canvas);
 		if (paintBrushBtn.isSelected()) {
 			gc.strokeOval(mouse.getX(), mouse.getY(), (double) brushSize.getValueFactory().getValue(),
 					(double) brushSize.getValueFactory().getValue());
@@ -257,11 +256,9 @@ public class DrawApp extends Screen {
 		// Edit Functions \\
 		undoItem.setOnAction(e -> {
 			undo(canvas);
-			undo(canvas);
 		});
 
 		redoItem.setOnAction(e -> {
-			redo(canvas);
 			redo(canvas);
 		});
 		
@@ -339,17 +336,18 @@ public class DrawApp extends Screen {
 	}
 
 	private void undo(Canvas c) {
+		// Check if there are any actions to undo
 		if (!previousStates.isEmpty()) {
-			futureStates.push(previousStates.peek());
-			prevState = previousStates.peek();
+			addFutureState(c);
+			prevState = convertToImage(c);
 			c.getGraphicsContext2D().drawImage(previousStates.pop(), 0, 0);
 		}
 	}
 
 	private void redo(Canvas c) {
 		if (!futureStates.isEmpty()) {
-			previousStates.push(futureStates.peek());
-			prevState = futureStates.peek();
+			addPreviousState(c);
+			prevState = convertToImage(c);
 			c.getGraphicsContext2D().drawImage(futureStates.pop(), 0, 0);
 		}
 	}
@@ -364,6 +362,7 @@ public class DrawApp extends Screen {
 	}
 
 	private WritableImage floodFill(int x, int y, Color startC, Color newC, WritableImage img) {
+		// Get the Pixel Reader and Writer from the canvas so we can read and write to the image directly
 		PixelReader pr = img.getPixelReader();
 		PixelWriter pw = img.getPixelWriter();
 
@@ -434,6 +433,9 @@ public class DrawApp extends Screen {
 		return img;
 	}
 
+	/*
+	 * Temporary function, going to be fully implemented in WriteFile
+	 */
 	private void saveImage(Canvas c) {
 		WritableImage img = convertToImage(c);
 		File file = new File("./data/images/test.png");
@@ -446,10 +448,12 @@ public class DrawApp extends Screen {
 	}
 	
 	private WritableImage InvertImage(Canvas c) {
+		// Get the canvas and convert it to a Writable image so you can read and write directly to the pixels
 		WritableImage tmpImg = convertToImage(c);
 		PixelReader pr = tmpImg.getPixelReader();
 		PixelWriter pw = tmpImg.getPixelWriter();
 		
+		// Loop over every pixel and invert its colour
 		for (int x = 0; x < c.getWidth(); x++) {
 			for (int y = 0; y < c.getHeight(); y++) {
 				pw.setColor(x, y, pr.getColor(x, y).invert());
@@ -460,10 +464,12 @@ public class DrawApp extends Screen {
 	}
 	
 	private WritableImage GrayscaleImage(Canvas c) {
+		// Get the canvas and convert it to a Writable image so you can read and write directly to the pixels
 		WritableImage tmpImg = convertToImage(c);
 		PixelReader pr = tmpImg.getPixelReader();
 		PixelWriter pw = tmpImg.getPixelWriter();
 		
+		// Loop over every pixel and convert its colour to grayscale
 		for (int x = 0; x < c.getWidth(); x++) {
 			for (int y = 0; y < c.getHeight(); y++) {
 				pw.setColor(x, y, pr.getColor(x, y).grayscale());
