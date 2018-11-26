@@ -248,7 +248,7 @@ public class User {
 	 * Adds a resource to users current loan.
 	 * @param id The resource to be added to the current borrow.
 	 */
-    public void addResource(String id){
+    public void loanResource(String id){
     	this.resourceCurrentlyBorrowed.add(id);
     	addResourceToHistory(id);
     }
@@ -257,7 +257,7 @@ public class User {
     	String[] data = new String[3];
     	data[0] = getCurrentDate();
     	data[1] = resourceID;
-    	data[2] = "";
+    	data[2] = "Currently Out ";
     	borrowHistory.add(data);
 	}
 

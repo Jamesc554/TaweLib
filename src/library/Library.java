@@ -65,7 +65,7 @@ public class Library {
 
 	}
 	public static void loanResource(String username, String resourceID){
-		getUser(username).addResource(resourceID);
+		getUser(username).loanResource(resourceID);
 	}
 	public static void returnResource(String username, String resourceID){
 		getUser(username).returnResource(resourceID);
