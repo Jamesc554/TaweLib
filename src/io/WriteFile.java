@@ -1,4 +1,5 @@
 package io;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,6 +8,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import resources.Book;
+import resources.DVD;
+import resources.Laptop;
 import resources.Resource;
 import user.User;
 import utils.Queue;
@@ -98,11 +101,11 @@ public class WriteFile extends IO {
 	}
     
     // will be changed to Dvd dvd and Laptop laptop when those classes are added to git.
-    public static void writeDvd(Book book) {
+    public static void writeDvd(DVD dvd) {
 		
 	}
     
-    public static void writeLaptop(Book book) {
+    public static void writeLaptop(Laptop Laptop) {
 		
 	}
     
@@ -119,14 +122,35 @@ public class WriteFile extends IO {
     }
     
     public static void overwriteUsers(ArrayList<User> users) {
+    	File usersFile = new File(IO.getUsersFilePath());
+    	
+    	if(usersFile.exists()) {
+    		usersFile.delete();
+    	}
+    	
     	for (User user : users) {
-    		
+    		writeUser(user);
     	}
     }
     
-    // Will be changed to laptop and dvd when those classes are added to git.
-    public static void overwriteResources(ArrayList<Book> book, ArrayList<Book> dvd, ArrayList<Book> laptop) {
+    public static void overwriteResources(ArrayList<Book> books, ArrayList<DVD> dvds, ArrayList<Laptop> laptops) {
+    	File resourceFile = new File(IO.getResourceFilePath());
     	
+    	if(resourceFile.exists()) {
+    		resourceFile.delete();
+    	}
+    	
+    	for(Book book : books) {
+    		writeBook(book);
+    	}
+    	
+    	for(DVD dvd : dvds) {
+    		writeDvd(dvd);
+    	}
+
+    	for(Laptop laptop : laptops) {
+    		writeLaptop(laptop);
+    	}
     }
     
     public static void overwriteOutData(String outData) {
