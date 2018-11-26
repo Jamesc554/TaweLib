@@ -165,8 +165,13 @@ public class WriteFile extends IO {
     	
     }
     
-    public static void fullWrite(String usersData, String resourceData, String outData, String bookQueueData, String statsDate, String transactionData) {
+    /*public static void fullWrite(String usersData, String resourceData, String outData, String bookQueueData, String statsDate, String transactionData) {
     	
+    }*/
+    
+    public static void fullWrite(ArrayList<User> users, ArrayList<Book> books, ArrayList<DVD> dvds, ArrayList<Laptop> laptops, String outData, String bookQueueData, String statsDate, String transactionData) {
+    	overwriteUsers(users);
+    	overwriteResources(books, dvds, laptops);
     }
     
     public static void backupCurrent() {
