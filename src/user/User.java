@@ -257,6 +257,7 @@ public class User {
     	String[] data = new String[3];
     	data[0] = getCurrentDate();
     	data[1] = resourceID;
+    	data[2] = "";
     	borrowHistory.add(data);
 	}
 
@@ -282,17 +283,26 @@ public class User {
         transactionHistory.add(data);
     }
     public void returnResource(String resourceID){
-		resourceCurrentlyBorrowed.remove(resourceID);
-
+		int j = 0;
 		Boolean done = false;
-		int i = this.transactionHistory.size()-1;
-		while(!done && i >= 0){
-			String[] data = transactionHistory.get(i);
-			if (data[1].equals(resourceID)){
-				data[2] = getCurrentDate();
-				transactionHistory.add(i, data);
+		while(j >= this.resourceCurrentlyBorrowed.size()-1 && !done){
+			if(this.resourceCurrentlyBorrowed.get(j).equals(resourceID)){
+				this.resourceCurrentlyBorrowed.remove(j);
 				done = true;
 			}
+			j++;
+		}
+		done = false;
+		int i = this.borrowHistory.size()-1;
+		while(!done && i >= 0){
+			String[] data = borrowHistory.get(i);
+			if (data[1].equals(resourceID)){
+				data[2] = getCurrentDate();
+				borrowHistory.remove(i);
+				borrowHistory.add(i, data);
+				done = true;
+			}
+			i--;
 		}
 	}
 
