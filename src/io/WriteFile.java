@@ -15,6 +15,7 @@ import com.sun.javafx.binding.StringFormatter;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.WritableImage;
+import library.Library;
 import resources.Book;
 import resources.DVD;
 import resources.Laptop;
@@ -194,7 +195,7 @@ public class WriteFile extends IO {
     public static void saveImageToUser(WritableImage img, String fileName) {
     	// TODO: Change to get currently logged in username
     	
-    	String currentUserName = "testUser"; // Change to get the username of the currently logged in user
+    	String currentUserName = Library.getCurrentLoggedInUser(); // Change to get the username of the currently logged in user
     	String directoryPath = ("./data/images/" + currentUserName);
     	String filePath = (directoryPath + "/" + fileName + ".png");
     	

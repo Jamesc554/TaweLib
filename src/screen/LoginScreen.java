@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import library.Library;
 
 public class LoginScreen extends Screen{
 	
@@ -25,7 +27,14 @@ public class LoginScreen extends Screen{
 
 	@FXML
 	private void login(Event event) {
-		ScreenManager.changeScreen(new DrawApp());
+		// TODO: remove test username once readAllUsers is finished
+		if (Library.checkForUser(usernameTextField.getText()) || usernameTextField.getText().equals("james") || usernameTextField.getText().equals("jhonny")) {
+			Library.setLoggedInUser(usernameTextField.getText());
+			ScreenManager.changeScreen(new DrawApp());
+		} else {
+			statusLabel.setText("Username is invalid!");
+			statusLabel.setTextFill(Color.RED);
+		}
 	}
 
 	@Override
