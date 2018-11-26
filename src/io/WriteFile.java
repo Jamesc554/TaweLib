@@ -179,9 +179,9 @@ public class WriteFile extends IO {
     	File currentFile = null;
     	
     	currentFile = new File(IO.getUsersFilePath());
-    	currentFile.renameTo(new File(newFilePath + "/users.json"));
+    	currentFile.renameTo(new File("./data/backup/" + newFilePath + "/users.json"));
     	
     	currentFile = new File(IO.getResourceFilePath());
-    	currentFile.renameTo(new File(newFilePath + "/resources.json"));
+    	currentFile.renameTo(new File("./data/backup/" + newFilePath + "/resources.json"));
     }
 }
