@@ -106,5 +106,14 @@ public class LibraryResources {
 			default:
 				break;
 		}
+
+	}
+	protected void removeUser(String username){
+        for(int index = 0; index < listOfUsers.size(); index++) {
+            if (listOfUsers.get(index).getUserName().equals(username)) {
+                listOfUsers.remove(index);
+                break;
+            }
+        }
 	}
 }

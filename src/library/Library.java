@@ -11,7 +11,7 @@ import java.util.Date;
 public class Library {
 	private LibraryResources libraryResources = new LibraryResources();
 
-	Library(){ };
+	Library(){ }
 
 	public void addBook(String year,String title, String thumbnailImg, String uniqueID,
 						   String author, String genre, String isbn, String publisher, ArrayList<String> lang){
@@ -70,23 +70,27 @@ public class Library {
 	public void returnResource(String username, String resourceID){
 		getUser(username).returnResource(resourceID);
 	}
-	public void removeResource(String id){}
-	public void removeUser(String username){}
+	public void removeResource(String id){
+        libraryResources.removeResource(id);
+    }
+	public void removeUser(String username){
+	    libraryResources.removeUser(username);
+	}
 	public void shutDown(){}
 	public Boolean checkForUser(){
 		return null; //placeholder
 	}
 	public ArrayList<Book> getAllBooks(){
-		return null; //placeholder
+		return libraryResources.getListOfBooks();
 	}
 	public ArrayList<Laptop> getAllLaptops(){
-		return null; //placeholder}
+		return libraryResources.getListOfLaptops();
 	}
 	public ArrayList<DVD> getAllDVD(){
-		return null; //placeholder
+		return libraryResources.getListOfDVD();
 	}
 	public ArrayList<User> getAllUsers(){
-		return null; //placeholder
+		return libraryResources.getAllUsers();
 	}
 	public void changeAddress(String username, String firstLine, String secondLine){}
 	public void changePoctCode(String username, String postCode){}
