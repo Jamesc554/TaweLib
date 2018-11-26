@@ -18,7 +18,7 @@ import utils.Queue;
 public class WriteFile extends IO {
 	@SuppressWarnings({ "unchecked" })
 	// will add borrow history etc after discussed with meeting.
-	public static void writeUsers(User user) {
+	public static void writeUser(User user) {
 		JSONObject object = new JSONObject();
 		JSONArray resourceArray = new JSONArray();
 		JSONArray transactionArray = new JSONArray();
@@ -33,7 +33,7 @@ public class WriteFile extends IO {
 		object.put("imageAddress", user.getProfImage());
 		object.put("accountBalance", user.getAccountBalance());
 		
-		for (Object resource : user.getAllResources()) {
+		for (Object resource : user.getCurrentlyBorrowedResources()) {
 			resourceArray.add(((Resource) resource).getUniqueID());
 		}
 		object.put("resourceBorrow", resourceArray);
@@ -118,8 +118,10 @@ public class WriteFile extends IO {
 	
     }
     
-    public static void overwriteUsers(ArrayList<User> user) {
-    	
+    public static void overwriteUsers(ArrayList<User> users) {
+    	for (User user : users) {
+    		
+    	}
     }
     
     // Will be changed to laptop and dvd when those classes are added to git.

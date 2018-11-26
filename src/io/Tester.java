@@ -19,8 +19,8 @@ public class Tester {
 		languages.add("Spanish");
 		languages.add("French");
 		Book book1 = new Book("1999", "The Great Book", "/img/bookimg.jpg", "430594", "Sam L Jackson", "Horror", "isbn-2349-4399", "Google", languages);
-		WriteFile.writeUsers(user1);
-		WriteFile.writeUsers(user2);
+		WriteFile.writeUser(user1);
+		WriteFile.writeUser(user2);
 		WriteFile.writeBook(book1);
 		System.out.println(ReadFile.readUsers());
 		System.out.println(ReadFile.readBooks());
