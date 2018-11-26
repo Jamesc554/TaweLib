@@ -18,9 +18,10 @@ import java.util.Stack;
 public class ScreenManager {
 
     private static Stack<Screen> loadedScreens = new Stack<>();
-    private static Stage stage;
+    private static Scene scene;
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
+    private static Stage stage;
 
     public static void main(String[] args){
        // launch(args);
@@ -31,10 +32,9 @@ public class ScreenManager {
      * @param primaryStage
      */
     
-    public void start(Stage primaryStage) {
+    public static void start(Stage primaryStage) {
         stage = primaryStage;
-        stage.setTitle("SEGroup2 - Software Engineering Project");
-        changeScreen(new TestScreen());
+        changeScreen(new LoginScreen());
     }
 
     /**
@@ -74,7 +74,12 @@ public class ScreenManager {
         StackPane root = new StackPane();
         if (getCurrentScreen().getComponents() != null)
         	root.getChildren().addAll(getCurrentScreen().getComponents());
-        stage.setScene(new Scene(root, WIDTH, HEIGHT));
+        scene = new Scene(root, WIDTH, HEIGHT);
+        stage.setScene(scene);
         stage.show();
     }
+
+	public static Scene getCurrentScene() {
+		return scene;
+	}
 }
