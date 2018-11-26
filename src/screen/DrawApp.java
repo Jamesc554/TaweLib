@@ -1,14 +1,10 @@
 package screen;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Stack;
 
-import javax.imageio.ImageIO;
-
-import javafx.embed.swing.SwingFXUtils;
-import javafx.event.Event;
+import io.WriteFile;
 import javafx.geometry.Pos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -438,13 +434,7 @@ public class DrawApp extends Screen {
 	 */
 	private void saveImage(Canvas c) {
 		WritableImage img = convertToImage(c);
-		File file = new File("./data/images/test.png");
-
-		try {
-			ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		WriteFile.saveImageToUser(img, "testImg" + new Random().nextInt(1000));
 	}
 	
 	private WritableImage InvertImage(Canvas c) {

@@ -6,9 +6,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.sun.javafx.binding.StringFormatter;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.WritableImage;
 import resources.Book;
 import resources.DVD;
 import resources.Laptop;
@@ -183,5 +189,23 @@ public class WriteFile extends IO {
     	
     	currentFile = new File(IO.getResourceFilePath());
     	currentFile.renameTo(new File("./data/backup/" + newFilePath + "/resources.json"));
+    }
+    
+    public static void saveImageToUser(WritableImage img, String fileName) {
+    	// TODO: Change to get currently logged in username
+    	
+    	String currentUserName = "testUser"; // Change to get the username of the currently logged in user
+    	String directoryPath = ("./data/images/" + currentUserName);
+    	String filePath = (directoryPath + "/" + fileName + ".png");
+    	
+    	new File(directoryPath).mkdirs();
+    	File file = new File(filePath);
+    	
+    	try {
+			ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+  
     }
 }
