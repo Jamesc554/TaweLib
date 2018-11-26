@@ -65,21 +65,28 @@ public class ScreenManager {
      * The new Screen
      */
     public static void changeScreen(Screen screen){
-        screen.start();
         loadedScreens.push(screen);
         setupScreen();
     }
 
     private static void setupScreen(){
-        StackPane root = new StackPane();
-        if (getCurrentScreen().getComponents() != null)
+    	getCurrentScreen().start();
+    	
+        if (getCurrentScreen().getComponents() != null) {
+            StackPane root = new StackPane();
         	root.getChildren().addAll(getCurrentScreen().getComponents());
-        scene = new Scene(root, WIDTH, HEIGHT);
+	        scene = new Scene(root, WIDTH, HEIGHT);
+        }
+        
         stage.setScene(scene);
         stage.show();
     }
 
 	public static Scene getCurrentScene() {
 		return scene;
+	}
+	
+	public static void setCurrentScene(Scene newScene) {
+		scene = newScene;
 	}
 }

@@ -191,9 +191,7 @@ public class WriteFile extends IO {
     }
     
     public static void saveImageToUser(WritableImage img, String fileName) {
-    	// TODO: Change to get currently logged in username
-    	
-    	String currentUserName = Library.getCurrentLoggedInUser(); // Change to get the username of the currently logged in user
+    	String currentUserName = Library.getCurrentLoggedInUser().getUserName();
     	String directoryPath = ("./data/images/" + currentUserName);
     	String filePath = (directoryPath + "/" + fileName + ".png");
     	

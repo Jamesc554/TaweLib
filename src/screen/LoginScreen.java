@@ -29,8 +29,8 @@ public class LoginScreen extends Screen{
 	private void login(Event event) {
 		// TODO: remove test username once readAllUsers is finished
 		if (Library.checkForUser(usernameTextField.getText()) || usernameTextField.getText().equals("james") || usernameTextField.getText().equals("jhonny")) {
-			Library.setLoggedInUser(usernameTextField.getText());
-			ScreenManager.changeScreen(new DrawApp());
+			Library.setLoggedInUser(Library.getUser(usernameTextField.getText()));
+			ScreenManager.changeScreen(new HomeScreen());
 		} else {
 			statusLabel.setText("Username is invalid!");
 			statusLabel.setTextFill(Color.RED);
@@ -42,8 +42,7 @@ public class LoginScreen extends Screen{
 		Pane root;
 		try {
 			root = FXMLLoader.load(getClass().getResource("fxml/LoginScreen.fxml"));
-	        
-	        components = root.getChildren();
+			ScreenManager.setCurrentScene(new Scene(root, 1280, 720));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

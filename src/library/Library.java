@@ -9,7 +9,7 @@ import java.util.Date;
 
 
 public class Library {
-	private static String currentUser;
+	private static User currentUser;
 
 	public static void start(){
 		LibraryResources.start();
@@ -98,11 +98,11 @@ public class Library {
 	}
 
 	// TODO: CHANGE FROM STRING TO USER ONCE IMPLEMENTED
-	public static void setLoggedInUser(String username) {
-		currentUser = username;
+	public static void setLoggedInUser(User user) {
+		currentUser = user;
 	}
 
-	public static String getCurrentLoggedInUser() {
+	public static User getCurrentLoggedInUser() {
 		return currentUser;
 	}
 

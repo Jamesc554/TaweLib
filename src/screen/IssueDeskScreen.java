@@ -5,7 +5,7 @@ package screen;
  * @author Etienne Badoche
  * @version 1.0
  */
-public class IssueDesk extends Screen {
+public class IssueDeskScreen extends Screen {
 
     @Override
     public void start() {
