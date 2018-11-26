@@ -15,7 +15,7 @@ import java.util.Stack;
  * @version 0.1
  * @since 11/11/2018
  */
-public class ScreenManager extends Application {
+public class ScreenManager {
 
     private static Stack<Screen> loadedScreens = new Stack<>();
     private static Stage stage;
@@ -23,14 +23,14 @@ public class ScreenManager extends Application {
     private static final int HEIGHT = 720;
 
     public static void main(String[] args){
-        launch(args);
+       // launch(args);
     }
 
     /**
      * Inherited from Application, entry point for the JavaFX App
      * @param primaryStage
      */
-    @Override
+    
     public void start(Stage primaryStage) {
         stage = primaryStage;
         stage.setTitle("SEGroup2 - Software Engineering Project");
