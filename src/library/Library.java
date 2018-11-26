@@ -67,6 +67,9 @@ public class Library {
 	public void loanResource(String username, String resourceID){
 		getUser(username).addResource(resourceID);
 	}
+	public void returnResource(String username, String resourceID){
+		getUser(username).returnResource(resourceID);
+	}
 	public void removeResource(String id){}
 	public void removeUser(String username){}
 	public void shutDown(){}
@@ -92,14 +95,15 @@ public class Library {
 	public void changeLastName(String username, String lastname){}
 	public void changeImage(String username, String path){}
 	public void searchResources(String text){}
-	public String userToString(User u){
+	public String userToString(String username){
+		User u = getUser(username);
 	    String info = u.getUserName()+ "\n";
 	    info += u.getFullName()+"\n"+u.getMobileNumber()+"\n"+u.getFullAddress()+"\n";
 	    info += "Current Balance: "+u.getAccountBalance()+"\n";
 	    info += "Profile Image Path: "+u.getProfImage()+"\n";
 	    info += "Currently Borrowed:\n";
 	    for(Object id : u.getCurrentlyBorrowedResources()){
-            info += getResource((String)id ).getTitle();
+            info += getResource((String)id ).getTitle()+"\n";
         }
 	    info += "Borrow History:\n";
 	    for(String[] data : u.getBorrowHistory()){

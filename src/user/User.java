@@ -281,7 +281,7 @@ public class User {
         String[] data = {getCurrentDate(), String.valueOf(amount), ""};
         transactionHistory.add(data);
     }
-    public void removeResource(String resourceID){
+    public void returnResource(String resourceID){
 		resourceCurrentlyBorrowed.remove(resourceID);
 
 		Boolean done = false;
