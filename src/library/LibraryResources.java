@@ -37,6 +37,19 @@ public class LibraryResources {
 		}
 		return null;
 	}
+	
+	public boolean checkIfValidUsername(String username) {
+		if (listOfUsers.isEmpty())
+			return false;
+		
+		for (User u : listOfUsers) {
+			if (u.getUserName().equals(username))
+				return true;
+		}
+		
+		return false;
+	}
+	
 	protected Book getBook(String id){
 		for(Book b : this.listOfBooks){
 			if(b.getUniqueID().equals(id)){
