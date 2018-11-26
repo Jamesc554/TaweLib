@@ -1,5 +1,6 @@
 package user;
 
+import library.Library;
 import resources.Resource;
 
 import java.lang.reflect.Array;
@@ -21,7 +22,7 @@ public class User {
     protected String secondLineAddress; //Second line of address
     protected String postCode; //Post code
     protected String townName; //Town name
-    protected ArrayList<Resource> resourceBorrow = new ArrayList<>(); //List of currently borrowed books
+    protected ArrayList<String> resourceBorrow = new ArrayList<>(); //List of currently borrowed books
     protected ArrayList<String[]> transactionHistory = new ArrayList<>(); //Transaction History
     protected ArrayList<String[]> borrowHistory = new ArrayList<>(); // Borrow history
     protected Integer accountBalance; //current account balance
@@ -193,10 +194,10 @@ public class User {
 	 * @return Resource object representing resource with ID, returns null if unique ID does not match
 	 * any item in the list.
 	 */
-    public Resource getResource(String resourceID){
-        for (Resource resourceObj : this.resourceBorrow){
-            if (resourceObj.getUniqueID().equals(resourceID)){
-                return resourceObj;
+    public String getResource(String resourceID){
+        for (String id : this.resourceBorrow){
+            if (id.equals(resourceID)){
+                return id;
             }
         }
         return null;
@@ -245,11 +246,19 @@ public class User {
 
 	/**
 	 * Adds a resource to users current loan.
-	 * @param resource The resource to be added to the current borrow.
+	 * @param id The resource to be added to the current borrow.
 	 */
-    public void addResource(Resource resource){this.resourceBorrow.add(resource);}
+    public void addResource(String id){
+    	this.resourceBorrow.add(id);
+    	addResourceToHistory(id);
+    }
     //Not used as we do not collect stats
-    protected void addResourceToHistory(String resourceID){}
+    protected void addResourceToHistory(String resourceID){
+    	String[] data = new String[3];
+    	data[0] = getCurrentDate();
+    	data[1] = resourceID;
+    	borrowHistory.add(data);
+	}
 
 	/**
 	 * Add balance to the account.
@@ -268,35 +277,31 @@ public class User {
 	 * @param amount
 	 */
 	protected void addTransaction(int amount){
-		//Computes current system date
-        SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String dateString = dataFormat.format(new Date());
-
-        String[] data = {dateString, String.valueOf(amount)};
-
+		//Computes current system data
+        String[] data = {getCurrentDate(), String.valueOf(amount)};
         transactionHistory.add(data);
     }
-    public void removeResource(String resourceID){}
+    public void removeResource(String resourceID){
+		resourceBorrow.remove(resourceID);
 
-	/**
-	 * This methods returns all user information formatted for ease of debugging.
-	 * @return String of Info of user.
-	 */
-    public String toString(){
-        String names = "";
-        for (Resource re : resourceBorrow){
-            names = names + re.getTitle() + "\n";
-        }
-        String transInfo = "";
-        for (String[] a : transactionHistory){
-            transInfo = transInfo + a[0] + " " +a[1]+"\n";
-        }
-        return  "Username: "+ getUserName() + "\n"
-                +"Name: " + getFirstName() + " " + getLastName() + "\n"
-                +"Mobile Number: " +getMobileNumber() + "\n"
-                +"Address:\n" + getFullAddress() + "\n"
-                +"Currently Borrowed:\n"+ names
-                +"Transaction History: \n" + transInfo
-                +"Account balance: "+ getAccountBalance()+"\n";
-    }
+		Boolean done = false;
+		int i = this.transactionHistory.size()-1;
+		while(!done && i >= 0){
+			String[] data = transactionHistory.get(i);
+			if (data[1].equals(resourceID)){
+				data[2] = getCurrentDate();
+				transactionHistory.add(i, data);
+				done = true;
+			}
+		}
+	}
+
+	public ArrayList<String[]> getBorrowHistory(){
+		return this.borrowHistory;
+	}
+
+    private String getCurrentDate(){
+		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		return dataFormat.format(new Date());
+	}
 }
