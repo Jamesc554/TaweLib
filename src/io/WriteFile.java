@@ -41,7 +41,7 @@ public class WriteFile extends IO {
 		object.put("postCode", user.getPostCode());
 		object.put("townName", user.getTownName());
 		object.put("imageAddress", user.getProfImage());
-		object.put("accountBalance", user.getAccountBalance());
+		object.put("accountBalance", String.valueOf(user.getIntegerAccountBalance()));
 		
 		for (Object resource : user.getCurrentlyBorrowedResources()) {
 			resourceArray.add(((Resource) resource).getUniqueID());

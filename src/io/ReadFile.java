@@ -28,7 +28,6 @@ public class ReadFile extends IO{
 	}
 	
 	// When users class is done it will return an arraylist of user objects.
-	@SuppressWarnings("rawtypes")
 	public static ArrayList<User> readUsers() {
 		JSONParser parser = new JSONParser();
 		JSONArray resourceArray = new JSONArray();
@@ -47,7 +46,7 @@ public class ReadFile extends IO{
 						(String)object.get("secondLineAddress"),
 						(String)object.get("postCode"),
 						(String)object.get("townName"),
-						(int)object.get("accountBalance"),
+						Integer.parseInt((String) object.get("accountBalance")),
 						(String)object.get("imageAddress"));
 				
 				resourceArray = (JSONArray) object.get("resourceBorrow");
