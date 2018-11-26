@@ -107,7 +107,7 @@ public class Library {
         }
 	    info += "Borrow History:\n";
 	    for(String[] data : u.getBorrowHistory()){
-	        info += data[0] + data[1] + data[2] + "\n";
+	        info += data[0] +" "+ getResource(data[1]).getTitle() +" "+ data[2] + "\n";
         }
 	return info;
     }
