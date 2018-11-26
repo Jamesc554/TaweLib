@@ -89,7 +89,7 @@ public class LibraryResources {
 	public static ArrayList<Laptop> getListOfLaptops() {
 		return listOfLaptops;
 	}
-	protected static void removeResource(String id){
+	public static void removeResource(String id){
 		String dataType = id.substring(0,1);
 		switch (dataType.toLowerCase()){
 			case "b":
@@ -121,7 +121,7 @@ public class LibraryResources {
 		}
 
 	}
-	protected static void removeUser(String username){
+	public static void removeUser(String username){
         for(int index = 0; index < listOfUsers.size(); index++) {
             if (listOfUsers.get(index).getUserName().equals(username)) {
                 listOfUsers.remove(index);
