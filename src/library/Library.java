@@ -13,28 +13,29 @@ public class Library {
 
 	Library(){ };
 
-	public Book createBook(String year,String title, String thumbnailImg, String uniqueID,
+	public void addBook(String year,String title, String thumbnailImg, String uniqueID,
 						   String author, String genre, String isbn, String publisher, ArrayList<String> lang){
-		return new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, lang);
+		libraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, lang));
 	}
-	public DVD createDVD(String year, String title, String thumbnailImageRef, String uniqueID,
+	public void addDVD(String year, String title, String thumbnailImageRef, String uniqueID,
 						 String director, String runtime, String language, ArrayList<String> subLang){
-		return new DVD(year, title, thumbnailImageRef, uniqueID, director, runtime, language, subLang);
+	    libraryResources.addDVD(new DVD(year, title, thumbnailImageRef, uniqueID, director, runtime, language, subLang));
 	}
-	public Laptop creatLaptop(String year, String title, String thumbnailImageRef, String uniqueID,
+	public void addLaptop(String year, String title, String thumbnailImageRef, String uniqueID,
 							  String manufacturer, String model,  String operatingSys){
-		return new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys);
+	    libraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys));
 	}
-	public User creatUser(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
+	public void addUser(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
 						  String secondLineAddress, String postCode, String townName, int accountBalance, String profImage){
-		return new User(userName, firstName, lastName, mobileNumber, firstLineAddress,
-				secondLineAddress, postCode, townName, accountBalance, profImage);
+		libraryResources.addUser(new User(userName, firstName, lastName, mobileNumber, firstLineAddress,
+                secondLineAddress, postCode, townName, accountBalance, profImage));
 	}
-	public User creatLibrarian(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
+	public void addLibrarian(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
 								  String secondLineAddress, String postCode, String townName, int accountBalance, String profImage,
 								  int empDay, int empMonth, int empYear, String staffNumber, int noOfEmploys){
-		return new Librarian(userName, firstName, lastName, mobileNumber, firstLineAddress, secondLineAddress,
-				postCode, townName, accountBalance, profImage, empDay, empMonth, empYear, staffNumber, noOfEmploys);
+		libraryResources.addUser(new Librarian(userName, firstName, lastName, mobileNumber, firstLineAddress,
+                secondLineAddress, postCode, townName, accountBalance, profImage, empDay, empMonth, empYear, staffNumber,
+                noOfEmploys));
 	}
 	public Resource getResource(String id){
 		String resourceType = id.substring(0, 1);
