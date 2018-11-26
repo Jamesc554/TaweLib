@@ -174,7 +174,14 @@ public class WriteFile extends IO {
     
     public static void backupCurrent() {
     	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
-    	new File("./data/backup/" + dateFormat.format(new Date())).mkdirs();
-    	System.out.println("./data/backup/" + dateFormat.format(new Date()));
+    	String newFilePath = dateFormat.format(new Date());
+    	new File("./data/backup/" + newFilePath).mkdirs();
+    	File currentFile = null;
+    	
+    	currentFile = new File(IO.getUsersFilePath());
+    	currentFile.renameTo(new File(newFilePath + "/users.json"));
+    	
+    	currentFile = new File(IO.getResourceFilePath());
+    	currentFile.renameTo(new File(newFilePath + "/resources.json"));
     }
 }
