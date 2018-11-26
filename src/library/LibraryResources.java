@@ -10,86 +10,86 @@ import user.*;
 
 
 public class LibraryResources {
-	ArrayList<Book> listOfBooks = new ArrayList<>();
-	ArrayList<Laptop> listOfLaptops = new ArrayList<>();
-	ArrayList<DVD> listOfDVD = new ArrayList<>();
-	ArrayList<User> listOfUsers = new ArrayList<>();
+	private static ArrayList<Book> listOfBooks = new ArrayList<>();
+	private static ArrayList<Laptop> listOfLaptops = new ArrayList<>();
+    private static ArrayList<DVD> listOfDVD = new ArrayList<>();
+    private static ArrayList<User> listOfUsers = new ArrayList<>();
 
-	public LibraryResources(){}
+	public  LibraryResources(){}
 
-	public void addBook(Book book){
+	public static void addBook(Book book){
 		listOfBooks.add(book);
 	}
-	public void addLaptop(Laptop laptop){
+	public static void addLaptop(Laptop laptop){
 		listOfLaptops.add(laptop);
 	}
-	public void addDVD(DVD dvd){
+	public static void addDVD(DVD dvd){
 		listOfDVD.add(dvd);
 	}
-	public void addUser(User user){
+	public static void addUser(User user){
 		listOfUsers.add(user);
 	}
-	protected User getUser(String username){
-		for(User u : this.listOfUsers){
+	protected static User getUser(String username){
+		for(User u : listOfUsers){
 			if(u.getUserName().equals(username)){
 				return u;
 			}
 		}
 		return null;
 	}
-	
-	public boolean checkIfValidUsername(String username) {
+
+	public static boolean checkIfValidUsername(String username){
 		if (listOfUsers.isEmpty())
 			return false;
-		
+
 		for (User u : listOfUsers) {
 			if (u.getUserName().equals(username))
 				return true;
 		}
-		
+
 		return false;
 	}
-	
-	protected Book getBook(String id){
-		for(Book b : this.listOfBooks){
+
+	protected static Book getBook(String id){
+		for(Book b : listOfBooks){
 			if(b.getUniqueID().equals(id)){
 				return b;
 			}
 		}
 		return null;
 	}
-	protected DVD getDVD(String id){
-		for(DVD d : this.listOfDVD){
+	protected static DVD getDVD(String id){
+		for(DVD d : listOfDVD){
 			if(d.getUniqueID().equals(id)){
 				return d;
 			}
 		}
 		return null;
 	}
-	protected Laptop getLaptop(String id){
-		for(Laptop l : this.listOfLaptops){
+	protected static Laptop getLaptop(String id){
+		for(Laptop l : listOfLaptops){
 			if(l.getUniqueID().equals(id)){
 				return l;
 			}
 		}
 		return null;
 	}
-	public ArrayList<User> getAllUsers(){
-		return this.listOfUsers;
+	public static ArrayList<User> getAllUsers(){
+		return listOfUsers;
 	}
 
-	public ArrayList<Book> getListOfBooks() {
-		return this.listOfBooks;
+	public static ArrayList<Book> getListOfBooks() {
+		return listOfBooks;
 	}
 
-	public ArrayList<DVD> getListOfDVD() {
-		return this.listOfDVD;
+	public static ArrayList<DVD> getListOfDVD() {
+		return listOfDVD;
 	}
 
-	public ArrayList<Laptop> getListOfLaptops() {
-		return this.listOfLaptops;
+	public static ArrayList<Laptop> getListOfLaptops() {
+		return listOfLaptops;
 	}
-	protected void removeResource(String id){
+	protected static void removeResource(String id){
 		String dataType = id.substring(0,1);
 		switch (dataType.toLowerCase()){
 			case "b":
@@ -121,7 +121,7 @@ public class LibraryResources {
 		}
 
 	}
-	protected void removeUser(String username){
+	protected static void removeUser(String username){
         for(int index = 0; index < listOfUsers.size(); index++) {
             if (listOfUsers.get(index).getUserName().equals(username)) {
                 listOfUsers.remove(index);

@@ -84,9 +84,6 @@ public class Library {
 	}
 
 	public static ArrayList<Book> getAllBooks(){
-		return null; //placeholder
-	}
-	public static ArrayList<Book> getAllBooks(){
 		return libraryResources.getListOfBooks();
 	}
 	public ArrayList<Laptop> getAllLaptops(){

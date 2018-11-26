@@ -3,8 +3,8 @@ package screen;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
+import io.*;
 
-import io.WriteFile;
 import javafx.geometry.Pos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
