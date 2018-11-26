@@ -22,7 +22,7 @@ public class User {
     protected String secondLineAddress; //Second line of address
     protected String postCode; //Post code
     protected String townName; //Town name
-    protected ArrayList<String> resourceBorrow = new ArrayList<>(); //List of currently borrowed books
+    protected ArrayList<String> resourceCurrentlyBorrowed = new ArrayList<>(); //List of currently borrowed books
     protected ArrayList<String[]> transactionHistory = new ArrayList<>(); //Transaction History
     protected ArrayList<String[]> borrowHistory = new ArrayList<>(); // Borrow history
     protected Integer accountBalance; //current account balance
@@ -195,7 +195,7 @@ public class User {
 	 * any item in the list.
 	 */
     public String getResource(String resourceID){
-        for (String id : this.resourceBorrow){
+        for (String id : this.resourceCurrentlyBorrowed){
             if (id.equals(resourceID)){
                 return id;
             }
@@ -207,7 +207,7 @@ public class User {
 	 * Returns full list of resources borrowed by the user.
 	 * @return ArrayList storing all Resource objects.
 	 */
-	public ArrayList getAllResources(){return this.resourceBorrow;}
+	public ArrayList getCurrentlyBorrowedResources(){return this.resourceCurrentlyBorrowed;}
 
 	/**
 	 * Returns all transaction history of the user.
@@ -249,7 +249,7 @@ public class User {
 	 * @param id The resource to be added to the current borrow.
 	 */
     public void addResource(String id){
-    	this.resourceBorrow.add(id);
+    	this.resourceCurrentlyBorrowed.add(id);
     	addResourceToHistory(id);
     }
     //Not used as we do not collect stats
@@ -278,11 +278,11 @@ public class User {
 	 */
 	protected void addTransaction(int amount){
 		//Computes current system data
-        String[] data = {getCurrentDate(), String.valueOf(amount)};
+        String[] data = {getCurrentDate(), String.valueOf(amount), ""};
         transactionHistory.add(data);
     }
     public void removeResource(String resourceID){
-		resourceBorrow.remove(resourceID);
+		resourceCurrentlyBorrowed.remove(resourceID);
 
 		Boolean done = false;
 		int i = this.transactionHistory.size()-1;

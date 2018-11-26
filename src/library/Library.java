@@ -91,5 +91,19 @@ public class Library {
 	public void changeLastName(String username, String lastname){}
 	public void changeImage(String username, String path){}
 	public void searchResources(String text){}
-
+	public String userToString(User u){
+	    String info = u.getUserName()+ "\n";
+	    info += u.getFullName()+"\n"+u.getMobileNumber()+"\n"+u.getFullAddress()+"\n";
+	    info += "Current Balance: "+u.getAccountBalance()+"\n";
+	    info += "Profile Image Path: "+u.getProfImage()+"\n";
+	    info += "Currently Borrowed:\n";
+	    for(Object id : u.getCurrentlyBorrowedResources()){
+            info += getResource((String)id ).getTitle();
+        }
+	    info += "Borrow History:\n";
+	    for(String[] data : u.getBorrowHistory()){
+	        info += data[0] + data[1] + data[2] + "\n";
+        }
+	return info;
+    }
 }
