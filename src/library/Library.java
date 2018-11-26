@@ -11,7 +11,9 @@ import java.util.Date;
 public class Library {
 	private static String currentUser;
 
-	Library(){ }
+	public static void start(){
+		LibraryResources.start();
+	}
 
 	public static void addBook(String year,String title, String thumbnailImg, String uniqueID,
 						   String author, String genre, String isbn, String publisher, ArrayList<String> lang){

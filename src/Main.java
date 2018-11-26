@@ -1,5 +1,6 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
+import library.Library;
 import screen.ScreenManager;
 
 public class Main extends Application{
@@ -11,6 +12,9 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) {
+        Library.start();
+
+
         try {
         	ScreenManager.start(primaryStage);
         } catch (Exception e){

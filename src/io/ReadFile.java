@@ -29,27 +29,26 @@ public class ReadFile extends IO{
 	
 	// When users class is done it will return an arraylist of user objects.
 	@SuppressWarnings("rawtypes")
-	public static ArrayList<ArrayList> readUsers() {
+	public static ArrayList<User> readUsers() {
 		JSONParser parser = new JSONParser();
 		JSONArray resourceArray = new JSONArray();
 		JSONArray transactionArray = new JSONArray();
-		ArrayList<ArrayList> userList = new ArrayList<ArrayList>();
+		ArrayList<User> userList = new ArrayList<>();
 		try {
 			file = new FileReader(IO.getUsersFilePath());
 			reader = new BufferedReader(file);
 			while((currentLine = reader.readLine()) != null) {
 				JSONObject object = (JSONObject) parser.parse(currentLine);
-				ArrayList<String> user = new ArrayList<String>();
-				user.add((String) object.get("username"));
-				user.add((String) object.get("firstName"));
-				user.add((String) object.get("lastName"));
-				user.add((String) object.get("mobileNumber"));
-				user.add((String) object.get("firstLineAddress"));
-				user.add((String) object.get("secondLineAddress"));
-				user.add((String) object.get("postCode"));
-				user.add((String) object.get("townName"));
-				user.add((String) object.get("imageAddress"));
-				user.add((String) object.get("accountBalance"));
+				User user = new User((String)object.get("username"),
+						(String)object.get("firstName"),
+						(String)object.get("lastName"),
+						(String)object.get("mobileNumber"),
+						(String)object.get("firstLineAddress"),
+						(String)object.get("secondLineAddress"),
+						(String)object.get("postCode"),
+						(String)object.get("townName"),
+						(int)object.get("accountBalance"),
+						(String)object.get("imageAddress"));
 				
 				resourceArray = (JSONArray) object.get("resourceBorrow");
 				String resourceBorrow = "";
@@ -59,7 +58,7 @@ public class ReadFile extends IO{
 						resourceBorrow = resourceBorrow + stringResource + ",";
 					}
 				}
-				user.add(resourceBorrow);
+				// user.add(resourceBorrow);
 				
 				transactionArray = (JSONArray) object.get("transactionHistory");
 				String transactionHistory = "";
@@ -69,7 +68,7 @@ public class ReadFile extends IO{
 						transactionHistory = transactionHistory + stringTransaction + ",";
 					}
 				}
-				user.add(transactionHistory);
+				//user.add(transactionHistory);
 				
 				userList.add(user);
 			}

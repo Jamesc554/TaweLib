@@ -11,8 +11,6 @@ import javax.imageio.ImageIO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.sun.javafx.binding.StringFormatter;
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.WritableImage;
 import library.Library;
