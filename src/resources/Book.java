@@ -12,6 +12,10 @@ import utils.Queue;
  * @since 18/11/2018
  */
 public class Book extends Resource {
+	
+	private static String highestBookID = "BookID:0"; //this is used to calculate a unique BookID.
+	
+	private int highestCopyID = 0; // this is used to calculate a unique CopyID.
 	private String author; //Author of Book
 	private String publisher; //Publisher of Book
 	private String genre; //Genre of book (Optional)
@@ -33,19 +37,56 @@ public class Book extends Resource {
 	 */
 	public Book(String year,String title, String thumbnailImg, String uniqueID,
 			String author, String genre, String isbn, String publisher, ArrayList<String> lang) {
-		
 		//Set all the inherited values from Resource...
-		super(year, title, thumbnailImg, uniqueID);
+		super(year, title, thumbnailImg, generateBookID(uniqueID));
 		
 		//Set all non-inherited values
 		this.author = author;
 		this.publisher = publisher;
-		this.genre = null;
-		this.isbn = null;
-		this.languages = new ArrayList<String>();
+		this.genre = genre;
+		this.isbn = isbn;
+		
+		//If lang from file is null, create a new arraylist. otherwise set languages to lang from file.
+		if(lang == null) {
+			this.languages = new ArrayList<String>();
+		} else {
+			this.languages = lang;
+		}
+
+
 		
 	}
 	
+	/**
+	 * Generates a uniqueID for a book.
+	 * @param id The stated ID of the book being created.
+	 * @return highestBookID the book ID of the latest created book
+	 */
+	private static String generateBookID(String id) {
+		//split book ID into two strings if ID == null.
+		//convert anything after ": " into Int
+		//append 1
+		// convert back to String
+		//assign uniqueID
+		//
+		//If id != null.
+		//we are loading a book from a file thus set highestBookID to id.
+		if (id == null) {
+		String[] segmentsOfString = highestBookID.split(":");
+		String typeSegment = segmentsOfString[0];
+		String numberSegmentOfString = segmentsOfString[1];
+		
+		int numberOfID = Integer.parseInt(numberSegmentOfString);
+		numberOfID++;
+		
+		highestBookID = typeSegment + ":" + Integer.toString(numberOfID);
+		return highestBookID;
+		} else {
+			highestBookID = id;
+			return highestBookID;
+		}
+	}
+
 	/**
 	 * This Method Prints out this Book's attributes for testing purposes.
 	 */
@@ -58,14 +99,46 @@ public class Book extends Resource {
 			   "\nGenre: " + this.genre +
 			   "\nISBN: " + this.isbn + 
 			   "\nLanguages: " + this.languages +
-			   "\nQueueOfReservations: " + this.queueOfReservations +
-			   "\nMap Of copies: " + this.dictionaryOfCopies + 
-			   "\nMap of borrowHistory: " + this.borrowHistory;
+			   "\nQueueOfReservations: " + this.queueOfReservations.isEmpty() +
+			   "\nMap Of copies: " + this.arrayListOfCopies + 
+			   "\nMap of borrowHistory: " + this.borrowHistory.values();
 	}
 	/* #############################################################
 	 * ########  BELOW ARE THE GETTERS AND SETTERS OF BOOK  ########
 	 * #############################################################
 	 */
+	
+	/**
+	 * Sets a value to calculate Book IDs from.
+	 * @param hBookID the highest current value of any Book's ID.
+	 */
+	public void setHighestBookID(String hBookID) {
+		this.highestBookID = hBookID;
+	}
+	
+	/**
+	 * Returns the ID of the latest Book.
+	 * @return highestBookID the highest current id of any book.
+	 */
+	public String getHighestBookID() {
+		return this.highestBookID;
+	}
+	
+	/**
+	 * Sets a value to calculate a new copy's id from.
+	 * @param hCopyID the latest ID of any copy.
+	 */
+	public void setHighestCopyID(int hCopyID) {
+		this.highestCopyID = hCopyID;
+	}
+	
+	/**
+	 * Returns the newest copy's ID
+	 * @return highestCopyID the newest copy's ID.
+	 */
+	public int getHighestCopyID() {
+		return this.highestCopyID;
+	}
 	
 	/**
 	 * Returns the author of the book
@@ -179,9 +252,36 @@ public class Book extends Resource {
 		for (int i = 0; i < this.languages.size(); i++) {
 			if (this.languages.get(i) == langToRemove) {
 				this.languages.remove(i);
-			} else {
-				//print can't find book.
 			}
+		}
+	}
+	
+	/**
+	 * Adds a copy to this book's unique Array of copies.
+	 */
+	public void addToCopies() {
+		super.addToCopies(generateCopyID());
+	}
+
+	/**
+	 * Generates a copy ID based off of previous copyID.
+	 * @return
+	 */
+	private String generateCopyID() {
+		//
+		this.highestCopyID++;
+		String hCpyID = Integer.toString(this.highestCopyID);
+		return hCpyID;
+	}
+	
+	/**
+	 * Remove the latest copy of a book.
+	 */
+	@Override
+	public void removeCopy() {
+		if (this.arrayListOfCopies.size() >= 1) {
+			super.removeCopy();
+			this.highestCopyID--;
 		}
 	}
 	

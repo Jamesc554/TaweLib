@@ -3,8 +3,6 @@ package resources;
 import utils.Queue;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +22,7 @@ public abstract class Resource {
 	protected String thumbnailImageRef;
 	protected String uniqueID;
 	protected Queue<User> queueOfReservations;
-	protected Map<String, String> dictionaryOfCopies;
+	protected ArrayList<String> arrayListOfCopies;
 	protected Map<String, String[]> borrowHistory;//Dictionary of copy history i.e. loan date users who loaned etc.
 	protected String[] copyHistory;
 	/**
@@ -52,7 +50,7 @@ public abstract class Resource {
 		this.thumbnailImageRef = thumbnailImageRef;
 		this.uniqueID = uniqueID;
 		this.queueOfReservations = new Queue<User>();
-		this.dictionaryOfCopies = new HashMap<String, String>();
+		this.arrayListOfCopies = new ArrayList<String>();
 		this.borrowHistory = new HashMap<String, String[]>();
 	}
 
@@ -129,8 +127,8 @@ public abstract class Resource {
 	 * @return dictionaryOfCopies
 	 */
 
-	public Map getDictionaryOfCopies() {
-		return dictionaryOfCopies;
+	public ArrayList<String> getArrayListOfCopies() {
+		return this.arrayListOfCopies;
 	}
 	/**
 	 * Finds the reservation queue of copies of this Resource
@@ -138,7 +136,7 @@ public abstract class Resource {
 	 */
 
 	public Queue getQueueOfReservations() {
-		return queueOfReservations;
+		return this.queueOfReservations;
 	}
 	/**
 	 * Finds the borrow history of this Resource.
@@ -186,17 +184,16 @@ public abstract class Resource {
 	 * @param dateAdded
 	 * The date this copy is added to the library.
 	 */
-	public void addToCopies(String copyID, String dateAdded) {
-		dictionaryOfCopies.put(copyID, dateAdded);
+	public void addToCopies(String copyID) {
+		this.arrayListOfCopies.add(copyID);
 	}
 
 	/**
 	 * Removes a copy from the Resource
-	 * @param cpyID the unique ID of the copy to delete
 	 */
-	public void removeCopy(String cpyID) {
-		//Remove from dictionary of copies a copy based off of its uniqueID
-		this.dictionaryOfCopies.remove(cpyID);
+	public void removeCopy() {
+		//Remove from dictionary of copies, a copy the latest copy
+		this.arrayListOfCopies.remove(this.arrayListOfCopies.size() - 1);
 	}
 	
 	/**
@@ -205,5 +202,23 @@ public abstract class Resource {
 	 */
 	public void addUserToRequestQueue(User userForQueue){
 		this.queueOfReservations.enqueue(userForQueue);
+	}
+	
+	/**
+	 * Removes a User from request for a copy of a resource.
+	 * @return userAtFrontOfQueue the user who first requested a copy
+	 */
+	public User removeUserFromRequestQueue() {
+		User userAtFrontOfQueue = this.queueOfReservations.peek();
+		this.queueOfReservations.dequeue();
+		return userAtFrontOfQueue;
+	}
+	
+	/**
+	 * Gets the head of the queueOfReservations
+	 * @return queueOfReservations
+	 */
+	public User peekQueueOfReservations() {
+		return this.queueOfReservations.peek();
 	}
 }

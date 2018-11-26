@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ToolBar prefHeight="33.0" prefWidth="1280.0">
+         <items>
+            <TextField prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." />
+            <Button mnemonicParsing="false" text="Search" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="500.0">
+               <image>
+                  <Image url="some_image" />
+               </image>
+            </ImageView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username" translateX="500.0" />
+            <Button mnemonicParsing="false" text="Logout" translateX="600.0" />
+         </items>
+      </ToolBar>
+      <ToolBar layoutY="33.0" prefHeight="35.0" prefWidth="1280.0">
+         <items>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Home" translateX="10.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Account" translateX="50.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Issue Desk" translateX="90.0" />
+         </items>
+      </ToolBar>
+      <ListView layoutY="68.0" prefHeight="654.0" prefWidth="1280.0" />
+   </children>
+</AnchorPane>
