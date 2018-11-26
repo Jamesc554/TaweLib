@@ -105,12 +105,26 @@ public class Library {
 		return currentUser;
 	}
 
-	public static void changeAddress(String username, String firstLine, String secondLine){}
-	public static void changePoctCode(String username, String postCode){}
-	public static void changeTownName(String username, String townName){}
-	public static void changePhoneNumber(String username, String phoneNumber){}
-	public static void changeLastName(String username, String lastname){}
-	public static void changeImage(String username, String path){}
+	public static void changeAddress(String username, String firstLine, String secondLine){
+	    User u = getUser(username);
+	    u.setFirstLineAddress(firstLine);
+	    u.setSecondLineAddress(secondLine);
+    }
+	public static void changePoctCode(String username, String postCode){
+	    getUser(username).setPostCode(postCode);
+    }
+	public static void changeTownName(String username, String townName){
+	    getUser(username).setTownName(townName);
+    }
+	public static void changePhoneNumber(String username, String phoneNumber){
+	    getUser(username).setMobileNumber(phoneNumber);
+    }
+	public static void changeLastName(String username, String lastname){
+	    getUser(username).setLastName(lastname);
+    }
+	public static void changeImage(String username, String path){
+	    getUser(username).setProfImage(path);
+    }
 	public static void searchResources(String text){}
 	public static String userToString(String username){
 		User u = getUser(username);
