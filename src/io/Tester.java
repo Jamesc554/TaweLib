@@ -24,5 +24,6 @@ public class Tester {
 		WriteFile.writeBook(book1);
 		System.out.println(ReadFile.readUsers());
 		System.out.println(ReadFile.readBooks());
+		WriteFile.backupCurrent();
 	}
 }

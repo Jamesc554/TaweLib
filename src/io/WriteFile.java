@@ -2,7 +2,9 @@ package io;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -165,16 +167,14 @@ public class WriteFile extends IO {
     	
     }
     
-    /*public static void fullWrite(String usersData, String resourceData, String outData, String bookQueueData, String statsDate, String transactionData) {
-    	
-    }*/
-    
     public static void fullWrite(ArrayList<User> users, ArrayList<Book> books, ArrayList<DVD> dvds, ArrayList<Laptop> laptops, String outData, String bookQueueData, String statsDate, String transactionData) {
     	overwriteUsers(users);
     	overwriteResources(books, dvds, laptops);
     }
     
     public static void backupCurrent() {
-    	
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+    	new File("./data/backup/" + dateFormat.format(new Date())).mkdirs();
+    	System.out.println("./data/backup/" + dateFormat.format(new Date()));
     }
 }
