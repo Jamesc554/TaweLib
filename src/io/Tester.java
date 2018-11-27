@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import resources.Book;
+import resources.DVD;
 import user.User;
 
 /**
@@ -19,6 +20,8 @@ public class Tester {
 		languages.add("Spanish");
 		languages.add("French");
 		Book book1 = new Book("1999", "The Great Book", "/img/bookimg.jpg", "430594", "Sam L Jackson", "Horror", "isbn-2349-4399", "Google", languages);
+		DVD dvd1 = new DVD("1999", "Dave", "testImg.jpg", "123456", "David", "129", "English", languages);
+		WriteFile.writeDvd(dvd1);
 		WriteFile.writeUser(user1);
 		WriteFile.writeUser(user2);
 		WriteFile.writeBook(book1);

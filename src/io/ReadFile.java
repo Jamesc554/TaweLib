@@ -10,9 +10,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import resources.Resource;
+import resources.DVD;
 import user.User;
-import utils.Queue;
 
 /**
  * @author Samuel Jankinson
@@ -88,6 +87,7 @@ public class ReadFile extends IO{
 		return userList;
 	}
 	
+	// TODO: CHANGE TO ArrayList<Book>
 	public static ArrayList<ArrayList> readBooks() {
 		JSONParser parser = new JSONParser();
 		JSONArray languageArray = new JSONArray();
@@ -96,7 +96,7 @@ public class ReadFile extends IO{
     	ArrayList<ArrayList> bookList = new ArrayList<ArrayList>();
     	
     	try {
-			file = new FileReader(IO.getResourceFilePath());
+			file = new FileReader(IO.getBookFilePath());
 			reader = new BufferedReader(file);
 			
 			while((currentLine = reader.readLine()) != null) {
@@ -147,10 +147,10 @@ public class ReadFile extends IO{
 			reader.close();
 			file.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("Cannot find " + IO.getResourceFilePath());
+			System.out.println("Cannot find " + IO.getBookFilePath());
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println("ERROR reading file " + IO.getResourceFilePath());
+			System.out.println("ERROR reading file " + IO.getBookFilePath());
 			e.printStackTrace();
 		} catch (ParseException e) {
 			System.out.println("ERROR parsing users JSON");
@@ -159,8 +159,77 @@ public class ReadFile extends IO{
     	return bookList;
 	}
 	
-	public static String readDvds() {
-		return "";
+	public static ArrayList<DVD> readDvds() {
+		JSONParser parser = new JSONParser();
+		JSONArray languageArray = new JSONArray();
+    	JSONArray bookQueueArray = new JSONArray();
+    	JSONArray listOfCopiesArray = new JSONArray();
+    	ArrayList<DVD> dvdList = new ArrayList<DVD>();
+    	
+    	try {
+			file = new FileReader(IO.getBookFilePath());
+			reader = new BufferedReader(file);
+			
+			while((currentLine = reader.readLine()) != null) {
+				JSONObject object = (JSONObject) parser.parse(currentLine);
+				ArrayList<String> properties = new ArrayList<>();
+				
+				//DVD dvd = new DVD();
+				properties.add((String) object.get("year"));
+				properties.add((String) object.get("title"));
+				properties.add((String) object.get("thumbnailImg"));
+				properties.add((String) object.get("uniqueID"));
+				properties.add((String) object.get("author"));
+				properties.add((String) object.get("genre"));
+				properties.add((String) object.get("isbn"));
+				properties.add((String) object.get("publisher"));
+				
+				languageArray = (JSONArray) object.get("languages");
+				String languages = "";
+				if (languageArray != null) {
+					for (Object language : languageArray) {
+						String stringLanguage = (String) language;
+						languages = languages + stringLanguage + ",";
+					}
+				}
+				properties.add(languages);
+				
+				bookQueueArray = (JSONArray) object.get("bookQueue");
+				String bookQueues = "";
+				if (bookQueueArray != null) {
+					for (Object bookQueue : bookQueueArray) {
+						String stringBookQueue = (String) bookQueue;
+						bookQueues = bookQueues + stringBookQueue + ",";
+					}
+				}
+				properties.add(bookQueues);
+				
+				listOfCopiesArray = (JSONArray) object.get("resourceBorrow");
+				String listOfCopies = "";
+				if (listOfCopiesArray != null) {
+					for (Object copie : listOfCopiesArray) {
+						String stringCopie = (String) copie;
+						listOfCopies = listOfCopies + stringCopie + ",";
+					}
+				}
+				properties.add(listOfCopies);
+				
+				//dvdList.add(book);
+			}
+			
+			reader.close();
+			file.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot find " + IO.getBookFilePath());
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("ERROR reading file " + IO.getBookFilePath());
+			e.printStackTrace();
+		} catch (ParseException e) {
+			System.out.println("ERROR parsing users JSON");
+			e.printStackTrace();
+		}
+    	return dvdList;
 	}
 	
 	public static String readLaptops() {

@@ -157,6 +157,12 @@ public class Library {
         resources.addAll(LibraryResources.getListOfLaptops());
 
         int i = 0;
+        
+//        for (Resource r : resources) {
+//        	if (r.getTitle().contains(text)) {
+//        		
+//        	}
+//        }
 
         while(i < resources.size()){
             textPart = partString(resources.get(i), textSize);

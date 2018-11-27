@@ -5,19 +5,29 @@ package io;
  */
 
 public abstract class IO {
-	private static String usersFilePath = "./data/users.json";
-	private static String resourceFilePath = "./data/resources.json";
-	private static String outDataFilePath = "./data/outData.json";
-	private static String bookQueueFilePath = "./data/bookQueue.json";
-	private static String statsFilePath = "./data/stats.json";
-	private static String transactionFilePath = "./data/transactions.json";
+	private static final String usersFilePath = "./data/users.json";
+	private static final String bookFilePath = "./data/rbook.json";
+	private static final String dvdFilePath = "./data/dvd.json";
+	private static final String laptopFilePath = "./data/laptop.json";
+	private static final String outDataFilePath = "./data/outData.json";
+	private static final String bookQueueFilePath = "./data/bookQueue.json";
+	private static final String statsFilePath = "./data/stats.json";
+	private static final String transactionFilePath = "./data/transactions.json";
 	
 	public static String getUsersFilePath() {
 		return usersFilePath;
 	}
 	
-	public static String getResourceFilePath() {
-		return resourceFilePath;
+	public static String getBookFilePath() {
+		return bookFilePath;
+	}
+	
+	public static String getDvdFilePath() {
+		return dvdFilePath;
+	}
+	
+	public static String getLaptopFilePath() {
+		return laptopFilePath;
 	}
 	
 	public static String getOutDataFilePath() {
