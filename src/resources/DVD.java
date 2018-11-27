@@ -86,5 +86,8 @@ public class DVD extends Resource {
 	public void setLanguage (String language) {
 		this.language = language;
 	}
-	
+
+	public String toSingleString(){
+		return super.toSingleString() + director;
+	}
 }

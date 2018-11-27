@@ -25,6 +25,7 @@ public abstract class Resource {
 	protected ArrayList<String> arrayListOfCopies;
 	protected Map<String, String[]> borrowHistory;//Dictionary of copy history i.e. loan date users who loaned etc.
 	protected String[] copyHistory;
+
 	/**
 	 * Base Constructor for all resources.
 	 * @param year
@@ -35,13 +36,8 @@ public abstract class Resource {
 	 *  The location of the avatar image on disk.
 	 * @param uniqueID
 	 *  The ID of a resource.
-	 * @param dictOfCopies
-	 *  A dictionary which holds the uniqueID of the copy and the date that copy was added to the library. 
-	 * @param queueOfReservations
-	 *  A Queue for handling the reservation of a copy of a resource.
-	 * @param borrowHistory
-	 *  A dictionary which stores the borrow history of a copy of a resource.
-	 */
+	 * */
+
 	public Resource(String year, String title,
 		String thumbnailImageRef, String uniqueID) {
 		
@@ -181,8 +177,6 @@ public abstract class Resource {
 	 * Adds a new copy to this Resource.
 	 * @param copyID
 	 * The unique ID of this copy.
-	 * @param dateAdded
-	 * The date this copy is added to the library.
 	 */
 	public void addToCopies(String copyID) {
 		this.arrayListOfCopies.add(copyID);
@@ -220,5 +214,8 @@ public abstract class Resource {
 	 */
 	public User peekQueueOfReservations() {
 		return this.queueOfReservations.peek();
+	}
+	public String toSingleString(){
+		return year + title;
 	}
 }

@@ -126,7 +126,6 @@ public class Library {
 	public static void changeImage(String username, String path){
 	    getUser(username).setProfImage(path);
     }
-	public static void searchResources(String text){}
 	public static String userToString(String username){
 		User u = getUser(username);
 	    String info = u.getUserName()+ "\n";
@@ -143,4 +142,6 @@ public class Library {
         }
 	return info;
     }
+	public static void searchResources(String text){}
+
 }

@@ -284,5 +284,7 @@ public class Book extends Resource {
 			this.highestCopyID--;
 		}
 	}
-	
+	public String toSingleString() {
+		return super.toSingleString() + author + publisher + genre + isbn;
+	}
 }

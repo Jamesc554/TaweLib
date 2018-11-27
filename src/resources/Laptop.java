@@ -71,5 +71,7 @@ public class Laptop extends Resource {
 	public void setOperatingsys(String operatingSys) {
 		this.operatingSys = operatingSys;
 	}
-	
+	public String toSingleString(){
+		return super.toSingleString()+manufacturer+model+operatingSys;
+	}
 }
