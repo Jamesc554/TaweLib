@@ -1,13 +1,9 @@
 package library;
 import resources.*;
 import user.*;
+import io.*;
 
 import java.util.ArrayList;
-
-import io.*;
-import resources.*;
-import user.*;
-
 
 public class LibraryResources {
 	private static ArrayList<Book> listOfBooks = new ArrayList<>();
