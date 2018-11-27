@@ -71,7 +71,7 @@
                <children>
                   <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Home" />
                   <Button fx:id="accountBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Account" />
-                  <Button fx:id="issueDeskBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Issue Desk" />
+                  <Button fx:id="issueDeskBtn" mnemonicParsing="false" onAction="#issueDeskButton" prefHeight="25.0" prefWidth="110.0" text="Issue Desk" />
                   <Button fx:id="drawAppBtn" mnemonicParsing="false" onAction="#drawAppButton" prefHeight="25.0" prefWidth="110.0" text="Draw App" />
                </children>
                <padding>

@@ -95,6 +95,11 @@ public class HomeScreen extends Screen implements Initializable{
 		logout();
 	}
 
+	@FXML
+	private void issueDeskButton(Event event) {
+		ScreenManager.changeScreen(new IssueDeskScreen());
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		BufferedImage img = null;
