@@ -15,7 +15,9 @@ public class LibraryResources {
     private static ArrayList<DVD> listOfDVD = new ArrayList<>();
     private static ArrayList<User> listOfUsers = new ArrayList<>();
 
-	public  LibraryResources(){}
+	public static void start(){
+		listOfUsers = ReadFile.readUsers();
+	}
 
 	public static void addBook(Book book){
 		listOfBooks.add(book);

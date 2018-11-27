@@ -31,7 +31,7 @@ public class TestScreen extends Screen {
         issueDeskBtn.setText("Go to IssueDesk");
         
         issueDeskBtn.setOnAction(e->{
-        	ScreenManager.changeScreen(new IssueDesk());
+        	ScreenManager.changeScreen(new IssueDeskScreen());
         });
         
         Button resourceScreenBtn = new Button();

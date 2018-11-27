@@ -243,6 +243,10 @@ public class User {
         }
         return s;
     }
+	
+	public int getIntegerAccountBalance() {
+		return this.accountBalance;
+	}
 
 	/**
 	 * Adds a resource to users current loan.

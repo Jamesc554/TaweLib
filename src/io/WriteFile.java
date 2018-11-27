@@ -11,8 +11,6 @@ import javax.imageio.ImageIO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.sun.javafx.binding.StringFormatter;
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.WritableImage;
 import library.Library;
@@ -43,7 +41,7 @@ public class WriteFile extends IO {
 		object.put("postCode", user.getPostCode());
 		object.put("townName", user.getTownName());
 		object.put("imageAddress", user.getProfImage());
-		object.put("accountBalance", user.getAccountBalance());
+		object.put("accountBalance", String.valueOf(user.getIntegerAccountBalance()));
 		
 		for (Object resource : user.getCurrentlyBorrowedResources()) {
 			resourceArray.add(((Resource) resource).getUniqueID());
@@ -193,9 +191,7 @@ public class WriteFile extends IO {
     }
     
     public static void saveImageToUser(WritableImage img, String fileName) {
-    	// TODO: Change to get currently logged in username
-    	
-    	String currentUserName = Library.getCurrentLoggedInUser(); // Change to get the username of the currently logged in user
+    	String currentUserName = Library.getCurrentLoggedInUser().getUserName();
     	String directoryPath = ("./data/images/" + currentUserName);
     	String filePath = (directoryPath + "/" + fileName + ".png");
     	

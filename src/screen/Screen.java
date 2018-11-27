@@ -1,6 +1,7 @@
 package screen;
 
 import javafx.scene.Node;
+import library.Library;
 
 import java.util.List;
 
@@ -42,8 +43,9 @@ public abstract class Screen {
         return components;
     }
 
-    public void logout(){
-        // TODO: LOGOUT FUNCTION
+    protected void logout(){
+    	Library.setLoggedInUser(null);
+    	ScreenManager.changeScreen(new LoginScreen());
     }
 
     // TODO: Search implementation

@@ -9,9 +9,11 @@ import java.util.Date;
 
 
 public class Library {
-	private static String currentUser;
+	private static User currentUser;
 
-	Library(){ }
+	public static void start(){
+		LibraryResources.start();
+	}
 
 	public static void addBook(String year,String title, String thumbnailImg, String uniqueID,
 						   String author, String genre, String isbn, String publisher, ArrayList<String> lang){
@@ -96,11 +98,11 @@ public class Library {
 	}
 
 	// TODO: CHANGE FROM STRING TO USER ONCE IMPLEMENTED
-	public static void setLoggedInUser(String username) {
-		currentUser = username;
+	public static void setLoggedInUser(User user) {
+		currentUser = user;
 	}
 
-	public static String getCurrentLoggedInUser() {
+	public static User getCurrentLoggedInUser() {
 		return currentUser;
 	}
 
