@@ -137,17 +137,9 @@ public class SearchResultScreen extends Screen implements Initializable{
 	@FXML
 	private void updateSearchResults() {
 		// Empty the current search results
-		for (Node n : bookHBox.getChildren()) {
-			bookHBox.getChildren().remove(n);
-		}
-
-		for (Node n : dvdHBox.getChildren()) {
-			dvdHBox.getChildren().remove(n);
-		}
-
-		for (Node n : laptopHBox.getChildren()) {
-			laptopHBox.getChildren().remove(n);
-		}
+		bookHBox.getChildren().clear();
+		dvdHBox.getChildren().clear();
+		laptopHBox.getChildren().clear();
 		
 		// Check the search bar
 		String searchString = searchBar.getText();
@@ -156,19 +148,19 @@ public class SearchResultScreen extends Screen implements Initializable{
 		List<Laptop> laptops = Library.getAllLaptops();
 		
 		for (Book b : books) {
-			if (b.getTitle().contains(searchString)) {
+			if (b.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
 				bookHBox.getChildren().add(createImageViewForResource(b));
 			}
 		}
 
 		for (DVD d : dvds) {
-			if (d.getTitle().contains(searchString)) {
+			if (d.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
 				dvdHBox.getChildren().add(createImageViewForResource(d));
 			}
 		}
 
 		for (Laptop l : laptops) {
-			if (l.getTitle().contains(searchString)) {
+			if (l.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
 				laptopHBox.getChildren().add(createImageViewForResource(l));
 			}
 		}
