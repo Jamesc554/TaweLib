@@ -21,7 +21,7 @@ public class Library {
 	}
 	public static void addDVD(String year, String title, String thumbnailImageRef, String uniqueID,
 						 String director, String runtime, String language, ArrayList<String> subLang){
-	    LibraryResources.addDVD(new DVD(year, title, thumbnailImageRef, uniqueID, director, runtime, language, subLang));
+	    LibraryResources.addDVD(new DVD(year, title, thumbnailImageRef, subLang, director, runtime, language, uniqueID));
 	}
 	public static void addLaptop(String year, String title, String thumbnailImageRef, String uniqueID,
 							  String manufacturer, String model,  String operatingSys){

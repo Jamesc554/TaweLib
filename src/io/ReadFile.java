@@ -212,7 +212,7 @@ public class ReadFile extends IO{
 					}
 				}
 				
-				dvds.add(new DVD(year, title, thumbnailImageRef, uniqueID, director, runtime, language, subLang));
+				dvds.add(new DVD(year, title, thumbnailImageRef, subLang, director, runtime, language, uniqueID));
 			}
 			
 			reader.close();
