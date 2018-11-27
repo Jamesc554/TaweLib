@@ -117,6 +117,10 @@ public class SearchResultScreen extends Screen implements Initializable{
 		userIcon.setImage(SwingFXUtils.toFXImage(img, null));
 		usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
 		updateSearchResults();
+		
+		searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+			updateSearchResults();
+		});
 
 	}
 
