@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import library.Library;
 import resources.DVD;
 import user.User;
 
@@ -159,12 +160,11 @@ public class ReadFile extends IO{
     	return bookList;
 	}
 	
-	public static ArrayList<DVD> readDvds() {
+	public static void readDvds() {
 		JSONParser parser = new JSONParser();
 		JSONArray languageArray = new JSONArray();
-    	JSONArray bookQueueArray = new JSONArray();
+    	JSONArray dvdQueueArray = new JSONArray();
     	JSONArray listOfCopiesArray = new JSONArray();
-    	ArrayList<DVD> dvdList = new ArrayList<DVD>();
     	
     	try {
 			file = new FileReader(IO.getBookFilePath());
@@ -172,38 +172,35 @@ public class ReadFile extends IO{
 			
 			while((currentLine = reader.readLine()) != null) {
 				JSONObject object = (JSONObject) parser.parse(currentLine);
-				ArrayList<String> properties = new ArrayList<>();
 				
-				//DVD dvd = new DVD();
-				properties.add((String) object.get("year"));
-				properties.add((String) object.get("title"));
-				properties.add((String) object.get("thumbnailImg"));
-				properties.add((String) object.get("uniqueID"));
-				properties.add((String) object.get("author"));
-				properties.add((String) object.get("genre"));
-				properties.add((String) object.get("isbn"));
-				properties.add((String) object.get("publisher"));
-				
-				languageArray = (JSONArray) object.get("languages");
-				String languages = "";
+				String year = ((String) object.get("year"));
+				String title = ((String) object.get("title"));
+				String thumbnailImageRef = ((String) object.get("thumbnailImg"));
+				String uniqueID =((String) object.get("uniqueID"));
+				String director = ((String) object.get("director"));
+				String runtime = ((String) object.get("runtime"));
+				String language =((String) object.get("language"));
+
+				languageArray = (JSONArray) object.get("sub-languages");
+				ArrayList<String> subLang = new ArrayList<>();
 				if (languageArray != null) {
-					for (Object language : languageArray) {
+					for (Object lang : languageArray) {
 						String stringLanguage = (String) language;
-						languages = languages + stringLanguage + ",";
+						subLang.add(stringLanguage);
 					}
 				}
-				properties.add(languages);
 				
-				bookQueueArray = (JSONArray) object.get("bookQueue");
-				String bookQueues = "";
-				if (bookQueueArray != null) {
-					for (Object bookQueue : bookQueueArray) {
+				// TODO: MAKE THIS WORK 
+				dvdQueueArray = (JSONArray) object.get("bookQueue");
+				String dvdQueues = "";
+				if (dvdQueueArray != null) {
+					for (Object bookQueue : dvdQueueArray) {
 						String stringBookQueue = (String) bookQueue;
-						bookQueues = bookQueues + stringBookQueue + ",";
+						dvdQueues += stringBookQueue + ",";
 					}
 				}
-				properties.add(bookQueues);
 				
+				// TODO: MAKE THIS WORK
 				listOfCopiesArray = (JSONArray) object.get("resourceBorrow");
 				String listOfCopies = "";
 				if (listOfCopiesArray != null) {
@@ -212,9 +209,8 @@ public class ReadFile extends IO{
 						listOfCopies = listOfCopies + stringCopie + ",";
 					}
 				}
-				properties.add(listOfCopies);
 				
-				//dvdList.add(book);
+				Library.addDVD(year, title, thumbnailImageRef, uniqueID, director, runtime, language, subLang);
 			}
 			
 			reader.close();
@@ -229,7 +225,6 @@ public class ReadFile extends IO{
 			System.out.println("ERROR parsing users JSON");
 			e.printStackTrace();
 		}
-    	return dvdList;
 	}
 	
 	public static String readLaptops() {

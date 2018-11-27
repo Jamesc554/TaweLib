@@ -97,7 +97,6 @@ public class Library {
 		return LibraryResources.getAllUsers();
 	}
 
-	// TODO: CHANGE FROM STRING TO USER ONCE IMPLEMENTED
 	public static void setLoggedInUser(User user) {
 		currentUser = user;
 	}

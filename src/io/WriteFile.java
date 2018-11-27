@@ -117,13 +117,6 @@ public class WriteFile extends IO {
 		JSONArray dvdQueueArray = new JSONArray();
 		JSONArray listOfCopiesArray = new JSONArray();
 
-		Queue<User> dvdQueue = dvd.getQueueOfReservations();
-		while (!dvdQueue.isEmpty()) {
-			dvdQueueArray.add(dvdQueue.peek().getUserName());
-			dvdQueue.dequeue();
-		}
-		object.put("dvdQueue", dvdQueueArray);
-
 		object.put("year", dvd.getYear());
 		object.put("title", dvd.getTitle());
 		object.put("thumbnailImg", dvd.getThumbnailImageRef());
@@ -137,6 +130,13 @@ public class WriteFile extends IO {
 		}
 		object.put("sub-languages", languageArray);
 
+		Queue<User> dvdQueue = dvd.getQueueOfReservations();
+		while (!dvdQueue.isEmpty()) {
+			dvdQueueArray.add(dvdQueue.peek().getUserName());
+			dvdQueue.dequeue();
+		}
+		object.put("dvdQueue", dvdQueueArray);
+		
 		for (String copies : dvd.getArrayListOfCopies()) {
 			listOfCopiesArray.add(copies);
 		}
