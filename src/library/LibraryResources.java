@@ -13,6 +13,7 @@ public class LibraryResources {
 
 	public static void start(){
 		listOfUsers = ReadFile.readUsers();
+		listOfDVD = ReadFile.readDvds();
 	}
 
 	public static void addBook(Book book){

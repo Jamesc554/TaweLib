@@ -6,7 +6,7 @@ package io;
 
 public abstract class IO {
 	private static final String usersFilePath = "./data/users.json";
-	private static final String bookFilePath = "./data/rbook.json";
+	private static final String bookFilePath = "./data/book.json";
 	private static final String dvdFilePath = "./data/dvd.json";
 	private static final String laptopFilePath = "./data/laptop.json";
 	private static final String outDataFilePath = "./data/outData.json";

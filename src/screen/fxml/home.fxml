@@ -55,7 +55,7 @@
       <ToolBar prefHeight="33.0" prefWidth="1280.0">
          <items>
             <TextField fx:id="searchBar" prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." />
-            <Button fx:id="searchBtn" mnemonicParsing="false" text="Search" />
+            <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchButton" text="Search" />
             <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="500.0">
                <image>
                   <Image url="@../../../data/images/james/testImg442.png" />

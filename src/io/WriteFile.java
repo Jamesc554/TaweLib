@@ -239,6 +239,8 @@ public class WriteFile extends IO {
 		
 		currentFile = new File(IO.getLaptopFilePath());
 		currentFile.renameTo(new File("./data/backup/" + newFilePath + "/laptop.json"));
+		
+		fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), new ArrayList<Laptop>(), "", "", "", "");
 	}
 
 	public static void saveImageToUser(WritableImage img, String fileName) {

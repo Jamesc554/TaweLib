@@ -160,14 +160,16 @@ public class ReadFile extends IO{
     	return bookList;
 	}
 	
-	public static void readDvds() {
+	public static ArrayList<DVD> readDvds() {
 		JSONParser parser = new JSONParser();
 		JSONArray languageArray = new JSONArray();
     	JSONArray dvdQueueArray = new JSONArray();
     	JSONArray listOfCopiesArray = new JSONArray();
     	
+    	ArrayList<DVD> dvds = new ArrayList<>();
+    	
     	try {
-			file = new FileReader(IO.getBookFilePath());
+			file = new FileReader(IO.getDvdFilePath());
 			reader = new BufferedReader(file);
 			
 			while((currentLine = reader.readLine()) != null) {
@@ -210,7 +212,7 @@ public class ReadFile extends IO{
 					}
 				}
 				
-				Library.addDVD(year, title, thumbnailImageRef, uniqueID, director, runtime, language, subLang);
+				dvds.add(new DVD(year, title, thumbnailImageRef, uniqueID, director, runtime, language, subLang));
 			}
 			
 			reader.close();
@@ -225,6 +227,8 @@ public class ReadFile extends IO{
 			System.out.println("ERROR parsing users JSON");
 			e.printStackTrace();
 		}
+    	
+    	return dvds;
 	}
 	
 	public static String readLaptops() {

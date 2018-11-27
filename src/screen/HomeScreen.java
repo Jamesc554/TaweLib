@@ -86,6 +86,11 @@ public class HomeScreen extends Screen implements Initializable{
 	}
 	
 	@FXML
+	private void searchButton(Event event) {
+		ScreenManager.changeScreen(new SearchResultScreen());
+	}
+	
+	@FXML
 	private void logoutButton(Event event) {
 		logout();
 	}

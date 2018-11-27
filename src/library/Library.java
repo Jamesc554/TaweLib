@@ -87,7 +87,7 @@ public class Library {
 	public static ArrayList<Book> getAllBooks(){
 		return LibraryResources.getListOfBooks();
 	}
-	public ArrayList<Laptop> getAllLaptops(){
+	public static ArrayList<Laptop> getAllLaptops(){
 		return LibraryResources.getListOfLaptops();
 	}
 	public static ArrayList<DVD> getAllDVD(){

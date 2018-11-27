@@ -1,36 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.SearchResultScreen">
    <children>
-      <ToolBar prefHeight="33.0" prefWidth="1280.0">
-         <items>
-            <TextField prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." />
-            <Button mnemonicParsing="false" text="Search" />
-            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="500.0">
-               <image>
-                  <Image url="some_image" />
-               </image>
-            </ImageView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username" translateX="500.0" />
-            <Button mnemonicParsing="false" text="Logout" translateX="600.0" />
-         </items>
-      </ToolBar>
-      <ToolBar layoutY="33.0" prefHeight="35.0" prefWidth="1280.0">
-         <items>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Home" translateX="10.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Account" translateX="50.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Issue Desk" translateX="90.0" />
-         </items>
-      </ToolBar>
-      <ListView layoutY="68.0" prefHeight="654.0" prefWidth="1280.0" />
+      <VBox prefHeight="200.0" prefWidth="1280.0">
+         <children>
+            <ToolBar prefHeight="33.0" prefWidth="1280.0">
+               <items>
+                  <TextField fx:id="searchBar" onAction="#updateSearchResults" prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." />
+                  <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchButton" text="Search" />
+                  <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="500.0">
+                     <image>
+                        <Image url="@../../../data/images/james/testImg442.png" />
+                     </image>
+                  </ImageView>
+                  <Text fx:id="usernameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" translateX="500.0" />
+                  <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutButton" text="Logout" translateX="600.0" />
+               </items>
+            </ToolBar>
+            <ToolBar prefHeight="35.0" prefWidth="1280.0">
+               <items>
+                  <HBox prefHeight="25.0" prefWidth="1268.0" spacing="20.0">
+                     <children>
+                        <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Home" />
+                        <Button fx:id="accountBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Account" />
+                        <Button fx:id="issueDeskBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Issue Desk" />
+                        <Button fx:id="drawAppBtn" mnemonicParsing="false" onAction="#drawAppButton" prefHeight="25.0" prefWidth="110.0" text="Draw App" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </items>
+            </ToolBar>
+            <VBox prefHeight="677.0" prefWidth="1280.0">
+               <children>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER">
+                     <content>
+                        <HBox fx:id="bookHBox" spacing="5.0">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
+                     </content>
+                  </ScrollPane>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER">
+                     <content>
+                        <HBox fx:id="dvdHBox" spacing="5.0">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
+                     </content>
+                  </ScrollPane>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER">
+                     <content>
+                        <HBox fx:id="laptopHBox" spacing="5.0">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
    </children>
-</AnchorPane>
+</HBox>
