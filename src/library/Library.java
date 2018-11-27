@@ -142,6 +142,67 @@ public class Library {
         }
 	return info;
     }
-	public static void searchResources(String text){}
+	public static ArrayList<Resource> searchResources(String text){
+	    int textSize = text.length();
+	    Integer hashedTextSearch = hashText(text.toLowerCase());
 
+	    ArrayList<String> textPart = new ArrayList();
+        ArrayList<Integer> hashedTextPart = new ArrayList();
+        ArrayList<Resource> resources = new ArrayList<>();
+        ArrayList<Resource> result = new ArrayList<>();
+
+
+        resources.addAll(LibraryResources.getListOfBooks());
+        resources.addAll(LibraryResources.getListOfDVD());
+        resources.addAll(LibraryResources.getListOfLaptops());
+
+        int i = 0;
+
+        while(i < resources.size()){
+            textPart = partString(resources.get(i), textSize);
+            hashedTextPart = hashList(textPart);
+            int j = 0;
+            while(j < hashedTextPart.size()) {
+                if(hashedTextPart.get(j).equals(hashedTextSearch)){
+                    if(textPart.get(j).equals(text.toLowerCase())){
+                        result.add(resources.get(i));
+                    }
+                }
+                j++;
+            }
+        i++;
+        }
+        return result;
+    }
+    private static ArrayList<String> partString(Resource res, int partSize){
+	    ArrayList<String> list = new ArrayList<>();
+	    String resString = res.toSingleString();
+	    int i = 0;
+	    while(i+partSize+1 <= resString.length()){
+	        list.add(resString.substring(i,i+partSize).toLowerCase());
+	        i++;
+        }
+        list.add(resString.substring(resString.length()-partSize,resString.length()).toLowerCase());
+        return list;
+    }
+    private static ArrayList<Integer> hashList(ArrayList<String> parts){
+	    ArrayList<Integer> list = new ArrayList<>();
+	    Integer sum;
+	    for(String p : parts){
+	        sum = 0;
+	        for(int i=0; i < p.length(); i++){
+	            sum += (int)p.charAt(i);
+            }
+            list.add(sum);
+        }
+        return list;
+    }
+    private static Integer hashText(String text){
+	    Integer sum = 0;
+	    String t = text.toLowerCase();
+	    for(int i=0; i<t.length(); i++){
+	        sum += (int)t.charAt(i);
+        }
+        return sum;
+    }
 }
