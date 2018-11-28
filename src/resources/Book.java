@@ -265,7 +265,7 @@ public class Book extends Resource {
 
 	/**
 	 * Generates a copy ID based off of previous copyID.
-	 * @return
+	 * @return hCpyID the current highest ID of a copy
 	 */
 	private String generateCopyID() {
 		//

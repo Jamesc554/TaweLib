@@ -136,4 +136,21 @@ public class Laptop extends Resource {
 		this.operatingSys = operatingSys;
 	}
 	
+	/**
+	 * Adds a copy to this Laptop unique Array of copies.
+	 */
+	public void addToCopies() {
+		super.addToCopies(generateCopyID());
+	}
+	
+	/**
+	 * Generates a copy ID based off of previous copyID.
+	 * @return hCpyID the highest ID of copies of Laptop
+	 */
+	private String generateCopyID() {
+		//
+		this.highestCopyID++;
+		String hCpyID = Integer.toString(this.highestCopyID);
+		return hCpyID;
+	}
 }

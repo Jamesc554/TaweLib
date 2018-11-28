@@ -105,6 +105,14 @@ public class Library {
 		return currentUser;
 	}
 
+	/**
+	 * Checks if the logged in user is of class Librarian
+	 * @return True if current user is a Librarian
+	 */
+	public static boolean currentUserIsLibrarian() {
+		return currentUser instanceof Librarian;
+	}
+
 	public static void changeAddress(String username, String firstLine, String secondLine){
 	    User u = getUser(username);
 	    u.setFirstLineAddress(firstLine);
