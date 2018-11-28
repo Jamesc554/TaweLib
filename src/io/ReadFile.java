@@ -11,7 +11,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import library.Library;
+import resources.Book;
 import resources.DVD;
+import resources.Laptop;
 import user.User;
 
 /**
@@ -27,7 +29,6 @@ public class ReadFile extends IO{
 		return "";
 	}
 	
-	// When users class is done it will return an arraylist of user objects.
 	public static ArrayList<User> readUsers() {
 		JSONParser parser = new JSONParser();
 		JSONArray resourceArray = new JSONArray();
@@ -89,12 +90,12 @@ public class ReadFile extends IO{
 	}
 	
 	// TODO: CHANGE TO ArrayList<Book>
-	public static ArrayList<ArrayList> readBooks() {
+	public static ArrayList<Book> readBooks() {
 		JSONParser parser = new JSONParser();
 		JSONArray languageArray = new JSONArray();
     	JSONArray bookQueueArray = new JSONArray();
     	JSONArray listOfCopiesArray = new JSONArray();
-    	ArrayList<ArrayList> bookList = new ArrayList<ArrayList>();
+    	ArrayList<Book> bookList = new ArrayList<Book>();
     	
     	try {
 			file = new FileReader(IO.getBookFilePath());
@@ -102,26 +103,27 @@ public class ReadFile extends IO{
 			
 			while((currentLine = reader.readLine()) != null) {
 				JSONObject object = (JSONObject) parser.parse(currentLine);
-				ArrayList<String> book = new ArrayList<String>();
-				book.add((String) object.get("year"));
-				book.add((String) object.get("title"));
-				book.add((String) object.get("thumbnailImg"));
-				book.add((String) object.get("uniqueID"));
-				book.add((String) object.get("author"));
-				book.add((String) object.get("genre"));
-				book.add((String) object.get("isbn"));
-				book.add((String) object.get("publisher"));
+				
+				String year = ((String) object.get("year"));
+				String title = ((String) object.get("title"));
+				String thumbnailImg = ((String) object.get("thumbnailImg"));
+				String uniqueID = ((String) object.get("uniqueID"));
+				String author = ((String) object.get("author"));
+				String genre = ((String) object.get("genre"));
+				String isbn = ((String) object.get("isbn"));
+				String publisher = ((String) object.get("publisher"));
+				
+				Book bookToAdd = new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, null);
 				
 				languageArray = (JSONArray) object.get("languages");
-				String languages = "";
 				if (languageArray != null) {
 					for (Object language : languageArray) {
 						String stringLanguage = (String) language;
-						languages = languages + stringLanguage + ",";
+						bookToAdd.addLanguage(stringLanguage);
 					}
 				}
-				book.add(languages);
 				
+				//TODO: Make this work
 				bookQueueArray = (JSONArray) object.get("bookQueue");
 				String bookQueues = "";
 				if (bookQueueArray != null) {
@@ -130,19 +132,16 @@ public class ReadFile extends IO{
 						bookQueues = bookQueues + stringBookQueue + ",";
 					}
 				}
-				book.add(bookQueues);
 				
 				listOfCopiesArray = (JSONArray) object.get("resourceBorrow");
-				String listOfCopies = "";
 				if (listOfCopiesArray != null) {
 					for (Object copie : listOfCopiesArray) {
 						String stringCopie = (String) copie;
-						listOfCopies = listOfCopies + stringCopie + ",";
+						bookToAdd.addToCopies(stringCopie);
 					}
 				}
-				book.add(listOfCopies);
 				
-				bookList.add(book);
+				bookList.add(bookToAdd);
 			}
 			
 			reader.close();
@@ -166,7 +165,7 @@ public class ReadFile extends IO{
     	JSONArray dvdQueueArray = new JSONArray();
     	JSONArray listOfCopiesArray = new JSONArray();
     	
-    	ArrayList<DVD> dvds = new ArrayList<>();
+    	ArrayList<DVD> dvds = new ArrayList<DVD>();
     	
     	try {
 			file = new FileReader(IO.getDvdFilePath());
@@ -218,10 +217,10 @@ public class ReadFile extends IO{
 			reader.close();
 			file.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("Cannot find " + IO.getBookFilePath());
+			System.out.println("Cannot find " + IO.getDvdFilePath());
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println("ERROR reading file " + IO.getBookFilePath());
+			System.out.println("ERROR reading file " + IO.getDvdFilePath());
 			e.printStackTrace();
 		} catch (ParseException e) {
 			System.out.println("ERROR parsing users JSON");
@@ -231,19 +230,57 @@ public class ReadFile extends IO{
     	return dvds;
 	}
 	
-	public static String readLaptops() {
-		return "";
-	}
-	
-	public static String readOutData() {
-		return "";
-	}
-	
-	public static String readBookQueue() {
-		return "";
-	}
-	
-	public static String readTransactions() {
-		return "";
+	public static ArrayList<Laptop> readLaptops() {
+		JSONParser parser = new JSONParser();
+		//TODO: Implement these:
+		JSONArray languageArray = new JSONArray();
+    	JSONArray dvdQueueArray = new JSONArray();
+    	////////////////////////
+    	JSONArray listOfCopiesArray = new JSONArray();
+    	
+    	ArrayList<Laptop> laptops = new ArrayList<Laptop>();
+    	
+    	try {
+			file = new FileReader(IO.getLaptopFilePath());
+			reader = new BufferedReader(file);
+			
+			while((currentLine = reader.readLine()) != null) {
+				JSONObject object = (JSONObject) parser.parse(currentLine);
+				
+				String uniqueID = ((String) object.get("uniqueID"));
+				String manufacturer = ((String) object.get("manufacturer"));
+				String model = ((String) object.get("model"));
+				String operatingSys = ((String) object.get("operatingSys"));
+				String year = ((String) object.get("year"));
+				String title = ((String) object.get("title"));
+				String thumbnailImg = ((String) object.get("thumbnailImg"));
+				
+				Laptop laptopToAdd = new Laptop(manufacturer, model, operatingSys, year, title, thumbnailImg, uniqueID);
+				
+				listOfCopiesArray = (JSONArray) object.get("listOfCopies");
+				if (listOfCopiesArray != null) {
+					for (Object copie : listOfCopiesArray) {
+						String stringCopie = (String) copie;
+						laptopToAdd.addToCopies(stringCopie);
+					}
+				}
+				
+				laptops.add(laptopToAdd);
+			}
+			
+			reader.close();
+			file.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot find " + IO.getLaptopFilePath());
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("ERROR reading file " + IO.getLaptopFilePath());
+			e.printStackTrace();
+		} catch (ParseException e) {
+			System.out.println("ERROR parsing users JSON");
+			e.printStackTrace();
+		}
+    	
+		return laptops;
 	}
 }

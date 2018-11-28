@@ -152,20 +152,40 @@ public class WriteFile extends IO {
 		}
 	}
 
-	public static void writeLaptop(Laptop Laptop) {
-
-	}
-
-	public static void writeOutData(String outData) {
-
-	}
-
-	public static void writeBookQueue(String bookQueueData) {
-
-	}
-
-	public static void writeTransaction(String transactionData) {
-
+	@SuppressWarnings("unchecked")
+	public static void writeLaptop(Laptop laptop) {
+		JSONObject object = new JSONObject();
+		JSONArray laptopQueueArray = new JSONArray();
+		JSONArray listOfCopiesArray = new JSONArray();
+		
+		object.put("uniqueID", laptop.getUniqueID());
+		object.put("manufacturer", laptop.getManufacturer());
+		object.put("model", laptop.getModel());
+		object.put("operatingSys", laptop.getOperatingSys());
+		object.put("year", laptop.getYear());
+		object.put("title", laptop.getTitle());
+		object.put("thumbnailImg", laptop.getThumbnailImageRef());
+		
+		Queue<User> laptopQueue = laptop.getQueueOfReservations();
+		while (!laptopQueue.isEmpty()) {
+			laptopQueueArray.add(laptopQueue.peek().getUserName());
+			laptopQueue.dequeue();
+		}
+		object.put("dvdQueue", laptopQueueArray);
+		
+		for (String copies : laptop.getArrayListOfCopies()) {
+			listOfCopiesArray.add(copies);
+		}
+		object.put("listOfCopies", listOfCopiesArray);
+		
+		try {
+			FileWriter file = new FileWriter(IO.getLaptopFilePath(), true);
+			file.write(object.toJSONString() + "\n");
+			file.flush();
+			file.close();
+		} catch (IOException e) {
+			System.out.println("Error writing laptop to " + IO.getLaptopFilePath() + " " + laptop.getUniqueID());
+		}
 	}
 
 	public static void overwriteUsers(ArrayList<User> users) {
@@ -204,20 +224,8 @@ public class WriteFile extends IO {
 		}
 	}
 
-	public static void overwriteOutData(String outData) {
-
-	}
-
-	public static void overwriteBookQueues(String bookQueueData) {
-
-	}
-
-	public static void overwriteTransactions(String transactionData) {
-
-	}
-
 	public static void fullWrite(ArrayList<User> users, ArrayList<Book> books, ArrayList<DVD> dvds,
-			ArrayList<Laptop> laptops, String outData, String bookQueueData, String statsDate, String transactionData) {
+			ArrayList<Laptop> laptops) {
 		overwriteUsers(users);
 		overwriteResources(books, dvds, laptops);
 	}
@@ -240,7 +248,7 @@ public class WriteFile extends IO {
 		currentFile = new File(IO.getLaptopFilePath());
 		currentFile.renameTo(new File("./data/backup/" + newFilePath + "/laptop.json"));
 		
-		fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), new ArrayList<Laptop>(), "", "", "", "");
+		fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), new ArrayList<Laptop>());
 	}
 
 	public static void saveImageToUser(WritableImage img, String fileName) {
