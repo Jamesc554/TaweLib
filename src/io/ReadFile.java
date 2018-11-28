@@ -132,16 +132,13 @@ public class ReadFile extends IO{
 					}
 				}
 				
-				//TODO: Make this work
 				listOfCopiesArray = (JSONArray) object.get("resourceBorrow");
-				String listOfCopies = "";
 				if (listOfCopiesArray != null) {
 					for (Object copie : listOfCopiesArray) {
 						String stringCopie = (String) copie;
-						listOfCopies = listOfCopies + stringCopie + ",";
+						bookToAdd.addToCopies(stringCopie);
 					}
 				}
-				
 				
 				bookList.add(bookToAdd);
 			}
