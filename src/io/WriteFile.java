@@ -156,18 +156,6 @@ public class WriteFile extends IO {
 
 	}
 
-	public static void writeOutData(String outData) {
-
-	}
-
-	public static void writeBookQueue(String bookQueueData) {
-
-	}
-
-	public static void writeTransaction(String transactionData) {
-
-	}
-
 	public static void overwriteUsers(ArrayList<User> users) {
 		File usersFile = new File(IO.getUsersFilePath());
 
@@ -217,7 +205,7 @@ public class WriteFile extends IO {
 	}
 
 	public static void fullWrite(ArrayList<User> users, ArrayList<Book> books, ArrayList<DVD> dvds,
-			ArrayList<Laptop> laptops, String outData, String bookQueueData, String statsDate, String transactionData) {
+			ArrayList<Laptop> laptops) {
 		overwriteUsers(users);
 		overwriteResources(books, dvds, laptops);
 	}
@@ -240,7 +228,7 @@ public class WriteFile extends IO {
 		currentFile = new File(IO.getLaptopFilePath());
 		currentFile.renameTo(new File("./data/backup/" + newFilePath + "/laptop.json"));
 		
-		fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), new ArrayList<Laptop>(), "", "", "", "");
+		fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), new ArrayList<Laptop>());
 	}
 
 	public static void saveImageToUser(WritableImage img, String fileName) {

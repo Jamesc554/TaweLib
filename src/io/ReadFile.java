@@ -27,7 +27,6 @@ public class ReadFile extends IO{
 		return "";
 	}
 	
-	// When users class is done it will return an arraylist of user objects.
 	public static ArrayList<User> readUsers() {
 		JSONParser parser = new JSONParser();
 		JSONArray resourceArray = new JSONArray();
@@ -232,18 +231,6 @@ public class ReadFile extends IO{
 	}
 	
 	public static String readLaptops() {
-		return "";
-	}
-	
-	public static String readOutData() {
-		return "";
-	}
-	
-	public static String readBookQueue() {
-		return "";
-	}
-	
-	public static String readTransactions() {
 		return "";
 	}
 }
