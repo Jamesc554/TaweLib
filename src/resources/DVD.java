@@ -146,4 +146,21 @@ public class DVD extends Resource {
 		this.language = language;
 	}
 	
+	/**
+	 * Adds a copy to this DVD's unique Array of copies.
+	 */
+	public void addToCopies() {
+		super.addToCopies(generateCopyID());
+	}
+	
+	/**
+	 * Generates a copy ID based off of previous copyID.
+	 * @return hCpyID the highest ID of copies of dvd's
+	 */
+	private String generateCopyID() {
+		//
+		this.highestCopyID++;
+		String hCpyID = Integer.toString(this.highestCopyID);
+		return hCpyID;
+	}
 }
