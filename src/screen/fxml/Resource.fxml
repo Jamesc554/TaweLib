@@ -104,4 +104,4 @@
       <Text fx:id="usernameText" fill="#fff4f4" layoutX="1032.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
       <Button fx:id="logoutBtn" layoutX="1212.0" layoutY="5.0" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: #0e0056;" text="Logout" textFill="#fff2f2" underline="true" />
    </children>
-</AnchorPane>
+</AnchorPane > 
