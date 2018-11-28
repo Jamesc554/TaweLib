@@ -11,6 +11,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import library.Library;
+import resources.Book;
 import resources.DVD;
 import user.User;
 
@@ -88,12 +89,12 @@ public class ReadFile extends IO{
 	}
 	
 	// TODO: CHANGE TO ArrayList<Book>
-	public static ArrayList<ArrayList> readBooks() {
+	public static ArrayList<Book> readBooks() {
 		JSONParser parser = new JSONParser();
 		JSONArray languageArray = new JSONArray();
     	JSONArray bookQueueArray = new JSONArray();
     	JSONArray listOfCopiesArray = new JSONArray();
-    	ArrayList<ArrayList> bookList = new ArrayList<ArrayList>();
+    	ArrayList<Book> bookList = new ArrayList<Book>();
     	
     	try {
 			file = new FileReader(IO.getBookFilePath());
@@ -101,26 +102,27 @@ public class ReadFile extends IO{
 			
 			while((currentLine = reader.readLine()) != null) {
 				JSONObject object = (JSONObject) parser.parse(currentLine);
-				ArrayList<String> book = new ArrayList<String>();
-				book.add((String) object.get("year"));
-				book.add((String) object.get("title"));
-				book.add((String) object.get("thumbnailImg"));
-				book.add((String) object.get("uniqueID"));
-				book.add((String) object.get("author"));
-				book.add((String) object.get("genre"));
-				book.add((String) object.get("isbn"));
-				book.add((String) object.get("publisher"));
+				
+				String year = ((String) object.get("year"));
+				String title = ((String) object.get("title"));
+				String thumbnailImg = ((String) object.get("thumbnailImg"));
+				String uniqueID = ((String) object.get("uniqueID"));
+				String author = ((String) object.get("author"));
+				String genre = ((String) object.get("genre"));
+				String isbn = ((String) object.get("isbn"));
+				String publisher = ((String) object.get("publisher"));
+				
+				Book bookToAdd = new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, null);
 				
 				languageArray = (JSONArray) object.get("languages");
-				String languages = "";
 				if (languageArray != null) {
 					for (Object language : languageArray) {
 						String stringLanguage = (String) language;
-						languages = languages + stringLanguage + ",";
+						bookToAdd.addLanguage(stringLanguage);
 					}
 				}
-				book.add(languages);
 				
+				//TODO: Make this work
 				bookQueueArray = (JSONArray) object.get("bookQueue");
 				String bookQueues = "";
 				if (bookQueueArray != null) {
@@ -129,8 +131,8 @@ public class ReadFile extends IO{
 						bookQueues = bookQueues + stringBookQueue + ",";
 					}
 				}
-				book.add(bookQueues);
 				
+				//TODO: Make this work
 				listOfCopiesArray = (JSONArray) object.get("resourceBorrow");
 				String listOfCopies = "";
 				if (listOfCopiesArray != null) {
@@ -139,9 +141,9 @@ public class ReadFile extends IO{
 						listOfCopies = listOfCopies + stringCopie + ",";
 					}
 				}
-				book.add(listOfCopies);
 				
-				bookList.add(book);
+				
+				bookList.add(bookToAdd);
 			}
 			
 			reader.close();
