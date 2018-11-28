@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.HomeScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.HomeScreen">
    <children>
       <SplitPane dividerPositions="0.6588419405320813" layoutY="68.0" prefHeight="658.0" prefWidth="1280.0">
         <items>
@@ -70,7 +70,7 @@
          <items>
             <TextField fx:id="searchBar" prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." />
             <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchButton" style="-fx-background-color: #ef9d39;" text="Search" textFill="#0e0056" />
-            <Text fill="#ffeded" strokeType="OUTSIDE" strokeWidth="0.0" text="Tawe Library" textAlignment="CENTER" wrappingWidth="150.7158203125">
+            <Text fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Tawe Library" textAlignment="CENTER" wrappingWidth="150.7158203125">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -85,7 +85,7 @@
                   <Button fx:id="accountBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Account" textFill="#fff4f4" underline="true" />
                   <Button fx:id="drawAppBtn" mnemonicParsing="false" onAction="#drawAppButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Draw App" textFill="#fff1f1" underline="true" />
                   <Button fx:id="issueDeskBtn" mnemonicParsing="false" onAction="#issueDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Issue Desk" textFill="#fff1f1" underline="true" visible="false" />
-                  <Text fill="#ffeeee" strokeType="OUTSIDE" strokeWidth="0.0" text="sponsered by amzon">
+                  <Text fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="sponsered by amzon">
                      <font>
                         <Font name="System Bold Italic" size="11.0" />
                      </font>
@@ -99,7 +99,7 @@
       </ToolBar>
       <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" layoutX="993.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../data/images/james/testImg442.png" />
+            <Image url="@../../../../../git/SEGroup2/data/images/james/testImg442.png" />
          </image>
       </ImageView>
       <Text fx:id="usernameText" fill="#fff4f4" layoutX="1032.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
