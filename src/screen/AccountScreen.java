@@ -1,8 +1,12 @@
 package screen;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -15,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import library.Library;
 import resources.Resource;
 
 /**
@@ -51,12 +56,6 @@ public class AccountScreen extends Screen implements Initializable{
 		@FXML
 		private Button drawAppBtn;
 		
-		@FXML
-		private Text fineText;
-		
-		@FXML
-		private ListView<Resource> borrowItemsList;
-		
 		@Override
 		public void start() {
 			Pane root;
@@ -92,7 +91,6 @@ public class AccountScreen extends Screen implements Initializable{
 
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
-			// TODO Auto-generated method stub
-			
+			 
 		}
 }
