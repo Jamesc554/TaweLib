@@ -58,9 +58,16 @@ public class Library {
 	public static void addBalance(int amount, String username){
 		getUser(username).addAccountBalance(amount);
 	}
-	public static void subtractBalance(int amount, String username){
-		getUser(username).addAccountBalance(amount);
+
+	public static void subtractBalance (int amount, String username) {
+		if (amount <= 0 ) {
+			throw new IllegalArgumentException("Cannot subtract negative or null amount");
+		} else if (amount > currentUser.getIntegerAccountBalance()) {
+			throw new IllegalArgumentException("Amount superior to account balance");
+		}
+		getUser(username).subtractAccountBalance(amount);
 	}
+
 	public static String getCurrentDateTime(){
 		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		return dataFormat.format(new Date());

@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -52,11 +53,21 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Button loanBtn;
     @FXML
+    private Label loanUserError;
+    @FXML
+    private Label loanResourceError;
+    @FXML
     private TextField paymentUsername;
     @FXML
     private TextField paymentAmount;
     @FXML
     private Button paymentBtn;
+    @FXML
+    private Label paymentUserError;
+    @FXML
+    private Label paymentAmountError;
+    @FXML
+    private Label paymentSuccess;
     @FXML
     private TextField userUsername;
     @FXML
@@ -96,6 +107,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
             e.printStackTrace();
         }
 
+        //TODO: Change to only librarians once librarian is added
+        if (!Library.currentUserIsLibrarian()) {
+            issueDeskBtn.setVisible(true);
+        }
+
         userIcon.setImage(SwingFXUtils.toFXImage(img, null));
         usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
     }
@@ -125,7 +141,24 @@ public class IssueDeskScreen extends Screen implements Initializable {
      */
     @FXML
     private void paymentButton(Event e) {
-        Library.subtractBalance(Integer.parseInt(paymentAmount.getText()), paymentUsername.getText());
+        String user = paymentUsername.getText();
+        if (Library.checkForUser(user)) {
+            paymentUserError.setVisible(false);
+            try {
+                int balance = Integer.parseInt(paymentAmount.getText()) * 100;  //Convert pounds to pence
+                Library.subtractBalance(balance, paymentUsername.getText());
+                paymentSuccess.setVisible(true);
+                paymentAmountError.setVisible(false);
+                paymentUserError.setVisible(false);
+
+            } catch (IllegalArgumentException ex) {
+                paymentAmountError.setVisible(true);
+                paymentSuccess.setVisible(false);
+            }
+        } else {
+            paymentSuccess.setVisible(false);
+            paymentUserError.setVisible(true);
+        }
     }
 
     /**

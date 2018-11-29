@@ -108,11 +108,15 @@ public class HomeScreen extends Screen implements Initializable{
 		} catch (IOException e) {
 			
 		}
+
+		//TODO: Change to only librarians once librarian is added
+		if (!Library.currentUserIsLibrarian()) {
+			issueDeskBtn.setVisible(true);
+		}
 		
 		userIcon.setImage(SwingFXUtils.toFXImage(img, null));
 		usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
 		fineText.setText(Library.getCurrentLoggedInUser().getAccountBalance());
-		
 	}
 
 }
