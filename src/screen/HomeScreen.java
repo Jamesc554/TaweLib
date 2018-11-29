@@ -99,6 +99,11 @@ public class HomeScreen extends Screen implements Initializable{
 	private void issueDeskButton(Event event) {
 		ScreenManager.changeScreen(new IssueDeskScreen());
 	}
+	
+	@FXML
+	private void accountDeskButton(Event event) {
+		ScreenManager.changeScreen(new AccountScreen());
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
