@@ -8,13 +8,16 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -56,6 +59,27 @@ public class AccountScreen extends Screen implements Initializable{
 		@FXML
 		private Button drawAppBtn;
 		
+		@FXML
+		private Label usernameField;
+		
+		@FXML
+		private Label nameField;
+		
+		@FXML
+		private Label mobileNumberField;
+		
+		@FXML
+		private Label balanceField;
+		
+		@FXML
+		private TextArea addressField;
+		
+		@FXML
+		private ImageView profileImageField;
+		
+		@FXML
+		private Text fineText;
+		
 		@Override
 		public void start() {
 			Pane root;
@@ -91,6 +115,19 @@ public class AccountScreen extends Screen implements Initializable{
 
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
-			 
+			BufferedImage img = null;
+	        try {
+	            img = ImageIO.read(new File(Library.getCurrentLoggedInUser().getProfImage()));
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+
+	        //TODO: Change to only librarians once librarian is added
+	        if (!Library.currentUserIsLibrarian()) {
+	            issueDeskBtn.setVisible(true);
+	        }
+
+	        userIcon.setImage(SwingFXUtils.toFXImage(img, null));
+	        usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
 		}
 }
