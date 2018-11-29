@@ -104,6 +104,11 @@ public class SearchResultScreen extends Screen implements Initializable{
 	private void logoutButton(Event event) {
 		logout();
 	}
+	
+	@FXML
+	private void accountDeskButton(Event event) {
+		ScreenManager.changeScreen(new AccountScreen());
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

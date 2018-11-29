@@ -135,6 +135,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private void logoutButton(Event e) {
         logout();
     }
+    
+    @FXML
+	private void accountDeskButton(Event event) {
+		ScreenManager.changeScreen(new AccountScreen());
+	}
 
     /**
      * Event handling to process payments.
