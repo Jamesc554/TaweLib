@@ -232,7 +232,7 @@ public class User {
         //If the account has at least 3 digits
         if(String.valueOf(tempBal).length() >= 3){
         	//Take £ add everything but last two digits add . then put last two digits at the end.
-            s = s + "�" + String.valueOf(tempBal).substring(0, String.valueOf(tempBal).length() - 2)
+            s = s + "£" + String.valueOf(tempBal).substring(0, String.valueOf(tempBal).length() - 2)
                     +"."+String.valueOf(tempBal).substring(String.valueOf(tempBal).length() - 2);
         //If two digits. take two digits and add to the end of £0.
         }else if (String.valueOf(tempBal).length() >= 2){
