@@ -112,6 +112,11 @@ public class AccountScreen extends Screen implements Initializable{
 		private void issueDeskButton(Event event) {
 			ScreenManager.changeScreen(new IssueDeskScreen());
 		}
+		
+		@FXML
+		private void accountDeskButton(Event event) {
+			ScreenManager.changeScreen(new AccountScreen());
+		}
 
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
