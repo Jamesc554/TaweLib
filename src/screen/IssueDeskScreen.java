@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -56,6 +57,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Label loanUserError;
     @FXML
     private Label loanResourceError;
+    @FXML
+    private Label loanSuccess;
+    @FXML
+    private ChoiceBox loanResourceType;
     @FXML
     private TextField paymentUsername;
     @FXML
@@ -143,35 +148,58 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Event handling to process payments.
+     * @param e the JavaFX event event
      */
     @FXML
     private void paymentButton(Event e) {
         String user = paymentUsername.getText();
+
+        //Reset all error/success labels
+        paymentAmountError.setVisible(false);
+        paymentUserError.setVisible(false);
+        paymentSuccess.setVisible(false);
+
         if (Library.checkForUser(user)) {
-            paymentUserError.setVisible(false);
             try {
                 int balance = Integer.parseInt(paymentAmount.getText()) * 100;  //Convert pounds to pence
                 Library.subtractBalance(balance, paymentUsername.getText());
                 paymentSuccess.setVisible(true);
-                paymentAmountError.setVisible(false);
-                paymentUserError.setVisible(false);
 
             } catch (IllegalArgumentException ex) {
                 paymentAmountError.setVisible(true);
-                paymentSuccess.setVisible(false);
             }
         } else {
-            paymentSuccess.setVisible(false);
             paymentUserError.setVisible(true);
         }
     }
 
     /**
      * Event handling to process loans.
+     * @param e the JavaFX event
      */
     @FXML
     private void loanButton(Event e) {
-        Library.loanResource(loanUsername.getText(), loanResourceId.getText());
+        String user = loanUsername.getText();
+        String rID = loanResourceId.getText();
+        String type = (String) loanResourceType.getValue();
+
+        //Reset all error/success labels
+        loanUserError.setVisible(false);
+        loanResourceError.setVisible(false);
+        loanSuccess.setVisible(false);
+
+        if (Library.checkForUser(user)) {
+            try {
+                Library.getResourceById(type, rID);  //Throws NullPointerException if ID is not found
+                Library.loanResource(user, rID);
+                loanSuccess.setVisible(true);
+            } catch (NullPointerException ex) {
+                System.out.println(ex);
+                loanResourceError.setVisible(true);
+            }
+        } else {
+            loanUserError.setVisible(true);
+        }
     }
 
     /**
