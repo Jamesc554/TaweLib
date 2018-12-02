@@ -177,6 +177,9 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
+                  <Label fx:id="userUsernameError" layoutX="430.0" layoutY="73.0" text="Invalid username!" textFill="RED" visible="false" />
+                  <Label fx:id="userSuccess" layoutX="375.0" layoutY="346.0" text="New User created!" textFill="#23a12e" visible="false" />
+                  <Label fx:id="userError" layoutX="375.0" layoutY="346.0" text="All fields required!" textFill="RED" visible="false" />
                </children>
             </AnchorPane>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="1">

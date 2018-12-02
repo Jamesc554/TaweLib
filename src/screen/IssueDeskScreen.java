@@ -71,6 +71,12 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private TextField userTown;
     @FXML
     private Button createUserBtn;
+    @FXML
+    private Label userUsernameError;
+    @FXML
+    private Label userError;
+    @FXML
+    private Label userSuccess;
 
     @Override
     public void start() {
@@ -155,13 +161,39 @@ public class IssueDeskScreen extends Screen implements Initializable {
     }
 
     /**
-     * Event handling for User creation.
+     * Event handling to create a new User
+     * @param e the JavaFX event
      */
     @FXML
     private void createUserButton(Event e) {
-        Library.addUser(userUsername.getText(), userFirstName.getText(), userLastName.getText(), userMobile.getText(),
-                userAddr1.getText(), userAddr2.getText(), userPstCd.getText(), userTown.getText(), 0,
-                "./data/images/testUser/testImg32.png");
+        String username = userUsername.getText();
+        String firstName = userFirstName.getText();
+        String lastName = userLastName.getText();
+        String mobileNum = userMobile.getText();
+        String address1 = userAddr1.getText();
+        String address2 = userAddr2.getText();
+        String postCode = userPstCd.getText();
+        String town = userTown.getText();
+
+        //Reset all error/success labels
+        userUsernameError.setVisible(false);
+        userError.setVisible(false);
+        userSuccess.setVisible(false);
+
+        //Check if username not already used
+        if (!Library.checkForUser(username)) {
+            //Check all required fields have inputs
+            if (username.equals("") || firstName.equals("") || lastName.equals("") || mobileNum.equals("")
+                || address1.equals("") || address2.equals("") || postCode.equals("") || town.equals("")) {
+                userError.setVisible(true);
+            } else {
+                Library.addUser(username, firstName, lastName, mobileNum, address1, address2, postCode, town,
+                        0, "./data/images/testUser/testImg32.png");
+                userSuccess.setVisible(true);
+            }
+        } else {
+            userUsernameError.setVisible(true);
+        }
     }
 
     /**
