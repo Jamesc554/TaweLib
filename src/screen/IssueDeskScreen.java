@@ -108,6 +108,20 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Label dvdError;
     @FXML
     private Label dvdSuccess;
+    @FXML
+    private TextField laptopTitle;
+    @FXML
+    private TextField laptopYear;
+    @FXML
+    private TextField laptopManuf;
+    @FXML
+    private TextField laptopModel;
+    @FXML
+    private TextField laptopOS;
+    @FXML
+    private Label laptopError;
+    @FXML
+    private Label laptopSuccess;
 
     @Override
     public void start() {
@@ -263,6 +277,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 //Split language input into ArrayList
                 String[] languageArray = languageString.split(", ");
                 languages = new ArrayList<>(Arrays.asList(languageArray));
+                System.out.println(languages);
             }
             //Add the book to the Library
             Library.addBook(year, title, "", null, author, genre, isbn, publisher, languages);
@@ -306,6 +321,32 @@ public class IssueDeskScreen extends Screen implements Initializable {
             //Add the DVD to the Library
             Library.addDVD(year, title, "", null, director, runtime, language, subs);
             dvdSuccess.setVisible(true);
+        }
+    }
+
+    /**
+     * Event handling to create a new Laptop
+     * @param e the JavaFX event
+     */
+    @FXML
+    private void createLaptopButton(Event e) {
+        String title = laptopTitle.getText();
+        String year = laptopYear.getText();
+        String manufacturer = laptopManuf.getText();
+        String model = laptopModel.getText();
+        String os = laptopOS.getText();
+
+        //Reset error/success labels
+        laptopError.setVisible(false);
+        laptopSuccess.setVisible(false);
+
+        //Check if require fields have input
+        if (title.equals("") || year.equals("") || manufacturer.equals("") || model.equals("") || os.equals("")) {
+            laptopError.setVisible(true);
+        } else {
+            //Add the Laptop to the Library
+            Library.addLaptop(year, title, "", null, manufacturer, model, os);
+            laptopSuccess.setVisible(true);
         }
     }
 }
