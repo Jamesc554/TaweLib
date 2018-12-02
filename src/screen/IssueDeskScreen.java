@@ -34,8 +34,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField loanResourceId;
     @FXML
-    private Button loanBtn;
-    @FXML
     private Label loanUserError;
     @FXML
     private Label loanResourceError;
@@ -45,8 +43,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private TextField paymentUsername;
     @FXML
     private TextField paymentAmount;
-    @FXML
-    private Button paymentBtn;
     @FXML
     private Label paymentUserError;
     @FXML
@@ -69,8 +65,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private TextField userPstCd;
     @FXML
     private TextField userTown;
-    @FXML
-    private Button createUserBtn;
     @FXML
     private Label userUsernameError;
     @FXML

@@ -35,7 +35,7 @@
             <HBox prefHeight="25.0" prefWidth="1268.0" spacing="20.0">
                <children>
                   <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#homeButton" prefHeight="25.0" prefWidth="110.0" text="Home" />
-                  <Button fx:id="accountBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Account" />
+                  <Button fx:id="accountBtn" mnemonicParsing="false" onAction="#accountDeskButton" prefHeight="25.0" prefWidth="110.0" text="Account" />
                   <Button fx:id="drawAppBtn" mnemonicParsing="false" onAction="#drawAppButton" prefHeight="25.0" prefWidth="110.0" text="Draw App" />
                   <Button fx:id="issueDeskBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Issue Desk" visible="false" />
                </children>
@@ -74,7 +74,7 @@
                   </Text>
                   <TextField fx:id="loanUsername" layoutX="246.0" layoutY="81.0" />
                   <TextField fx:id="loanResourceId" layoutX="246.0" layoutY="120.0" />
-                  <Button fx:id="loanBtn" layoutX="246.0" layoutY="165.0" mnemonicParsing="false" onAction="#loanButton" text="Loan">
+                  <Button layoutX="246.0" layoutY="165.0" mnemonicParsing="false" onAction="#loanButton" text="Loan">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -103,7 +103,7 @@
                   </Text>
                   <TextField fx:id="paymentUsername" layoutX="232.0" layoutY="81.0" />
                   <TextField fx:id="paymentAmount" layoutX="232.0" layoutY="120.0" />
-                  <Button fx:id="paymentBtn" layoutX="232.0" layoutY="163.0" mnemonicParsing="false" onAction="#paymentButton" text="Accept Payment">
+                  <Button layoutX="232.0" layoutY="163.0" mnemonicParsing="false" onAction="#paymentButton" text="Accept Payment">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -172,7 +172,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Button fx:id="createUserBtn" layoutX="245.0" layoutY="339.0" mnemonicParsing="false" onAction="#createUserButton" text="Create User">
+                  <Button layoutX="245.0" layoutY="339.0" mnemonicParsing="false" onAction="#createUserButton" text="Create User">
                      <font>
                         <Font size="14.0" />
                      </font>
