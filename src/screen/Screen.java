@@ -1,6 +1,12 @@
 package screen;
 
+import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import library.Library;
 
 import java.util.List;
@@ -15,6 +21,33 @@ import java.util.List;
 public abstract class Screen {
 
     protected List<Node> components;
+    
+    @FXML
+	protected TextField searchBar;
+
+	@FXML
+	protected Button searchBtn;
+
+	@FXML
+	protected ImageView userIcon;
+
+	@FXML
+	protected Text usernameText;
+
+	@FXML
+	protected Button logoutBtn;
+
+	@FXML
+	protected Button homeBtn;
+
+	@FXML
+	protected Button accountBtn;
+
+	@FXML
+	protected Button issueDeskBtn;
+
+	@FXML
+	protected Button drawAppBtn;
 
     // TODO: start implementation
     public abstract void start();
@@ -47,10 +80,36 @@ public abstract class Screen {
     	Library.setLoggedInUser(null);
     	ScreenManager.changeScreen(new LoginScreen());
     }
+    
+    @FXML
+	protected void drawAppButton(Event event) {
+		ScreenManager.changeScreen(new DrawApp());
+	}
+	
+	@FXML
+	protected void searchButton(Event event) {
+		ScreenManager.changeScreen(new SearchResultScreen());
+	}
+	
+	@FXML
+	protected void logoutButton(Event event) {
+		logout();
+	}
 
-    // TODO: Search implementation
-    public void search() {
-    	
+	@FXML
+	protected void issueDeskButton(Event event) {
+		ScreenManager.changeScreen(new IssueDeskScreen());
+	}
+	
+	@FXML
+	protected void accountDeskButton(Event event) {
+		ScreenManager.changeScreen(new AccountScreen());
+	}
+	
+	//TODO: Fix home button
+	@FXML
+    protected void homeButton(Event event) {
+        ScreenManager.changeScreen(new HomeScreen());
     }
 
 }

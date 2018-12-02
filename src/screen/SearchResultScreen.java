@@ -40,33 +40,6 @@ public class SearchResultScreen extends Screen implements Initializable{
 	// TOP TOOL BAR - COMMON BETWEEN SCREENS - COPY FROM HERE - MAKE SURE THE IDs IN
 	// SCENEBUILDER ARE OF THE SAME NAME AS THE VARIBLES HERE!!!!!
 	@FXML
-	private TextField searchBar;
-
-	@FXML
-	private Button searchBtn;
-
-	@FXML
-	private ImageView userIcon;
-
-	@FXML
-	private Text usernameText;
-
-	@FXML
-	private Button logoutBtn;
-
-	@FXML
-	private Button homeBtn;
-
-	@FXML
-	private Button accountBtn;
-
-	@FXML
-	private Button issueDeskBtn;
-
-	@FXML
-	private Button drawAppBtn;
-
-	@FXML
 	private HBox bookHBox;
 	
 	@FXML
@@ -89,25 +62,11 @@ public class SearchResultScreen extends Screen implements Initializable{
 			e.printStackTrace();
 		}
 	}
-
-	@FXML
-	private void drawAppButton(Event event) {
-		ScreenManager.changeScreen(new DrawApp());
-	}
 	
+	@Override
 	@FXML
-	private void searchButton(Event event) {
+	protected void searchButton(Event event) {
 		updateSearchResults();
-	}
-
-	@FXML
-	private void logoutButton(Event event) {
-		logout();
-	}
-	
-	@FXML
-	private void accountDeskButton(Event event) {
-		ScreenManager.changeScreen(new AccountScreen());
 	}
 
 	@Override

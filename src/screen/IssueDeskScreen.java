@@ -30,24 +30,6 @@ import java.util.ResourceBundle;
 public class IssueDeskScreen extends Screen implements Initializable {
 
     @FXML
-    private TextField searchBar;
-    @FXML
-    private Button searchBtn;
-    @FXML
-    private ImageView userIcon;
-    @FXML
-    private Text usernameText;
-    @FXML
-    private Button logoutBtn;
-    @FXML
-    private Button homeBtn;
-    @FXML
-    private Button accountBtn;
-    @FXML
-    private Button issueDeskBtn;
-    @FXML
-    private Button drawAppBtn;
-    @FXML
     private TextField loanUsername;
     @FXML
     private TextField loanResourceId;
@@ -120,31 +102,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
         userIcon.setImage(SwingFXUtils.toFXImage(img, null));
         usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
     }
-
-    @FXML
-    private void searchButton(Event e) {
-        ScreenManager.changeScreen(new SearchResultScreen());
-    }
-
-    @FXML
-    private void homeButton(Event e) {
-        ScreenManager.changeScreen(new HomeScreen());
-    }
-
-    @FXML
-    private void drawAppButton(Event e) {
-        ScreenManager.changeScreen(new DrawApp());
-    }
-
-    @FXML
-    private void logoutButton(Event e) {
-        logout();
-    }
-    
-    @FXML
-	private void accountDeskButton(Event event) {
-		ScreenManager.changeScreen(new AccountScreen());
-	}
 
     /**
      * Event handling to process payments.

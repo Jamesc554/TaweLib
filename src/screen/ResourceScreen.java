@@ -36,32 +36,6 @@ public class ResourceScreen extends Screen implements Initializable{
 		
 	// TOP TOOL BAR - COMMON BETWEEN SCREENS - COPY FROM HERE - MAKE SURE THE IDs IN
 	// SCENEBUILDER ARE OF THE SAME NAME AS THE VARIBLES HERE!!!!!
-		@FXML
-		private TextField searchBar;
-
-		@FXML
-		private Button searchBtn;
-
-		@FXML
-		private ImageView userIcon;
-
-		@FXML
-		private Text usernameText;
-
-		@FXML
-		private Button logoutBtn;
-
-		@FXML
-		private Button homeBtn;
-
-		@FXML
-		private Button accountBtn;
-
-		@FXML
-		private Button issueDeskBtn;
-
-		@FXML
-		private Button drawAppBtn;
 
 		@FXML
 		private HBox bookHBox;
@@ -96,30 +70,6 @@ public class ResourceScreen extends Screen implements Initializable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-
-		@FXML
-		private void drawAppButton(Event e) {
-			ScreenManager.changeScreen(new DrawApp());
-		}
-		
-		@FXML
-		private void searchButton(Event e) {
-			ScreenManager.changeScreen(new SearchResultScreen());
-		}
-
-		@FXML
-		private void logoutButton(Event e) {
-			logout();
-		}
-		@FXML
-		private void homeButton(Event e) {
-			ScreenManager.changeScreen(new HomeScreen());
-		}
-
-		@FXML
-		private void accountButton(Event e) {
-			//ScreenManager.changeScreen(new AccountScreen());
 		}
 
 		@Override
