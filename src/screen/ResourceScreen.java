@@ -4,6 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -72,7 +75,14 @@ public class ResourceScreen extends Screen implements Initializable{
 		@FXML
 		private TextField genreTextField;
 		
+		@FXML
+		private TextField publisherTextField;
 		
+		@FXML
+		private TextField isbnTextField;
+		
+		@FXML
+		private TextField languagesTextField;
 		
 		private Object res = null; // this resource must be passed in to this class.
 		
@@ -84,7 +94,6 @@ public class ResourceScreen extends Screen implements Initializable{
 				ScreenManager.setCurrentScene(new Scene(root, 1280, 720));
 				// setupEvents();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -112,7 +121,20 @@ public class ResourceScreen extends Screen implements Initializable{
     		((Book) res).setYear(yearTextField.getText());
     		((Book) res).setThumbnailImageRef(thumbnailTextField.getText());
     		((Book) res).setAuthor((authorTextField.getText()));
+    		((Book) res).setPublisher(publisherTextField.getText());
     		((Book) res).setGenre(genreTextField.getText());
+    		((Book) res).setIsbn(isbnTextField.getText());
+    		//split array by ',' add to an arraylist. set languages to that arraylist.
+    		ArrayList<String> arraysOfLanguages = new ArrayList<String>();
+    		String languages = languagesTextField.getText();
+    		List<String> listOfLanguages = Arrays.asList(languages.split(","));
+    		//Populate arraysOfLanguages
+    		for(String lang: listOfLanguages) {
+    			arraysOfLanguages.add(lang);
+    		}
+    		((Book) res).setLanguages(arraysOfLanguages);
+    		
+    		
     	} else if (res instanceof DVD) {
     		((DVD) res).setTitle(titleTextField.getText());
     		((DVD) res).setYear(yearTextField.getText());
