@@ -157,23 +157,6 @@ public class Library {
 	return info;
     }
 
-    public static Resource getResourceById(String type, String id) {
-	    Resource r;
-	    if (type.equals("Book")) {
-	        r = (Resource) LibraryResources.getBook(id);
-        } else if (type.equals("DVD")) {
-	        r = (Resource) LibraryResources.getDVD(id);
-        } else {
-	        r = (Resource) LibraryResources.getLaptop(id);
-        }
-        //Throw exception for invalid id
-        if (r == null) {
-            throw new NullPointerException("No valid resource for id: " + id);
-        } else {
-            return r;
-        }
-    }
-
 	public static ArrayList<Resource> searchResources(String text){
 	    int textSize = text.length();
 	    Integer hashedTextSearch = hashText(text.toLowerCase());

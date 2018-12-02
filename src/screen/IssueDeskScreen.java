@@ -42,8 +42,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Label loanSuccess;
     @FXML
-    private ChoiceBox loanResourceType;
-    @FXML
     private TextField paymentUsername;
     @FXML
     private TextField paymentAmount;
@@ -138,7 +136,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private void loanButton(Event e) {
         String user = loanUsername.getText();
         String rID = loanResourceId.getText();
-        String type = (String) loanResourceType.getValue();
 
         //Reset all error/success labels
         loanUserError.setVisible(false);
@@ -146,12 +143,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
         loanSuccess.setVisible(false);
 
         if (Library.checkForUser(user)) {
-            try {
-                Library.getResourceById(type, rID);  //Throws NullPointerException if ID is not found
+            if (Library.getResource(rID) != null) {
                 Library.loanResource(user, rID);
                 loanSuccess.setVisible(true);
-            } catch (NullPointerException ex) {
-                System.out.println(ex);
+            } else {
                 loanResourceError.setVisible(true);
             }
         } else {
