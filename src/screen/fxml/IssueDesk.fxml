@@ -247,13 +247,15 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Text>
-                                    <Button layoutX="232.0" layoutY="269.0" mnemonicParsing="false" onAction="#createBookButton" text="Create Book">
+                                    <Button layoutX="232.0" layoutY="307.0" mnemonicParsing="false" onAction="#createBookButton" text="Create Book">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Button>
-                                    <Label fx:id="bookError" layoutX="353.0" layoutY="276.0" text="Required field(s) blank!" textFill="RED" visible="false" />
-                                    <Label fx:id="bookSuccess" layoutX="353.0" layoutY="276.0" text="Book added!" textFill="#23a12e" visible="false" />
+                                    <Label fx:id="bookError" layoutX="349.0" layoutY="314.0" text="Required field(s) blank!" textFill="RED" visible="false" />
+                                    <Label fx:id="bookSuccess" layoutX="349.0" layoutY="314.0" text="Book added!" textFill="#23a12e" visible="false" />
+                                    <Button layoutX="232.0" layoutY="264.0" mnemonicParsing="false" onAction="#bookImageButton" text="*Choose thumbnail image" />
+                                    <Text fx:id="bookImgName" layoutX="410.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -343,7 +345,7 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Text>
-                                    <Button layoutX="231.0" layoutY="205.0" mnemonicParsing="false" onAction="#createLaptopButton" text="Create Laptop">
+                                    <Button layoutX="231.0" layoutY="197.0" mnemonicParsing="false" onAction="#createLaptopButton" text="Create Laptop">
                                        <font>
                                           <Font size="14.0" />
                                        </font>

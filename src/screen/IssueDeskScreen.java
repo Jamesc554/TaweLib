@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import library.Library;
 
 import javax.imageio.ImageIO;
@@ -94,6 +96,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Label bookSuccess;
     @FXML
     private Label bookError;
+    @FXML
+    private Text bookImgName;
     @FXML
     private TextField dvdTitle;
     @FXML
@@ -299,13 +303,14 @@ public class IssueDeskScreen extends Screen implements Initializable {
         String isbn = bookISBN.getText();
         String languageString = bookLanguage.getText();
         ArrayList<String> languages;
+        String imageName = bookImgName.getText();
 
         //Reset error/success labels
         bookSuccess.setVisible(false);
         bookError.setVisible(false);
 
         //Check if required fields have input
-        if (title.equals("") || author.equals("") || year.equals("") || publisher.equals("")) {
+        if (title.equals("") || author.equals("") || year.equals("") || publisher.equals("") || imageName.equals("")) {
             bookError.setVisible(true);
         } else {
             //Set optional fields to null if empty
@@ -324,8 +329,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 System.out.println(languages);
             }
             //Add the book to the Library
-            Library.addBook(year, title, "./data/imgages/book/Book-Default.jpg", null,
-                    author, genre, isbn, publisher, languages);
+            String image = "./data/images/book" + imageName;
+            Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages);
             bookSuccess.setVisible(true);
         }
     }
@@ -395,5 +400,17 @@ public class IssueDeskScreen extends Screen implements Initializable {
                     manufacturer, model, os);
             laptopSuccess.setVisible(true);
         }
+    }
+
+    @FXML
+    private void bookImageButton(Event e) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose an image");
+        fileChooser.setInitialDirectory(new File("./data/images/book"));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image files", "*.png", "*.jpg")
+        );
+        File selectedFile = fileChooser.showOpenDialog(ScreenManager.getStage());
+        bookImgName.setText(selectedFile.getName());
     }
 }

@@ -23,8 +23,12 @@ public class ScreenManager {
     private static final int HEIGHT = 720;
     private static Stage stage;
 
-    public static void main(String[] args){
-       // launch(args);
+    /**
+     * Return the application's main stage
+     * @return the main stage of the application
+     */
+    public static Stage getStage() {
+        return stage;
     }
 
     /**
