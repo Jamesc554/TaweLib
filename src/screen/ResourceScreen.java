@@ -151,7 +151,20 @@ public class ResourceScreen extends Screen implements Initializable{
     		((DVD) res).addToCopies();
     	} else if (res.getClass() == Laptop.class) {
     		((Laptop) res).addToCopies();
-    	}
-    	
+    	}	
+    }
+    
+    /**
+     * Deletes a copy of current resource
+     */
+    public void deleteCopy() {
+    	//if object is a "Book" then add copy to book's copy arraylist. Same for if DVD or Laptop.
+    	if(res.getClass()== Book.class) {
+    		((Book) res).removeCopy();
+    	} else if (res.getClass() == DVD.class) {
+    		((DVD) res).removeCopy();
+    	} else if (res.getClass() == Laptop.class) {
+    		((Laptop) res).removeCopy();
+    	}	
     }
 }
