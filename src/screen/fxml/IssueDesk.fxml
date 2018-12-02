@@ -81,8 +81,8 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Label fx:id="loanUserError" layoutX="461.0" layoutY="85.0" text="Invalid Username!" textFill="RED" visible="false" />
-                  <Label fx:id="resourceError" layoutX="461.0" layoutY="124.0" text="Invalid Resource!" textFill="RED" visible="false" />
+                  <Label fx:id="loanUserError" layoutX="442.0" layoutY="85.0" text="Invalid Username!" textFill="RED" visible="false" />
+                  <Label fx:id="resourceError" layoutX="442.0" layoutY="124.0" text="Invalid Resource!" textFill="RED" visible="false" />
                   <Label fx:id="loanSuccess" layoutX="395.0" layoutY="172.0" text="Loan Succesful!" textFill="#23a12e" visible="false" />
                   <Button layoutX="296.0" layoutY="165.0" mnemonicParsing="false" onAction="#returnButton" text="Return">
                      <font>
@@ -90,6 +90,8 @@
                      </font>
                   </Button>
                   <Label fx:id="returnSuccess" layoutX="395.0" layoutY="172.0" text="Return Succesful!" textFill="#23a12e" visible="false" />
+                  <Label fx:id="outstandingFineMsg" layoutX="441.0" layoutY="85.0" text="User has outstanding fines!" textFill="RED" visible="false" />
+                  <Label fx:id="overdueCopyMsg" layoutX="441.0" layoutY="85.0" text="User has 1 or more overdue copies!" textFill="RED" visible="false" />
                </children>
             </AnchorPane>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="331.0" prefWidth="640.0" GridPane.columnIndex="1">
