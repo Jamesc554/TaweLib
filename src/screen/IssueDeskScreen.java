@@ -21,10 +21,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
- * This class represents the Issue Desk, a screen only available to Librarians to authorise payments and loans.
+ * This class represents the Issue Desk, a screen only available to Librarians to authorise payments and loans, as well
+ * as create new users and resources.
  * @author Etienne Badoche
  * @version 1.0
  */
@@ -90,6 +92,22 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Label bookSuccess;
     @FXML
     private Label bookError;
+    @FXML
+    private TextField dvdTitle;
+    @FXML
+    private TextField dvdDirector;
+    @FXML
+    private TextField dvdYear;
+    @FXML
+    private TextField dvdRuntime;
+    @FXML
+    private TextField dvdLanguage;
+    @FXML
+    private TextField dvdSubs;
+    @FXML
+    private Label dvdError;
+    @FXML
+    private Label dvdSuccess;
 
     @Override
     public void start() {
@@ -221,9 +239,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
         String publisher = bookPublisher.getText();
         String genre = bookGenre.getText();
         String isbn = bookISBN.getText();
-        String language = bookLanguage.getText();
-        ArrayList<String> languages = new ArrayList<>();
-        languages.add(language);
+        String languageString = bookLanguage.getText();
+        ArrayList<String> languages;
 
         //Reset error/success labels
         bookSuccess.setVisible(false);
@@ -240,12 +257,55 @@ public class IssueDeskScreen extends Screen implements Initializable {
             if (isbn.equals("")) {
                 isbn = null;
             }
-            if (language.equals("")) {
+            if (languageString.equals("")) {
                 languages = null;
+            } else {
+                //Split language input into ArrayList
+                String[] languageArray = languageString.split(", ");
+                languages = new ArrayList<>(Arrays.asList(languageArray));
             }
-            //Call library method to create book
-            Library.addBook(year, title, "", "", author, genre, isbn, publisher, languages);
+            //Add the book to the Library
+            Library.addBook(year, title, "", null, author, genre, isbn, publisher, languages);
             bookSuccess.setVisible(true);
+        }
+    }
+
+    /**
+     * Event handling to create a new DVD
+     * @param e the JavaFX event
+     */
+    @FXML
+    private void createDVDButton(Event e) {
+        String title = dvdTitle.getText();
+        String director = dvdDirector.getText();
+        String year = dvdYear.getText();
+        String runtime = dvdRuntime.getText();
+        String language = dvdLanguage.getText();
+        String subsString = dvdSubs.getText();
+        ArrayList<String> subs;
+
+        //Reset error/success labels
+        dvdError.setVisible(false);
+        dvdSuccess.setVisible(false);
+
+        //Check if required fields have input
+        if (title.equals("") || director.equals("") || year.equals("") || runtime.equals("")) {
+            dvdError.setVisible(true);
+        } else {
+            //Set optional fields to null if empty
+            if (language.equals("")) {
+                language = null;
+            }
+            if (subsString.equals("")) {
+                subs = null;
+            } else {
+                //Split subtitles input into ArrayList
+                String[] subsArray = subsString.split(", ");
+                subs = new ArrayList<>(Arrays.asList(subsArray));
+            }
+            //Add the DVD to the Library
+            Library.addDVD(year, title, "", null, director, runtime, language, subs);
+            dvdSuccess.setVisible(true);
         }
     }
 }
