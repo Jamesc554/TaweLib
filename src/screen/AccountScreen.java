@@ -211,9 +211,9 @@ public class AccountScreen extends Screen implements Initializable{
 		
 		@SuppressWarnings("unchecked")
 		private void setTransactionField() {
-			ArrayList<String[]> transactions = Library.getCurrentLoggedInUser().getCurrentlyBorrowedResources();
-			for(String[] transaction : transactions) {
-				transactionHistoryField.getItems().add(transaction[0] + " " + transaction[1]);
+			ArrayList<String> transactionHistory = Library.getCurrentLoggedInUser().getTransactions();
+			for(String transaction : transactionHistory) {
+				transactionHistoryField.getItems().add(transaction);
 			}
 		}
 		
@@ -225,7 +225,11 @@ public class AccountScreen extends Screen implements Initializable{
 	
 		}
 
+		@SuppressWarnings("unchecked")
 		private void setBorrowedField() {
-	
+			ArrayList<String[]> borrowedResources = Library.getCurrentLoggedInUser().getCurrentlyBorrowedResources();
+			for(String[] resource : borrowedResources) {
+				borrowedField.getItems().add(resource[0] + " " + resource[1]);
+			}
 		}
 }
