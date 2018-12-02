@@ -6,13 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import library.Library;
 
 import javax.imageio.ImageIO;
@@ -35,13 +31,15 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField loanUsername;
     @FXML
-    private TextField loanResourceId;
+    private TextField resourceId;
     @FXML
     private Label loanUserError;
     @FXML
-    private Label loanResourceError;
+    private Label resourceError;
     @FXML
     private Label loanSuccess;
+    @FXML
+    private Label returnSuccess;
     @FXML
     private TextField paymentUsername;
     @FXML
@@ -186,19 +184,51 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private void loanButton(Event e) {
         String user = loanUsername.getText();
-        String rID = loanResourceId.getText();
+        String rID = resourceId.getText();
 
         //Reset all error/success labels
         loanUserError.setVisible(false);
-        loanResourceError.setVisible(false);
+        resourceError.setVisible(false);
         loanSuccess.setVisible(false);
+        returnSuccess.setVisible(false);
 
+        //Check Library if user exists
         if (Library.checkForUser(user)) {
+            //Check if Resource ID is valid
             if (Library.getResource(rID) != null) {
                 Library.loanResource(user, rID);
                 loanSuccess.setVisible(true);
             } else {
-                loanResourceError.setVisible(true);
+                resourceError.setVisible(true);
+            }
+        } else {
+            loanUserError.setVisible(true);
+        }
+    }
+
+    /**
+     * Event handling to process returns
+     * @param e the JavaFX event
+     */
+    @FXML
+    private void returnButton(Event e) {
+        String user = loanUsername.getText();
+        String rID = resourceId.getText();
+
+        //Reset all error/success labels
+        loanUserError.setVisible(false);
+        resourceError.setVisible(false);
+        loanSuccess.setVisible(false);
+        returnSuccess.setVisible(false);
+
+        //Check Library if user exists
+        if (Library.checkForUser(user)) {
+            //Check if user is currently borrowing the resource
+            if (Library.getCurrentLoggedInUser().getResource(rID) != null) {
+                Library.returnResource(user, rID);
+                returnSuccess.setVisible(true);
+            } else {
+                resourceError.setVisible(true);
             }
         } else {
             loanUserError.setVisible(true);
