@@ -141,14 +141,6 @@ public class ResourceScreen extends Screen implements Initializable{
     	//Edit the specific details of a resource i.e. Author, genre etc.
 
     }
-
-    /**
-     * Event handling for editing number of copies for a Resource.
-     */
-    public void editNumOfCopies() {
-    	//ability to add a copy
-    	//ability to delete a copy.
-    }
     
     /**
      * Adds a copy to current resource
