@@ -55,7 +55,24 @@ public class ResourceScreen extends Screen implements Initializable{
 		private Button deleteCopyButton;
 		
 		@FXML
-		private Button editResource; //button which allows user to edit a resource's details.
+		private Button editResourceButton; //button which allows user to edit a resource's details.
+		
+		@FXML
+		private TextField titleTextField;
+		
+		@FXML
+		private TextField yearTextField;
+		
+		@FXML
+		private TextField thumbnailTextField;
+		
+		@FXML
+		private TextField authorTextField;
+		
+		@FXML
+		private TextField genreTextField;
+		
+		
 		
 		private Object res = null; // this resource must be passed in to this class.
 		
@@ -88,9 +105,23 @@ public class ResourceScreen extends Screen implements Initializable{
     /**
      * Event handling for editing a Resource.
      */
-    public void editResource() {
+    public void editResourceButton(Event e) {
     	//Edit the specific details of a resource i.e. Author, genre etc.
-
+    	if(res instanceof Book) {
+    		((Book) res).setTitle(titleTextField.getText());
+    		((Book) res).setYear(yearTextField.getText());
+    		((Book) res).setThumbnailImageRef(thumbnailTextField.getText());
+    		((Book) res).setAuthor((authorTextField.getText()));
+    		((Book) res).setGenre(genreTextField.getText());
+    	} else if (res instanceof DVD) {
+    		((DVD) res).setTitle(titleTextField.getText());
+    		((DVD) res).setYear(yearTextField.getText());
+    		((DVD) res).setThumbnailImageRef(thumbnailTextField.getText());
+    	} else if (res instanceof Laptop) {
+    		((Laptop) res).setTitle(titleTextField.getText());
+    		((Laptop) res).setYear(yearTextField.getText());
+    		((Laptop) res).setThumbnailImageRef(thumbnailTextField.getText());
+    	}
     }
     
     /**
@@ -98,11 +129,11 @@ public class ResourceScreen extends Screen implements Initializable{
      */
     public void addCopyButton(Event e) {
     	//if object is a "Book" then add copy to book's copy arraylist. Same for if DVD or Laptop.
-    	if(res.getClass()== Book.class) {
+    	if(res instanceof Book) {
     		((Book) res).addToCopies();
-    	} else if (res.getClass() == DVD.class) {
+    	} else if (res instanceof DVD) {
     		((DVD) res).addToCopies();
-    	} else if (res.getClass() == Laptop.class) {
+    	} else if (res instanceof Laptop) {
     		((Laptop) res).addToCopies();
     	}	
     }
@@ -112,11 +143,11 @@ public class ResourceScreen extends Screen implements Initializable{
      */
     public void deleteCopyButton(Event e) {
     	//if object is a "Book" then add copy to book's copy arraylist. Same for if DVD or Laptop.
-    	if(res.getClass()== Book.class) {
+    	if(res instanceof Book) {
     		((Book) res).removeCopy();
-    	} else if (res.getClass() == DVD.class) {
+    	} else if (res instanceof DVD) {
     		((DVD) res).removeCopy();
-    	} else if (res.getClass() == Laptop.class) {
+    	} else if (res instanceof Laptop) {
     		((Laptop) res).removeCopy();
     	}	
     }
