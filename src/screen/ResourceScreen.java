@@ -73,11 +73,12 @@ public class ResourceScreen extends Screen implements Initializable{
 		private HBox laptopHBox;
 		
 		//This classes specific attributes.
-		@FXML
-		private Button editNumOfCopies; //button which handles the addition and deletion of copies.
 		
 		@FXML
-		private Button addCopy;
+		private Button addCopyButton;
+		
+		@FXML
+		private Button deleteCopyButton;
 		
 		@FXML
 		private Button editResource; //button which allows user to edit a resource's details.
@@ -141,19 +142,11 @@ public class ResourceScreen extends Screen implements Initializable{
     	//Edit the specific details of a resource i.e. Author, genre etc.
 
     }
-
-    /**
-     * Event handling for editing number of copies for a Resource.
-     */
-    public void editNumOfCopies() {
-    	//ability to add a copy
-    	//ability to delete a copy.
-    }
     
     /**
      * Adds a copy to current resource
      */
-    public void addCopy() {
+    public void addCopyButton(Event e) {
     	//if object is a "Book" then add copy to book's copy arraylist. Same for if DVD or Laptop.
     	if(res.getClass()== Book.class) {
     		((Book) res).addToCopies();
@@ -161,7 +154,20 @@ public class ResourceScreen extends Screen implements Initializable{
     		((DVD) res).addToCopies();
     	} else if (res.getClass() == Laptop.class) {
     		((Laptop) res).addToCopies();
-    	}
-    	
+    	}	
+    }
+    
+    /**
+     * Deletes a copy of current resource
+     */
+    public void deleteCopyButton(Event e) {
+    	//if object is a "Book" then add copy to book's copy arraylist. Same for if DVD or Laptop.
+    	if(res.getClass()== Book.class) {
+    		((Book) res).removeCopy();
+    	} else if (res.getClass() == DVD.class) {
+    		((DVD) res).removeCopy();
+    	} else if (res.getClass() == Laptop.class) {
+    		((Laptop) res).removeCopy();
+    	}	
     }
 }
