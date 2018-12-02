@@ -30,24 +30,6 @@ import java.util.ResourceBundle;
 public class IssueDeskScreen extends Screen implements Initializable {
 
     @FXML
-    private TextField searchBar;
-    @FXML
-    private Button searchBtn;
-    @FXML
-    private ImageView userIcon;
-    @FXML
-    private Text usernameText;
-    @FXML
-    private Button logoutBtn;
-    @FXML
-    private Button homeBtn;
-    @FXML
-    private Button accountBtn;
-    @FXML
-    private Button issueDeskBtn;
-    @FXML
-    private Button drawAppBtn;
-    @FXML
     private TextField loanUsername;
     @FXML
     private TextField loanResourceId;
@@ -59,8 +41,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Label loanResourceError;
     @FXML
     private Label loanSuccess;
-    @FXML
-    private ChoiceBox loanResourceType;
     @FXML
     private TextField paymentUsername;
     @FXML
@@ -121,31 +101,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
         usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
     }
 
-    @FXML
-    private void searchButton(Event e) {
-        ScreenManager.changeScreen(new SearchResultScreen());
-    }
-
-    @FXML
-    private void homeButton(Event e) {
-        ScreenManager.changeScreen(new HomeScreen());
-    }
-
-    @FXML
-    private void drawAppButton(Event e) {
-        ScreenManager.changeScreen(new DrawApp());
-    }
-
-    @FXML
-    private void logoutButton(Event e) {
-        logout();
-    }
-    
-    @FXML
-	private void accountDeskButton(Event event) {
-		ScreenManager.changeScreen(new AccountScreen());
-	}
-
     /**
      * Event handling to process payments.
      * @param e the JavaFX event event
@@ -181,7 +136,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private void loanButton(Event e) {
         String user = loanUsername.getText();
         String rID = loanResourceId.getText();
-        String type = (String) loanResourceType.getValue();
 
         //Reset all error/success labels
         loanUserError.setVisible(false);
@@ -189,12 +143,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
         loanSuccess.setVisible(false);
 
         if (Library.checkForUser(user)) {
-            try {
-                Library.getResourceById(type, rID);  //Throws NullPointerException if ID is not found
+            if (Library.getResource(rID) != null) {
                 Library.loanResource(user, rID);
                 loanSuccess.setVisible(true);
-            } catch (NullPointerException ex) {
-                System.out.println(ex);
+            } else {
                 loanResourceError.setVisible(true);
             }
         } else {

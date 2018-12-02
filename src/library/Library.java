@@ -356,30 +356,12 @@ public class Library {
         }
 	return info;
     }
+    /**
+     * This method looks up all resource based on partial string.
+     * @param text partial search parameter.
+     * @return ArrayList<Resource> of object that match the search query.
+     */
 
-	//TODO Remove or modify. Write JavaDoc.
-    public static Resource getResourceById(String type, String id) {
-	    Resource r;
-	    if (type.equals("Book")) {
-	        r = (Resource) LibraryResources.getBook(id);
-        } else if (type.equals("DVD")) {
-	        r = (Resource) LibraryResources.getDVD(id);
-        } else {
-	        r = (Resource) LibraryResources.getLaptop(id);
-        }
-        //Throw exception for invalid id
-        if (r == null) {
-            throw new NullPointerException("No valid resource for id: " + id);
-        } else {
-            return r;
-        }
-    }
-
-	/**
-	 * This method looks up all resource based on partial string.
-	 * @param text partial search parameter.
-	 * @return ArrayList<Resource> of object that match the search query.
-	 */
 	public static ArrayList<Resource> searchResources(String text){
 		//Sets size of the search for hashing.
 		int textSize = text.length();
