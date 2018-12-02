@@ -73,8 +73,6 @@ public class ResourceScreen extends Screen implements Initializable{
 		private HBox laptopHBox;
 		
 		//This classes specific attributes.
-		@FXML
-		private Button editNumOfCopies; //button which handles the addition and deletion of copies.
 		
 		@FXML
 		private Button addCopy;
