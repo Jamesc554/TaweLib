@@ -20,6 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -71,6 +72,24 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Label userError;
     @FXML
     private Label userSuccess;
+    @FXML
+    private TextField bookTitle;
+    @FXML
+    private TextField bookAuthor;
+    @FXML
+    private TextField bookYear;
+    @FXML
+    private TextField bookPublisher;
+    @FXML
+    private TextField bookGenre;
+    @FXML
+    private TextField bookISBN;
+    @FXML
+    private TextField bookLanguage;
+    @FXML
+    private Label bookSuccess;
+    @FXML
+    private Label bookError;
 
     @Override
     public void start() {
@@ -191,9 +210,42 @@ public class IssueDeskScreen extends Screen implements Initializable {
     }
 
     /**
-     * Event handling for Resource creation.
+     * Event handling to create a new Book
+     * @param e the JavaFX event
      */
-    public void createResource() {
+    @FXML
+    private void createBookButton(Event e) {
+        String title = bookTitle.getText();
+        String author = bookAuthor.getText();
+        String year = bookYear.getText();
+        String publisher = bookPublisher.getText();
+        String genre = bookGenre.getText();
+        String isbn = bookISBN.getText();
+        String language = bookLanguage.getText();
+        ArrayList<String> languages = new ArrayList<>();
+        languages.add(language);
 
+        //Reset error/success labels
+        bookSuccess.setVisible(false);
+        bookError.setVisible(false);
+
+        //Check if required fields have input
+        if (title.equals("") || author.equals("") || year.equals("") || publisher.equals("")) {
+            bookError.setVisible(true);
+        } else {
+            //Set optional fields to null if empty
+            if (genre.equals("")) {
+                genre = null;
+            }
+            if (isbn.equals("")) {
+                isbn = null;
+            }
+            if (language.equals("")) {
+                languages = null;
+            }
+            //Call library method to create book
+            Library.addBook(year, title, "", "", author, genre, isbn, publisher, languages);
+            bookSuccess.setVisible(true);
+        }
     }
 }

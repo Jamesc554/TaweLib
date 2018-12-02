@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
@@ -189,11 +191,77 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="250.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TODO">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </Text>
+                  <TabPane layoutY="43.0" prefHeight="390.0" prefWidth="641.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab text="Book">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Text layoutX="82.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Title:">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="82.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Author:">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="bookTitle" layoutX="232.0" layoutY="31.0" />
+                                    <TextField fx:id="bookAuthor" layoutX="232.0" layoutY="64.0" />
+                                    <TextField fx:id="bookYear" layoutX="232.0" layoutY="98.0" />
+                                    <Text layoutX="82.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Year:">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="bookPublisher" layoutX="232.0" layoutY="131.0" />
+                                    <Text layoutX="82.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Publisher:">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="bookGenre" layoutX="232.0" layoutY="164.0" />
+                                    <Text layoutX="82.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre:">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="bookISBN" layoutX="232.0" layoutY="198.0" />
+                                    <Text layoutX="83.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN:">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="bookLanguage" layoutX="232.0" layoutY="230.0" />
+                                    <Text layoutX="83.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Language:">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <Button layoutX="232.0" layoutY="269.0" mnemonicParsing="false" onAction="#createBookButton" text="Create Book">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Label fx:id="bookError" layoutX="353.0" layoutY="276.0" text="Required field(s) blank!" textFill="RED" visible="false" />
+                                    <Label fx:id="bookSuccess" layoutX="353.0" layoutY="276.0" text="Book added!" textFill="#23a12e" visible="false" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="DVD">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </Tab>
+                        <Tab text="Laptop">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
                </children>
             </AnchorPane>
          </children>
