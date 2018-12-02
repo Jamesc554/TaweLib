@@ -280,7 +280,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 System.out.println(languages);
             }
             //Add the book to the Library
-            Library.addBook(year, title, "", null, author, genre, isbn, publisher, languages);
+            Library.addBook(year, title, "./data/imgages/book/Book-Default.jpg", null,
+                    author, genre, isbn, publisher, languages);
             bookSuccess.setVisible(true);
         }
     }
@@ -319,7 +320,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 subs = new ArrayList<>(Arrays.asList(subsArray));
             }
             //Add the DVD to the Library
-            Library.addDVD(year, title, "", null, director, runtime, language, subs);
+            Library.addDVD(year, title, "./data/images/dvd/DVD-Default.jpg", null,
+                    director, runtime, language, subs);
             dvdSuccess.setVisible(true);
         }
     }
@@ -345,7 +347,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
             laptopError.setVisible(true);
         } else {
             //Add the Laptop to the Library
-            Library.addLaptop(year, title, "", null, manufacturer, model, os);
+            Library.addLaptop(year, title, "./data/images/laptop/Laptop-Default.jpg", null,
+                    manufacturer, model, os);
             laptopSuccess.setVisible(true);
         }
     }
