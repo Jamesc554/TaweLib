@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -72,14 +73,31 @@ public class AccountScreen extends Screen implements Initializable{
 		@FXML
 		private Label balanceField;
 		
+		@SuppressWarnings("rawtypes")
 		@FXML
-		private TextArea addressField;
+		private ListView addressField;
 		
 		@FXML
 		private ImageView profileImageField;
 		
 		@FXML
 		private Text fineText;
+		
+		@SuppressWarnings("rawtypes")
+		@FXML
+		private ListView transactionHistoryField;
+		
+		@SuppressWarnings("rawtypes")
+		@FXML
+		private ListView requestedField;
+		
+		@SuppressWarnings("rawtypes")
+		@FXML
+		private ListView returnedField;
+		
+		@SuppressWarnings("rawtypes")
+		@FXML
+		private ListView borrowedField;
 		
 		@Override
 		public void start() {
@@ -118,6 +136,12 @@ public class AccountScreen extends Screen implements Initializable{
 		private void accountDeskButton(Event event) {
 			ScreenManager.changeScreen(new AccountScreen());
 		}
+		
+		//TODO: Fix home button
+		@FXML
+	    private void homeButton(Event event) {
+	        ScreenManager.changeScreen(new HomeScreen());
+	    }
 
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
@@ -143,6 +167,12 @@ public class AccountScreen extends Screen implements Initializable{
 	        setAddressLabel();
 	        setAccountBalanceLabel();
 	        setProfileImage();
+	        
+	        //Set others
+	        setTransactionField();
+	        setRequestedField();
+	        setReservedField();
+	        setBorrowedField();
 		}
 		
 		private void setUsernameLabel() {
@@ -157,11 +187,12 @@ public class AccountScreen extends Screen implements Initializable{
 			mobileNumberField.setText((Library.getCurrentLoggedInUser().getMobileNumber()));
 		}
 		
+		@SuppressWarnings("unchecked")
 		private void setAddressLabel() {
-			addressField.setText((Library.getCurrentLoggedInUser().getFirstLineAddress()) + "\n" + 
-								 (Library.getCurrentLoggedInUser().getSecondLineAddress()) + "\n" + 
-								 (Library.getCurrentLoggedInUser().getTownName()) + "\n" +
-								 (Library.getCurrentLoggedInUser().getPostCode()));
+			addressField.getItems().add(Library.getCurrentLoggedInUser().getFirstLineAddress());
+			addressField.getItems().add(Library.getCurrentLoggedInUser().getSecondLineAddress());
+			addressField.getItems().add(Library.getCurrentLoggedInUser().getTownName());
+			addressField.getItems().add(Library.getCurrentLoggedInUser().getPostCode());
 		}
 		
 		private void setAccountBalanceLabel() {
@@ -176,5 +207,25 @@ public class AccountScreen extends Screen implements Initializable{
 	            e.printStackTrace();
 	        }
 	        profileImageField.setImage(SwingFXUtils.toFXImage(profileImage, null));
+		}
+		
+		@SuppressWarnings("unchecked")
+		private void setTransactionField() {
+			ArrayList<String[]> transactions = Library.getCurrentLoggedInUser().getCurrentlyBorrowedResources();
+			for(String[] transaction : transactions) {
+				transactionHistoryField.getItems().add(transaction[0] + " " + transaction[1]);
+			}
+		}
+		
+		private void setRequestedField() {
+			
+		}
+
+		private void setReservedField() {
+	
+		}
+
+		private void setBorrowedField() {
+	
 		}
 }

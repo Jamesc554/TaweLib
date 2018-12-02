@@ -49,8 +49,8 @@ public class WriteFile extends IO {
 		}
 		object.put("resourceBorrow", resourceArray);
 
-		ArrayList<String[]> test = user.getTransactions();
-		for (String[] transaction : test) {
+		ArrayList<String[]> transactions = user.getTransactions();
+		for (String[] transaction : transactions) {
 			transactionArray.add(transaction[0]);
 			transactionArray.add(transaction[1]);
 		}
