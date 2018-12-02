@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -134,5 +135,46 @@ public class AccountScreen extends Screen implements Initializable{
 
 	        userIcon.setImage(SwingFXUtils.toFXImage(img, null));
 	        usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
+	        
+	        //Set all of the user details.
+	        setUsernameLabel();
+	        setNameLabel();
+	        setMobileNumberLabel();
+	        setAddressLabel();
+	        setAccountBalanceLabel();
+	        setProfileImage();
+		}
+		
+		private void setUsernameLabel() {
+			usernameField.setText(Library.getCurrentLoggedInUser().getUserName());
+		}
+		
+		private void setNameLabel() {
+			nameField.setText((Library.getCurrentLoggedInUser().getFirstName() + " " + (Library.getCurrentLoggedInUser().getLastName())));
+		}
+		
+		private void setMobileNumberLabel() {
+			mobileNumberField.setText((Library.getCurrentLoggedInUser().getMobileNumber()));
+		}
+		
+		private void setAddressLabel() {
+			addressField.setText((Library.getCurrentLoggedInUser().getFirstLineAddress()) + "\n" + 
+								 (Library.getCurrentLoggedInUser().getSecondLineAddress()) + "\n" + 
+								 (Library.getCurrentLoggedInUser().getTownName()) + "\n" +
+								 (Library.getCurrentLoggedInUser().getPostCode()));
+		}
+		
+		private void setAccountBalanceLabel() {
+			balanceField.setText((Library.getCurrentLoggedInUser().getAccountBalance()));
+		}
+		
+		private void setProfileImage() {
+			BufferedImage profileImage = null;
+	        try {
+	            profileImage = ImageIO.read(new File(Library.getCurrentLoggedInUser().getProfImage()));
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        profileImageField.setImage(SwingFXUtils.toFXImage(profileImage, null));
 		}
 }
