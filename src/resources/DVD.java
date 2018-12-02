@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * <h1>DVD</h1>
  * <p>The DVD class creates DVD objects to be used by other classes
- * @author Deyan Naydenov
+ * @author Deyan Naydenov Peter Daish
  * @version 0.0.0.2
  * @since 18/11/2018
 */
