@@ -75,7 +75,10 @@ public class ResourceScreen extends Screen implements Initializable{
 		//This classes specific attributes.
 		
 		@FXML
-		private Button addCopy;
+		private Button addCopyButton;
+		
+		@FXML
+		private Button deleteCopyButton;
 		
 		@FXML
 		private Button editResource; //button which allows user to edit a resource's details.
@@ -143,7 +146,7 @@ public class ResourceScreen extends Screen implements Initializable{
     /**
      * Adds a copy to current resource
      */
-    public void addCopy() {
+    public void addCopyButton(Event e) {
     	//if object is a "Book" then add copy to book's copy arraylist. Same for if DVD or Laptop.
     	if(res.getClass()== Book.class) {
     		((Book) res).addToCopies();
@@ -157,7 +160,7 @@ public class ResourceScreen extends Screen implements Initializable{
     /**
      * Deletes a copy of current resource
      */
-    public void deleteCopy() {
+    public void deleteCopyButton(Event e) {
     	//if object is a "Book" then add copy to book's copy arraylist. Same for if DVD or Laptop.
     	if(res.getClass()== Book.class) {
     		((Book) res).removeCopy();
