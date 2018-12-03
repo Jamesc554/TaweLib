@@ -23,6 +23,8 @@ public class User {
     protected String postCode; //Post code
     protected String townName; //Town name
     protected ArrayList<String> resourceCurrentlyBorrowed = new ArrayList<>(); //List of currently borrowed books
+	protected ArrayList<String> resourceCurrentlyRequested  = new ArrayList<>();
+	protected ArrayList<String> resourceCurrentlyReserved = new ArrayList<>();
     protected ArrayList<String[]> transactionHistory = new ArrayList<>(); //Transaction History
     protected ArrayList<String[]> borrowHistory = new ArrayList<>(); // Borrow history
     protected Integer accountBalance; //current account balance
@@ -312,6 +314,14 @@ public class User {
 
 	public ArrayList<String[]> getBorrowHistory(){
 		return this.borrowHistory;
+	}
+
+	public void requestResource(String ID){
+		this.resourceCurrentlyRequested.add(ID);
+	}
+
+	public ArrayList<String> getAllRequested(){
+		return this.resourceCurrentlyRequested;
 	}
 
     private String getCurrentDate(){

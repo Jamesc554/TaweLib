@@ -451,4 +451,10 @@ public class Library {
         }
         return sum;
     }
+    public void requesteResource(String id){
+		currentUser.requestResource(id);
+	}
+	public ArrayList<String> getAllrequestedResource(){
+		return currentUser.getAllRequested();
+	}
 }
