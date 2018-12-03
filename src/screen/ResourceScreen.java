@@ -32,7 +32,7 @@ import resources.Resource;
 
 /**
  * This class represents the Resource screen, which shows detailed information on a particular Resource.
- * @author Etienne Badoche, Peter Daish
+ * @author Peter Daish, Etienne Badoche
  * @version 1.0
  */
 public class ResourceScreen extends Screen implements Initializable{
@@ -84,6 +84,18 @@ public class ResourceScreen extends Screen implements Initializable{
 		@FXML
 		private TextField languagesTextField;
 		
+		@FXML
+		private TextField directorTextField;
+		
+		@FXML
+		private TextField runtimeTextField;
+		
+		@FXML
+		private TextField languageTextField;
+		
+		@FXML
+		private TextField subLangTextField;
+		
 		private Object res = null; // this resource must be passed in to this class.
 		
 		@Override
@@ -117,6 +129,7 @@ public class ResourceScreen extends Screen implements Initializable{
     public void editResourceButton(Event e) {
     	//Edit the specific details of a resource i.e. Author, genre etc.
     	if(res instanceof Book) {
+    		
     		((Book) res).setTitle(titleTextField.getText());
     		((Book) res).setYear(yearTextField.getText());
     		((Book) res).setThumbnailImageRef(thumbnailTextField.getText());
@@ -125,24 +138,39 @@ public class ResourceScreen extends Screen implements Initializable{
     		((Book) res).setGenre(genreTextField.getText());
     		((Book) res).setIsbn(isbnTextField.getText());
     		//split array by ',' add to an arraylist. set languages to that arraylist.
-    		ArrayList<String> arraysOfLanguages = new ArrayList<String>();
-    		String languages = languagesTextField.getText();
+    		String languages = languagesTextField.getText(); //Holds the text entered by user for languages (separated by ',')
     		List<String> listOfLanguages = Arrays.asList(languages.split(","));
-    		//Populate arraysOfLanguages
+    		ArrayList<String> arraysOfLanguages = new ArrayList<String>(); //Array of languages which were split by ','
+    		//Populate arraysOfLanguages with langs separated by 'c' in UI then apply update to langs.
     		for(String lang: listOfLanguages) {
     			arraysOfLanguages.add(lang);
     		}
     		((Book) res).setLanguages(arraysOfLanguages);
     		
-    		
     	} else if (res instanceof DVD) {
+    		
     		((DVD) res).setTitle(titleTextField.getText());
     		((DVD) res).setYear(yearTextField.getText());
     		((DVD) res).setThumbnailImageRef(thumbnailTextField.getText());
+    		((DVD) res).setDirector(directorTextField.getText());
+    		((DVD) res).setRuntime(runtimeTextField.getText());
+    		((DVD) res).setLanguage(languageTextField.getText());
+    		//split array by ',' add to an arraylist. set languages to that arraylist.
+    		String subLanguages = subLangTextField.getText(); //Holds the text entered by user for languages (separated by ',')
+    		List<String> listOfSubLanguages = Arrays.asList(subLanguages.split(","));
+    		ArrayList<String> arraysOfSubLanguages = new ArrayList<String>(); //Array of languages which were split by ','
+    		//Populate arraysOfLanguages with langs separated by 'c' in UI then apply update to langs.
+    		for(String subLang: listOfSubLanguages) {
+    			arraysOfSubLanguages.add(subLang);
+    		}
+    		((DVD) res).setSubLang(arraysOfSubLanguages);
+    		
     	} else if (res instanceof Laptop) {
+    		
     		((Laptop) res).setTitle(titleTextField.getText());
     		((Laptop) res).setYear(yearTextField.getText());
     		((Laptop) res).setThumbnailImageRef(thumbnailTextField.getText());
+    		
     	}
     }
     
