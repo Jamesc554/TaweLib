@@ -312,18 +312,34 @@ public class User {
 		}
 	}
 
+	/**
+	 * Returns the history of the user
+	 * @return ArrayList<String[]>
+	 */
 	public ArrayList<String[]> getBorrowHistory(){
 		return this.borrowHistory;
 	}
 
+	/**
+	 * Returns the history of the user.
+	 * @param ID of resource to request.
+	 */
 	public void requestResource(String ID){
 		this.resourceCurrentlyRequested.add(ID);
 	}
 
+	/**
+	 * Get's all of users requested resources.
+	 * @return ArrayList<String>.
+	 */
 	public ArrayList<String> getAllRequested(){
 		return this.resourceCurrentlyRequested;
 	}
 
+	/**
+	 * Gets current system date in following format DD-MM-YYYY HH:MM:SS.
+	 * @return String
+	 */
     private String getCurrentDate(){
 		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		return dataFormat.format(new Date());

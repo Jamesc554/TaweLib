@@ -451,9 +451,19 @@ public class Library {
         }
         return sum;
     }
-    public void requesteResource(String id){
+
+	/**
+	 * Allows users to request a book that is not available.
+	 * @param id of resource to be requested
+	 */
+	public void requesteResource(String id){
 		currentUser.requestResource(id);
 	}
+
+	/**
+	 * Returns all requested books of the user
+	 * @return ArrayList<String>
+	 */
 	public ArrayList<String> getAllrequestedResource(){
 		return currentUser.getAllRequested();
 	}
