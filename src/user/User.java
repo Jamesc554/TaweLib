@@ -209,14 +209,14 @@ public class User {
 	 * Returns full list of resources borrowed by the user.
 	 * @return ArrayList storing all Resource objects.
 	 */
-	public ArrayList getCurrentlyBorrowedResources(){return this.resourceCurrentlyBorrowed;}
+	public ArrayList<String> getCurrentlyBorrowedResources(){return this.resourceCurrentlyBorrowed;}
 
 	/**
 	 * Returns all transaction history of the user.
 	 * @return a ArrayList. This arrayList holds arrays in the following way,
 	 * DateOfTransaction	Amount of Transaction
 	 */
-    public ArrayList getTransactions(){return this.transactionHistory;}
+    public ArrayList<String[]> getTransactions(){return this.transactionHistory;}
 
 	/**
 	 * This returns the current account balance as a String. Following format "£X.XX".

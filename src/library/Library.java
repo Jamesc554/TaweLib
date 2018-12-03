@@ -451,10 +451,10 @@ public class Library {
         }
         return sum;
     }
-    public void requesteResource(String id){
+    public static void requestResource(String id){
 		currentUser.requestResource(id);
 	}
-	public ArrayList<String> getAllrequestedResource(){
+	public static ArrayList<String> getAllrequestedResource(){
 		return currentUser.getAllRequested();
 	}
 }
