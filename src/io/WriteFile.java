@@ -19,6 +19,7 @@ import resources.Book;
 import resources.DVD;
 import resources.Laptop;
 import resources.Resource;
+import user.Librarian;
 import user.User;
 import utils.Queue;
 
@@ -63,6 +64,36 @@ public class WriteFile extends IO {
 			file.close();
 		} catch (IOException e) {
 			System.out.println("Error writing user to " + IO.getUsersFilePath() + " " + user.getUserName());
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void writeLibrarian(Librarian librarian) {
+		JSONObject object = new JSONObject();
+		
+		object.put("username", librarian.getUserName());
+		object.put("firstName", librarian.getFirstName());
+		object.put("lastName", librarian.getLastName());
+		object.put("mobileNumber", librarian.getMobileNumber());
+		object.put("firstLineAddress", librarian.getFirstLineAddress());
+		object.put("secondLineAddress", librarian.getSecondLineAddress());
+		object.put("postCode", librarian.getPostCode());
+		object.put("townName", librarian.getTownName());
+		object.put("imageAddress", librarian.getProfImage());
+		object.put("accountBalance", String.valueOf(librarian.getIntegerAccountBalance()));
+		object.put("empDay", String.valueOf(librarian.getEmploymentDay()));
+		object.put("empMonth", String.valueOf(librarian.getEmploymentMonth()));
+		object.put("empYear", String.valueOf(librarian.getEmploymentYear()));
+		object.put("staffNumber", librarian.getStaffNumber());
+		object.put("noOfEmploys", String.valueOf(librarian.getNumberOfEmploys()));
+		
+		try {
+			FileWriter file = new FileWriter(IO.getLibrarianFilePath(), true);
+			file.write(object.toJSONString() + "\n");
+			file.flush();
+			file.close();
+		} catch (IOException e) {
+			System.out.println("Error writing user to " + IO.getLibrarianFilePath() + " " + librarian.getUserName());
 		}
 	}
 
