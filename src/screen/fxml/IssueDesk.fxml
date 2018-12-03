@@ -300,13 +300,15 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Text>
-                                    <Button layoutX="232.0" layoutY="236.0" mnemonicParsing="false" onAction="#createDVDButton" text="Create DVD">
+                                    <Button layoutX="232.0" layoutY="277.0" mnemonicParsing="false" onAction="#createDVDButton" text="Create DVD">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Button>
-                                    <Label fx:id="dvdError" layoutX="353.0" layoutY="243.0" text="Required field(s) blank!" textFill="RED" visible="false" />
-                                    <Label fx:id="dvdSuccess" layoutX="353.0" layoutY="243.0" text="DVD added!" textFill="#23a12e" visible="false" />
+                                    <Label fx:id="dvdError" layoutX="352.0" layoutY="284.0" text="Required field(s) blank!" textFill="RED" visible="false" />
+                                    <Label fx:id="dvdSuccess" layoutX="352.0" layoutY="284.0" text="DVD added!" textFill="#23a12e" visible="false" />
+                                    <Button layoutX="232.0" layoutY="233.0" mnemonicParsing="false" onAction="#dvdImageButton" text="*Choose thumbnail image" />
+                                    <Text fx:id="dvdImgName" layoutX="412.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -345,13 +347,15 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Text>
-                                    <Button layoutX="231.0" layoutY="197.0" mnemonicParsing="false" onAction="#createLaptopButton" text="Create Laptop">
+                                    <Button layoutX="231.0" layoutY="238.0" mnemonicParsing="false" onAction="#createLaptopButton" text="Create Laptop">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Button>
-                                    <Label fx:id="laptopError" layoutX="380.0" layoutY="212.0" text="Required field(s) blank!" textFill="RED" visible="false" />
-                                    <Label fx:id="laptopSuccess" layoutX="380.0" layoutY="212.0" text="Laptop added!" textFill="#23a12e" visible="false" />
+                                    <Label fx:id="laptopError" layoutX="380.0" layoutY="245.0" text="Required field(s) blank!" textFill="RED" visible="false" />
+                                    <Label fx:id="laptopSuccess" layoutX="380.0" layoutY="245.0" text="Laptop added!" textFill="#23a12e" visible="false" />
+                                    <Button layoutX="231.0" layoutY="194.0" mnemonicParsing="false" onAction="#laptopImageButton" text="*Choose thumbnail image" />
+                                    <Text fx:id="laptopImgName" layoutX="408.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                                  </children>
                               </AnchorPane>
                            </content>

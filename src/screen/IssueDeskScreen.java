@@ -115,6 +115,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Label dvdSuccess;
     @FXML
+    private Text dvdImgName;
+    @FXML
     private TextField laptopTitle;
     @FXML
     private TextField laptopYear;
@@ -128,6 +130,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Label laptopError;
     @FXML
     private Label laptopSuccess;
+    @FXML
+    private Text laptopImgName;
 
     @Override
     public void start() {
@@ -329,9 +333,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 System.out.println(languages);
             }
             //Add the book to the Library
-            String image = "./data/images/book" + imageName;
+            String image = "./data/images/book/" + imageName;
             Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages);
             bookSuccess.setVisible(true);
+            bookImgName.setText("");
         }
     }
 
@@ -348,13 +353,14 @@ public class IssueDeskScreen extends Screen implements Initializable {
         String language = dvdLanguage.getText();
         String subsString = dvdSubs.getText();
         ArrayList<String> subs;
+        String imageName = dvdImgName.getText();
 
         //Reset error/success labels
         dvdError.setVisible(false);
         dvdSuccess.setVisible(false);
 
         //Check if required fields have input
-        if (title.equals("") || director.equals("") || year.equals("") || runtime.equals("")) {
+        if (title.equals("") || director.equals("") || year.equals("") || runtime.equals("") || imageName.equals("")) {
             dvdError.setVisible(true);
         } else {
             //Set optional fields to null if empty
@@ -369,9 +375,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 subs = new ArrayList<>(Arrays.asList(subsArray));
             }
             //Add the DVD to the Library
-            Library.addDVD(year, title, "./data/images/dvd/DVD-Default.jpg", null,
-                    director, runtime, language, subs);
+            String image = "./data/images/dvd/" + imageName;
+            Library.addDVD(year, title, image, null, director, runtime, language, subs);
             dvdSuccess.setVisible(true);
+            dvdImgName.setText("");
         }
     }
 
@@ -386,31 +393,79 @@ public class IssueDeskScreen extends Screen implements Initializable {
         String manufacturer = laptopManuf.getText();
         String model = laptopModel.getText();
         String os = laptopOS.getText();
+        String imageName = laptopImgName.getText();
 
         //Reset error/success labels
         laptopError.setVisible(false);
         laptopSuccess.setVisible(false);
 
         //Check if require fields have input
-        if (title.equals("") || year.equals("") || manufacturer.equals("") || model.equals("") || os.equals("")) {
+        if (title.equals("") || year.equals("") || manufacturer.equals("") || model.equals("") || os.equals("")
+                || imageName.equals("")) {
             laptopError.setVisible(true);
         } else {
             //Add the Laptop to the Library
-            Library.addLaptop(year, title, "./data/images/laptop/Laptop-Default.jpg", null,
-                    manufacturer, model, os);
+            String image = "./data/images/laptop/" + imageName;
+            Library.addLaptop(year, title, image, null, manufacturer, model, os);
             laptopSuccess.setVisible(true);
+            laptopImgName.setText("");
         }
     }
 
+    /**
+     * Event handling to choose a book thumbnail image
+     * @param e the JavaFX event
+     */
     @FXML
     private void bookImageButton(Event e) {
+        try {
+            File selectedFile = getImageFile("book");
+            bookImgName.setText(selectedFile.getName());
+        } catch (NullPointerException ex) {
+            System.out.println("No book image file selected");
+        }
+    }
+
+    /**
+     * Event handling to choose a dvd thumbnail image
+     * @param e the JavaFX event
+     */
+    @FXML
+    private void dvdImageButton(Event e) {
+         try {
+             File selectedFile = getImageFile("dvd");
+             dvdImgName.setText(selectedFile.getName());
+         } catch (NullPointerException ex) {
+             System.out.println("No dvd image file selected");
+         }
+    }
+
+    /**
+     * Event handling to choose a laptop thumbnail image
+     * @param e the JavaFX event
+     */
+    @FXML
+    private void laptopImageButton(Event e) {
+        try {
+            File selectedFile = getImageFile("laptop");
+            laptopImgName.setText(selectedFile.getName());
+        } catch (NullPointerException ex) {
+            System.out.println("No laptop image file selected");
+        }
+    }
+
+    /**
+     * Opens a FileChooser in the image directory of the selected type
+     * @param type the type of resource for which to choose an image (i.e. book/dvd/laptop)
+     * @return a File object correspondng to the selected image (null if cancelled)
+     */
+    private File getImageFile(String type) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose an image");
-        fileChooser.setInitialDirectory(new File("./data/images/book"));
+        fileChooser.setInitialDirectory(new File("./data/images/" + type));
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image files", "*.png", "*.jpg")
+                new FileChooser.ExtensionFilter("Images files", "*png", "*jpg")
         );
-        File selectedFile = fileChooser.showOpenDialog(ScreenManager.getStage());
-        bookImgName.setText(selectedFile.getName());
+        return fileChooser.showOpenDialog(ScreenManager.getStage());
     }
 }
