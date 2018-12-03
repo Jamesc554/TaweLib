@@ -14,15 +14,22 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import library.Library;
+import library.LibraryResources;
 import resources.Book;
 import resources.DVD;
 import resources.Laptop;
@@ -117,21 +124,52 @@ public class SearchResultScreen extends Screen implements Initializable{
 		
 		for (Book b : books) {
 			if (b.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
-				bookHBox.getChildren().add(createImageViewForResource(b));
+				bookHBox.getChildren().add(createStackPaneForResource(b));
 			}
 		}
 
 		for (DVD d : dvds) {
 			if (d.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
-				dvdHBox.getChildren().add(createImageViewForResource(d));
+				dvdHBox.getChildren().add(createStackPaneForResource(d));
 			}
 		}
 
 		for (Laptop l : laptops) {
 			if (l.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
-				laptopHBox.getChildren().add(createImageViewForResource(l));
+				laptopHBox.getChildren().add(createStackPaneForResource(l));
 			}
 		}
+	}
+	
+	private StackPane createStackPaneForResource(Resource r) {
+		ImageView imgV = createImageViewForResource(r);
+		Text title = new Text(r.getTitle());
+		title.setFont(Font.font("Verdana", 20));
+		title.setWrappingWidth(imgV.getImage().getWidth());
+		title.setFill(Color.BLACK);
+		title.setStroke(Color.WHITE);
+		title.setStrokeWidth(0.5D);
+		title.setTextAlignment(TextAlignment.CENTER);
+		Button btn = new Button("Borrow");
+		btn.setOnAction(e -> {
+			System.out.println("This should request the resource!");
+		});
+		
+		
+		VBox layout = new VBox(title, btn);
+		layout.setBackground(new Background(new BackgroundFill(new Color(1D, 1D, 1D, 0.5D), null, null)));
+		layout.setAlignment(Pos.CENTER);
+		
+		layout.setVisible(false);
+		
+		StackPane sp = new StackPane(imgV, layout);
+		sp.setOnMouseEntered(mouse -> {
+			layout.setVisible(true);
+		});
+		sp.setOnMouseExited(mouse -> {
+			layout.setVisible(false);
+		});
+		return sp;
 	}
 	
 	private ImageView createImageViewForResource(Resource r) {
@@ -151,30 +189,5 @@ public class SearchResultScreen extends Screen implements Initializable{
 		
 		return imgV;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
