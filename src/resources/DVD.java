@@ -124,6 +124,14 @@ public class DVD extends Resource {
 	public ArrayList<String> getSubLang() {
 		return subLang;
 	}
+	
+	/**
+	 * Updates the subtitle languages available
+	 * @param langs the subtitle languages available including new additions if any.
+	 */
+	public void setSubLang(ArrayList<String> langs) {
+		this.subLang = langs;
+	}
 	/**
 	 * Defines the director of the DVD.
 	 * @param director
