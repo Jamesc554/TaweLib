@@ -14,6 +14,7 @@ import library.Library;
 import resources.Book;
 import resources.DVD;
 import resources.Laptop;
+import user.Librarian;
 import user.User;
 
 /**
@@ -87,6 +88,48 @@ public class ReadFile extends IO{
 			e.printStackTrace();
 		}
 		return userList;
+	}
+	
+	public static ArrayList<Librarian> readLibrarians() {
+		JSONParser parser = new JSONParser();
+		ArrayList<Librarian> librarianList = new ArrayList<>();
+		
+		try {
+			file = new FileReader(IO.getLibrarianFilePath());
+			reader = new BufferedReader(file);
+			while((currentLine = reader.readLine()) != null) {
+				JSONObject object = (JSONObject) parser.parse(currentLine);
+				Librarian librarian = new Librarian((String)object.get("username"),
+						(String)object.get("firstName"),
+						(String)object.get("lastName"),
+						(String)object.get("mobileNumber"),
+						(String)object.get("firstLineAddress"),
+						(String)object.get("secondLineAddress"),
+						(String)object.get("postCode"),
+						(String)object.get("townName"),
+						Integer.parseInt((String) object.get("accountBalance")),
+						(String)object.get("imageAddress"),
+						Integer.parseInt((String)object.get("empDay")),
+						Integer.parseInt((String)object.get("empMonth")),
+						Integer.parseInt((String)object.get("empYear")),
+						(String)object.get("staffNumber"),
+						Integer.parseInt((String)object.get("noOfEmploys")));
+				librarianList.add(librarian);
+			}
+			
+			reader.close();
+			file.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot find " + IO.getLibrarianFilePath());
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("ERROR reading file " + IO.getLibrarianFilePath());
+			e.printStackTrace();
+		} catch (ParseException e) {
+			System.out.println("ERROR parsing users JSON");
+			e.printStackTrace();
+		}
+		return librarianList;
 	}
 	
 	// TODO: CHANGE TO ArrayList<Book>
