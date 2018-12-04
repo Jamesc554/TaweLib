@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -33,13 +34,17 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField loanUsername;
     @FXML
-    private TextField resourceId;
+    private TextField loanCopyID;
     @FXML
     private Label loanUserError;
     @FXML
-    private Label resourceError;
+    private Label loanCopyError;
     @FXML
     private Label loanSuccess;
+    @FXML
+    private TextField returnUsername;
+    @FXML
+    private ListView userBorrowList;
     @FXML
     private Label returnSuccess;
     @FXML
@@ -177,7 +182,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         //Check Library if user exists
         if (Library.checkForUser(user)) {
             try {
-                int balance = Integer.parseInt(paymentAmount.getText()) * 100;  //Convert pounds to pence
+                int balance = Integer.parseInt(paymentAmount.getText());
                 Library.subtractBalance(balance, paymentUsername.getText());
                 paymentSuccess.setVisible(true);
             //Exceptions thrown if negative amount or amount more than account balance
@@ -196,27 +201,26 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private void loanButton(Event e) {
         String user = loanUsername.getText();
-        String rID = resourceId.getText();
+        String id = loanCopyID.getText();
 
         //Reset all error/success labels
         loanUserError.setVisible(false);
-        resourceError.setVisible(false);
+        loanCopyError.setVisible(false);
         loanSuccess.setVisible(false);
-        returnSuccess.setVisible(false);
         outstandingFineMsg.setVisible(false);
-        overdueCopyMsg.setVisible(false);
+        //overdueCopyMsg.setVisible(false);
 
         //Check Library if user exists
         if (Library.checkForUser(user)) {
             //Check if user has no outstanding balance
             if(Library.getUser(user).getAccountBalanceDouble() == 0) {
                 //Check if Resource ID is valid
-                if (Library.getResource(rID) != null) {
+                if (Library.getResource(id) != null) {
                     //TODO: Check if user has overdue copies
-                    Library.loanResource(user, rID);
+                    Library.loanResource(user, id);
                     loanSuccess.setVisible(true);
                 } else {
-                    resourceError.setVisible(true);
+                    loanCopyError.setVisible(true);
                 }
             } else {
                 outstandingFineMsg.setVisible(true);
@@ -230,15 +234,16 @@ public class IssueDeskScreen extends Screen implements Initializable {
      * Event handling to process returns
      * @param e the JavaFX event
      */
+
     @FXML
     private void returnButton(Event e) {
-        String user = loanUsername.getText();
-        String rID = resourceId.getText();
+        /*String user = loanUsername.getText();
+        String id = loanCopyID.getText();
 
         //Reset all error/success labels
         loanUserError.setVisible(false);
-        resourceError.setVisible(false);
-        loanSuccess.setVisible(false);
+        //resourceError.setVisible(false);
+        //loanSuccess.setVisible(false);
         returnSuccess.setVisible(false);
         outstandingFineMsg.setVisible(false);
         overdueCopyMsg.setVisible(false);
@@ -246,16 +251,17 @@ public class IssueDeskScreen extends Screen implements Initializable {
         //Check Library if user exists
         if (Library.checkForUser(user)) {
             //Check if user is currently borrowing the resource
-            if (Library.getUser(user).getResource(rID) != null) {
-                Library.returnResource(user, rID);
+            if (Library.getUser(user).getResource(id) != null) {
+                Library.returnResource(user, id);
                 returnSuccess.setVisible(true);
             } else {
-                resourceError.setVisible(true);
+                //resourceError.setVisible(true);
             }
         } else {
             loanUserError.setVisible(true);
-        }
+        }*/
     }
+
 
     /**
      * Event handling to create a new User
