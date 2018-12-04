@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
@@ -59,6 +58,9 @@ public class ResourceScreen extends Screen implements Initializable{
 		
 		@FXML
 		private Button editResourceButton; //button which allows user to edit a resource's details.
+		
+		@FXML
+		private Text uniqueIDText;
 		
 		@FXML
 		private TextField titleTextField;
@@ -130,6 +132,14 @@ public class ResourceScreen extends Screen implements Initializable{
 
 			userIcon.setImage(SwingFXUtils.toFXImage(img, null));
 			usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
+			
+			//######Object attributes######
+			if (res instanceof Book) {
+				uniqueIDText.setText(((Book)res).getUniqueID()); //UniqueID should be non-editable.
+				titleTextField.setText(((Book) res).getTitle());
+				yearTextField.setText(((Book) res).getYear());
+				thumbnailTextField.setText(((Book) res).getYear());
+			}
 		}
     
     /**
