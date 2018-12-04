@@ -461,10 +461,16 @@ public class Library {
 	}
 
 	/**
-	 * Returns all requested books of the user
+	 * Returns all requested books of the user currently logged in.
 	 * @return ArrayList<String>
 	 */
-	public ArrayList<String> getAllrequestedResource(){
+	public ArrayList<String> getAllRequestedResource(){
 		return currentUser.getAllRequested();
 	}
+
+	/**
+	 * Returns all reserved items of the user currently logged in.
+	 * @return ArrayList<String>
+	 */
+	public ArrayList<String> getAllReservedResources(){ return currentUser.getAllReserved();}
 }

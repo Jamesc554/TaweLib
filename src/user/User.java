@@ -337,6 +337,12 @@ public class User {
 	}
 
 	/**
+	 * Get all of users reserved items.
+	 * @return ArrayList<String>
+	 */
+	public ArrayList<String> getAllReserved() { return this.resourceCurrentlyReserved;}
+
+	/**
 	 * Gets current system date in following format DD-MM-YYYY HH:MM:SS.
 	 * @return String
 	 */
