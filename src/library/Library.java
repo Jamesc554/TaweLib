@@ -464,7 +464,7 @@ public class Library {
 	 * Returns all requested books of the user currently logged in.
 	 * @return ArrayList<String>
 	 */
-	public ArrayList<String> getAllRequestedResource(){
+	public static ArrayList<String> getAllrequestedResource(){
 		return currentUser.getAllRequested();
 	}
 

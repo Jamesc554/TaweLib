@@ -132,7 +132,7 @@ public class Laptop extends Resource {
 	 * Defines an operating system for the laptop.
 	 * @param operatingSys
 	 */
-	public void setOperatingsys(String operatingSys) {
+	public void setOperatingSys(String operatingSys) {
 		this.operatingSys = operatingSys;
 	}
 	

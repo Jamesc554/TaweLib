@@ -152,7 +152,7 @@ public class SearchResultScreen extends Screen implements Initializable{
 		title.setTextAlignment(TextAlignment.CENTER);
 		Button btn = new Button("Borrow");
 		btn.setOnAction(e -> {
-			System.out.println("This should request the resource!");
+			Library.requestResource(r.getUniqueID());
 		});
 		
 		

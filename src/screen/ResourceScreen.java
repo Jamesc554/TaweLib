@@ -96,6 +96,15 @@ public class ResourceScreen extends Screen implements Initializable{
 		@FXML
 		private TextField subLangTextField;
 		
+		@FXML
+		private TextField manufacturerTextField;
+		
+		@FXML
+		private TextField modelTextField;
+		
+		@FXML
+		private TextField operatingSysTextField;
+		
 		private Object res = null; // this resource must be passed in to this class.
 		
 		@Override
@@ -124,7 +133,7 @@ public class ResourceScreen extends Screen implements Initializable{
 		}
     
     /**
-     * Event handling for editing a Resource.
+     * Event handling for editing a Resource, will set all attributes to update based off of entered data.
      */
     public void editResourceButton(Event e) {
     	//Edit the specific details of a resource i.e. Author, genre etc.
@@ -170,6 +179,9 @@ public class ResourceScreen extends Screen implements Initializable{
     		((Laptop) res).setTitle(titleTextField.getText());
     		((Laptop) res).setYear(yearTextField.getText());
     		((Laptop) res).setThumbnailImageRef(thumbnailTextField.getText());
+    		((Laptop) res).setManufacturer(manufacturerTextField.getText());
+    		((Laptop) res).setModel(modelTextField.getText());
+    		((Laptop) res).setOperatingSys(operatingSysTextField.getText());;
     		
     	}
     }
