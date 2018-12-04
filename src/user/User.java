@@ -355,4 +355,19 @@ public class User {
 		resourceCurrentlyRequested.remove(id);
 		resourceCurrentlyReserved.add(id);
 	}
+
+    /**
+     * Add's to borrow history on start up.
+     * @param data
+     */
+	public void addToBorrowHistory(String[] data){
+	    borrowHistory.add(data);
+    }
+    /**
+     * Add's to transaction history on start up.
+     * @param data
+     */
+    public void addToTransactionHistory(String[] data){
+	    transactionHistory.add(data);
+    }
 }
