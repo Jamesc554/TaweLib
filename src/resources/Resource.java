@@ -215,6 +215,14 @@ public abstract class Resource {
 	public User peekQueueOfReservations() {
 		return this.queueOfReservations.peek();
 	}
+
+	/**
+	 * Checks if someone requested a book.
+	 * @return
+	 */
+	public Boolean checkIfRequested(){
+		return queueOfReservations.isEmpty();
+	}
 	public String toSingleString(){
 		return year + title;
 	}

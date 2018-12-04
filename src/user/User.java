@@ -24,7 +24,7 @@ public class User {
     protected String townName; //Town name
     protected ArrayList<String> resourceCurrentlyBorrowed = new ArrayList<>(); //List of currently borrowed books
 	protected ArrayList<String> resourceCurrentlyRequested  = new ArrayList<>();
-	protected ArrayList<String> resourceCurrentlyReserved = new ArrayList<>();
+	protected ArrayList<String> resourceCurrentlyReserved = new ArrayList<>(); //Available for pick up
     protected ArrayList<String[]> transactionHistory = new ArrayList<>(); //Transaction History
     protected ArrayList<String[]> borrowHistory = new ArrayList<>(); // Borrow history
     protected Double accountBalance; //current account balance
@@ -332,10 +332,27 @@ public class User {
 		return dataFormat.format(new Date());
 	}
 
+	/**
+	 * Get's the date user was last logged in.
+	 * @return
+	 */
 	public String getLastLogIn() {
 		return lastLogIn;
 	}
+
+	/**
+	 * Sets the user last login to current date.
+	 */
 	public void setLastLogIn(){
     	this.lastLogIn = getCurrentDate();
+	}
+
+	/**
+	 * Moves requested to reserved.
+	 * @param id String id of resource.
+	 */
+	public void moveToReserved(String id){
+		resourceCurrentlyRequested.remove(id);
+		resourceCurrentlyReserved.add(id);
 	}
 }
