@@ -29,6 +29,7 @@ public class User {
     protected ArrayList<String[]> borrowHistory = new ArrayList<>(); // Borrow history
     protected Double accountBalance; //current account balance
     protected String profImage; //profile image address
+	protected String lastLogIn; //Date last log in.
 
 	/**
 	 * Generic constructor
@@ -329,5 +330,12 @@ public class User {
     private String getCurrentDate(){
 		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		return dataFormat.format(new Date());
+	}
+
+	public String getLastLogIn() {
+		return lastLogIn;
+	}
+	public void setLastLogIn(){
+    	this.lastLogIn = getCurrentDate();
 	}
 }
