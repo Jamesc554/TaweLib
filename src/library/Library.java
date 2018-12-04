@@ -192,7 +192,16 @@ public class Library {
 	 */
 	public static void returnResource(String username, String resourceID){
 		getUser(username).returnResource(resourceID);
-		//TODO REMOVE THE USER FROM CURRENTLY OUT HASH MAP IN RESOURCE
+		checkForRequested(resourceID);
+	}
+
+	private static void checkForRequested(String id){
+		String[] data = id.split("-");
+		Resource r = Library.getResource(data[0]);
+		if(r.checkIfRequested()){
+			User u = r.peekQueueOfReservations();
+			u.moveToReserved(id);
+		}
 	}
 
 	/**

@@ -218,10 +218,11 @@ public abstract class Resource {
 
 	/**
 	 * Checks if someone requested a book.
-	 * @return
+	 * @return Boolean. True if someone requested. False if not.
 	 */
 	public Boolean checkIfRequested(){
-		return queueOfReservations.isEmpty();
+		return (! queueOfReservations.isEmpty());
+		//If empty return False. As is no one requested it. True if someone requested it.
 	}
 	public String toSingleString(){
 		return year + title;
