@@ -69,7 +69,7 @@ public class HomeScreen extends Screen implements Initializable{
 		
 		userIcon.setImage(SwingFXUtils.toFXImage(img, null));
 		usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
-		fineText.setText(Library.getCurrentLoggedInUser().getAccountBalance());
+		fineText.setText(Library.getCurrentLoggedInUser().getAccountBalanceString());
 	}
 
 }

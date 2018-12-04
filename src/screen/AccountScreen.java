@@ -138,7 +138,7 @@ public class AccountScreen extends Screen implements Initializable{
 		}
 		
 		private void setAccountBalanceLabel() {
-			balanceField.setText((Library.getCurrentLoggedInUser().getAccountBalance()));
+			balanceField.setText((Library.getCurrentLoggedInUser().getAccountBalanceString()));
 		}
 		
 		private void setProfileImage() {

@@ -27,7 +27,7 @@ public class User {
 	protected ArrayList<String> resourceCurrentlyReserved = new ArrayList<>();
     protected ArrayList<String[]> transactionHistory = new ArrayList<>(); //Transaction History
     protected ArrayList<String[]> borrowHistory = new ArrayList<>(); // Borrow history
-    protected Integer accountBalance; //current account balance
+    protected Double accountBalance; //current account balance
     protected String profImage; //profile image address
 
 	/**
@@ -115,7 +115,7 @@ public class User {
 	 * This sets the account balance of the user.
 	 * @param amount the start amount in pence.
 	 */
-	protected void setAccountBalance(int amount){this.accountBalance = amount;}
+	protected void setAccountBalance(double amount){this.accountBalance = amount;}
 
 	/**
 	 * Returns the username.
@@ -222,31 +222,11 @@ public class User {
 	 * This returns the current account balance as a String. Following format "£X.XX".
 	 * @return a string representation of the balance.
 	 */
-	public String getAccountBalance(){
-		String s = "";
-		//Temp balance so main variable is not touched
-		int tempBal = this.accountBalance;
-		//If balance is negative and - symbol and make the balance positive
-		if(tempBal < 0){
-			s = "-";
-			tempBal = tempBal * -1;
-		}
-        //If the account has at least 3 digits
-        if(String.valueOf(tempBal).length() >= 3){
-        	//Take £ add everything but last two digits add . then put last two digits at the end.
-            s = s + "£" + String.valueOf(tempBal).substring(0, String.valueOf(tempBal).length() - 2)
-                    +"."+String.valueOf(tempBal).substring(String.valueOf(tempBal).length() - 2);
-        //If two digits. take two digits and add to the end of £0.
-        }else if (String.valueOf(tempBal).length() >= 2){
-            s = s +"£0."+String.valueOf(tempBal);
-            //If one digit add to the end of £0.0
-        }else if (String.valueOf(tempBal).length() >= 1){
-            s = s + "£0.0"+String.valueOf(tempBal);
-        }
-        return s;
+	public String getAccountBalanceString(){
+			return "£"+String.valueOf(this.accountBalance);
     }
 	
-	public int getIntegerAccountBalance() {
+	public double getAccountBalanceDouble() {
 		return this.accountBalance;
 	}
 

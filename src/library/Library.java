@@ -159,7 +159,7 @@ public class Library {
 	public static void subtractBalance (int amount, String username) {
 		if (amount <= 0 ) {
 			throw new IllegalArgumentException("Cannot subtract negative or null amount");
-		} else if (amount > currentUser.getIntegerAccountBalance()) {
+		} else if (amount > currentUser.getAccountBalanceDouble()) {
 			throw new IllegalArgumentException("Amount superior to account balance");
 		}
 		getUser(username).subtractAccountBalance(amount);
@@ -344,7 +344,7 @@ public class Library {
 		User u = getUser(username);
 	    String info = u.getUserName()+ "\n";
 	    info += u.getFullName()+"\n"+u.getMobileNumber()+"\n"+u.getFullAddress()+"\n";
-	    info += "Current Balance: "+u.getAccountBalance()+"\n";
+	    info += "Current Balance: "+u.getAccountBalanceString()+"\n";
 	    info += "Profile Image Path: "+u.getProfImage()+"\n";
 	    info += "Currently Borrowed:\n";
 	    for(Object id : u.getCurrentlyBorrowedResources()){
@@ -456,7 +456,7 @@ public class Library {
 	 * Allows users to request a book that is not available.
 	 * @param id of resource to be requested
 	 */
-	public void requesteResource(String id){
+	public static void requestResource(String id){
 		currentUser.requestResource(id);
 	}
 

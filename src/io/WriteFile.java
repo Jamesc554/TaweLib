@@ -43,7 +43,7 @@ public class WriteFile extends IO {
 		object.put("postCode", user.getPostCode());
 		object.put("townName", user.getTownName());
 		object.put("imageAddress", user.getProfImage());
-		object.put("accountBalance", String.valueOf(user.getIntegerAccountBalance()));
+		object.put("accountBalance", String.valueOf(user.getAccountBalanceDouble()));
 
 		for (Object resource : user.getCurrentlyBorrowedResources()) {
 			resourceArray.add(((Resource) resource).getUniqueID());
@@ -80,7 +80,7 @@ public class WriteFile extends IO {
 		object.put("postCode", librarian.getPostCode());
 		object.put("townName", librarian.getTownName());
 		object.put("imageAddress", librarian.getProfImage());
-		object.put("accountBalance", String.valueOf(librarian.getIntegerAccountBalance()));
+		object.put("accountBalance", String.valueOf(librarian.getAccountBalanceDouble()));
 		object.put("empDay", String.valueOf(librarian.getEmploymentDay()));
 		object.put("empMonth", String.valueOf(librarian.getEmploymentMonth()));
 		object.put("empYear", String.valueOf(librarian.getEmploymentYear()));
