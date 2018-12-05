@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 
 import java.util.Stack;
 
+import io.WriteFile;
+
 /**
  * <h1>ScreenManager</h1>
  * <p>ScreenManager is responsible for controlling what Screen is currently being drawn to the display, and how we
@@ -38,6 +40,11 @@ public class ScreenManager {
     
     public static void start(Stage primaryStage) {
         stage = primaryStage;
+        
+        stage.setOnCloseRequest(e -> {
+        	WriteFile.backupCurrent();
+        });
+        
         changeScreen(new LoginScreen());
     }
 

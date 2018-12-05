@@ -49,7 +49,7 @@ public class ReadFile extends IO{
 						(String)object.get("secondLineAddress"),
 						(String)object.get("postCode"),
 						(String)object.get("townName"),
-						Integer.parseInt((String) object.get("accountBalance")),
+						Double.parseDouble((String) object.get("accountBalance")),
 						(String)object.get("imageAddress"));
 				
 				//TODO: Currently Borrowed
