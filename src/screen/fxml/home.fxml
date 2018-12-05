@@ -72,7 +72,7 @@
             <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Home" textFill="#fff1f1" underline="true" />
             <Button fx:id="accountBtn" mnemonicParsing="false" onAction="#accountDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Account" textFill="#fff1f1" underline="true" />
             <Button fx:id="drawAppBtn" mnemonicParsing="false" onAction="#drawAppButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Draw App" textFill="#fff1f1" underline="true" />
-            <Button fx:id="issueDeskBtn" mnemonicParsing="false" onAction="#issueDeskButton" prefHeight="25.0" prefWidth="110.0" text="Issue Desk" visible="false" />
+            <Button fx:id="issueDeskBtn" mnemonicParsing="false" onAction="#issueDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Issue Desk" textFill="#fff1f1" underline="true" visible="false" />
           </children>
           <padding>
             <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
