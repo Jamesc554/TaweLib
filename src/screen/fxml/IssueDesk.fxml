@@ -134,7 +134,16 @@
                         <Label fx:id="paymentUserError" layoutX="457.0" layoutY="212.0" text="Invalid username!" textFill="RED" visible="false" />
                         <Label fx:id="paymentAmountError" layoutX="457.0" layoutY="245.0" text="Invalid amount!" textFill="RED" visible="false" />
                         <Label fx:id="paymentSuccess" layoutX="457.0" layoutY="289.0" text="Payment accepted!" textFill="#34972b" visible="false" />
-                        <Text layoutX="772.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Display account balance" />
+                        <Button layoutX="457.0" layoutY="205.0" mnemonicParsing="false" onAction="#paymentSearchButton" text="Show user balance">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Text fx:id="paymentSearchBalance" layoutX="614.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
             </content>
