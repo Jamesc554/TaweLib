@@ -183,13 +183,18 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
         //Check Library if user exists
         if (Library.checkForUser(user)) {
-            try {
-                int balance = Integer.parseInt(paymentAmount.getText());
-                Library.subtractBalance(balance, paymentUsername.getText());
-                paymentSuccess.setVisible(true);
-            //Exceptions thrown if negative amount or amount more than account balance
-            } catch (IllegalArgumentException ex) {
-                paymentAmountError.setVisible(true);
+            //User must not be current user
+            if (!Library.getUser(user).equals(Library.getCurrentLoggedInUser())) {
+                try {
+                    int balance = Integer.parseInt(paymentAmount.getText());
+                    Library.subtractBalance(balance, paymentUsername.getText());
+                    paymentSuccess.setVisible(true);
+                    //Exceptions thrown if negative amount or amount more than account balance
+                } catch (IllegalArgumentException ex) {
+                    paymentAmountError.setVisible(true);
+                }
+            } else {
+                paymentUserError.setVisible(true);
             }
         } else {
             paymentUserError.setVisible(true);
@@ -214,18 +219,23 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
         //Check Library if user exists
         if (Library.checkForUser(user)) {
-            //Check if user has no outstanding balance
-            if(Library.getUser(user).getAccountBalanceDouble() == 0) {
-                //Check if Resource ID is valid
-                if (Library.getResource(id) != null) {
-                    //TODO: Check if user has overdue copies
-                    Library.loanResource(user, id);
-                    loanSuccess.setVisible(true);
+            //User must not be current user
+            if (!Library.getUser(user).equals(Library.getCurrentLoggedInUser())) {
+                //Check if user has no outstanding balance
+                if (Library.getUser(user).getAccountBalanceDouble() == 0) {
+                    //Check if Resource ID is valid
+                    if (Library.getResource(id) != null) {
+                        //TODO: Check if user has overdue copies
+                        Library.loanResource(user, id);
+                        loanSuccess.setVisible(true);
+                    } else {
+                        loanCopyError.setVisible(true);
+                    }
                 } else {
-                    loanCopyError.setVisible(true);
+                    outstandingFineMsg.setVisible(true);
                 }
             } else {
-                outstandingFineMsg.setVisible(true);
+                loanUserError.setVisible(true);
             }
         } else {
             loanUserError.setVisible(true);
@@ -248,10 +258,15 @@ public class IssueDeskScreen extends Screen implements Initializable {
         userBorrowList.getItems().clear();
         //Check Library if user exists
         if (Library.checkForUser(user)) {
-            //Get list of borrowed copies
-            ArrayList<String> borrowList = Library.getUser(user).getCurrentlyBorrowedResources();
-            for (String item : borrowList) {
-                userBorrowList.getItems().add(item);
+            //User must not be current user
+            if (!Library.getUser(user).equals(Library.getCurrentLoggedInUser())) {
+                //Get list of borrowed copies
+                ArrayList<String> borrowList = Library.getUser(user).getCurrentlyBorrowedResources();
+                for (String item : borrowList) {
+                    userBorrowList.getItems().add(item);
+                }
+            } else {
+                returnSearchError.setVisible(true);
             }
         } else {
             returnSearchError.setVisible(true);
