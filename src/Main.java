@@ -14,7 +14,6 @@ public class Main extends Application{
     public void start(Stage primaryStage) {
         Library.start();
 
-
         try {
         	ScreenManager.start(primaryStage);
         } catch (Exception e){

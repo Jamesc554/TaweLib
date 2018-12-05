@@ -27,7 +27,7 @@ public class User {
 	protected ArrayList<String> resourceCurrentlyReserved = new ArrayList<>(); //Available for pick up
     protected ArrayList<String[]> transactionHistory = new ArrayList<>(); //Transaction History
     protected ArrayList<String[]> borrowHistory = new ArrayList<>(); // Borrow history
-    protected Double accountBalance; //current account balance
+    protected double accountBalance; //current account balance
     protected String profImage; //profile image address
 	protected String lastLogIn; //Date last log in.
 
@@ -45,7 +45,7 @@ public class User {
 	 * @param profImage path to the profile image of the user
 	 */
     public User(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
-                String secondLineAddress, String postCode, String townName, int accountBalance, String profImage){
+                String secondLineAddress, String postCode, String townName, double accountBalance, String profImage){
         setUserName(userName);
         setFirstName(firstName);
         setLastName(lastName);
