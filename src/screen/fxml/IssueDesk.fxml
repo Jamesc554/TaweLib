@@ -73,17 +73,17 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Text layoutX="640.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Return a Copy (not working)">
+                        <Text layoutX="739.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Return a Copy">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Text>
-                        <Text layoutX="526.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+                        <Text layoutX="490.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="returnUsername" layoutX="626.0" layoutY="223.0" />
+                        <TextField fx:id="returnUsername" layoutX="574.0" layoutY="223.0" />
                         <ListView fx:id="userBorrowList" layoutX="828.0" layoutY="223.0" prefHeight="238.0" prefWidth="235.0" />
                         <Button layoutX="1001.0" layoutY="474.0" mnemonicParsing="false" onAction="#returnButton" text="Return">
                            <font>
@@ -94,6 +94,13 @@
                         <Label fx:id="loanCopyError" layoutX="359.0" layoutY="259.0" text="Invalid Copy ID!" textFill="RED" visible="false" />
                         <Label fx:id="loanSuccess" layoutX="359.0" layoutY="298.0" text="Loan succesful! " textFill="#34972b" visible="false" />
                         <Label fx:id="outstandingFineMsg" layoutX="359.0" layoutY="227.0" text="User has outstanding fines!" textFill="RED" visible="false" />
+                        <Button layoutX="737.0" layoutY="221.0" mnemonicParsing="false" onAction="#returnSearchButton" text="Search">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="returnSearchError" layoutX="574.0" layoutY="259.0" text="Invalid Username!" textFill="RED" visible="false" />
+                        <Label fx:id="returnSuccess" layoutX="904.0" layoutY="481.0" text="Return succesful! " textFill="#34972b" visible="false" />
                      </children>
                   </AnchorPane>
             </content>
