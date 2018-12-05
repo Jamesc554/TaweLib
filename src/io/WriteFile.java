@@ -56,6 +56,12 @@ public class WriteFile extends IO {
 			transactionArray.add(transaction[1]);
 		}
 		object.put("transactionHistory", transactionArray);
+		
+		//TODO: Borrow History
+		
+		//TODO: Currently Requested
+		
+		//TODO: Currently Reserved
 
 		try {
 			FileWriter file = new FileWriter(IO.getUsersFilePath(), true);
