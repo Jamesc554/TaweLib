@@ -198,7 +198,7 @@ public class Library {
 	private static void checkForRequested(String id){
 		String[] data = id.split("-");
 		Resource r = Library.getResource(data[0]);
-		if(r.checkIfRequested()){
+		if(!r.checkIfRequested()){
 			User u = r.peekQueueOfReservations();
 			u.moveToReserved(id);
 		}

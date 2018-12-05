@@ -42,15 +42,17 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Label loanSuccess;
     @FXML
+    private Label outstandingFineMsg;
+    @FXML
+    private Label overdueCopyMsg;
+    @FXML
     private TextField returnUsername;
     @FXML
     private ListView userBorrowList;
     @FXML
+    private Label returnSearchError;
+    @FXML
     private Label returnSuccess;
-    @FXML
-    private Label outstandingFineMsg;
-    @FXML
-    private Label overdueCopyMsg;
     @FXML
     private TextField paymentUsername;
     @FXML
@@ -181,13 +183,18 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
         //Check Library if user exists
         if (Library.checkForUser(user)) {
-            try {
-                int balance = Integer.parseInt(paymentAmount.getText());
-                Library.subtractBalance(balance, paymentUsername.getText());
-                paymentSuccess.setVisible(true);
-            //Exceptions thrown if negative amount or amount more than account balance
-            } catch (IllegalArgumentException ex) {
-                paymentAmountError.setVisible(true);
+            //User must not be current user
+            if (!Library.getUser(user).equals(Library.getCurrentLoggedInUser())) {
+                try {
+                    int balance = Integer.parseInt(paymentAmount.getText());
+                    Library.subtractBalance(balance, paymentUsername.getText());
+                    paymentSuccess.setVisible(true);
+                    //Exceptions thrown if negative amount or amount more than account balance
+                } catch (IllegalArgumentException ex) {
+                    paymentAmountError.setVisible(true);
+                }
+            } else {
+                paymentUserError.setVisible(true);
             }
         } else {
             paymentUserError.setVisible(true);
@@ -212,18 +219,23 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
         //Check Library if user exists
         if (Library.checkForUser(user)) {
-            //Check if user has no outstanding balance
-            if(Library.getUser(user).getAccountBalanceDouble() == 0) {
-                //Check if Resource ID is valid
-                if (Library.getResource(id) != null) {
-                    //TODO: Check if user has overdue copies
-                    Library.loanResource(user, id);
-                    loanSuccess.setVisible(true);
+            //User must not be current user
+            if (!Library.getUser(user).equals(Library.getCurrentLoggedInUser())) {
+                //Check if user has no outstanding balance
+                if (Library.getUser(user).getAccountBalanceDouble() == 0) {
+                    //Check if Resource ID is valid
+                    if (Library.getResource(id) != null) {
+                        //TODO: Check if user has overdue copies
+                        Library.loanResource(user, id);
+                        loanSuccess.setVisible(true);
+                    } else {
+                        loanCopyError.setVisible(true);
+                    }
                 } else {
-                    loanCopyError.setVisible(true);
+                    outstandingFineMsg.setVisible(true);
                 }
             } else {
-                outstandingFineMsg.setVisible(true);
+                loanUserError.setVisible(true);
             }
         } else {
             loanUserError.setVisible(true);
@@ -231,35 +243,54 @@ public class IssueDeskScreen extends Screen implements Initializable {
     }
 
     /**
+     * Event handling to return a searched user's currently borrowed items
+     * @param e the JavaFX event
+     */
+    @FXML
+    private void returnSearchButton(Event e) {
+        String user = returnUsername.getText();
+
+        //Reset all error/success labels
+        returnSearchError.setVisible(false);
+        returnSuccess.setVisible(false);
+
+        //Empty list view
+        userBorrowList.getItems().clear();
+        //Check Library if user exists
+        if (Library.checkForUser(user)) {
+            //User must not be current user
+            if (!Library.getUser(user).equals(Library.getCurrentLoggedInUser())) {
+                //Get list of borrowed copies
+                ArrayList<String> borrowList = Library.getUser(user).getCurrentlyBorrowedResources();
+                for (String item : borrowList) {
+                    userBorrowList.getItems().add(item);
+                }
+            } else {
+                returnSearchError.setVisible(true);
+            }
+        } else {
+            returnSearchError.setVisible(true);
+        }
+    }
+    /**
      * Event handling to process returns
      * @param e the JavaFX event
      */
-
     @FXML
     private void returnButton(Event e) {
-        /*String user = loanUsername.getText();
-        String id = loanCopyID.getText();
+        String user = returnUsername.getText();
+        int selectedIdx = userBorrowList.getSelectionModel().getSelectedIndex();
 
         //Reset all error/success labels
-        loanUserError.setVisible(false);
-        //resourceError.setVisible(false);
-        //loanSuccess.setVisible(false);
         returnSuccess.setVisible(false);
         outstandingFineMsg.setVisible(false);
-        overdueCopyMsg.setVisible(false);
 
-        //Check Library if user exists
-        if (Library.checkForUser(user)) {
-            //Check if user is currently borrowing the resource
-            if (Library.getUser(user).getResource(id) != null) {
-                Library.returnResource(user, id);
-                returnSuccess.setVisible(true);
-            } else {
-                //resourceError.setVisible(true);
-            }
-        } else {
-            loanUserError.setVisible(true);
-        }*/
+        if (selectedIdx != -1) {
+            String id = userBorrowList.getSelectionModel().getSelectedItem().toString();
+            Library.returnResource(user, id);
+            userBorrowList.getItems().remove(selectedIdx);
+            returnSuccess.setVisible(true);
+        }
     }
 
 
