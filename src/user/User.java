@@ -371,12 +371,26 @@ public class User {
 	    transactionHistory.add(data);
     }
 
-    public void setResourceCurrentlyBorrowed(ArrayList<String> data){
+	/**
+	 * Sets a user currently borrowed
+	 * @param data ArrayList<String>
+	 */
+	public void setResourceCurrentlyBorrowed(ArrayList<String> data){
 		this.resourceCurrentlyBorrowed = data;
 	}
+
+	/**
+	 * Sets a user currently reserved
+	 * @param data ArrayList<String>
+	 */
 	public void setResourceCurrentlyReserved(ArrayList<String> data){
 		this.resourceCurrentlyReserved = data;
 	}
+
+	/**
+	 * Sets a user currently requested
+	 * @param data ArrayList<String>
+	 */
 	public void setResourceCurrentlyRequested(ArrayList<String> data){
 		this.resourceCurrentlyRequested = data;
 	}
