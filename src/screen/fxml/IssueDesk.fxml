@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -10,10 +11,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -47,324 +45,351 @@
             </HBox>
          </items>
       </ToolBar>
-      <GridPane layoutY="68.0" prefHeight="652.0" prefWidth="1280.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="328.0" prefWidth="641.0">
-               <children>
-                  <Text layoutX="253.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loan/Return a Copy">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="78.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="76.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Resource ID:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="loanUsername" layoutX="246.0" layoutY="81.0" />
-                  <TextField fx:id="resourceId" layoutX="246.0" layoutY="120.0" />
-                  <Button layoutX="246.0" layoutY="165.0" mnemonicParsing="false" onAction="#loanButton" text="Loan">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="loanUserError" layoutX="442.0" layoutY="85.0" text="Invalid Username!" textFill="RED" visible="false" />
-                  <Label fx:id="resourceError" layoutX="442.0" layoutY="124.0" text="Invalid Resource!" textFill="RED" visible="false" />
-                  <Label fx:id="loanSuccess" layoutX="395.0" layoutY="172.0" text="Loan Succesful!" textFill="#23a12e" visible="false" />
-                  <Button layoutX="296.0" layoutY="165.0" mnemonicParsing="false" onAction="#returnButton" text="Return">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="returnSuccess" layoutX="395.0" layoutY="172.0" text="Return Succesful!" textFill="#23a12e" visible="false" />
-                  <Label fx:id="outstandingFineMsg" layoutX="441.0" layoutY="85.0" text="User has outstanding fines!" textFill="RED" visible="false" />
-                  <Label fx:id="overdueCopyMsg" layoutX="441.0" layoutY="85.0" text="User has 1 or more overdue copies!" textFill="RED" visible="false" />
-               </children>
-            </AnchorPane>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="331.0" prefWidth="640.0" GridPane.columnIndex="1">
-               <children>
-                  <Text layoutX="232.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Authorise a Payment">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="82.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="82.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Amount:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="paymentUsername" layoutX="232.0" layoutY="81.0" />
-                  <TextField fx:id="paymentAmount" layoutX="232.0" layoutY="120.0" />
-                  <Button layoutX="232.0" layoutY="163.0" mnemonicParsing="false" onAction="#paymentButton" text="Accept Payment">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="paymentUserError" layoutX="408.0" layoutY="85.0" text="Invalid Username!" textFill="RED" visible="false" />
-                  <Label fx:id="paymentAmountError" layoutX="408.0" layoutY="124.0" text="Invalid Amount!" textFill="RED" visible="false" />
-                  <Label fx:id="paymentSuccess" layoutX="385.0" layoutY="171.0" text="Payment Accepted!" textFill="#23a12e" visible="false">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="640.0" GridPane.rowIndex="1">
-               <children>
-                  <Text layoutX="251.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new User">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="userUsername" layoutX="245.0" layoutY="69.0" />
-                  <TextField fx:id="userFirstName" layoutX="245.0" layoutY="102.0" />
-                  <TextField fx:id="userLastName" layoutX="246.0" layoutY="135.0" />
-                  <TextField fx:id="userMobile" layoutX="246.0" layoutY="168.0" />
-                  <TextField fx:id="userAddr1" layoutX="246.0" layoutY="201.0" />
-                  <TextField fx:id="userAddr2" layoutX="245.0" layoutY="233.0" />
-                  <TextField fx:id="userPstCd" layoutX="245.0" layoutY="265.0" />
-                  <TextField fx:id="userTown" layoutX="245.0" layoutY="296.0" />
-                  <Text layoutX="72.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="72.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="72.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="72.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mobile Number:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="72.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address Line 1:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="72.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address Line 2:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="72.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Postcode:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="72.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Town:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Button layoutX="245.0" layoutY="339.0" mnemonicParsing="false" onAction="#createUserButton" text="Create User">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="userUsernameError" layoutX="430.0" layoutY="73.0" text="Invalid username!" textFill="RED" visible="false" />
-                  <Label fx:id="userSuccess" layoutX="375.0" layoutY="346.0" text="New User created!" textFill="#23a12e" visible="false" />
-                  <Label fx:id="userError" layoutX="375.0" layoutY="346.0" text="All fields required!" textFill="RED" visible="false" />
-               </children>
-            </AnchorPane>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <Text layoutX="227.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new Resource">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Text>
-                  <TabPane layoutY="43.0" prefHeight="390.0" prefWidth="641.0" tabClosingPolicy="UNAVAILABLE">
-                    <tabs>
-                      <Tab text="Book">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <Text layoutX="82.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Title:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="82.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Author:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="bookTitle" layoutX="232.0" layoutY="31.0" />
-                                    <TextField fx:id="bookAuthor" layoutX="232.0" layoutY="64.0" />
-                                    <TextField fx:id="bookYear" layoutX="232.0" layoutY="98.0" />
-                                    <Text layoutX="82.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Year:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="bookPublisher" layoutX="232.0" layoutY="131.0" />
-                                    <Text layoutX="82.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Publisher:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="bookGenre" layoutX="232.0" layoutY="164.0" />
-                                    <Text layoutX="82.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="bookISBN" layoutX="232.0" layoutY="198.0" />
-                                    <Text layoutX="83.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="bookLanguage" layoutX="232.0" layoutY="230.0" promptText="English, French, ..." />
-                                    <Text layoutX="83.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Language(s):">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <Button layoutX="232.0" layoutY="307.0" mnemonicParsing="false" onAction="#createBookButton" text="Create Book">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Button>
-                                    <Label fx:id="bookError" layoutX="349.0" layoutY="314.0" text="Required field(s) blank!" textFill="RED" visible="false" />
-                                    <Label fx:id="bookSuccess" layoutX="349.0" layoutY="314.0" text="Book added!" textFill="#23a12e" visible="false" />
-                                    <Button layoutX="232.0" layoutY="264.0" mnemonicParsing="false" onAction="#bookImageButton" text="*Choose thumbnail image" />
-                                    <Text fx:id="bookImgName" layoutX="410.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                                 </children>
-                              </AnchorPane>
-                        </content>
-                      </Tab>
-                      <Tab text="DVD">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <Text layoutX="82.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Title:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <Text layoutX="82.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Director:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="dvdTitle" layoutX="232.0" layoutY="31.0" />
-                                    <TextField fx:id="dvdDirector" layoutX="232.0" layoutY="63.0" />
-                                    <TextField fx:id="dvdYear" layoutX="232.0" layoutY="96.0" />
-                                    <Text layoutX="82.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Year:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="dvdRuntime" layoutX="232.0" layoutY="130.0" />
-                                    <Text layoutX="82.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Runtime:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="dvdLanguage" layoutX="232.0" layoutY="164.0" />
-                                    <Text layoutX="82.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Language:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="dvdSubs" layoutX="232.0" layoutY="197.0" promptText="English, French, ..." />
-                                    <Text layoutX="83.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtitles:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <Button layoutX="232.0" layoutY="277.0" mnemonicParsing="false" onAction="#createDVDButton" text="Create DVD">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Button>
-                                    <Label fx:id="dvdError" layoutX="352.0" layoutY="284.0" text="Required field(s) blank!" textFill="RED" visible="false" />
-                                    <Label fx:id="dvdSuccess" layoutX="352.0" layoutY="284.0" text="DVD added!" textFill="#23a12e" visible="false" />
-                                    <Button layoutX="232.0" layoutY="233.0" mnemonicParsing="false" onAction="#dvdImageButton" text="*Choose thumbnail image" />
-                                    <Text fx:id="dvdImgName" layoutX="412.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                                 </children>
-                              </AnchorPane>
-                        </content>
-                      </Tab>
-                        <Tab text="Laptop">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <TextField fx:id="laptopTitle" layoutX="231.0" layoutY="31.0" />
-                                    <Text layoutX="82.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Title:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="laptopYear" layoutX="231.0" layoutY="63.0" />
-                                    <Text layoutX="82.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Year:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="laptopManuf" layoutX="231.0" layoutY="95.0" />
-                                    <Text layoutX="82.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Manufacturer:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="laptopModel" layoutX="231.0" layoutY="127.0" />
-                                    <Text layoutX="82.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Model:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="laptopOS" layoutX="231.0" layoutY="160.0" />
-                                    <Text layoutX="82.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*OS:">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <Button layoutX="231.0" layoutY="238.0" mnemonicParsing="false" onAction="#createLaptopButton" text="Create Laptop">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Button>
-                                    <Label fx:id="laptopError" layoutX="380.0" layoutY="245.0" text="Required field(s) blank!" textFill="RED" visible="false" />
-                                    <Label fx:id="laptopSuccess" layoutX="380.0" layoutY="245.0" text="Laptop added!" textFill="#23a12e" visible="false" />
-                                    <Button layoutX="231.0" layoutY="194.0" mnemonicParsing="false" onAction="#laptopImageButton" text="*Choose thumbnail image" />
-                                    <Text fx:id="laptopImgName" layoutX="408.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </Tab>
-                    </tabs>
-                  </TabPane>
-               </children>
-            </AnchorPane>
-         </children>
-      </GridPane>
+      <TabPane layoutY="70.0" prefHeight="652.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Loans/Returns">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="202.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loan A Resource">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="loanUsername" layoutX="198.0" layoutY="223.0" />
+                        <TextField fx:id="loanCopyID" layoutX="198.0" layoutY="255.0" promptText="DVD:00001-001" />
+                        <Text layoutX="96.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="96.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Copy ID:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Button layoutX="297.0" layoutY="291.0" mnemonicParsing="false" onAction="#loanButton" text="Loan">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Text layoutX="640.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Return a Copy (not working)">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="526.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="returnUsername" layoutX="626.0" layoutY="223.0" />
+                        <ListView fx:id="userBorrowList" layoutX="828.0" layoutY="223.0" prefHeight="238.0" prefWidth="235.0" />
+                        <Button layoutX="1001.0" layoutY="474.0" mnemonicParsing="false" onAction="#returnButton" text="Return">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="loanUserError" layoutX="359.0" layoutY="227.0" text="Invalid Username!" textFill="RED" visible="false" />
+                        <Label fx:id="loanCopyError" layoutX="359.0" layoutY="259.0" text="Invalid Copy ID!" textFill="RED" visible="false" />
+                        <Label fx:id="loanSuccess" layoutX="359.0" layoutY="298.0" text="Loan succesful! " textFill="#34972b" visible="false" />
+                        <Label fx:id="outstandingFineMsg" layoutX="359.0" layoutY="227.0" text="User has outstanding fines!" textFill="RED" visible="false" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Payments">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="552.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Authorise a Payment">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="130.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="130.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Amount:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="paymentUsername" layoutX="289.0" layoutY="208.0" />
+                        <TextField fx:id="paymentAmount" layoutX="289.0" layoutY="241.0" />
+                        <Button layoutX="318.0" layoutY="282.0" mnemonicParsing="false" onAction="#paymentButton" text="Accept Payment">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="paymentUserError" layoutX="457.0" layoutY="212.0" text="Invalid username!" textFill="RED" visible="false" />
+                        <Label fx:id="paymentAmountError" layoutX="457.0" layoutY="245.0" text="Invalid amount!" textFill="RED" visible="false" />
+                        <Label fx:id="paymentSuccess" layoutX="457.0" layoutY="289.0" text="Payment accepted!" textFill="#34972b" visible="false" />
+                        <Text layoutX="772.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Display account balance" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Users">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="294.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add User">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="userUsername" layoutX="258.0" layoutY="131.0" />
+                        <TextField fx:id="userFirstName" layoutX="258.0" layoutY="165.0" />
+                        <TextField fx:id="userLastName" layoutX="258.0" layoutY="198.0" />
+                        <TextField fx:id="userMobile" layoutX="258.0" layoutY="232.0" />
+                        <TextField fx:id="userAddr1" layoutX="258.0" layoutY="265.0" />
+                        <TextField fx:id="userAddr2" layoutX="258.0" layoutY="299.0" />
+                        <TextField fx:id="userPstCd" layoutX="258.0" layoutY="332.0" />
+                        <TextField fx:id="userTown" layoutX="258.0" layoutY="367.0" />
+                        <Text layoutX="127.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Username:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="128.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*First Name:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="128.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Last Name:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="127.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Mobile Number:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="127.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Address Line 1:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="129.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address Line 2:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="127.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Postcode:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="127.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Town:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Button layoutX="315.0" layoutY="404.0" mnemonicParsing="false" onAction="#createUserButton" text="Create User">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Text layoutX="553.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User avatar" />
+                        <Label fx:id="userUsernameError" layoutX="425.0" layoutY="135.0" text="Username already taken" textFill="RED" visible="false" />
+                        <Label fx:id="userError" layoutX="425.0" layoutY="411.0" text="Please fill all required fields" textFill="RED" visible="false" />
+                        <Label fx:id="userSuccess" layoutX="425.0" layoutY="411.0" text="User added!" textFill="#34972b" visible="false" />
+                        <Text layoutX="886.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="search users?" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Resources">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane layoutX="-1.0" layoutY="-1.0" prefHeight="622.0" prefWidth="1286.0" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab text="Books">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Text layoutX="221.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Book">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="bookTitle" layoutX="188.0" layoutY="149.0" />
+                                          <TextField fx:id="bookAuthor" layoutX="188.0" layoutY="183.0" />
+                                          <TextField fx:id="bookYear" layoutX="188.0" layoutY="217.0" />
+                                          <TextField fx:id="bookPublisher" layoutX="188.0" layoutY="251.0" />
+                                          <TextField fx:id="bookGenre" layoutX="188.0" layoutY="285.0" />
+                                          <TextField fx:id="bookISBN" layoutX="188.0" layoutY="318.0" />
+                                          <TextField fx:id="bookLanguage" layoutX="188.0" layoutY="352.0" promptText="English, French, ..." />
+                                          <Text layoutX="85.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Title:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="85.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Author:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="85.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Year:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="85.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Publisher:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="85.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="85.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="85.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Language(s):">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Button layoutX="188.0" layoutY="394.0" mnemonicParsing="false" onAction="#createBookButton" text="Create Book">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
+                                          <Button layoutX="400.0" layoutY="149.0" mnemonicParsing="false" onAction="#bookImageButton" text="*Choose thumbnail image" />
+                                          <Label fx:id="bookError" layoutX="305.0" layoutY="401.0" text="Please fill all required fields" textFill="RED" visible="false" />
+                                          <Label fx:id="bookSuccess" layoutX="305.0" layoutY="401.0" text="Book added!" textFill="#34972b" visible="false" />
+                                          <Text fx:id="bookImgName" layoutX="400.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ImageName (leave for debugging)" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="DVDs">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Text layoutX="85.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Title:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="85.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Director:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="dvdTitle" layoutX="188.0" layoutY="149.0" />
+                                          <TextField fx:id="dvdDirector" layoutX="188.0" layoutY="183.0" />
+                                          <TextField fx:id="dvdYear" layoutX="188.0" layoutY="217.0" />
+                                          <Text layoutX="85.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Year:" wrappingWidth="36.9228515625">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="dvdRuntime" layoutX="188.0" layoutY="251.0" />
+                                          <Text layoutX="85.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Runtime:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="dvdLanguage" layoutX="188.0" layoutY="285.0" />
+                                          <Text layoutX="85.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Language:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="dvdSubs" layoutX="188.0" layoutY="318.0" promptText="English, French, ..." />
+                                          <Text layoutX="85.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtitles:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Button layoutX="188.0" layoutY="364.0" mnemonicParsing="false" onAction="#createDVDButton" text="Create DVD">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
+                                          <Button layoutX="400.0" layoutY="149.0" mnemonicParsing="false" onAction="#dvdImageButton" text="*Choose thumbnail image" />
+                                          <Text layoutX="221.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add DVD">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="dvdError" layoutX="299.0" layoutY="371.0" text="Please fill all required fields" textFill="RED" visible="false" />
+                                          <Label fx:id="dvdSuccess" layoutX="299.0" layoutY="371.0" text="DVD added!" textFill="#34972b" visible="false" />
+                                          <Text fx:id="dvdImgName" layoutX="400.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ImageName (leave for debugging)" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                              <Tab text="Laptops">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TextField fx:id="laptopTitle" layoutX="188.0" layoutY="149.0" />
+                                          <Text layoutX="85.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Title:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="laptopYear" layoutX="188.0" layoutY="183.0" />
+                                          <Text layoutX="85.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Year:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="laptopManuf" layoutX="188.0" layoutY="217.0" />
+                                          <Text layoutX="85.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Manufacturer:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="laptopModel" layoutX="188.0" layoutY="251.0" />
+                                          <Text layoutX="85.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Model:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="laptopOS" layoutX="188.0" layoutY="285.0" />
+                                          <Text layoutX="85.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*OS:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Button layoutX="188.0" layoutY="327.0" mnemonicParsing="false" onAction="#createLaptopButton" text="Create Laptop">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
+                                          <Button layoutX="400.0" layoutY="149.0" mnemonicParsing="false" onAction="#laptopImageButton" text="*Choose thumbnail image" />
+                                          <Text layoutX="221.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Laptop">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="laptopError" layoutX="320.0" layoutY="334.0" text="Please fill all required fields" textFill="RED" visible="false" />
+                                          <Label fx:id="laptopSuccess" layoutX="320.0" layoutY="334.0" text="Laptop added!" textFill="#34972b" visible="false" />
+                                          <Text fx:id="laptopImgName" layoutX="400.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ImageName (leave for debugging)" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

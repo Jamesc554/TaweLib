@@ -209,10 +209,12 @@ public class ResourceScreen extends Screen implements Initializable{
     		((Laptop) res).addToCopies();
     	}	
     }
-    
+
+
     /**
      * Deletes a copy of current resource
      */
+    /*
     public void deleteCopyButton(Event e) {
     	//if object is a "Book" then add copy to book's copy arraylist. Same for if DVD or Laptop.
     	if(res instanceof Book) {
@@ -223,4 +225,5 @@ public class ResourceScreen extends Screen implements Initializable{
     		((Laptop) res).removeCopy();
     	}	
     }
+    */
 }

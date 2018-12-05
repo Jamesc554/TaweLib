@@ -34,6 +34,7 @@ public class ReadFile extends IO{
 		JSONParser parser = new JSONParser();
 		JSONArray resourceArray = new JSONArray();
 		JSONArray transactionArray = new JSONArray();
+		JSONArray borrowHistoryArray = new JSONArray();
 		ArrayList<User> userList = new ArrayList<>();
 		try {
 			file = new FileReader(IO.getUsersFilePath());
@@ -51,6 +52,7 @@ public class ReadFile extends IO{
 						Integer.parseInt((String) object.get("accountBalance")),
 						(String)object.get("imageAddress"));
 				
+				//TODO: Currently Borrowed
 				resourceArray = (JSONArray) object.get("resourceBorrow");
 				String resourceBorrow = "";
 				if (resourceArray != null) {
@@ -59,17 +61,26 @@ public class ReadFile extends IO{
 						resourceBorrow = resourceBorrow + stringResource + ",";
 					}
 				}
-				// user.add(resourceBorrow);
 				
 				transactionArray = (JSONArray) object.get("transactionHistory");
-				String transactionHistory = "";
 				if (transactionArray != null) {
 					for (Object transaction : transactionArray) {
-						String stringTransaction = (String) transaction;
-						transactionHistory = transactionHistory + stringTransaction + ",";
+						String[] stringTransaction = (String[]) transaction;
+						user.addToTransactionHistory(stringTransaction);
 					}
 				}
-				//user.add(transactionHistory);
+				
+				borrowHistoryArray = (JSONArray) object.get("borrowHistory");
+				if (borrowHistoryArray != null) {
+					for (Object borrowHistory : borrowHistoryArray) {
+						String[] stringBorrowHistory = (String[]) borrowHistory;
+						user.addToBorrowHistory(stringBorrowHistory);
+					}
+				}
+				
+				//TODO: Currently Requested
+				
+				//TODO: Currently Reserved
 				
 				userList.add(user);
 			}
