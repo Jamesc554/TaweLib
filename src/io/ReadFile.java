@@ -63,11 +63,10 @@ public class ReadFile extends IO{
 				}
 				
 				transactionArray = (JSONArray) object.get("transactionHistory");
-				String transactionHistory = "";
 				if (transactionArray != null) {
 					for (Object transaction : transactionArray) {
-						String stringTransaction = (String) transaction;
-						transactionHistory = transactionHistory + stringTransaction + ",";
+						String[] stringTransaction = (String[]) transaction;
+						user.addToTransactionHistory(stringTransaction);
 					}
 				}
 				
