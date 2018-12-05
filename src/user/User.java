@@ -370,4 +370,14 @@ public class User {
     public void addToTransactionHistory(String[] data){
 	    transactionHistory.add(data);
     }
+
+    public void setResourceCurrentlyBorrowed(ArrayList<String> data){
+		this.resourceCurrentlyBorrowed = data;
+	}
+	public void setResourceCurrentlyReserved(ArrayList<String> data){
+		this.resourceCurrentlyReserved = data;
+	}
+	public void setResourceCurrentlyRequested(ArrayList<String> data){
+		this.resourceCurrentlyRequested = data;
+	}
 }
