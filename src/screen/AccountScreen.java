@@ -159,12 +159,22 @@ public class AccountScreen extends Screen implements Initializable{
 			}
 		}
 		
+		@SuppressWarnings("unchecked")
 		private void setRequestedField() {
-			
+			ArrayList<String> currentlyRequested = Library.getCurrentLoggedInUser().getAllRequested();
+			for(String requested : currentlyRequested) {
+				Resource r = Library.getResource(requested);
+				requestedField.getItems().add(r.getTitle() + " " + r.getUniqueID());
+			}
 		}
 
+		@SuppressWarnings("unchecked")
 		private void setReservedField() {
-	
+			ArrayList<String> currentlyReserved = Library.getCurrentLoggedInUser().getAllReserved();
+			for(String reserved : currentlyReserved) {
+				Resource r = Library.getResource(reserved);
+				returnedField.getItems().add(r.getTitle() + " " + r.getUniqueID());
+			}
 		}
 
 		@SuppressWarnings("unchecked")
