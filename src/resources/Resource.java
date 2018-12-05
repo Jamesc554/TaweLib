@@ -165,7 +165,7 @@ public abstract class Resource {
 	 * The loan history of this copy
 	 */
 	public void addBorrowHistory(String copyID, ArrayList<String[]> loanHistory) {
-		/*loanHistory will store [user][dLoan][dRet][dRetBy][loanDuration]
+		/* loanHistory will store [user][dLoan][dRet][dRetBy][loanDuration]
 		 * [userName] = userName of user who loaned this copy
 		 * [dLoan]= date this copy was loaned
 		 * [dRet]= date this copy was returned
@@ -196,12 +196,13 @@ public abstract class Resource {
 	 * @param copyID the id of the copy possibly on loan
 	 * @return the username of the user who is loaning the book.
 	 */
-	public String getCurrentLoanee(String copyID) {
+	public ArrayList<String[]> getCurrentLoanee(String copyID) {
 		//check if borrow date != null and return date is null => still on loan
 		if ((this.borrowHistory.get(copyID).get(this.borrowHistory.size()))[1] != null
 				&& (this.borrowHistory.get(copyID).get(this.borrowHistory.size()))[2] == null) {
 			
-			return (this.borrowHistory.get(copyID).get(this.borrowHistory.size()))[0];
+			//return (this.borrowHistory.get(copyID).get(this.borrowHistory.size()))[0]; before
+			return this.borrowHistory.get(copyID);
 			
 		}
 		return null;
