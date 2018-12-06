@@ -367,7 +367,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Button>
-                                          <Button layoutX="400.0" layoutY="149.0" mnemonicParsing="false" onAction="#dvdImageButton" text="*Choose thumbnail image" />
+                                          <Button layoutX="829.0" layoutY="149.0" mnemonicParsing="false" onAction="#dvdImageButton" text="*Choose thumbnail image" />
                                           <Text layoutX="221.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add DVD">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
@@ -375,14 +375,39 @@
                                           </Text>
                                           <Label fx:id="dvdError" layoutX="299.0" layoutY="401.0" text="Please fill all required fields" textFill="RED" visible="false" />
                                           <Label fx:id="dvdSuccess" layoutX="299.0" layoutY="401.0" text="DVD added!" textFill="#34972b" visible="false" />
-                                          <Text fx:id="dvdImgName" layoutX="400.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ImageName (leave for debugging)" />
+                                          <Text fx:id="dvdImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ImageName (leave for debugging)" />
                                           <TextField fx:id="dvdNumCopies" layoutX="188.0" layoutY="352.0" />
                                           <Text layoutX="85.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Label fx:id="dvdCopiesError" layoutX="354.0" layoutY="356.0" text="Invalid amount!" textFill="RED" visible="false" />
+                                          <Label fx:id="dvdCopiesError" layoutX="299.0" layoutY="401.0" text="Invalid amount(s)!" textFill="RED" visible="false" />
+                                          <TextField fx:id="dvd1Day" layoutX="498.0" layoutY="251.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="dvd1Week" layoutX="498.0" layoutY="285.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="dvd2Weeks" layoutX="498.0" layoutY="318.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="dvd4Weeks" layoutX="498.0" layoutY="352.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <Text layoutX="430.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 day:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 week:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 weeks:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4 weeks:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="dvdDurationError" layoutX="498.0" layoutY="401.0" text="Total should equal no. of Copies" textFill="RED" visible="false" />
                                        </children>
                                     </AnchorPane>
                               </content>
