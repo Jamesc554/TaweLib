@@ -174,7 +174,7 @@ public abstract class Resource {
 
 	/**
 	 * Adds a new copy to this Resource.
-	 * @param loanDuration
+	 * @param loanDuartion
 	 * The length of the loan for this copy
 	 */
 	public void addCopy(String loanDuration) {
@@ -229,14 +229,27 @@ public abstract class Resource {
 	public String getLoanDuration(String copyID) {
 		return copiesList.get(Integer.valueOf(copyID)).getLoanDuration();
 	}
-	public void loanResource(Integer copyId, String username){
-		copiesList.get(copyId).loanCopy(username);
+	public void loanResource(Integer copyId, String username, String date){
+		String[] data = this.currentOutInfo[copyId];
+		data[0] = username;
+		data[1] = date;
 	}
-	public void requestReturn(Integer copyId){
-		copiesList.get(copyId).requestReturn();
-	}
-	public void returnResource(Integer copyId) {
-		copiesList.get(copyId).returnCopy();
+	public void returnResource(Integer index, String date) {
+		String[] data = this.currentOutInfo[index];
+		data[2] = date;
+		ArrayList<String> al = new ArrayList<>();
+		for (String s : data) {
+			al.add(s);
+		}
+		//TODO add data to history
+		//this.borrowHistory.put(String.valueOf(index), al);
+		data[0] = "";
+		data[1] = "";
+		data[2] = "";
+		data[3] = "";
+
+		this.currentOutInfo[index] = data;
+
 	}
 	
 	public boolean checkIfAvailable(){
@@ -244,8 +257,10 @@ public abstract class Resource {
 			if (copy.isAvailable())
 				return true;
 		}
+		
 		return false;
 	}
+	
 	public boolean checkIfCopyAvailable(String copyID){
 		return copiesList.get(Integer.parseInt(copyID)).isAvailable();
 	}
