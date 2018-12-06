@@ -302,4 +302,36 @@ public abstract class Resource {
 		data[0] = username;
 		data[1] = date;
 	}
+	public void returnResource(Integer index, String date) {
+		String[] data = this.currentOutInfo[index];
+		data[2] = date;
+		ArrayList<String> al = new ArrayList<>();
+		for (String s : data) {
+			al.add(s);
+		}
+		//TODO add data to history
+		//this.borrowHistory.put(String.valueOf(index), al);
+		data[0] = "";
+		data[1] = "";
+		data[2] = "";
+		data[3] = "";
+
+		this.currentOutInfo[index] = data;
+
+	}
+	public boolean checkIfAvailable(){
+		for(String[] s : this.currentOutInfo){
+			if(s[0].equals("")){
+				return true;
+			}
+		}
+		return false;
+	}
+	public boolean checkIfCopyAvailable(String id){
+		String[] data = currentOutInfo[Integer.valueOf(id)];
+		if(data[0].equals("")){
+			return true;
+		}
+		return false;
+	}
 }

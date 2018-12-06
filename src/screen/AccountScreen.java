@@ -28,12 +28,13 @@ import library.Library;
 import resources.Resource;
 
 /**
- * 
+ * This class represents the Account screen. This screen shows the user their information and resources they have,
+ * borrowed, requested, etc.
  * @author Samuel Jankinson
  * @version 1.0
  */
-
 public class AccountScreen extends Screen implements Initializable{
+	//FXML variables.
 		@FXML
 		private Label usernameField;
 		
@@ -74,7 +75,10 @@ public class AccountScreen extends Screen implements Initializable{
 
 		@FXML
 		private ListView borrowHistoryField;
-		
+
+		/**
+		 * This method changes the screen manager to the Account screen, so that the user can see their information.
+		 */
 		@Override
 		public void start() {
 			Pane root;
@@ -88,6 +92,12 @@ public class AccountScreen extends Screen implements Initializable{
 			}
 		}
 
+		/**
+	 	 * This method loads all of the resources for the scence and updates their values.
+		 * It also calls methods to set the labels texts and listviews items.
+	     * @param location
+	     * @param resources
+	     */
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
 			BufferedImage img = null;
@@ -120,19 +130,32 @@ public class AccountScreen extends Screen implements Initializable{
 	        setBorrowedField();
 	        setBorrowHistoryField();
 		}
-		
+
+		/**
+		 * This methods sets the username label to the username of the currently logged in user.
+		 */
 		private void setUsernameLabel() {
 			usernameField.setText(Library.getCurrentLoggedInUser().getUserName());
 		}
-		
-		private void setNameLabel() {
+
+		/**
+	 	 * This method sets the name label to the first name and last name of the currently logged in user.
+	     */
+	    private void setNameLabel() {
 			nameField.setText((Library.getCurrentLoggedInUser().getFirstName() + " " + (Library.getCurrentLoggedInUser().getLastName())));
 		}
-		
+
+		/**
+		 * This method sets the mobile number label to the mobile number of the currently logged in user.
+	 	 */
 		private void setMobileNumberLabel() {
 			mobileNumberField.setText((Library.getCurrentLoggedInUser().getMobileNumber()));
 		}
-		
+
+		/**
+	 	 * This method sets the address label to the first line, second line, town and post code of the currently
+		 * logged in user.
+	     */
 		@SuppressWarnings("unchecked")
 		private void setAddressLabel() {
 			addressField.getItems().add(Library.getCurrentLoggedInUser().getFirstLineAddress());
@@ -140,11 +163,17 @@ public class AccountScreen extends Screen implements Initializable{
 			addressField.getItems().add(Library.getCurrentLoggedInUser().getTownName());
 			addressField.getItems().add(Library.getCurrentLoggedInUser().getPostCode());
 		}
-		
-		private void setAccountBalanceLabel() {
+
+		/**
+	 	 * This method sets the account balance label to the balance of the currently logged in user.
+	 	 */
+	    private void setAccountBalanceLabel() {
 			balanceField.setText((Library.getCurrentLoggedInUser().getAccountBalanceString()));
 		}
-		
+
+		/**
+	     * This method sets the profile image ImageView to the profile image of the currently logged in user.
+	     */
 		private void setProfileImage() {
 			BufferedImage profileImage = null;
 	        try {
