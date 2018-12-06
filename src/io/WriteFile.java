@@ -16,9 +16,10 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.WritableImage;
 import library.Library;
 import resources.Book;
+import resources.BorrowHistoryData;
+import resources.CopyData;
 import resources.DVD;
 import resources.Laptop;
-import resources.Resource;
 import user.Librarian;
 import user.User;
 import utils.Queue;
@@ -130,6 +131,8 @@ public class WriteFile extends IO {
 		JSONArray languageArray = new JSONArray();
 		JSONArray bookQueueArray = new JSONArray();
 		JSONArray listOfLoanDur = new JSONArray();
+		JSONArray bookBorrowHistoryArray = new JSONArray();
+		
 		object.put("year", book.getYear());
 		object.put("title", book.getTitle());
 		object.put("thumbnailImg", book.getThumbnailImageRef());
@@ -156,6 +159,22 @@ public class WriteFile extends IO {
 			listOfLoanDur.add(book.getLoanDuration(String.valueOf(i)));
 		}
 		object.put("listOfLoanDur", listOfLoanDur);
+		
+		for (CopyData copy : book.getArrayListOfCopies()) {
+			JSONArray copyBorrowHistoryArray = new JSONArray();
+			for (BorrowHistoryData borrowHistory : copy.getBorrowHistory()) {
+				JSONArray borrowHistoryArray = new JSONArray();
+
+				borrowHistoryArray.add(borrowHistory.getUserID());
+				borrowHistoryArray.add(borrowHistory.getDateBorrowed());
+				borrowHistoryArray.add(borrowHistory.getDateReturned());
+				borrowHistoryArray.add(borrowHistory.getDateRequestedReturn());
+				
+				copyBorrowHistoryArray.add(borrowHistoryArray);
+			}
+			bookBorrowHistoryArray.add(copyBorrowHistoryArray);
+		}
+		object.put("borrowHistory", bookBorrowHistoryArray);
 
 		try {
 			FileWriter file = new FileWriter(IO.getBookFilePath(), true);
@@ -175,6 +194,8 @@ public class WriteFile extends IO {
 		JSONArray languageArray = new JSONArray();
 		JSONArray dvdQueueArray = new JSONArray();
 		JSONArray listOfLoanDur = new JSONArray();
+		JSONArray dvdBorrowHistoryArray = new JSONArray();
+		JSONArray dvdCurrentBorrowData = new JSONArray();
 
 		object.put("year", dvd.getYear());
 		object.put("title", dvd.getTitle());
@@ -201,7 +222,35 @@ public class WriteFile extends IO {
 			listOfLoanDur.add(dvd.getLoanDuration(String.valueOf(i)));
 		}
 		object.put("listOfLoanDur", listOfLoanDur);
+		
+		for (CopyData copy : dvd.getArrayListOfCopies()) {
+			JSONArray copyBorrowHistoryArray = new JSONArray();
+			for (BorrowHistoryData borrowHistory : copy.getBorrowHistory()) {
+				JSONArray borrowHistoryArray = new JSONArray();
 
+				borrowHistoryArray.add(borrowHistory.getUserID());
+				borrowHistoryArray.add(borrowHistory.getDateBorrowed());
+				borrowHistoryArray.add(borrowHistory.getDateReturned());
+				borrowHistoryArray.add(borrowHistory.getDateRequestedReturn());
+				
+				copyBorrowHistoryArray.add(borrowHistoryArray);
+			}
+			dvdBorrowHistoryArray.add(copyBorrowHistoryArray);
+		}
+		object.put("borrowHistory", dvdBorrowHistoryArray);
+		
+		for (CopyData copy : dvd.getArrayListOfCopies()) {
+			JSONArray currentCopyBorrowData = new JSONArray();
+
+			currentCopyBorrowData.add(copy.getCurrentInfo().getUserID());
+			currentCopyBorrowData.add(copy.getCurrentInfo().getDateBorrowed());
+			currentCopyBorrowData.add(copy.getCurrentInfo().getDateReturned());
+			currentCopyBorrowData.add(copy.getCurrentInfo().getDateRequestedReturn());
+			
+			dvdCurrentBorrowData.add(currentCopyBorrowData);
+		}
+		object.put("currentData", dvdCurrentBorrowData);
+		
 		try {
 			FileWriter file = new FileWriter(IO.getDvdFilePath(), true);
 			file.write(object.toJSONString() + "\n");

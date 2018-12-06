@@ -33,8 +33,8 @@ public class DVD extends Resource {
 	 */
 	
 	public DVD (String director, String runtime, String language, ArrayList<String> subLang, String year, String title, 
-			String thumbnailImg, String uniqueID, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory) {
-		super(year, title, thumbnailImg, generateDVDID(uniqueID), noOfCopies, loanDuration, borrowHistory);
+			String thumbnailImg, String uniqueID, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData) {
+		super(year, title, thumbnailImg, generateDVDID(uniqueID), noOfCopies, loanDuration, borrowHistory, currentBorrowData);
 		this.director = director;
 		this.runtime = runtime;
 		this.language = language;

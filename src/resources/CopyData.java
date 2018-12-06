@@ -16,12 +16,15 @@ public class CopyData {
 	private BorrowHistoryData currentInfo; // [4] [0] - User ID [1] - date borrowed [2] - date returned [3] - requested return date
 	private String loanDuration;
 	
-	public CopyData(String copyID, List<BorrowHistoryData> borrowHistory, String loanDuration) {
+	public CopyData(String copyID, List<BorrowHistoryData> borrowHistory, BorrowHistoryData currentInfo, String loanDuration) {
 		this.id = copyID;
 		this.borrowHistory = borrowHistory;
 		this.loanDuration = loanDuration;
 		
-		this.currentInfo = new BorrowHistoryData();
+		if (currentInfo == null)
+			this.currentInfo = new BorrowHistoryData();
+		else 
+			this.currentInfo = currentInfo;
 	}
 
 	public String getId() {
@@ -88,6 +91,6 @@ public class CopyData {
 	public void returnCopy(){
 		currentInfo.setDateReturned(Library.getCurrentDateTime());
 		this.borrowHistory.add(currentInfo);
-		currentInfo.clearInfo();
+		currentInfo = new BorrowHistoryData();
 	}
 }

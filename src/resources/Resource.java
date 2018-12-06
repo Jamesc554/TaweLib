@@ -35,7 +35,8 @@ public abstract class Resource {
 	 * */
 
 	public Resource(String year, String title,
-		String thumbnailImageRef, String uniqueID, Integer noOfCopies, List<String> loanDuration, List<List<BorrowHistoryData>> copyBorrowHistory) {
+		String thumbnailImageRef, String uniqueID, Integer noOfCopies, List<String> loanDuration, 
+		List<List<BorrowHistoryData>> copyBorrowHistory, List<BorrowHistoryData> currentBorrowData) {
 		
 		this.year = year;
 		this.title = title;
@@ -46,10 +47,10 @@ public abstract class Resource {
 		
 		for (int i = 0; i < noOfCopies; i++) {
 			CopyData newCopy = null;
-			if (copyBorrowHistory.isEmpty() || copyBorrowHistory.get(i) == null) {
-				newCopy = new CopyData(String.valueOf(i), new ArrayList<>(), loanDuration.get(i));
+			if (copyBorrowHistory.isEmpty() || copyBorrowHistory.get(i) == null || currentBorrowData.isEmpty() || currentBorrowData.get(i) == null) {
+				newCopy = new CopyData(String.valueOf(i), new ArrayList<>(), null, loanDuration.get(i));
 			} else {
-				newCopy = new CopyData(String.valueOf(i), copyBorrowHistory.get(i), loanDuration.get(i));
+				newCopy = new CopyData(String.valueOf(i), copyBorrowHistory.get(i), currentBorrowData.get(i), loanDuration.get(i));
 			}
 			copiesList.add(newCopy);
 		}
@@ -181,7 +182,7 @@ public abstract class Resource {
 	 * The length of the loan for this copy
 	 */
 	public void addCopy(String loanDuration) {
-		copiesList.add(new CopyData(String.valueOf(copiesList.size() - 1), new ArrayList<BorrowHistoryData>(), loanDuration));
+		copiesList.add(new CopyData(String.valueOf(copiesList.size() - 1), new ArrayList<BorrowHistoryData>(), null, loanDuration));
 	}
 
 	/**
