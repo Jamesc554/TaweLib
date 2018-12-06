@@ -57,7 +57,7 @@
                            </font>
                         </Text>
                         <TextField fx:id="loanUsername" layoutX="198.0" layoutY="223.0" />
-                        <TextField fx:id="loanCopyID" layoutX="198.0" layoutY="255.0" promptText="DVD:00001-1" />
+                        <TextField fx:id="loanCopyID" layoutX="198.0" layoutY="255.0" promptText="DVD:00001-001" />
                         <Text layoutX="96.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
                            <font>
                               <Font size="14.0" />
@@ -210,11 +210,13 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Text layoutX="553.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User avatar" />
                         <Label fx:id="userUsernameError" layoutX="425.0" layoutY="135.0" text="Username already taken" textFill="RED" visible="false" />
                         <Label fx:id="userError" layoutX="425.0" layoutY="411.0" text="Please fill all required fields" textFill="RED" visible="false" />
                         <Label fx:id="userSuccess" layoutX="425.0" layoutY="411.0" text="User added!" textFill="#34972b" visible="false" />
                         <Text layoutX="886.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="search users?" />
+                        <Button layoutX="505.0" layoutY="131.0" mnemonicParsing="false" onAction="#userAvatarButton" text="Choose Avatar" />
+                        <ImageView fx:id="userAvatar" fitHeight="256.0" fitWidth="256.0" layoutX="505.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true" />
+                        <Text fx:id="userAvatarName" layoutX="633.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -284,7 +286,7 @@
                                           <Button layoutX="829.0" layoutY="149.0" mnemonicParsing="false" onAction="#bookImageButton" text="*Choose thumbnail image" />
                                           <Label fx:id="bookError" layoutX="297.0" layoutY="441.0" text="Please fill all required fields" textFill="RED" visible="false" />
                                           <Label fx:id="bookSuccess" layoutX="297.0" layoutY="441.0" text="Book added!" textFill="#34972b" visible="false" />
-                                          <Text fx:id="bookImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                                          <Text fx:id="bookImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ImageName (leave for debugging)" />
                                           <ImageView fx:id="bookImg" fitHeight="200.0" fitWidth="200.0" layoutX="829.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" />
                                           <TextField fx:id="bookNumCopies" layoutX="188.0" layoutY="389.0" />
                                           <Text layoutX="85.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
@@ -375,7 +377,7 @@
                                           </Text>
                                           <Label fx:id="dvdError" layoutX="299.0" layoutY="401.0" text="Please fill all required fields" textFill="RED" visible="false" />
                                           <Label fx:id="dvdSuccess" layoutX="299.0" layoutY="401.0" text="DVD added!" textFill="#34972b" visible="false" />
-                                          <Text fx:id="dvdImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                                          <Text fx:id="dvdImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ImageName (leave for debugging)" />
                                           <TextField fx:id="dvdNumCopies" layoutX="188.0" layoutY="352.0" />
                                           <Text layoutX="85.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
                                              <font>
@@ -408,7 +410,6 @@
                                              </font>
                                           </Text>
                                           <Label fx:id="dvdDurationError" layoutX="498.0" layoutY="401.0" text="Total should equal no. of Copies" textFill="RED" visible="false" />
-                                          <ImageView fx:id="dvdImg" fitHeight="200.0" fitWidth="200.0" layoutX="829.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -460,7 +461,7 @@
                                           </Text>
                                           <Label fx:id="laptopError" layoutX="314.0" layoutY="368.0" text="Please fill all required fields" textFill="RED" visible="false" />
                                           <Label fx:id="laptopSuccess" layoutX="314.0" layoutY="368.0" text="Laptop added!" textFill="#34972b" visible="false" />
-                                          <Text fx:id="laptopImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                                          <Text fx:id="laptopImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ImageName (leave for debugging)" />
                                           <TextField fx:id="laptopNumCopies" layoutX="188.0" layoutY="319.0" />
                                           <Text layoutX="85.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
                                              <font>
@@ -493,7 +494,6 @@
                                              </font>
                                           </Text>
                                           <Label fx:id="laptopDurationError" layoutX="498.0" layoutY="368.0" text="Total should equal no. of Copies" textFill="RED" visible="false" />
-                                          <ImageView fx:id="laptopImg" fitHeight="200.0" fitWidth="200.0" layoutX="829.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </AnchorPane>
                                  </content>

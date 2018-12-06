@@ -90,6 +90,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Label userSuccess;
     @FXML
+    private ImageView userAvatar;
+    @FXML
+    private Text userAvatarName;
+    @FXML
     private TextField bookTitle;
     @FXML
     private TextField bookAuthor;
@@ -378,11 +382,17 @@ public class IssueDeskScreen extends Screen implements Initializable {
         String address2 = userAddr2.getText();
         String postCode = userPstCd.getText();
         String town = userTown.getText();
+        String avatar = userAvatarName.getText();
 
         //Reset all error/success labels
         userUsernameError.setVisible(false);
         userError.setVisible(false);
         userSuccess.setVisible(false);
+
+        //Set avatar to default if not selected
+        if (avatar.equals("")) {
+            avatar = "default_image_1.png";
+        }
 
         //Check if username not already used
         if (!Library.checkForUser(username)) {
@@ -392,11 +402,28 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 userError.setVisible(true);
             } else {
                 Library.addUser(username, firstName, lastName, mobileNum, address1, address2, postCode, town,
-                        0, "./data/images/testUser/testImg32.png");
+                        0, "./data/images/default/" + avatar);
                 userSuccess.setVisible(true);
             }
         } else {
             userUsernameError.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void userAvatarButton(Event e) {
+        try {
+            File selectedFile = getImageFile("default");
+            userAvatarName.setText(selectedFile.getName());
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(selectedFile);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            userAvatar.setImage(SwingFXUtils.toFXImage(img, null));
+        } catch (NullPointerException ex) {
+            System.out.println("No book image file selected");
         }
     }
 
