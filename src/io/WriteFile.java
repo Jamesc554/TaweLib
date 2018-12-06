@@ -53,16 +53,19 @@ public class WriteFile extends IO {
 
 		ArrayList<String[]> transactions = user.getTransactions();
 		for (String[] transaction : transactions) {
-			transactionArray.add(transaction[0]);
-			transactionArray.add(transaction[1]);
+			JSONArray singleTransaction = new JSONArray();
+			singleTransaction.add(transaction[0]);
+			singleTransaction.add(transaction[1]);
+			transactionArray.add(singleTransaction);
 		}
 		object.put("transactionHistory", transactionArray);
-		
-		//TODO: Borrow History
+
 		ArrayList<String[]> borrowHistoryStrings = user.getBorrowHistory();
 		for (String[] borrowHistory : borrowHistoryStrings) {
-			borrowHistoryArray.add(borrowHistory[0]);
-			borrowHistoryArray.add(borrowHistory[1]);
+			JSONArray borrowArray = new JSONArray();
+			borrowArray.add(borrowHistory[0]);
+			borrowArray.add(borrowHistory[1]);
+			borrowHistoryArray.add(borrowArray);
 		}
 		object.put("borrowHistory", borrowHistoryArray);
 		
