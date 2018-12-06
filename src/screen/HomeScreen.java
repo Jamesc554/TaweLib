@@ -63,8 +63,7 @@ public class HomeScreen extends Screen implements Initializable{
 			
 		}
 
-		//TODO: Change to only librarians once librarian is added
-		if (!Library.currentUserIsLibrarian()) {
+		if (Library.currentUserIsLibrarian()) {
 			issueDeskBtn.setVisible(true);
 		}
 		

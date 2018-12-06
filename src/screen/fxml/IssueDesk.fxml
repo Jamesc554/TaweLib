@@ -210,11 +210,13 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Text layoutX="553.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User avatar" />
                         <Label fx:id="userUsernameError" layoutX="425.0" layoutY="135.0" text="Username already taken" textFill="RED" visible="false" />
                         <Label fx:id="userError" layoutX="425.0" layoutY="411.0" text="Please fill all required fields" textFill="RED" visible="false" />
                         <Label fx:id="userSuccess" layoutX="425.0" layoutY="411.0" text="User added!" textFill="#34972b" visible="false" />
                         <Text layoutX="886.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="search users?" />
+                        <Button layoutX="505.0" layoutY="131.0" mnemonicParsing="false" onAction="#userAvatarButton" text="Choose Avatar" />
+                        <ImageView fx:id="userAvatar" fitHeight="256.0" fitWidth="256.0" layoutX="505.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true" />
+                        <Text fx:id="userAvatarName" layoutX="633.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                      </children>
                   </AnchorPane>
                </content>

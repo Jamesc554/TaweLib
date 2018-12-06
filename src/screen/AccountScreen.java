@@ -107,8 +107,7 @@ public class AccountScreen extends Screen implements Initializable{
 	            e.printStackTrace();
 	        }
 
-	        //TODO: Change to only librarians once librarian is added
-	        if (!Library.currentUserIsLibrarian()) {
+	        if (Library.currentUserIsLibrarian()) {
 	            issueDeskBtn.setVisible(true);
 	        }
 

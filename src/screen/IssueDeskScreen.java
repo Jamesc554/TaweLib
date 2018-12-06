@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -89,6 +90,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Label userSuccess;
     @FXML
+    private ImageView userAvatar;
+    @FXML
+    private Text userAvatarName;
+    @FXML
     private TextField bookTitle;
     @FXML
     private TextField bookAuthor;
@@ -157,6 +162,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Text dvdImgName;
     @FXML
+    private ImageView dvdImg;
+    @FXML
     private TextField laptopTitle;
     @FXML
     private TextField laptopYear;
@@ -186,6 +193,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Label laptopDurationError;
     @FXML
     private Text laptopImgName;
+    @FXML
+    private ImageView laptopImg;
+
 
     @Override
     public void start() {
@@ -372,11 +382,17 @@ public class IssueDeskScreen extends Screen implements Initializable {
         String address2 = userAddr2.getText();
         String postCode = userPstCd.getText();
         String town = userTown.getText();
+        String avatar = userAvatarName.getText();
 
         //Reset all error/success labels
         userUsernameError.setVisible(false);
         userError.setVisible(false);
         userSuccess.setVisible(false);
+
+        //Set avatar to default if not selected
+        if (avatar.equals("")) {
+            avatar = "default_image_1.png";
+        }
 
         //Check if username not already used
         if (!Library.checkForUser(username)) {
@@ -386,11 +402,28 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 userError.setVisible(true);
             } else {
                 Library.addUser(username, firstName, lastName, mobileNum, address1, address2, postCode, town,
-                        0, "./data/images/testUser/testImg32.png");
+                        0, "./data/images/default/" + avatar);
                 userSuccess.setVisible(true);
             }
         } else {
             userUsernameError.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void userAvatarButton(Event e) {
+        try {
+            File selectedFile = getImageFile("default");
+            userAvatarName.setText(selectedFile.getName());
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(selectedFile);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            userAvatar.setImage(SwingFXUtils.toFXImage(img, null));
+        } catch (NullPointerException ex) {
+            System.out.println("No book image file selected");
         }
     }
 
@@ -696,7 +729,13 @@ public class IssueDeskScreen extends Screen implements Initializable {
         try {
             File selectedFile = getImageFile("book");
             bookImgName.setText(selectedFile.getName());
-            //File imgPath = new File("./data/images/book/" + bookImgName);
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(selectedFile);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            bookImg.setImage(SwingFXUtils.toFXImage(img, null));
         } catch (NullPointerException ex) {
             System.out.println("No book image file selected");
         }
@@ -711,6 +750,13 @@ public class IssueDeskScreen extends Screen implements Initializable {
          try {
              File selectedFile = getImageFile("dvd");
              dvdImgName.setText(selectedFile.getName());
+             BufferedImage img = null;
+             try {
+                 img = ImageIO.read(selectedFile);
+             } catch (IOException ex) {
+                 ex.printStackTrace();
+             }
+             dvdImg.setImage(SwingFXUtils.toFXImage(img, null));
          } catch (NullPointerException ex) {
              System.out.println("No dvd image file selected");
          }
@@ -725,6 +771,13 @@ public class IssueDeskScreen extends Screen implements Initializable {
         try {
             File selectedFile = getImageFile("laptop");
             laptopImgName.setText(selectedFile.getName());
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(selectedFile);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            laptopImg.setImage(SwingFXUtils.toFXImage(img, null));
         } catch (NullPointerException ex) {
             System.out.println("No laptop image file selected");
         }
