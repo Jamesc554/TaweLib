@@ -71,6 +71,9 @@ public class AccountScreen extends Screen implements Initializable{
 		@SuppressWarnings("rawtypes")
 		@FXML
 		private ListView borrowedField;
+
+		@FXML
+		private ListView borrowHistoryField;
 		
 		@Override
 		public void start() {
@@ -115,6 +118,7 @@ public class AccountScreen extends Screen implements Initializable{
 	        setRequestedField();
 	        setReservedField();
 	        setBorrowedField();
+	        setBorrowHistoryField();
 		}
 		
 		private void setUsernameLabel() {
@@ -164,7 +168,7 @@ public class AccountScreen extends Screen implements Initializable{
 			ArrayList<String> currentlyRequested = Library.getCurrentLoggedInUser().getAllRequested();
 			for(String requested : currentlyRequested) {
 				Resource r = Library.getResource(requested);
-				requestedField.getItems().add(r.getTitle() + " " + r.getUniqueID());
+				requestedField.getItems().add("Resource ID " + r.getUniqueID() + " - Resource Title: " + r.getTitle());
 			}
 		}
 
@@ -173,7 +177,7 @@ public class AccountScreen extends Screen implements Initializable{
 			ArrayList<String> currentlyReserved = Library.getCurrentLoggedInUser().getAllReserved();
 			for(String reserved : currentlyReserved) {
 				Resource r = Library.getResource(reserved);
-				returnedField.getItems().add(r.getTitle() + " " + r.getUniqueID());
+				returnedField.getItems().add("Resource ID " + r.getUniqueID() + " - Resource Title: " + r.getTitle());
 			}
 		}
 
@@ -182,7 +186,16 @@ public class AccountScreen extends Screen implements Initializable{
 			ArrayList<String> borrowedResources = Library.getCurrentLoggedInUser().getCurrentlyBorrowedResources();
 			for(String resource : borrowedResources) {
 				Resource r = Library.getResource(resource);
-				borrowedField.getItems().add(r.getTitle() + " " + r.getUniqueID());
+				borrowedField.getItems().add("Resource ID " + r.getUniqueID() + " - Resource Title: " + r.getTitle());
+			}
+		}
+
+		private void setBorrowHistoryField() {
+			ArrayList<String[]> borrowHistory = Library.getCurrentLoggedInUser().getBorrowHistory();
+			for(String[] borrow : borrowHistory) {
+				String resourceID = borrow[0];
+				String date = borrow[1];
+				borrowHistoryField.getItems().add("Resource ID: " + resourceID + " - Date: " + date);
 			}
 		}
 }

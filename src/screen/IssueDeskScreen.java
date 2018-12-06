@@ -64,6 +64,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Label paymentSuccess;
     @FXML
+    private Text paymentSearchBalance;
+    @FXML
     private TextField userUsername;
     @FXML
     private TextField userFirstName;
@@ -196,6 +198,23 @@ public class IssueDeskScreen extends Screen implements Initializable {
             } else {
                 paymentUserError.setVisible(true);
             }
+        } else {
+            paymentUserError.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void paymentSearchButton(Event e) {
+        String user = paymentUsername.getText();
+
+        //Reset error label
+        paymentUserError.setVisible(false);
+
+        //Check if user exists
+        if (Library.checkForUser(user)) {
+            String balance = Library.getUser(user).getAccountBalanceString();
+            paymentSearchBalance.setText("Current balance: " + balance);
+            paymentSearchBalance.setVisible(true);
         } else {
             paymentUserError.setVisible(true);
         }
