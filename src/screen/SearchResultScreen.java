@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
@@ -71,6 +72,25 @@ public class SearchResultScreen extends Screen implements Initializable {
 
 	@FXML
 	private Label rs5Lbl;
+	
+	@FXML
+	private TextField titleTf;
+	@FXML
+	private TextField uIDTf;
+	@FXML
+	private TextField yearTf;
+	@FXML
+	private TextField rs1Tf;
+	@FXML
+	private TextField rs2Tf;
+	@FXML
+	private TextField rs3Tf;
+	@FXML
+	private TextField rs4Tf;
+	@FXML
+	private TextField rs5Tf;
+	
+	//private TextField[] textFields = {titleTf, uIDTf, yearTf, rs1Tf, rs2Tf, rs3Tf, rs4Tf, rs5Tf};
 
 	@FXML
 	private ListView<String> copiesList;
@@ -180,46 +200,72 @@ public class SearchResultScreen extends Screen implements Initializable {
 
 	private void updateResourceDetails(Resource r) {
 		resourceThumbnailImage.setImage(getResourceImage(r));
-		titleLbl.setText("Title: " + r.getTitle());
-		uIDLbl.setText("UniqueID: " + r.getUniqueID());
-		yearLbl.setText("Year: " + r.getYear());
+		titleTf.setText(r.getTitle());
+		uIDTf.setText( r.getUniqueID());
+		yearTf.setText(r.getYear());
 
 		String resourceType = resourceTypeCB.getValue();
 
 		rs4Lbl.setVisible(true);
+		rs4Tf.setVisible(true);
 		rs5Lbl.setVisible(true);
+		rs5Tf.setVisible(true);
+		
+		TextField[] textFields = {titleTf, uIDTf, yearTf, rs1Tf, rs2Tf, rs3Tf, rs4Tf, rs5Tf};
+		
+		if (!Library.currentUserIsLibrarian()) {
+			for (TextField tf : textFields) {
+				tf.setEditable(true);
+			}
+		} else {
+			for (TextField tf : textFields) {
+				tf.setEditable(false);
+			}
+		}
 
 		switch (resourceType) {
 		case "Book":
 			Book b = (Book) r;
-			rs1Lbl.setText("Author: " + b.getAuthor());
-			rs2Lbl.setText("Publisher: " + b.getPublisher());
-			rs3Lbl.setText("Genre: " + b.getGenre());
-			rs4Lbl.setText("ISBN: " + b.getIsbn());
+			rs1Lbl.setText("Author: ");
+			rs1Tf.setText(b.getAuthor());
+			rs2Lbl.setText("Publisher: ");
+			rs2Tf.setText(b.getPublisher());
+			rs3Lbl.setText("Genre: ");
+			rs3Tf.setText(b.getGenre());
+			rs4Lbl.setText("Director: ");
+			rs4Tf.setText(b.getIsbn());
+			
+			rs5Lbl.setText("Languages: ");
 
-			rs5Lbl.setText("Languages: " + b.getLanguages().get(0));
+			rs5Tf.setText(b.getLanguages().get(0));
 			ArrayList<String> languages = b.getLanguages();
 			languages.remove(0);
 			for (String language : languages)
-				rs5Lbl.setText(rs5Lbl.getText() + ", " + language);
+				rs5Tf.setText(rs5Tf.getText() + ", " + language);
 
 			break;
 		case "DVD":
 			DVD d = (DVD) r;
-			rs1Lbl.setText("Director: " + d.getDirector());
-			rs2Lbl.setText("Runtime: " + d.getRuntime());
-			rs3Lbl.setText("Language: " + d.getLanguage());
+			rs1Lbl.setText("Director: ");
+			rs1Tf.setText(d.getDirector());
+			rs2Lbl.setText("Runtime: ");
+			rs2Tf.setText(d.getRuntime());
+			rs3Lbl.setText("Language: ");
+			rs3Tf.setText(d.getLanguage());
+			
+			rs4Lbl.setText("Sub-Languages: ");
 
 			if (d.getSubLang().isEmpty()) {
-				rs4Lbl.setText("Sub-Languages: N/A");
+				rs4Tf.setText("N/A");
 			} else {
-				rs4Lbl.setText("Sub-Languages: " + d.getSubLang().get(0));
+				rs4Tf.setText( d.getSubLang().get(0));
 				languages = d.getSubLang();
 				languages.remove(0);
 				for (String language : languages)
-					rs4Lbl.setText(rs4Lbl.getText() + ", " + language);
+					rs4Tf.setText(rs4Tf.getText() + ", " + language);
 			}
 
+			rs5Tf.setVisible(false);
 			rs5Lbl.setVisible(false);
 
 			break;
