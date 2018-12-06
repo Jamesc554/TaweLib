@@ -102,3 +102,4 @@
       <Button fx:id="logoutBtn" layoutX="1212.0" layoutY="5.0" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: #0e0056;" text="Logout" textFill="#fff2f2" underline="true" />
    </children>
 </AnchorPane>
+ 
