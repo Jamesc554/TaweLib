@@ -275,16 +275,19 @@ public class User {
 		while(j >= this.resourceCurrentlyBorrowed.size()-1 && !done){
 			if(this.resourceCurrentlyBorrowed.get(j).equals(resourceID)){
 				this.resourceCurrentlyBorrowed.remove(j);
+				String[] resourceCopyID = resourceID.split("-");
+				Library.getResource(resourceCopyID[0]).returnResource(Integer.parseInt(resourceCopyID[1]));
 				done = true;
 			}
 			j++;
 		}
+		
 		done = false;
 		int i = this.borrowHistory.size()-1;
 		while(!done && i >= 0){
 			String[] data = borrowHistory.get(i);
 			if (data[1].equals(resourceID)){
-				data[2] = getCurrentDate();
+				data[0] = getCurrentDate();
 				borrowHistory.remove(i);
 				borrowHistory.add(i, data);
 				done = true;

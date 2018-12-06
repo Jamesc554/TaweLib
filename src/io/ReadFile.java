@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -12,6 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import resources.Book;
+import resources.BorrowHistoryData;
 import resources.DVD;
 import resources.Laptop;
 import user.Librarian;
@@ -174,7 +176,7 @@ public class ReadFile extends IO {
 				}
 
 				Book bookToAdd = new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, null,
-						noOfCopies, loanDurs, new ArrayList<>());
+						noOfCopies, loanDurs, new ArrayList<>(), new ArrayList<>());
 
 				languageArray = (JSONArray) object.get("languages");
 				if (languageArray != null) {
@@ -217,6 +219,8 @@ public class ReadFile extends IO {
 		JSONArray languageArray = new JSONArray();
 		JSONArray dvdQueueArray = new JSONArray();
 		JSONArray listOfLoanDur = new JSONArray();
+		JSONArray dvdBorrowHistoryArray = new JSONArray();
+		JSONArray dvdCurrentBorrowData = new JSONArray();
 
 		ArrayList<DVD> dvds = new ArrayList<DVD>();
 
@@ -235,6 +239,8 @@ public class ReadFile extends IO {
 				String runtime = ((String) object.get("runtime"));
 				String language = ((String) object.get("language"));
 				int noOfCopies = Integer.parseInt((String) object.get("noOfCopies"));
+				List<List<BorrowHistoryData>> borrowHistory = new ArrayList<>();
+				List<BorrowHistoryData> currentData = new ArrayList<>();
 
 				languageArray = (JSONArray) object.get("sub-languages");
 				ArrayList<String> subLang = new ArrayList<>();
@@ -264,9 +270,42 @@ public class ReadFile extends IO {
 						loanDurs.add(loanDurString);
 					}
 				}
+				
+				dvdBorrowHistoryArray = (JSONArray) object.get("borrowHistory");
+				if (dvdBorrowHistoryArray != null) {
+					for (Object copyBorrowHistoryObject : dvdBorrowHistoryArray) {
+						JSONArray copyBorrowHistoryArray = (JSONArray) copyBorrowHistoryObject;
+						List<BorrowHistoryData> copyBorrowHistoryData = new ArrayList<>();
+						for (Object borrowHistoryObject : copyBorrowHistoryArray) {
+							JSONArray borrowHistoryArray = (JSONArray) borrowHistoryObject;
+							BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
+							borrowHistoryData.setUserID((String) borrowHistoryArray.get(0));
+							borrowHistoryData.setDateBorrowed((String) borrowHistoryArray.get(1));
+							borrowHistoryData.setDateReturned((String) borrowHistoryArray.get(2));
+							borrowHistoryData.setDateRequestedReturn((String) borrowHistoryArray.get(3));
+							copyBorrowHistoryData.add(borrowHistoryData);
+						}
+						borrowHistory.add(copyBorrowHistoryData);
+					}
+				}
+				
+				dvdCurrentBorrowData = (JSONArray) object.get("currentData");
+				if (dvdCurrentBorrowData != null) {
+					for (Object copyCurrentBorrowDataObject : dvdCurrentBorrowData) {
+						JSONArray copyCurrentBorrowDataArray = (JSONArray) copyCurrentBorrowDataObject;
+						
+						BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
+						borrowHistoryData.setUserID((String) copyCurrentBorrowDataArray.get(0));
+						borrowHistoryData.setDateBorrowed((String) copyCurrentBorrowDataArray.get(1));
+						borrowHistoryData.setDateReturned((String) copyCurrentBorrowDataArray.get(2));
+						borrowHistoryData.setDateRequestedReturn((String) copyCurrentBorrowDataArray.get(3));
+						
+						currentData.add(borrowHistoryData);
+					}
+				}
 
 				dvds.add(new DVD(director, runtime, language, subLang, year, title, thumbnailImageRef, uniqueID,
-						noOfCopies, loanDurs, new ArrayList<>()));
+						noOfCopies, loanDurs, borrowHistory, currentData));
 			}
 
 			reader.close();
@@ -322,7 +361,7 @@ public class ReadFile extends IO {
 				}
 
 				Laptop laptopToAdd = new Laptop(manufacturer, model, operatingSys, year, title, thumbnailImg, uniqueID,
-						noOfCopies, loanDurs, new ArrayList<>());
+						noOfCopies, loanDurs, new ArrayList<>(), new ArrayList<>());
 
 				laptops.add(laptopToAdd);
 			}

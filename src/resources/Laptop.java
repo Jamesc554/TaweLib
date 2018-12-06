@@ -29,9 +29,9 @@ public class Laptop extends Resource {
 	 * The laptop's operating system
 	 */
 	public Laptop(String manufacturer, String model,  String operatingSys,String year,
-			String title, String thumbnailImg, String uniqueID, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> copyBorrowHistory) {
+			String title, String thumbnailImg, String uniqueID, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> copyBorrowHistory, List<BorrowHistoryData> currentBorrowData) {
 		
-		super(year, title, thumbnailImg, generateLaptopID(uniqueID), noOfCopies,loanDuration, copyBorrowHistory);
+		super(year, title, thumbnailImg, generateLaptopID(uniqueID), noOfCopies,loanDuration, copyBorrowHistory, currentBorrowData);
 		
 		this.manufacturer = manufacturer;
 		this.model = model;

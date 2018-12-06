@@ -519,7 +519,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                             loanDuration.add("28");
                         }
                         Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages,
-                                numCopies, loanDuration, new ArrayList<>());
+                                numCopies, loanDuration, new ArrayList<>(), new ArrayList<>());
                         bookSuccess.setVisible(true);
                         bookImgName.setText("");
                     } else {
@@ -619,7 +619,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                             loanDuration.add("28");
                         }
                         Library.addDVD(year, title, image, null, director, runtime, language, subs, numCopies,
-                                loanDuration, new ArrayList<>());
+                                loanDuration, new ArrayList<>(), new ArrayList<>());
                         dvdSuccess.setVisible(true);
                         dvdImgName.setText("");
                     } else {
@@ -707,7 +707,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                             loanDuration.add("28");
                         }
                         Library.addLaptop(year, title, image, null, manufacturer, model, os, numCopies,
-                                loanDuration, new ArrayList<>());
+                                loanDuration, new ArrayList<>(), new ArrayList<>());
                         laptopSuccess.setVisible(true);
                         laptopImgName.setText("");
                     } else {
