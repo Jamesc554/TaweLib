@@ -152,8 +152,8 @@ public class WriteFile extends IO {
 		}
 		object.put("bookQueue", bookQueueArray);
 		
-		for (String loanDur : book.getLoanDuration()) {
-			listOfLoanDur.add(loanDur);
+		for (int i = 0; i < book.getNoOfCopies(); i++) {
+			listOfLoanDur.add(book.getLoanDuration(String.valueOf(i)));
 		}
 		object.put("listOfLoanDur", listOfLoanDur);
 
@@ -195,10 +195,10 @@ public class WriteFile extends IO {
 			dvdQueueArray.add(dvdQueue.peek().getUserName());
 			dvdQueue.dequeue();
 		}
-		object.put("dvdQueue", dvdQueueArray);
+		object.put("dvdQueue", dvdQueueArray);	
 		
-		for (String loanDur : dvd.getLoanDuration()) {
-			listOfLoanDur.add(loanDur);
+		for (int i = 0; i < dvd.getNoOfCopies(); i++) {
+			listOfLoanDur.add(dvd.getLoanDuration(String.valueOf(i)));
 		}
 		object.put("listOfLoanDur", listOfLoanDur);
 
@@ -234,8 +234,8 @@ public class WriteFile extends IO {
 		}
 		object.put("dvdQueue", laptopQueueArray);
 		
-		for (String loanDur : laptop.getLoanDuration()) {
-			listOfLoanDur.add(loanDur);
+		for (int i = 0; i < laptop.getNoOfCopies(); i++) {
+			listOfLoanDur.add(laptop.getLoanDuration(String.valueOf(i)));
 		}
 		object.put("listOfLoanDur", listOfLoanDur);
 		
