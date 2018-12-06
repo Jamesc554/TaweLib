@@ -30,6 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import library.Library;
 import resources.Book;
+import resources.CopyData;
 import resources.DVD;
 import resources.Resource;
 
@@ -234,8 +235,8 @@ public class SearchResultScreen extends Screen implements Initializable {
 		
 		copiesList.getItems().clear();
 		
-		for (String copy : r.getArrayListOfCopies()) {
-			copiesList.getItems().add("Copy: " + copy + " - Available: " + String.valueOf(r.checkIfCopyAvailable(copy)));
+		for (CopyData copy : r.getArrayListOfCopies()) {
+			copiesList.getItems().add("Copy: " + copy + " - Available: " + String.valueOf(copy.isAvailable()));
 		}
 
 		switch (resourceType) {
