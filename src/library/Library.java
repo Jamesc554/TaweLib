@@ -20,8 +20,7 @@ public class Library {
 	 * This methods starts the library. Library is a static method so we can only
 	 * have one at a time.
 	 */
-	public static void start(){
-		LibraryResources.start();
+	public static void start(){ LibraryResources.start();
 	}
 
 	/**
