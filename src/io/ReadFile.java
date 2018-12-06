@@ -26,10 +26,6 @@ public class ReadFile extends IO{
 	private static BufferedReader reader = null;
 	private static String currentLine = null;
 	
-	public static String readAll() {
-		return "";
-	}
-	
 	public static ArrayList<User> readUsers() {
 		JSONParser parser = new JSONParser();
 		JSONArray resourceArray = new JSONArray();
