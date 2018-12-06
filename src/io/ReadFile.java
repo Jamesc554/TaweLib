@@ -47,14 +47,14 @@ public class ReadFile extends IO{
 						(String)object.get("townName"),
 						Double.parseDouble((String) object.get("accountBalance")),
 						(String)object.get("imageAddress"));
-				
-				//TODO: Currently Borrowed
+
 				resourceArray = (JSONArray) object.get("resourceBorrow");
-				String resourceBorrow = "";
 				if (resourceArray != null) {
 					for (Object resource : resourceArray) {
 						String stringResource = (String) resource;
-						resourceBorrow = resourceBorrow + stringResource + ",";
+						ArrayList<String> data = new ArrayList<String>();
+						data.add(stringResource);
+						user.setResourceCurrentlyBorrowed(data);
 					}
 				}
 				
