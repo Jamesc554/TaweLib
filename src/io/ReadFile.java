@@ -167,7 +167,7 @@ public class ReadFile extends IO{
 				String isbn = ((String) object.get("isbn"));
 				String publisher = ((String) object.get("publisher"));
 				
-				Book bookToAdd = new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, null);
+				Book bookToAdd = new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, null, 0);
 				
 				languageArray = (JSONArray) object.get("languages");
 				if (languageArray != null) {
@@ -265,7 +265,7 @@ public class ReadFile extends IO{
 					}
 				}
 				
-				dvds.add(new DVD(director, runtime, language, subLang, year, title, thumbnailImageRef, uniqueID));
+				dvds.add(new DVD(director, runtime, language, subLang, year, title, thumbnailImageRef, uniqueID, 0));
 			}
 			
 			reader.close();
@@ -309,7 +309,7 @@ public class ReadFile extends IO{
 				String title = ((String) object.get("title"));
 				String thumbnailImg = ((String) object.get("thumbnailImg"));
 				
-				Laptop laptopToAdd = new Laptop(manufacturer, model, operatingSys, year, title, thumbnailImg, uniqueID);
+				Laptop laptopToAdd = new Laptop(manufacturer, model, operatingSys, year, title, thumbnailImg, uniqueID, 0);
 				
 				listOfCopiesArray = (JSONArray) object.get("listOfCopies");
 				if (listOfCopiesArray != null) {

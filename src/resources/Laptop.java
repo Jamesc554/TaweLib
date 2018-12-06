@@ -26,9 +26,9 @@ public class Laptop extends Resource {
 	 * The laptop's operating system
 	 */
 	public Laptop(String manufacturer, String model,  String operatingSys,String year,
-			String title, String thumbnailImg, String uniqueID) {
+			String title, String thumbnailImg, String uniqueID, Integer noOfCopies) {
 		
-		super(year, title, thumbnailImg, generateLaptopID(uniqueID));
+		super(year, title, thumbnailImg, generateLaptopID(uniqueID), noOfCopies);
 		
 		this.manufacturer = manufacturer;
 		this.model = model;
@@ -60,7 +60,7 @@ public class Laptop extends Resource {
 	}
 	/**
 	 * Sets a value to calculate laptop IDs from.
-	 * @param hlaptopID the highest current value of any laptop's ID.
+	 * @param hLaptopID the highest current value of any laptop's ID.
 	 */
 	public void setHighestLaptopID(String hLaptopID) {
 		this.highestLaptopID = hLaptopID;

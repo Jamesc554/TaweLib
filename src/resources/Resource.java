@@ -25,6 +25,7 @@ public abstract class Resource {
 	protected ArrayList<String> arrayListOfCopies;
 	protected Map<String, ArrayList<String[]>> borrowHistory;//Dictionary of copy history i.e. loan date user who loaned etc. A copy can have multiple histories.
 	protected ArrayList<String[]> copyHistory; //changed from String[]
+	protected Integer noOfCopies;
 
 	/**
 	 * Base Constructor for all resources.
@@ -39,7 +40,7 @@ public abstract class Resource {
 	 * */
 
 	public Resource(String year, String title,
-		String thumbnailImageRef, String uniqueID) {
+		String thumbnailImageRef, String uniqueID, Integer noOfCopies) {
 		
 		this.year = year;
 		this.title = title;
@@ -48,6 +49,7 @@ public abstract class Resource {
 		this.queueOfReservations = new Queue<User>();
 		this.arrayListOfCopies = new ArrayList<String>();
 		this.borrowHistory = new HashMap<String, ArrayList<String[]>>();
+		this.noOfCopies = noOfCopies;
 	}
 
 	/* #############################################################
@@ -190,7 +192,7 @@ public abstract class Resource {
 	public ArrayList<String[]> getCopyHistory(String copyID) {
 		return this.borrowHistory.get(copyID);
 	}
-	
+
 	/**
 	 * Returns the current loanee of a copy
 	 * @param copyID the id of the copy possibly on loan
@@ -200,15 +202,15 @@ public abstract class Resource {
 		//check if borrow date != null and return date is null => still on loan
 		if ((this.borrowHistory.get(copyID).get(this.borrowHistory.size()))[1] != null
 				&& (this.borrowHistory.get(copyID).get(this.borrowHistory.size()))[2] == null) {
-			
+
 			//return (this.borrowHistory.get(copyID).get(this.borrowHistory.size()))[0]; before
 			return this.borrowHistory.get(copyID);
-			
+
 		}
 		return null;
 	}
-	
-	
+
+
 	/**
 	 * Adds a new copy to this Resource.
 	 * @param copyID
@@ -228,7 +230,7 @@ public abstract class Resource {
 				this.arrayListOfCopies.remove(i);
 			}
 		}
-		
+
 	}
 	
 	/**
