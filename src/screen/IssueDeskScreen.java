@@ -404,10 +404,15 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 languages = new ArrayList<>(Arrays.asList(languageArray));
                 System.out.println(languages);
             }
+            int numCopies;
             try {
                 //Add the book to the Library
                 String image = "./data/images/book/" + imageName;
-                int numCopies = Integer.parseInt(bookNumCopies.getText());
+                if (bookNumCopies.getText().equals("")) {
+                    numCopies = 0;
+                } else {
+                    numCopies = Integer.parseInt(bookNumCopies.getText());
+                }
                 if (numCopies >= 0 ) {
                     Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages, numCopies);
                     bookSuccess.setVisible(true);
@@ -456,10 +461,15 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 String[] subsArray = subsString.split(", ");
                 subs = new ArrayList<>(Arrays.asList(subsArray));
             }
+            int numCopies;
             try {
                 //Add the DVD to the Library
                 String image = "./data/images/dvd/" + imageName;
-                int numCopies = Integer.parseInt(dvdNumCopies.getText());
+                if (dvdNumCopies.getText().equals("")) {
+                    numCopies = 0;
+                } else {
+                    numCopies = Integer.parseInt(dvdNumCopies.getText());
+                }
                 if (numCopies >= 0) {
                     Library.addDVD(year, title, image, null, director, runtime, language, subs, numCopies);
                     dvdSuccess.setVisible(true);
@@ -496,10 +506,15 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 || imageName.equals("")) {
             laptopError.setVisible(true);
         } else {
+            int numCopies;
             try {
                 //Add the Laptop to the Library
                 String image = "./data/images/laptop/" + imageName;
-                int numCopies = Integer.parseInt(laptopNumCopies.getText());
+                if (laptopNumCopies.getText().equals("")) {
+                    numCopies = 0;
+                } else {
+                    numCopies = Integer.parseInt(laptopNumCopies.getText());
+                }
                 if (numCopies >= 0) {
                     Library.addLaptop(year, title, image, null, manufacturer, model, os, numCopies);
                     laptopSuccess.setVisible(true);
