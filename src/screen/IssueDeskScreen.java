@@ -139,11 +139,21 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField dvdNumCopies;
     @FXML
+    private TextField dvd1Day;
+    @FXML
+    private TextField dvd1Week;
+    @FXML
+    private TextField dvd2Weeks;
+    @FXML
+    private TextField dvd4Weeks;
+    @FXML
     private Label dvdCopiesError;
     @FXML
     private Label dvdError;
     @FXML
     private Label dvdSuccess;
+    @FXML
+    private Label dvdDurationError;
     @FXML
     private Text dvdImgName;
     @FXML
@@ -498,6 +508,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         dvdError.setVisible(false);
         dvdSuccess.setVisible(false);
         dvdCopiesError.setVisible(false);
+        dvdDurationError.setVisible(false);
 
         //Check if required fields have input
         if (title.equals("") || director.equals("") || year.equals("") || runtime.equals("") || imageName.equals("")) {
@@ -515,6 +526,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 subs = new ArrayList<>(Arrays.asList(subsArray));
             }
             int numCopies;
+            int num1Day;
+            int num1Week;
+            int num2Weeks;
+            int num4Weeks;
             try {
                 //Add the DVD to the Library
                 String image = "./data/images/dvd/" + imageName;
@@ -523,10 +538,48 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 } else {
                     numCopies = Integer.parseInt(dvdNumCopies.getText());
                 }
-                if (numCopies >= 0) {
-                    Library.addDVD(year, title, image, null, director, runtime, language, subs, numCopies, null);
-                    dvdSuccess.setVisible(true);
-                    dvdImgName.setText("");
+                if (dvd1Day.getText().equals("")) {
+                    num1Day = 0;
+                } else {
+                    num1Day = Integer.parseInt(dvd1Day.getText());
+                }
+                if (dvd1Week.getText().equals("")) {
+                    num1Week = 0;
+                } else {
+                    num1Week = Integer.parseInt(dvd1Week.getText());
+                }
+                if (dvd2Weeks.getText().equals("")) {
+                    num2Weeks = 0;
+                } else {
+                    num2Weeks = Integer.parseInt(dvd2Weeks.getText());
+                }
+                if (dvd4Weeks.getText().equals("")) {
+                    num4Weeks = 0;
+                } else {
+                    num4Weeks = Integer.parseInt(dvd4Weeks.getText());
+                }
+                if (numCopies >= 0 && num1Day >= 0 && num1Week >= 0 && num2Weeks >= 0 && num4Weeks >= 0) {
+                    if (num1Day + num1Week + num2Weeks + num4Weeks == numCopies) {
+                        ArrayList<String> loanDuration = new ArrayList<>();
+                        for (int i = 0; i < num1Day; i++) {
+                            loanDuration.add("1");
+                        }
+                        for (int i = 0; i < num1Week; i++){
+                            loanDuration.add("7");
+                        }
+                        for (int i = 0; i < num2Weeks; i++) {
+                            loanDuration.add("14");
+                        }
+                        for (int i = 0; i < num4Weeks; i++) {
+                            loanDuration.add("28");
+                        }
+                        Library.addDVD(year, title, image, null, director, runtime, language, subs, numCopies,
+                                loanDuration);
+                        dvdSuccess.setVisible(true);
+                        dvdImgName.setText("");
+                    } else {
+                        dvdDurationError.setVisible(true);
+                    }
                 } else {
                     dvdCopiesError.setVisible(true);
                 }
