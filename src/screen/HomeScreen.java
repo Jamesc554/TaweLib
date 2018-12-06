@@ -66,14 +66,13 @@ public class HomeScreen extends Screen implements Initializable{
 			
 		}
 
-		//TODO: Change to only librarians once librarian is added
-		if (!Library.currentUserIsLibrarian()) {
+		if (Library.currentUserIsLibrarian()) {
 			issueDeskBtn.setVisible(true);
 		}
 		
 		userIcon.setImage(SwingFXUtils.toFXImage(img, null));
 		usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
-		fineText.setText("�" + String.format("%.2f", Library.getCurrentLoggedInUser().getAccountBalanceDouble()));
+		fineText.setText("£" + String.format("%.2f", Library.getCurrentLoggedInUser().getAccountBalanceDouble()));
 		setCurrentlyBorrowed();
 	}
 
