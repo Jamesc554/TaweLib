@@ -35,6 +35,8 @@ public class WriteFile extends IO {
 		JSONArray resourceArray = new JSONArray();
 		JSONArray transactionArray = new JSONArray();
 		JSONArray borrowHistoryArray = new JSONArray();
+		JSONArray jsonRequestedArray = new JSONArray();
+		JSONArray jsonReservedArray = new JSONArray();
 		object.put("username", user.getUserName());
 		object.put("firstName", user.getFirstName());
 		object.put("lastName", user.getLastName());
@@ -68,10 +70,19 @@ public class WriteFile extends IO {
 			borrowHistoryArray.add(borrowArray);
 		}
 		object.put("borrowHistory", borrowHistoryArray);
-		
-		//TODO: Currently Requested
-		
-		//TODO: Currently Reserved
+
+		ArrayList<String> requestedArray = user.getAllRequested();
+		for (String requested : requestedArray) {
+			System.out.println(requested);
+			jsonRequestedArray.add(requested);
+		}
+		object.put("requested", jsonRequestedArray);
+
+		ArrayList<String> reservedArray = user.getAllReserved();
+		for (String reserved : reservedArray) {
+			jsonReservedArray.add(reserved);
+		}
+		object.put("reserved", jsonReservedArray);
 
 		try {
 			FileWriter file = new FileWriter(IO.getUsersFilePath(), true);
