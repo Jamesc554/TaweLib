@@ -36,9 +36,9 @@ public class Book extends Resource {
 	 * @param uniqueID
 	 */
 	public Book(String year,String title, String thumbnailImg, String uniqueID,
-			String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies) {
+			String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies, ArrayList<String> loanDuration) {
 		//Set all the inherited values from Resource...
-		super(year, title, thumbnailImg, generateBookID(uniqueID), noOfCopies);
+		super(year, title, thumbnailImg, generateBookID(uniqueID), noOfCopies, loanDuration);
 		
 		//Set all non-inherited values
 		this.author = author;
