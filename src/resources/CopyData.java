@@ -63,10 +63,12 @@ public class CopyData {
 
 		return true;
 	}
+	
 	public void loanCopy(String username){
 		this.currentInfo.setUserID(username);
 		this.currentInfo.setDateBorrowed(Library.getCurrentDateTime());
 	}
+	
 	public void requestReturn(){
 		String date = currentInfo.getDateBorrowed().split(" ")[0];
 
@@ -82,6 +84,7 @@ public class CopyData {
 		cal.add( Calendar.DATE,Integer.valueOf(loanDuration) );
 		this.currentInfo.setDateRequestedReturn(cal.getTime().toString());
 	}
+	
 	public void returnCopy(){
 		currentInfo.setDateReturned(Library.getCurrentDateTime());
 
