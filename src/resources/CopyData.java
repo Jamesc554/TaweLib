@@ -84,6 +84,7 @@ public class CopyData {
 	}
 	public void returnCopy(){
 		currentInfo.setDateReturned(Library.getCurrentDateTime());
-
+		this.borrowHistory.add(currentInfo);
+		currentInfo.clearInfo();
 	}
 }

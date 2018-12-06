@@ -45,6 +45,11 @@ public class BorrowHistoryData {
 	public void setDateRequestedReturn(String dateRequestedReturn) {
 		this.dateRequestedReturn = dateRequestedReturn;
 	}
-	
-	
+
+	public void clearInfo(){
+		this.userID = "";
+		this.dateBorrowed = "";
+		this.dateReturned = "";
+		this.dateRequestedReturn = "";
+	}
 }
