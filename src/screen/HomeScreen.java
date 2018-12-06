@@ -57,9 +57,6 @@ public class HomeScreen extends Screen implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		BufferedImage img = null;
-
-		System.out.println(Library.getCurrentLoggedInUser().getProfImage());
-
 		try {
 			img = ImageIO.read(new File(Library.getCurrentLoggedInUser().getProfImage()));
 		} catch (IOException e) {
