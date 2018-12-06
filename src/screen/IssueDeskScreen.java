@@ -169,11 +169,21 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField laptopNumCopies;
     @FXML
+    private TextField laptop1Day;
+    @FXML
+    private TextField laptop1Week;
+    @FXML
+    private TextField laptop2Weeks;
+    @FXML
+    private TextField laptop4Weeks;
+    @FXML
     private Label laptopError;
     @FXML
     private Label laptopSuccess;
     @FXML
     private Label laptopCopiesError;
+    @FXML
+    private Label laptopDurationError;
     @FXML
     private Text laptopImgName;
 
@@ -606,6 +616,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         laptopError.setVisible(false);
         laptopSuccess.setVisible(false);
         laptopCopiesError.setVisible(false);
+        laptopDurationError.setVisible(false);
 
         //Check if require fields have input
         if (title.equals("") || year.equals("") || manufacturer.equals("") || model.equals("") || os.equals("")
@@ -613,6 +624,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
             laptopError.setVisible(true);
         } else {
             int numCopies;
+            int num1Day;
+            int num1Week;
+            int num2Weeks;
+            int num4Weeks;
             try {
                 //Add the Laptop to the Library
                 String image = "./data/images/laptop/" + imageName;
@@ -621,10 +636,48 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 } else {
                     numCopies = Integer.parseInt(laptopNumCopies.getText());
                 }
-                if (numCopies >= 0) {
-                    Library.addLaptop(year, title, image, null, manufacturer, model, os, numCopies, null);
-                    laptopSuccess.setVisible(true);
-                    laptopImgName.setText("");
+                if (laptop1Day.getText().equals("")) {
+                    num1Day = 0;
+                } else {
+                    num1Day = Integer.parseInt(laptop1Day.getText());
+                }
+                if (laptop1Week.getText().equals("")) {
+                    num1Week = 0;
+                } else {
+                    num1Week = Integer.parseInt(laptop1Week.getText());
+                }
+                if (laptop2Weeks.getText().equals("")) {
+                    num2Weeks = 0;
+                } else {
+                    num2Weeks = Integer.parseInt(laptop2Weeks.getText());
+                }
+                if (laptop4Weeks.getText().equals("")) {
+                    num4Weeks = 0;
+                } else {
+                    num4Weeks = Integer.parseInt(laptop4Weeks.getText());
+                }
+                if (numCopies >= 0 && num1Day >= 0 && num1Week >= 0 && num2Weeks >= 0 && num4Weeks >= 0) {
+                    if (num1Day + num1Week + num2Weeks + num4Weeks == numCopies) {
+                        ArrayList<String> loanDuration = new ArrayList<>();
+                        for (int i = 0; i < num1Day; i++) {
+                            loanDuration.add("1");
+                        }
+                        for (int i = 0; i < num1Week; i++){
+                            loanDuration.add("7");
+                        }
+                        for (int i = 0; i < num2Weeks; i++) {
+                            loanDuration.add("14");
+                        }
+                        for (int i = 0; i < num4Weeks; i++) {
+                            loanDuration.add("28");
+                        }
+                        Library.addLaptop(year, title, image, null, manufacturer, model, os, numCopies,
+                                loanDuration);
+                        laptopSuccess.setVisible(true);
+                        laptopImgName.setText("");
+                    } else {
+                        laptopDurationError.setVisible(true);
+                    }
                 } else {
                     laptopCopiesError.setVisible(true);
                 }
