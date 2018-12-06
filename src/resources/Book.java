@@ -2,7 +2,6 @@ package resources;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.List;
 
 import user.User;
 import utils.Queue;
@@ -36,10 +35,10 @@ public class Book extends Resource {
 	 * @param thumbnailImg
 	 * @param uniqueID
 	 */
-	public Book(String year, String title, String thumbnailImg, String uniqueID,
-				String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies, List<String> loanDuration, List<List<BorrowHistoryData>> copyBorrowHistory) {
+	public Book(String year,String title, String thumbnailImg, String uniqueID,
+			String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies, ArrayList<String> loanDuration) {
 		//Set all the inherited values from Resource...
-		super(year, title, thumbnailImg, generateBookID(uniqueID), noOfCopies,  loanDuration, copyBorrowHistory);
+		super(year, title, thumbnailImg, generateBookID(uniqueID), noOfCopies, loanDuration);
 		
 		//Set all non-inherited values
 		this.author = author;
@@ -100,7 +99,9 @@ public class Book extends Resource {
 			   "\nGenre: " + this.genre +
 			   "\nISBN: " + this.isbn + 
 			   "\nLanguages: " + this.languages +
-			   "\nQueueOfReservations: " + this.queueOfReservations.isEmpty();
+			   "\nQueueOfReservations: " + this.queueOfReservations.isEmpty() +
+			   "\nMap Of copies: " + this.arrayListOfCopies + 
+			   "\nMap of borrowHistory: " + this.borrowHistory.values();
 	}
 	/* #############################################################
 	 * ########  BELOW ARE THE GETTERS AND SETTERS OF BOOK  ########
@@ -258,8 +259,8 @@ public class Book extends Resource {
 	/**
 	 * Adds a copy to this book's unique Array of copies.
 	 */
-	public void addToCopies(String loanDuration) {
-		super.addCopy(loanDuration);
+	public void addToCopies() {
+		super.addToCopies(generateCopyID());
 	}
 
 	/** 
@@ -278,7 +279,10 @@ public class Book extends Resource {
 	 */
 	@Override
 	public void removeCopy(String copyID) {
-		super.removeCopy(copyID);
+		if (this.arrayListOfCopies.size() >= 1) {
+			super.removeCopy(copyID);
+			this.highestCopyID--;
+		}
 	}
 	/**
 	 * Converts Book to single string
