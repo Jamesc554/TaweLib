@@ -1,13 +1,12 @@
 package resources;
 
-import utils.Queue;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import user.User;
+import utils.Queue;
 /**
  * <h1>Resource</h1>
  * <p>Resource is an abstract class which provides essential attributes for all resource types
@@ -23,12 +22,7 @@ public abstract class Resource {
 	protected String thumbnailImageRef;
 	protected String uniqueID;
 	protected Queue<User> queueOfReservations;
-	protected ArrayList<String> arrayListOfCopies;
-	protected String[][] currentOutInfo; // TODO: WHAT ARE YOU
-	protected ArrayList<String> loanDuration;
-	protected Map<String, ArrayList<String[]>> borrowHistory;//Dictionary of copy history i.e. loan date user who loaned etc. A copy can have multiple histories.
-	protected ArrayList<String[]> copyHistory; //changed from String[]
-	protected Integer noOfCopies;
+	protected List<CopyData> copiesList;
 
 	/**
 	 * Base Constructor for all resources.
@@ -43,19 +37,19 @@ public abstract class Resource {
 	 * */
 
 	public Resource(String year, String title,
-		String thumbnailImageRef, String uniqueID, Integer noOfCopies, ArrayList<String> loanDuration) {
+		String thumbnailImageRef, String uniqueID, Integer noOfCopies, List<String> loanDuration, List<List<BorrowHistoryData>> copyBorrowHistory) {
 		
 		this.year = year;
 		this.title = title;
 		this.thumbnailImageRef = thumbnailImageRef;
 		this.uniqueID = uniqueID;
 		this.queueOfReservations = new Queue<User>();
-		this.arrayListOfCopies = new ArrayList<String>();
-		this.borrowHistory = new HashMap<String, ArrayList<String[]>>();
-		this.noOfCopies = noOfCopies;
-		this.currentOutInfo = new String[this.noOfCopies][5];
-		this.loanDuration = loanDuration;
-		createCurrentOutInfo();
+		this.copiesList = new ArrayList<>();
+		
+		for (int i = 0; i < noOfCopies; i++) {
+			CopyData newCopy = new CopyData(String.valueOf(i), copyBorrowHistory.get(i), loanDuration.get(i));
+			copiesList.add(newCopy);
+		}
 	}
 
 	/* #############################################################
@@ -131,8 +125,8 @@ public abstract class Resource {
 	 * @return dictionaryOfCopies
 	 */
 
-	public ArrayList<String> getArrayListOfCopies() {
-		return this.arrayListOfCopies;
+	public List<CopyData> getArrayListOfCopies() {
+		return this.copiesList;
 	}
 	/**
 	 * Finds the reservation queue of copies of this Resource
@@ -147,86 +141,44 @@ public abstract class Resource {
 	 * @return borrowHistory.
 	 */
 
-	public Map getBorrowHistory() {
-		return borrowHistory;
+	public List<BorrowHistoryData> getBorrowHistory(String copyID) {
+		return copiesList.get(Integer.parseInt(copyID)).getBorrowHistory();
 	}
 	
 	/**
 	 * Sets the borrow history for a resource
 	 * @param borrowHistory the borrow history of a resource
 	 */
-	public void setBorrowHistory(Map borrowHistory) {
-		this.borrowHistory = borrowHistory;
+	public void setBorrowHistory(String copyID, List<BorrowHistoryData> borrowHistory) {
+		copiesList.get(Integer.parseInt(copyID)).setBorrowHistory(borrowHistory);
 	}
 
 	public int getNoOfCopies() {
-		return noOfCopies;
+		return copiesList.size();
 	}
 	
 	/* #############################################################
 	 * ########  BELOW ARE THE COMPLEX METHODS OF Resource  ########
 	 * #############################################################
 	 */
-	
-	/**
-	 * Adds the borrow history of a copy of this Resource.
-	 * @param copyID
-	 * This Copy's ID.
-	 * @param loanHistory
-	 * The loan history of this copy
-	 */
-	public void addBorrowHistory(String copyID, ArrayList<String[]> loanHistory) {
-		/* loanHistory will store [user][dLoan][dRet][dRetBy][loanDuration]
-		 * [userName] = userName of user who loaned this copy
-		 * [dLoan]= date this copy was loaned
-		 * [dRet]= date this copy was returned
-		 * [dRetBy] = date this copy was supposed to be returned by.
-		 * [loanDuration] = the length of this copy's loan.
-		 * loanHistory thus = userID of user who loaned this copy
-		 * from the date dLoan until it was returned on dRet.
-		 * 
-		 *	######################
-		 *	borrowHistory will store a key of copyID and an array of that copy's loan history
-		 *	in the format above.
-		 */
-		copyHistory = loanHistory;
-		borrowHistory.put(copyID, copyHistory);
-	}
-	
-	/**
-	 * Returns a copy's history
-	 * @param copyID the id of the copy
-	 * @return copyHistory the history of this copy
-	 */
-	public ArrayList<String[]> getCopyHistory(String copyID) {
-		return this.borrowHistory.get(copyID);
-	}
 
 	/**
 	 * Returns the current loanee of a copy
 	 * @param copyID the id of the copy possibly on loan
 	 * @return the username of the user who is loaning the book.
 	 */
-	public ArrayList<String[]> getCurrentLoanee(String copyID) {
-		//check if borrow date != null and return date is null => still on loan
-		if ((this.borrowHistory.get(copyID).get(this.borrowHistory.size()))[1] != null
-				&& (this.borrowHistory.get(copyID).get(this.borrowHistory.size()))[2] == null) {
-
-			//return (this.borrowHistory.get(copyID).get(this.borrowHistory.size()))[0]; before
-			return this.borrowHistory.get(copyID);
-
-		}
-		return null;
+	public String getCurrentLoanee(String copyID) {
+		return copiesList.get(Integer.parseInt(copyID)).getCurrentInfo().getUserID();
 	}
 
 
 	/**
 	 * Adds a new copy to this Resource.
-	 * @param copyID
-	 * The unique ID of this copy.
+	 * @param loanDuartion
+	 * The length of the loan for this copy
 	 */
-	public void addToCopies(String copyID) {
-		this.arrayListOfCopies.add(copyID);
+	public void addCopy(String loanDuration) {
+		copiesList.add(new CopyData(String.valueOf(copiesList.size() - 1), new ArrayList<BorrowHistoryData>(), loanDuration));
 	}
 
 	/**
@@ -234,12 +186,7 @@ public abstract class Resource {
 	 */
 	public void removeCopy(String copyID) {
 		//Remove  copy from dictionary of copies
-		for (int i = 0; i < this.arrayListOfCopies.size(); i++) {
-			if (this.arrayListOfCopies.get(i) == copyID) {
-				this.arrayListOfCopies.remove(i);
-			}
-		}
-
+		copiesList.remove(Integer.valueOf(copyID));
 	}
 	
 	/**
@@ -279,24 +226,8 @@ public abstract class Resource {
 		return year + title;
 	}
 
-	/**
-	 * Sets currently out data.
-	 * @param index uniqueID address as integer
-	 * @param data format [username, dateBorrowed, dateReturned, dateReturnedBy, loanDuration]
-	 */
-	public void setCurrentOutInfo(Integer index, String[] data){
-		this.currentOutInfo[index] = data;
-	}
-	private void createCurrentOutInfo(){
-		for(int i = 0; i < this.currentOutInfo.length; i++){
-			String[] data = {"","","","", this.loanDuration.get(i)};
-			this.currentOutInfo[i] = data;
-			addToCopies(String.valueOf(i));
-		}
-	}
-
-	public ArrayList<String> getLoanDuration() {
-		return loanDuration;
+	public String getLoanDuration(String copyID) {
+		return copiesList.get(Integer.valueOf(copyID)).getLoanDuration();
 	}
 	public void loanResource(Integer copyId, String username, String date){
 		String[] data = this.currentOutInfo[copyId];
@@ -320,19 +251,17 @@ public abstract class Resource {
 		this.currentOutInfo[index] = data;
 
 	}
+	
 	public boolean checkIfAvailable(){
-		for(String[] s : this.currentOutInfo){
-			if(s[0].equals("")){
+		for (CopyData copy : copiesList) {
+			if (copy.isAvailable())
 				return true;
-			}
 		}
+		
 		return false;
 	}
-	public boolean checkIfCopyAvailable(String id){
-		String[] data = currentOutInfo[Integer.valueOf(id)];
-		if(data[0].equals("")){
-			return true;
-		}
-		return false;
+	
+	public boolean checkIfCopyAvailable(String copyID){
+		return copiesList.get(Integer.parseInt(copyID)).isAvailable();
 	}
 }
