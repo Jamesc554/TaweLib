@@ -1,5 +1,16 @@
 package screen;
 
+import java.util.List;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -9,21 +20,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import library.Library;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.ResourceBundle;
+import resources.BorrowHistoryData;
 
 /**
  * This class represents the Issue Desk, a screen only available to Librarians to authorise payments and loans, as well
@@ -517,7 +519,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                             loanDuration.add("28");
                         }
                         Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages,
-                                numCopies, loanDuration);
+                                numCopies, loanDuration, new ArrayList<>());
                         bookSuccess.setVisible(true);
                         bookImgName.setText("");
                     } else {
@@ -617,7 +619,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                             loanDuration.add("28");
                         }
                         Library.addDVD(year, title, image, null, director, runtime, language, subs, numCopies,
-                                loanDuration);
+                                loanDuration, new ArrayList<>());
                         dvdSuccess.setVisible(true);
                         dvdImgName.setText("");
                     } else {
@@ -705,7 +707,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                             loanDuration.add("28");
                         }
                         Library.addLaptop(year, title, image, null, manufacturer, model, os, numCopies,
-                                loanDuration);
+                                loanDuration, new ArrayList<>());
                         laptopSuccess.setVisible(true);
                         laptopImgName.setText("");
                     } else {

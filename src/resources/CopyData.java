@@ -58,10 +58,10 @@ public class CopyData {
 	
 	public boolean isAvailable() {
 		if (currentInfo.getDateBorrowed().equals("")) {
-			return false;
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 	
 	public void loanCopy(String username){

@@ -1,9 +1,7 @@
 package resources;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import user.User;
 import utils.Queue;
@@ -47,7 +45,12 @@ public abstract class Resource {
 		this.copiesList = new ArrayList<>();
 		
 		for (int i = 0; i < noOfCopies; i++) {
-			CopyData newCopy = new CopyData(String.valueOf(i), copyBorrowHistory.get(i), loanDuration.get(i));
+			CopyData newCopy = null;
+			if (copyBorrowHistory.isEmpty() || copyBorrowHistory.get(i) == null) {
+				newCopy = new CopyData(String.valueOf(i), new ArrayList<>(), loanDuration.get(i));
+			} else {
+				newCopy = new CopyData(String.valueOf(i), copyBorrowHistory.get(i), loanDuration.get(i));
+			}
 			copiesList.add(newCopy);
 		}
 	}
@@ -229,12 +232,15 @@ public abstract class Resource {
 	public String getLoanDuration(String copyID) {
 		return copiesList.get(Integer.valueOf(copyID)).getLoanDuration();
 	}
-	public void loanResource(Integer copyId, String username){
-		copiesList.get(copyId).loanCopy(username);
+	
+	public void loanResource(String copyID, String username){
+		copiesList.get((Integer.valueOf(copyID))).loanCopy(username);
 	}
+	
 	public void requestReturn(Integer copyId){
 		copiesList.get(copyId).requestReturn();
 	}
+	
 	public void returnResource(Integer copyId) {
 		copiesList.get(copyId).returnCopy();
 	}

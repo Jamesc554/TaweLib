@@ -11,7 +11,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import library.Library;
 import resources.Book;
 import resources.DVD;
 import resources.Laptop;
@@ -175,7 +174,7 @@ public class ReadFile extends IO {
 				}
 
 				Book bookToAdd = new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, null,
-						noOfCopies, listOfLoanDur);
+						noOfCopies, loanDurs, new ArrayList<>());
 
 				languageArray = (JSONArray) object.get("languages");
 				if (languageArray != null) {
@@ -267,7 +266,7 @@ public class ReadFile extends IO {
 				}
 
 				dvds.add(new DVD(director, runtime, language, subLang, year, title, thumbnailImageRef, uniqueID,
-						noOfCopies, loanDurs, borrowHistory));
+						noOfCopies, loanDurs, new ArrayList<>()));
 			}
 
 			reader.close();
@@ -323,7 +322,7 @@ public class ReadFile extends IO {
 				}
 
 				Laptop laptopToAdd = new Laptop(manufacturer, model, operatingSys, year, title, thumbnailImg, uniqueID,
-						noOfCopies, loanDurs);
+						noOfCopies, loanDurs, new ArrayList<>());
 
 				laptops.add(laptopToAdd);
 			}

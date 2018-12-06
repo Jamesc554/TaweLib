@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -236,7 +235,7 @@ public class SearchResultScreen extends Screen implements Initializable {
 		copiesList.getItems().clear();
 		
 		for (CopyData copy : r.getArrayListOfCopies()) {
-			copiesList.getItems().add("Copy: " + copy + " - Available: " + String.valueOf(copy.isAvailable()));
+			copiesList.getItems().add("Copy: " + copy.getId() + " - Available: " + String.valueOf(copy.isAvailable()));
 		}
 
 		switch (resourceType) {
