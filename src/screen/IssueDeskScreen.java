@@ -109,6 +109,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Label bookError;
     @FXML
+    private Label bookCopiesError;
+    @FXML
     private Text bookImgName;
     @FXML
     private ImageView bookImg;
@@ -124,6 +126,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private TextField dvdLanguage;
     @FXML
     private TextField dvdSubs;
+    @FXML
+    private TextField dvdNumCopies;
+    @FXML
+    private Label dvdCopiesError;
     @FXML
     private Label dvdError;
     @FXML
@@ -141,9 +147,13 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField laptopOS;
     @FXML
+    private TextField laptopNumCopies;
+    @FXML
     private Label laptopError;
     @FXML
     private Label laptopSuccess;
+    @FXML
+    private Label laptopCopiesError;
     @FXML
     private Text laptopImgName;
 
@@ -373,6 +383,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         //Reset error/success labels
         bookSuccess.setVisible(false);
         bookError.setVisible(false);
+        bookCopiesError.setVisible(false);
 
         //Check if required fields have input
         if (title.equals("") || author.equals("") || year.equals("") || publisher.equals("") || imageName.equals("")) {
@@ -397,11 +408,15 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 //Add the book to the Library
                 String image = "./data/images/book/" + imageName;
                 int numCopies = Integer.parseInt(bookNumCopies.getText());
-                Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages, numCopies);
-                bookSuccess.setVisible(true);
-                bookImgName.setText("");
+                if (numCopies >= 0 ) {
+                    Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages, numCopies);
+                    bookSuccess.setVisible(true);
+                    bookImgName.setText("");
+                } else {
+                    bookCopiesError.setVisible(true);
+                }
             } catch (NumberFormatException ex) {
-                //Error msg
+                bookCopiesError.setVisible(true);
             }
         }
     }
@@ -424,6 +439,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         //Reset error/success labels
         dvdError.setVisible(false);
         dvdSuccess.setVisible(false);
+        dvdCopiesError.setVisible(false);
 
         //Check if required fields have input
         if (title.equals("") || director.equals("") || year.equals("") || runtime.equals("") || imageName.equals("")) {
@@ -440,11 +456,20 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 String[] subsArray = subsString.split(", ");
                 subs = new ArrayList<>(Arrays.asList(subsArray));
             }
-            //Add the DVD to the Library
-            String image = "./data/images/dvd/" + imageName;
-            Library.addDVD(year, title, image, null, director, runtime, language, subs, 0);
-            dvdSuccess.setVisible(true);
-            dvdImgName.setText("");
+            try {
+                //Add the DVD to the Library
+                String image = "./data/images/dvd/" + imageName;
+                int numCopies = Integer.parseInt(dvdNumCopies.getText());
+                if (numCopies >= 0) {
+                    Library.addDVD(year, title, image, null, director, runtime, language, subs, numCopies);
+                    dvdSuccess.setVisible(true);
+                    dvdImgName.setText("");
+                } else {
+                    dvdCopiesError.setVisible(true);
+                }
+            } catch (NumberFormatException ex) {
+                dvdCopiesError.setVisible(true);
+            }
         }
     }
 
@@ -464,17 +489,27 @@ public class IssueDeskScreen extends Screen implements Initializable {
         //Reset error/success labels
         laptopError.setVisible(false);
         laptopSuccess.setVisible(false);
+        laptopCopiesError.setVisible(false);
 
         //Check if require fields have input
         if (title.equals("") || year.equals("") || manufacturer.equals("") || model.equals("") || os.equals("")
                 || imageName.equals("")) {
             laptopError.setVisible(true);
         } else {
-            //Add the Laptop to the Library
-            String image = "./data/images/laptop/" + imageName;
-            Library.addLaptop(year, title, image, null, manufacturer, model, os, 0);
-            laptopSuccess.setVisible(true);
-            laptopImgName.setText("");
+            try {
+                //Add the Laptop to the Library
+                String image = "./data/images/laptop/" + imageName;
+                int numCopies = Integer.parseInt(laptopNumCopies.getText());
+                if (numCopies >= 0) {
+                    Library.addLaptop(year, title, image, null, manufacturer, model, os, numCopies);
+                    laptopSuccess.setVisible(true);
+                    laptopImgName.setText("");
+                } else {
+                    laptopCopiesError.setVisible(true);
+                }
+            } catch (NumberFormatException ex) {
+                laptopCopiesError.setVisible(true);
+            }
         }
     }
 
