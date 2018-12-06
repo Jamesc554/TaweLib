@@ -390,7 +390,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
             }
             //Add the book to the Library
             String image = "./data/images/book/" + imageName;
-            Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages);
+            Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages, 0);
             bookSuccess.setVisible(true);
             bookImgName.setText("");
         }
@@ -432,7 +432,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
             }
             //Add the DVD to the Library
             String image = "./data/images/dvd/" + imageName;
-            Library.addDVD(year, title, image, null, director, runtime, language, subs);
+            Library.addDVD(year, title, image, null, director, runtime, language, subs, 0);
             dvdSuccess.setVisible(true);
             dvdImgName.setText("");
         }
@@ -462,7 +462,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         } else {
             //Add the Laptop to the Library
             String image = "./data/images/laptop/" + imageName;
-            Library.addLaptop(year, title, image, null, manufacturer, model, os);
+            Library.addLaptop(year, title, image, null, manufacturer, model, os, 0);
             laptopSuccess.setVisible(true);
             laptopImgName.setText("");
         }

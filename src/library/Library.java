@@ -37,8 +37,8 @@ public class Library {
 	 * @param lang Language of the book.
 	 */
 	public static void addBook(String year,String title, String thumbnailImg, String uniqueID,
-						   String author, String genre, String isbn, String publisher, ArrayList<String> lang){
-		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, lang));
+						   String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies){
+		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, lang, noOfCopies));
 	}
 
 	/**
@@ -53,8 +53,8 @@ public class Library {
 	 * @param subLang The subtitles language of the DVD.
 	 */
 	public static void addDVD(String year, String title, String thumbnailImg, String uniqueID,
-						 String director, String runtime, String language, ArrayList<String> subLang){
-	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID));
+						 String director, String runtime, String language, ArrayList<String> subLang, Integer noOfCopies){
+	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID, noOfCopies));
 	}
 
 	/**
@@ -68,8 +68,8 @@ public class Library {
 	 * @param operatingSys The operating system of the laptop.
 	 */
 	public static void addLaptop(String year, String title, String thumbnailImageRef, String uniqueID,
-							  String manufacturer, String model,  String operatingSys){
-	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys));
+							  String manufacturer, String model,  String operatingSys, Integer noOfCopies){
+	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys, noOfCopies));
 	}
 
 	/**
@@ -182,6 +182,7 @@ public class Library {
 	 */
 	public static void loanResource(String username, String resourceID){
 		getUser(username).loanResource(resourceID);
+		String[] resInfo = resourceID.split("-");
 	 	//TODO ADD THE USER TO THE CURRENTLY OUT HASH MAP IN RESOURCE
 	}
 
