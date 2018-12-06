@@ -119,6 +119,7 @@ public class WriteFile extends IO {
 		JSONArray languageArray = new JSONArray();
 		JSONArray bookQueueArray = new JSONArray();
 		JSONArray listOfCopiesArray = new JSONArray();
+		JSONArray listOfLoanDur = new JSONArray();
 		object.put("year", book.getYear());
 		object.put("title", book.getTitle());
 		object.put("thumbnailImg", book.getThumbnailImageRef());
@@ -127,6 +128,7 @@ public class WriteFile extends IO {
 		object.put("genre", book.getGenre());
 		object.put("isbn", book.getIsbn());
 		object.put("publisher", book.getPublisher());
+		object.put("noOfCopies", String.valueOf(book.getNoOfCopies()));
 
 		for (String language : book.getLanguages()) {
 			languageArray.add(language);
@@ -144,6 +146,11 @@ public class WriteFile extends IO {
 			listOfCopiesArray.add(copies);
 		}
 		object.put("listOfCopies", listOfCopiesArray);
+		
+		for (String loanDur : book.getLoanDuration()) {
+			listOfLoanDur.add(loanDur);
+		}
+		object.put("listOfLoanDur", listOfLoanDur);
 
 		try {
 			FileWriter file = new FileWriter(IO.getBookFilePath(), true);
@@ -163,6 +170,7 @@ public class WriteFile extends IO {
 		JSONArray languageArray = new JSONArray();
 		JSONArray dvdQueueArray = new JSONArray();
 		JSONArray listOfCopiesArray = new JSONArray();
+		JSONArray listOfLoanDur = new JSONArray();
 
 		object.put("year", dvd.getYear());
 		object.put("title", dvd.getTitle());
@@ -171,6 +179,7 @@ public class WriteFile extends IO {
 		object.put("director", dvd.getDirector());
 		object.put("runtime", dvd.getRuntime());
 		object.put("language", dvd.getLanguage());
+		object.put("noOfCopies", String.valueOf(dvd.getNoOfCopies()));
 
 		for (String language : dvd.getSubLang()) {
 			languageArray.add(language);
@@ -188,6 +197,11 @@ public class WriteFile extends IO {
 			listOfCopiesArray.add(copies);
 		}
 		object.put("listOfCopies", listOfCopiesArray);
+		
+		for (String loanDur : dvd.getLoanDuration()) {
+			listOfLoanDur.add(loanDur);
+		}
+		object.put("listOfLoanDur", listOfLoanDur);
 
 		try {
 			FileWriter file = new FileWriter(IO.getDvdFilePath(), true);
@@ -204,6 +218,7 @@ public class WriteFile extends IO {
 		JSONObject object = new JSONObject();
 		JSONArray laptopQueueArray = new JSONArray();
 		JSONArray listOfCopiesArray = new JSONArray();
+		JSONArray listOfLoanDur = new JSONArray();
 		
 		object.put("uniqueID", laptop.getUniqueID());
 		object.put("manufacturer", laptop.getManufacturer());
@@ -212,6 +227,7 @@ public class WriteFile extends IO {
 		object.put("year", laptop.getYear());
 		object.put("title", laptop.getTitle());
 		object.put("thumbnailImg", laptop.getThumbnailImageRef());
+		object.put("noOfCopies", String.valueOf(laptop.getNoOfCopies()));
 		
 		Queue<User> laptopQueue = laptop.getQueueOfReservations();
 		while (!laptopQueue.isEmpty()) {
@@ -224,6 +240,11 @@ public class WriteFile extends IO {
 			listOfCopiesArray.add(copies);
 		}
 		object.put("listOfCopies", listOfCopiesArray);
+		
+		for (String loanDur : laptop.getLoanDuration()) {
+			listOfLoanDur.add(loanDur);
+		}
+		object.put("listOfLoanDur", listOfLoanDur);
 		
 		try {
 			FileWriter file = new FileWriter(IO.getLaptopFilePath(), true);

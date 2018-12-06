@@ -122,6 +122,7 @@ public class Library {
 	 * @return Resource object.
 	 */
 	public static Resource getResource(String id){
+		id = id.split("-")[0];
 		String resourceType = id.substring(0, 1);
 		switch (resourceType.toLowerCase()){
 			case "l":
