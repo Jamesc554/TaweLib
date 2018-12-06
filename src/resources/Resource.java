@@ -55,7 +55,7 @@ public abstract class Resource {
 		this.noOfCopies = noOfCopies;
 		this.currentOutInfo = new String[this.noOfCopies][5];
 		this.loanDuration = loanDuration;
-		creatCurrentOutInfo();
+		createCurrentOutInfo();
 	}
 
 	/* #############################################################
@@ -287,7 +287,7 @@ public abstract class Resource {
 	public void setCurrentOutInfo(Integer index, String[] data){
 		this.currentOutInfo[index] = data;
 	}
-	private void creatCurrentOutInfo(){
+	private void createCurrentOutInfo(){
 		for(int i = 0; i < this.currentOutInfo.length; i++){
 			String[] data = {"","","","", this.loanDuration.get(i)};
 			this.currentOutInfo[i] = data;

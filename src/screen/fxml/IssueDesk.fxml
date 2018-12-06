@@ -451,7 +451,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Button>
-                                          <Button layoutX="400.0" layoutY="149.0" mnemonicParsing="false" onAction="#laptopImageButton" text="*Choose thumbnail image" />
+                                          <Button layoutX="829.0" layoutY="149.0" mnemonicParsing="false" onAction="#laptopImageButton" text="*Choose thumbnail image" />
                                           <Text layoutX="221.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Laptop">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
@@ -459,14 +459,39 @@
                                           </Text>
                                           <Label fx:id="laptopError" layoutX="314.0" layoutY="368.0" text="Please fill all required fields" textFill="RED" visible="false" />
                                           <Label fx:id="laptopSuccess" layoutX="314.0" layoutY="368.0" text="Laptop added!" textFill="#34972b" visible="false" />
-                                          <Text fx:id="laptopImgName" layoutX="400.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ImageName (leave for debugging)" />
+                                          <Text fx:id="laptopImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ImageName (leave for debugging)" />
                                           <TextField fx:id="laptopNumCopies" layoutX="188.0" layoutY="319.0" />
                                           <Text layoutX="85.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Label fx:id="laptopCopiesError" layoutX="353.0" layoutY="325.0" text="Invalid Amount!" textFill="RED" visible="false" />
+                                          <Label fx:id="laptopCopiesError" layoutX="320.0" layoutY="368.0" text="Invalid Amount(s)!" textFill="RED" visible="false" />
+                                          <TextField fx:id="laptop1Day" layoutX="498.0" layoutY="217.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="laptop1Week" layoutX="498.0" layoutY="251.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="laptop2Weeks" layoutX="498.0" layoutY="285.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="laptop4Weeks" layoutX="498.0" layoutY="321.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <Text layoutX="430.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 day:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 week:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 weeks:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4 weeks:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="laptopDurationError" layoutX="498.0" layoutY="368.0" text="Total should equal no. of Copies" textFill="RED" visible="false" />
                                        </children>
                                     </AnchorPane>
                                  </content>
