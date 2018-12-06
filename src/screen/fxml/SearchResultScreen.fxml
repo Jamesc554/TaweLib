@@ -63,8 +63,8 @@
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="844.0" minWidth="10.0" prefWidth="782.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="320.0" minHeight="10.0" prefHeight="224.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="432.0" minHeight="10.0" prefHeight="426.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="320.0" minHeight="10.0" prefHeight="276.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="432.0" minHeight="10.0" prefHeight="374.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <ImageView fx:id="resourceThumbnailImage" fitHeight="212.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -75,17 +75,40 @@
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                            <children>
                               <Label text="Resource Info" />
-                              <Label fx:id="titleLbl" text="Title:" />
-                              <Label fx:id="uIDLbl" layoutX="388.0" layoutY="27.0" text="UniqueID: " />
-                              <Label fx:id="yearLbl" layoutX="388.0" layoutY="44.0" text="Year:" />
-                              <Label fx:id="rs1Lbl" layoutX="388.0" layoutY="61.0" text="RS1: " />
-                              <Label fx:id="rs2Lbl" layoutX="388.0" layoutY="78.0" text="RS2: " />
-                              <Label fx:id="rs3Lbl" layoutX="388.0" layoutY="95.0" text="RS3: " />
-                              <Label fx:id="rs4Lbl" layoutX="388.0" layoutY="112.0" text="RS4: " />
-                              <Label fx:id="rs5Lbl" layoutX="388.0" layoutY="129.0" text="RS5: " />
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="9.0">
+                                       <children>
+                                          <Label fx:id="titleLbl" text="Title:" />
+                                          <Label fx:id="uIDLbl" text="UniqueID: " />
+                                          <Label fx:id="yearLbl" text="Year:" />
+                                          <Label fx:id="rs1Lbl" text="RS1: " />
+                                          <Label fx:id="rs2Lbl" text="RS2: " />
+                                          <Label fx:id="rs3Lbl" text="RS3: " />
+                                          <Label fx:id="rs4Lbl" text="RS4: " />
+                                          <Label fx:id="rs5Lbl" text="RS5: " />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <TextField fx:id="titleTf" editable="false" />
+                                          <TextField fx:id="uIDTf" editable="false" />
+                                          <TextField fx:id="yearTf" editable="false" />
+                                          <TextField fx:id="rs1Tf" editable="false" />
+                                          <TextField fx:id="rs2Tf" editable="false" />
+                                          <TextField fx:id="rs3Tf" editable="false" />
+                                          <TextField fx:id="rs4Tf" editable="false" />
+                                          <TextField fx:id="rs5Tf" editable="false" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
                            </children>
                         </VBox>
-                        <ListView fx:id="copiesList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                        <ListView fx:id="copiesList" prefHeight="426.0" prefWidth="302.0" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>
