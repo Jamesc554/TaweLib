@@ -35,6 +35,8 @@ public class WriteFile extends IO {
 		JSONArray resourceArray = new JSONArray();
 		JSONArray transactionArray = new JSONArray();
 		JSONArray borrowHistoryArray = new JSONArray();
+		JSONArray jsonRequestedArray = new JSONArray();
+		JSONArray jsonReservedArray = new JSONArray();
 		object.put("username", user.getUserName());
 		object.put("firstName", user.getFirstName());
 		object.put("lastName", user.getLastName());
@@ -46,29 +48,41 @@ public class WriteFile extends IO {
 		object.put("imageAddress", user.getProfImage());
 		object.put("accountBalance", String.valueOf(user.getAccountBalanceDouble()));
 
-		for (Object resource : user.getCurrentlyBorrowedResources()) {
-			resourceArray.add(((Resource) resource).getUniqueID());
+		for (String resource : user.getCurrentlyBorrowedResources()) {
+			resourceArray.add(resource);
 		}
 		object.put("resourceBorrow", resourceArray);
 
 		ArrayList<String[]> transactions = user.getTransactions();
 		for (String[] transaction : transactions) {
-			transactionArray.add(transaction[0]);
-			transactionArray.add(transaction[1]);
+			JSONArray singleTransaction = new JSONArray();
+			singleTransaction.add(transaction[0]);
+			singleTransaction.add(transaction[1]);
+			transactionArray.add(singleTransaction);
 		}
 		object.put("transactionHistory", transactionArray);
-		
-		//TODO: Borrow History
+
 		ArrayList<String[]> borrowHistoryStrings = user.getBorrowHistory();
 		for (String[] borrowHistory : borrowHistoryStrings) {
-			borrowHistoryArray.add(borrowHistory[0]);
-			borrowHistoryArray.add(borrowHistory[1]);
+			JSONArray borrowArray = new JSONArray();
+			borrowArray.add(borrowHistory[0]);
+			borrowArray.add(borrowHistory[1]);
+			borrowHistoryArray.add(borrowArray);
 		}
 		object.put("borrowHistory", borrowHistoryArray);
-		
-		//TODO: Currently Requested
-		
-		//TODO: Currently Reserved
+
+		ArrayList<String> requestedArray = user.getAllRequested();
+		for (String requested : requestedArray) {
+			System.out.println(requested);
+			jsonRequestedArray.add(requested);
+		}
+		object.put("requested", jsonRequestedArray);
+
+		ArrayList<String> reservedArray = user.getAllReserved();
+		for (String reserved : reservedArray) {
+			jsonReservedArray.add(reserved);
+		}
+		object.put("reserved", jsonReservedArray);
 
 		try {
 			FileWriter file = new FileWriter(IO.getUsersFilePath(), true);
@@ -115,7 +129,7 @@ public class WriteFile extends IO {
 		JSONObject object = new JSONObject();
 		JSONArray languageArray = new JSONArray();
 		JSONArray bookQueueArray = new JSONArray();
-		JSONArray listOfCopiesArray = new JSONArray();
+		JSONArray listOfLoanDur = new JSONArray();
 		object.put("year", book.getYear());
 		object.put("title", book.getTitle());
 		object.put("thumbnailImg", book.getThumbnailImageRef());
@@ -124,6 +138,7 @@ public class WriteFile extends IO {
 		object.put("genre", book.getGenre());
 		object.put("isbn", book.getIsbn());
 		object.put("publisher", book.getPublisher());
+		object.put("noOfCopies", String.valueOf(book.getNoOfCopies()));
 
 		for (String language : book.getLanguages()) {
 			languageArray.add(language);
@@ -136,11 +151,11 @@ public class WriteFile extends IO {
 			bookQueue.dequeue();
 		}
 		object.put("bookQueue", bookQueueArray);
-
-		for (String copies : book.getArrayListOfCopies()) {
-			listOfCopiesArray.add(copies);
+		
+		for (int i = 0; i < book.getNoOfCopies(); i++) {
+			listOfLoanDur.add(book.getLoanDuration(String.valueOf(i)));
 		}
-		object.put("listOfCopies", listOfCopiesArray);
+		object.put("listOfLoanDur", listOfLoanDur);
 
 		try {
 			FileWriter file = new FileWriter(IO.getBookFilePath(), true);
@@ -159,7 +174,7 @@ public class WriteFile extends IO {
 		JSONObject object = new JSONObject();
 		JSONArray languageArray = new JSONArray();
 		JSONArray dvdQueueArray = new JSONArray();
-		JSONArray listOfCopiesArray = new JSONArray();
+		JSONArray listOfLoanDur = new JSONArray();
 
 		object.put("year", dvd.getYear());
 		object.put("title", dvd.getTitle());
@@ -168,6 +183,7 @@ public class WriteFile extends IO {
 		object.put("director", dvd.getDirector());
 		object.put("runtime", dvd.getRuntime());
 		object.put("language", dvd.getLanguage());
+		object.put("noOfCopies", String.valueOf(dvd.getNoOfCopies()));
 
 		for (String language : dvd.getSubLang()) {
 			languageArray.add(language);
@@ -179,12 +195,12 @@ public class WriteFile extends IO {
 			dvdQueueArray.add(dvdQueue.peek().getUserName());
 			dvdQueue.dequeue();
 		}
-		object.put("dvdQueue", dvdQueueArray);
+		object.put("dvdQueue", dvdQueueArray);	
 		
-		for (String copies : dvd.getArrayListOfCopies()) {
-			listOfCopiesArray.add(copies);
+		for (int i = 0; i < dvd.getNoOfCopies(); i++) {
+			listOfLoanDur.add(dvd.getLoanDuration(String.valueOf(i)));
 		}
-		object.put("listOfCopies", listOfCopiesArray);
+		object.put("listOfLoanDur", listOfLoanDur);
 
 		try {
 			FileWriter file = new FileWriter(IO.getDvdFilePath(), true);
@@ -200,7 +216,7 @@ public class WriteFile extends IO {
 	public static void writeLaptop(Laptop laptop) {
 		JSONObject object = new JSONObject();
 		JSONArray laptopQueueArray = new JSONArray();
-		JSONArray listOfCopiesArray = new JSONArray();
+		JSONArray listOfLoanDur = new JSONArray();
 		
 		object.put("uniqueID", laptop.getUniqueID());
 		object.put("manufacturer", laptop.getManufacturer());
@@ -209,6 +225,7 @@ public class WriteFile extends IO {
 		object.put("year", laptop.getYear());
 		object.put("title", laptop.getTitle());
 		object.put("thumbnailImg", laptop.getThumbnailImageRef());
+		object.put("noOfCopies", String.valueOf(laptop.getNoOfCopies()));
 		
 		Queue<User> laptopQueue = laptop.getQueueOfReservations();
 		while (!laptopQueue.isEmpty()) {
@@ -217,10 +234,10 @@ public class WriteFile extends IO {
 		}
 		object.put("dvdQueue", laptopQueueArray);
 		
-		for (String copies : laptop.getArrayListOfCopies()) {
-			listOfCopiesArray.add(copies);
+		for (int i = 0; i < laptop.getNoOfCopies(); i++) {
+			listOfLoanDur.add(laptop.getLoanDuration(String.valueOf(i)));
 		}
-		object.put("listOfCopies", listOfCopiesArray);
+		object.put("listOfLoanDur", listOfLoanDur);
 		
 		try {
 			FileWriter file = new FileWriter(IO.getLaptopFilePath(), true);

@@ -1,5 +1,8 @@
 package resources;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <h1>Laptop</h1>
  * <p>The laptop class creates laptop objects to be used by other classes
@@ -26,9 +29,9 @@ public class Laptop extends Resource {
 	 * The laptop's operating system
 	 */
 	public Laptop(String manufacturer, String model,  String operatingSys,String year,
-			String title, String thumbnailImg, String uniqueID) {
+			String title, String thumbnailImg, String uniqueID, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> copyBorrowHistory) {
 		
-		super(year, title, thumbnailImg, generateLaptopID(uniqueID));
+		super(year, title, thumbnailImg, generateLaptopID(uniqueID), noOfCopies,loanDuration, copyBorrowHistory);
 		
 		this.manufacturer = manufacturer;
 		this.model = model;
@@ -60,7 +63,7 @@ public class Laptop extends Resource {
 	}
 	/**
 	 * Sets a value to calculate laptop IDs from.
-	 * @param hlaptopID the highest current value of any laptop's ID.
+	 * @param hLaptopID the highest current value of any laptop's ID.
 	 */
 	public void setHighestLaptopID(String hLaptopID) {
 		this.highestLaptopID = hLaptopID;
@@ -139,18 +142,13 @@ public class Laptop extends Resource {
 	/**
 	 * Adds a copy to this Laptop unique Array of copies.
 	 */
-	public void addToCopies() {
-		super.addToCopies(generateCopyID());
+	public void addToCopies(String loanDuration) {
+		super.addCopy(loanDuration);
 	}
 	
 	/**
 	 * Generates a copy ID based off of previous copyID.
 	 * @return hCpyID the highest ID of copies of Laptop
 	 */
-	private String generateCopyID() {
-		//
-		this.highestCopyID++;
-		String hCpyID = Integer.toString(this.highestCopyID);
-		return hCpyID;
-	}
+
 }

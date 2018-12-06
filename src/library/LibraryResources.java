@@ -14,6 +14,7 @@ public class LibraryResources {
 	private static ArrayList<Laptop> listOfLaptops = new ArrayList<>(); //List of laptops
     private static ArrayList<DVD> listOfDVD = new ArrayList<>(); //List of dvd's
     private static ArrayList<User> listOfUsers = new ArrayList<>(); //List of users
+	private static ArrayList<Librarian> listOfLibrarians = new ArrayList<>();
 
 	/**
 	 * On start create all users, dvd, books, laptops.
@@ -24,6 +25,7 @@ public class LibraryResources {
 		listOfDVD = ReadFile.readDvds();
 		//listOfBooks = ReadFile.readBooks();
 		//listOfLaptops = ReadFile.readLaptops();
+		listOfLibrarians = ReadFile.readLibrarians();
 	}
 
 	/**
@@ -69,6 +71,12 @@ public class LibraryResources {
 				return u;
 			}
 		}
+
+		for(Librarian r : listOfLibrarians){
+			if(r.getUserName().equals(username)){
+				return r;
+			}
+		}
 		return null;
 	}
 
@@ -86,6 +94,15 @@ public class LibraryResources {
 				return true;
 		}
 
+		if (listOfLibrarians.isEmpty()) {
+			return false;
+		}
+
+		for (Librarian r : listOfLibrarians) {
+			if (r.getUserName().equals(username)) {
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -137,6 +154,14 @@ public class LibraryResources {
 	 */
 	protected static ArrayList<User> getAllUsers(){
 		return listOfUsers;
+	}
+
+	/**
+	 * Return all librarians.
+	 * @return ArrayList<Librarian> of librarians.
+	 */
+	protected static ArrayList<Librarian> getAllLibrarians() {
+		return listOfLibrarians;
 	}
 
 	/**

@@ -1,11 +1,16 @@
 package library;
-import user.*;
-import resources.*;
-import io.*;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import resources.Book;
+import resources.BorrowHistoryData;
+import resources.DVD;
+import resources.Laptop;
+import resources.Resource;
+import user.Librarian;
+import user.User;
 
 /**
  * This class implements all methods required for library operations.
@@ -20,8 +25,7 @@ public class Library {
 	 * This methods starts the library. Library is a static method so we can only
 	 * have one at a time.
 	 */
-	public static void start(){
-		LibraryResources.start();
+	public static void start(){ LibraryResources.start();
 	}
 
 	/**
@@ -37,8 +41,8 @@ public class Library {
 	 * @param lang Language of the book.
 	 */
 	public static void addBook(String year,String title, String thumbnailImg, String uniqueID,
-						   String author, String genre, String isbn, String publisher, ArrayList<String> lang){
-		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, lang));
+						   String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory){
+		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, lang, noOfCopies, loanDuration, borrowHistory));
 	}
 
 	/**
@@ -53,8 +57,8 @@ public class Library {
 	 * @param subLang The subtitles language of the DVD.
 	 */
 	public static void addDVD(String year, String title, String thumbnailImg, String uniqueID,
-						 String director, String runtime, String language, ArrayList<String> subLang){
-	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID));
+						 String director, String runtime, String language, ArrayList<String> subLang, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory){
+	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID, noOfCopies, loanDuration, borrowHistory));
 	}
 
 	/**
@@ -68,8 +72,8 @@ public class Library {
 	 * @param operatingSys The operating system of the laptop.
 	 */
 	public static void addLaptop(String year, String title, String thumbnailImageRef, String uniqueID,
-							  String manufacturer, String model,  String operatingSys){
-	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys));
+							  String manufacturer, String model,  String operatingSys, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory){
+	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys, noOfCopies, loanDuration, borrowHistory));
 	}
 
 	/**
@@ -122,6 +126,7 @@ public class Library {
 	 * @return Resource object.
 	 */
 	public static Resource getResource(String id){
+		id = id.split("-")[0];
 		String resourceType = id.substring(0, 1);
 		switch (resourceType.toLowerCase()){
 			case "l":
@@ -182,7 +187,9 @@ public class Library {
 	 */
 	public static void loanResource(String username, String resourceID){
 		getUser(username).loanResource(resourceID);
-	 	//TODO ADD THE USER TO THE CURRENTLY OUT HASH MAP IN RESOURCE
+		String[] resInfo = resourceID.split("-");
+		Resource r = Library.getResource(resInfo[0]);
+		r.loanResource(resInfo[1], username);
 	}
 
 	/**

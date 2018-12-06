@@ -1,5 +1,16 @@
 package screen;
 
+import java.util.List;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -9,19 +20,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import library.Library;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.ResourceBundle;
+import resources.BorrowHistoryData;
 
 /**
  * This class represents the Issue Desk, a screen only available to Librarians to authorise payments and loans, as well
@@ -88,6 +92,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Label userSuccess;
     @FXML
+    private ImageView userAvatar;
+    @FXML
+    private Text userAvatarName;
+    @FXML
     private TextField bookTitle;
     @FXML
     private TextField bookAuthor;
@@ -102,11 +110,27 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField bookLanguage;
     @FXML
+    private TextField bookNumCopies;
+    @FXML
     private Label bookSuccess;
     @FXML
     private Label bookError;
     @FXML
+    private Label bookCopiesError;
+    @FXML
     private Text bookImgName;
+    @FXML
+    private ImageView bookImg;
+    @FXML
+    private TextField book1Day;
+    @FXML
+    private TextField book1Week;
+    @FXML
+    private TextField book2Weeks;
+    @FXML
+    private TextField book4Weeks;
+    @FXML
+    private Label bookDurationError;
     @FXML
     private TextField dvdTitle;
     @FXML
@@ -120,11 +144,27 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField dvdSubs;
     @FXML
+    private TextField dvdNumCopies;
+    @FXML
+    private TextField dvd1Day;
+    @FXML
+    private TextField dvd1Week;
+    @FXML
+    private TextField dvd2Weeks;
+    @FXML
+    private TextField dvd4Weeks;
+    @FXML
+    private Label dvdCopiesError;
+    @FXML
     private Label dvdError;
     @FXML
     private Label dvdSuccess;
     @FXML
+    private Label dvdDurationError;
+    @FXML
     private Text dvdImgName;
+    @FXML
+    private ImageView dvdImg;
     @FXML
     private TextField laptopTitle;
     @FXML
@@ -136,11 +176,28 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField laptopOS;
     @FXML
+    private TextField laptopNumCopies;
+    @FXML
+    private TextField laptop1Day;
+    @FXML
+    private TextField laptop1Week;
+    @FXML
+    private TextField laptop2Weeks;
+    @FXML
+    private TextField laptop4Weeks;
+    @FXML
     private Label laptopError;
     @FXML
     private Label laptopSuccess;
     @FXML
+    private Label laptopCopiesError;
+    @FXML
+    private Label laptopDurationError;
+    @FXML
     private Text laptopImgName;
+    @FXML
+    private ImageView laptopImg;
+
 
     @Override
     public void start() {
@@ -243,7 +300,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 //Check if user has no outstanding balance
                 if (Library.getUser(user).getAccountBalanceDouble() == 0) {
                     //Check if Resource ID is valid
-                    if (Library.getResource(id) != null) {
+                    if (Library.getResource(id.split("-")[0]) != null) {
                         //TODO: Check if user has overdue copies
                         Library.loanResource(user, id);
                         loanSuccess.setVisible(true);
@@ -327,11 +384,17 @@ public class IssueDeskScreen extends Screen implements Initializable {
         String address2 = userAddr2.getText();
         String postCode = userPstCd.getText();
         String town = userTown.getText();
+        String avatar = userAvatarName.getText();
 
         //Reset all error/success labels
         userUsernameError.setVisible(false);
         userError.setVisible(false);
         userSuccess.setVisible(false);
+
+        //Set avatar to default if not selected
+        if (avatar.equals("")) {
+            avatar = "default_image_1.png";
+        }
 
         //Check if username not already used
         if (!Library.checkForUser(username)) {
@@ -341,11 +404,28 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 userError.setVisible(true);
             } else {
                 Library.addUser(username, firstName, lastName, mobileNum, address1, address2, postCode, town,
-                        0, "./data/images/testUser/testImg32.png");
+                        0, "./data/images/default/" + avatar);
                 userSuccess.setVisible(true);
             }
         } else {
             userUsernameError.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void userAvatarButton(Event e) {
+        try {
+            File selectedFile = getImageFile("default");
+            userAvatarName.setText(selectedFile.getName());
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(selectedFile);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            userAvatar.setImage(SwingFXUtils.toFXImage(img, null));
+        } catch (NullPointerException ex) {
+            System.out.println("No book image file selected");
         }
     }
 
@@ -368,6 +448,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
         //Reset error/success labels
         bookSuccess.setVisible(false);
         bookError.setVisible(false);
+        bookCopiesError.setVisible(false);
+        bookDurationError.setVisible(false);
 
         //Check if required fields have input
         if (title.equals("") || author.equals("") || year.equals("") || publisher.equals("") || imageName.equals("")) {
@@ -388,11 +470,67 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 languages = new ArrayList<>(Arrays.asList(languageArray));
                 System.out.println(languages);
             }
-            //Add the book to the Library
-            String image = "./data/images/book/" + imageName;
-            Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages);
-            bookSuccess.setVisible(true);
-            bookImgName.setText("");
+            int numCopies;
+            int num1Day;
+            int num1Week;
+            int num2Weeks;
+            int num4Weeks;
+            try {
+                //Add the book to the Library
+                String image = "./data/images/book/" + imageName;
+                if (bookNumCopies.getText().equals("")) {
+                    numCopies = 0;
+                } else {
+                    numCopies = Integer.parseInt(bookNumCopies.getText());
+                }
+                if (book1Day.getText().equals("")) {
+                    num1Day = 0;
+                } else {
+                    num1Day = Integer.parseInt(book1Day.getText());
+                }
+                if (book1Week.getText().equals("")) {
+                    num1Week = 0;
+                } else {
+                    num1Week = Integer.parseInt(book1Week.getText());
+                }
+                if (book2Weeks.getText().equals("")) {
+                    num2Weeks = 0;
+                } else {
+                    num2Weeks = Integer.parseInt(book2Weeks.getText());
+                }
+                if (book4Weeks.getText().equals("")) {
+                    num4Weeks = 0;
+                } else {
+                    num4Weeks = Integer.parseInt(book4Weeks.getText());
+                }
+                if (numCopies >= 0 && num1Day >= 0 && num1Week >= 0 && num2Weeks >= 0 && num4Weeks >= 0) {
+                    if (num1Day + num1Week + num2Weeks + num4Weeks == numCopies) {
+                        ArrayList<String> loanDuration = new ArrayList<>();
+                        for (int i = 0; i < num1Day; i++) {
+                            loanDuration.add("1");
+                        }
+                        for (int i = 0; i < num1Week; i++){
+                            loanDuration.add("7");
+                        }
+                        for (int i = 0; i < num2Weeks; i++) {
+                            loanDuration.add("14");
+                        }
+                        for (int i = 0; i < num4Weeks; i++) {
+                            loanDuration.add("28");
+                        }
+                        Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages,
+                                numCopies, loanDuration, new ArrayList<>());
+                        bookSuccess.setVisible(true);
+                        bookImgName.setText("");
+                    } else {
+                        bookDurationError.setVisible(true);
+                    }
+                } else {
+                    bookCopiesError.setVisible(true);
+                }
+            } catch (NumberFormatException ex) {
+                bookCopiesError.setVisible(true);
+            }
         }
     }
 
@@ -414,6 +552,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
         //Reset error/success labels
         dvdError.setVisible(false);
         dvdSuccess.setVisible(false);
+        dvdCopiesError.setVisible(false);
+        dvdDurationError.setVisible(false);
 
         //Check if required fields have input
         if (title.equals("") || director.equals("") || year.equals("") || runtime.equals("") || imageName.equals("")) {
@@ -430,11 +570,67 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 String[] subsArray = subsString.split(", ");
                 subs = new ArrayList<>(Arrays.asList(subsArray));
             }
-            //Add the DVD to the Library
-            String image = "./data/images/dvd/" + imageName;
-            Library.addDVD(year, title, image, null, director, runtime, language, subs);
-            dvdSuccess.setVisible(true);
-            dvdImgName.setText("");
+            int numCopies;
+            int num1Day;
+            int num1Week;
+            int num2Weeks;
+            int num4Weeks;
+            try {
+                //Add the DVD to the Library
+                String image = "./data/images/dvd/" + imageName;
+                if (dvdNumCopies.getText().equals("")) {
+                    numCopies = 0;
+                } else {
+                    numCopies = Integer.parseInt(dvdNumCopies.getText());
+                }
+                if (dvd1Day.getText().equals("")) {
+                    num1Day = 0;
+                } else {
+                    num1Day = Integer.parseInt(dvd1Day.getText());
+                }
+                if (dvd1Week.getText().equals("")) {
+                    num1Week = 0;
+                } else {
+                    num1Week = Integer.parseInt(dvd1Week.getText());
+                }
+                if (dvd2Weeks.getText().equals("")) {
+                    num2Weeks = 0;
+                } else {
+                    num2Weeks = Integer.parseInt(dvd2Weeks.getText());
+                }
+                if (dvd4Weeks.getText().equals("")) {
+                    num4Weeks = 0;
+                } else {
+                    num4Weeks = Integer.parseInt(dvd4Weeks.getText());
+                }
+                if (numCopies >= 0 && num1Day >= 0 && num1Week >= 0 && num2Weeks >= 0 && num4Weeks >= 0) {
+                    if (num1Day + num1Week + num2Weeks + num4Weeks == numCopies) {
+                        ArrayList<String> loanDuration = new ArrayList<>();
+                        for (int i = 0; i < num1Day; i++) {
+                            loanDuration.add("1");
+                        }
+                        for (int i = 0; i < num1Week; i++){
+                            loanDuration.add("7");
+                        }
+                        for (int i = 0; i < num2Weeks; i++) {
+                            loanDuration.add("14");
+                        }
+                        for (int i = 0; i < num4Weeks; i++) {
+                            loanDuration.add("28");
+                        }
+                        Library.addDVD(year, title, image, null, director, runtime, language, subs, numCopies,
+                                loanDuration, new ArrayList<>());
+                        dvdSuccess.setVisible(true);
+                        dvdImgName.setText("");
+                    } else {
+                        dvdDurationError.setVisible(true);
+                    }
+                } else {
+                    dvdCopiesError.setVisible(true);
+                }
+            } catch (NumberFormatException ex) {
+                dvdCopiesError.setVisible(true);
+            }
         }
     }
 
@@ -454,17 +650,75 @@ public class IssueDeskScreen extends Screen implements Initializable {
         //Reset error/success labels
         laptopError.setVisible(false);
         laptopSuccess.setVisible(false);
+        laptopCopiesError.setVisible(false);
+        laptopDurationError.setVisible(false);
 
         //Check if require fields have input
         if (title.equals("") || year.equals("") || manufacturer.equals("") || model.equals("") || os.equals("")
                 || imageName.equals("")) {
             laptopError.setVisible(true);
         } else {
-            //Add the Laptop to the Library
-            String image = "./data/images/laptop/" + imageName;
-            Library.addLaptop(year, title, image, null, manufacturer, model, os);
-            laptopSuccess.setVisible(true);
-            laptopImgName.setText("");
+            int numCopies;
+            int num1Day;
+            int num1Week;
+            int num2Weeks;
+            int num4Weeks;
+            try {
+                //Add the Laptop to the Library
+                String image = "./data/images/laptop/" + imageName;
+                if (laptopNumCopies.getText().equals("")) {
+                    numCopies = 0;
+                } else {
+                    numCopies = Integer.parseInt(laptopNumCopies.getText());
+                }
+                if (laptop1Day.getText().equals("")) {
+                    num1Day = 0;
+                } else {
+                    num1Day = Integer.parseInt(laptop1Day.getText());
+                }
+                if (laptop1Week.getText().equals("")) {
+                    num1Week = 0;
+                } else {
+                    num1Week = Integer.parseInt(laptop1Week.getText());
+                }
+                if (laptop2Weeks.getText().equals("")) {
+                    num2Weeks = 0;
+                } else {
+                    num2Weeks = Integer.parseInt(laptop2Weeks.getText());
+                }
+                if (laptop4Weeks.getText().equals("")) {
+                    num4Weeks = 0;
+                } else {
+                    num4Weeks = Integer.parseInt(laptop4Weeks.getText());
+                }
+                if (numCopies >= 0 && num1Day >= 0 && num1Week >= 0 && num2Weeks >= 0 && num4Weeks >= 0) {
+                    if (num1Day + num1Week + num2Weeks + num4Weeks == numCopies) {
+                        ArrayList<String> loanDuration = new ArrayList<>();
+                        for (int i = 0; i < num1Day; i++) {
+                            loanDuration.add("1");
+                        }
+                        for (int i = 0; i < num1Week; i++){
+                            loanDuration.add("7");
+                        }
+                        for (int i = 0; i < num2Weeks; i++) {
+                            loanDuration.add("14");
+                        }
+                        for (int i = 0; i < num4Weeks; i++) {
+                            loanDuration.add("28");
+                        }
+                        Library.addLaptop(year, title, image, null, manufacturer, model, os, numCopies,
+                                loanDuration, new ArrayList<>());
+                        laptopSuccess.setVisible(true);
+                        laptopImgName.setText("");
+                    } else {
+                        laptopDurationError.setVisible(true);
+                    }
+                } else {
+                    laptopCopiesError.setVisible(true);
+                }
+            } catch (NumberFormatException ex) {
+                laptopCopiesError.setVisible(true);
+            }
         }
     }
 
@@ -477,6 +731,13 @@ public class IssueDeskScreen extends Screen implements Initializable {
         try {
             File selectedFile = getImageFile("book");
             bookImgName.setText(selectedFile.getName());
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(selectedFile);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            bookImg.setImage(SwingFXUtils.toFXImage(img, null));
         } catch (NullPointerException ex) {
             System.out.println("No book image file selected");
         }
@@ -491,6 +752,13 @@ public class IssueDeskScreen extends Screen implements Initializable {
          try {
              File selectedFile = getImageFile("dvd");
              dvdImgName.setText(selectedFile.getName());
+             BufferedImage img = null;
+             try {
+                 img = ImageIO.read(selectedFile);
+             } catch (IOException ex) {
+                 ex.printStackTrace();
+             }
+             dvdImg.setImage(SwingFXUtils.toFXImage(img, null));
          } catch (NullPointerException ex) {
              System.out.println("No dvd image file selected");
          }
@@ -505,6 +773,13 @@ public class IssueDeskScreen extends Screen implements Initializable {
         try {
             File selectedFile = getImageFile("laptop");
             laptopImgName.setText(selectedFile.getName());
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(selectedFile);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            laptopImg.setImage(SwingFXUtils.toFXImage(img, null));
         } catch (NullPointerException ex) {
             System.out.println("No laptop image file selected");
         }

@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -38,7 +39,7 @@ public class HomeScreen extends Screen implements Initializable{
 	private Text fineText;
 	
 	@FXML
-	private ListView<Resource> borrowItemsList;
+	private ListView borrowedItemsList;
 
 	@Override
 	public void start() {
@@ -62,14 +63,24 @@ public class HomeScreen extends Screen implements Initializable{
 			
 		}
 
-		//TODO: Change to only librarians once librarian is added
-		if (!Library.currentUserIsLibrarian()) {
+		if (Library.currentUserIsLibrarian()) {
 			issueDeskBtn.setVisible(true);
 		}
 		
 		userIcon.setImage(SwingFXUtils.toFXImage(img, null));
 		usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
-		fineText.setText(Library.getCurrentLoggedInUser().getAccountBalanceString());
+		fineText.setText("£" + String.format("%.2f", Library.getCurrentLoggedInUser().getAccountBalanceDouble()));
+		setCurrentlyBorrowed();
 	}
 
+	/**
+	 * This method will updated the ListView of currently borrowed resources.
+	 */
+	private void setCurrentlyBorrowed() {
+		ArrayList<String> borrowedResources = Library.getCurrentLoggedInUser().getCurrentlyBorrowedResources();
+		for(String resource : borrowedResources) {
+			Resource r = Library.getResource(resource);
+			borrowedItemsList.getItems().add("Resource ID: " + r.getUniqueID() + " - " + r.getTitle());
+		}
+	}
 }

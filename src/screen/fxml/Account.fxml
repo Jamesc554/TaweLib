@@ -20,7 +20,7 @@
       <items>
         <SplitPane dividerPositions="0.3001567398119122" focusTraversable="true" prefHeight="160.0" prefWidth="200.0">
           <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #f4f5ff;">
               <children>
                 <Label layoutX="140.0" layoutY="35.0" text="User Details">
                   <font>
@@ -49,7 +49,7 @@
                      <children>
                         <SplitPane dividerPositions="0.5016872890888638" prefHeight="656.0" prefWidth="891.0">
                           <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #f4f5ff;">
                                  <children>
                                     <Label layoutX="179.0" layoutY="36.0" text="Resources">
                                        <font>
@@ -66,7 +66,7 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="11.0" layoutY="471.0" text="Borrowed">
+                                    <Label layoutX="11.0" layoutY="471.0" text="Borrowing">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -76,14 +76,20 @@
                                     <ListView fx:id="borrowedField" layoutX="14.0" layoutY="509.0" prefHeight="131.0" prefWidth="417.0" />
                                  </children>
                               </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #f4f5ff;">
                                  <children>
                                     <Label layoutX="147.0" layoutY="34.0" text="Transaction History">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <ListView fx:id="transactionHistoryField" layoutY="92.0" prefHeight="561.0" prefWidth="440.0" />
+                                    <ListView fx:id="transactionHistoryField" layoutX="-3.0" layoutY="92.0" prefHeight="201.0" prefWidth="443.0" />
+                                    <Label layoutX="156.0" layoutY="321.0" text="Borrow History">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <ListView fx:id="borrowHistoryField" layoutX="-1.0" layoutY="398.0" prefHeight="231.0" prefWidth="443.0" />
                                  </children>
                               </AnchorPane>
                           </items>
@@ -93,27 +99,32 @@
         </SplitPane>
       </items>
     </SplitPane>
-    <ToolBar prefHeight="33.0" prefWidth="1280.0">
+    <ToolBar prefHeight="35.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;">
       <items>
         <TextField fx:id="searchBar" prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." />
-        <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchButton" text="Search" />
-        <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="500.0">
+        <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchButton" style="-fx-background-color: #ef9d39;" text="Search" textFill="#0e0056" />
+            <Text fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Tawe Library" wrappingWidth="89.7158203125">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Text>
+        <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutButton" prefWidth="60.0" style="-fx-background-color: #0e0056;" text="Logout" textFill="#fff1f1" translateX="600.0" underline="true" />
+        <Text fx:id="usernameText" fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" translateX="480.0" />
+        <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" translateX="390.0">
           <image>
             <Image url="@../../../data/images/james/testImg442.png" />
           </image>
         </ImageView>
-        <Text fx:id="usernameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" translateX="500.0" />
-        <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutButton" text="Logout" translateX="600.0" />
       </items>
     </ToolBar>
-    <ToolBar layoutY="33.0" prefHeight="35.0" prefWidth="1280.0">
+    <ToolBar layoutY="33.0" prefHeight="35.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;">
       <items>
-        <HBox prefHeight="25.0" prefWidth="1268.0" spacing="20.0">
+        <HBox prefHeight="25.0" prefWidth="1268.0" spacing="20.0" style="-fx-background-color: #0e0056;">
           <children>
-            <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#homeButton" prefHeight="25.0" prefWidth="110.0" text="Home" />
-            <Button fx:id="accountBtn" mnemonicParsing="false" onAction="#accountDeskButton" prefHeight="25.0" prefWidth="110.0" text="Account" />
-            <Button fx:id="drawAppBtn" mnemonicParsing="false" onAction="#drawAppButton" prefHeight="25.0" prefWidth="110.0" text="Draw App" />
-            <Button fx:id="issueDeskBtn" mnemonicParsing="false" onAction="#issueDeskButton" prefHeight="25.0" prefWidth="110.0" text="Issue Desk" visible="false" />
+            <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#homeButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Home" textFill="#fff1f1" underline="true" />
+            <Button fx:id="accountBtn" mnemonicParsing="false" onAction="#accountDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Account" textFill="#fff1f1" underline="true" />
+            <Button fx:id="drawAppBtn" mnemonicParsing="false" onAction="#drawAppButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Draw App" textFill="#fff1f1" underline="true" />
+            <Button fx:id="issueDeskBtn" mnemonicParsing="false" onAction="#issueDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Issue Desk" textFill="#fff1f1" underline="true" visible="false" />
           </children>
           <padding>
             <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />

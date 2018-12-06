@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -14,25 +15,22 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import library.Library;
-import library.LibraryResources;
 import resources.Book;
+import resources.CopyData;
 import resources.DVD;
-import resources.Laptop;
 import resources.Resource;
 
 /**
@@ -42,20 +40,65 @@ import resources.Resource;
  * @author Etienne Badoche, James Carter
  * @version 1.0
  */
-public class SearchResultScreen extends Screen implements Initializable{
+public class SearchResultScreen extends Screen implements Initializable {
 
-	// TOP TOOL BAR - COMMON BETWEEN SCREENS - COPY FROM HERE - MAKE SURE THE IDs IN
-	// SCENEBUILDER ARE OF THE SAME NAME AS THE VARIBLES HERE!!!!!
 	@FXML
-	private HBox bookHBox;
+	private ComboBox<String> resourceTypeCB;
+
+	@FXML
+	private VBox resourcesVBox;
+
+	@FXML
+	private ImageView resourceThumbnailImage;
+
+	@FXML
+	private Label titleLbl;
+
+	@FXML
+	private Label uIDLbl;
+
+	@FXML
+	private Label yearLbl;
+
+	@FXML
+	private Label rs1Lbl;
+
+	@FXML
+	private Label rs2Lbl;
+
+	@FXML
+	private Label rs3Lbl;
+
+	@FXML
+	private Label rs4Lbl;
+
+	@FXML
+	private Label rs5Lbl;
 	
 	@FXML
-	private HBox dvdHBox;
+	private TextField titleTf;
+	@FXML
+	private TextField uIDTf;
+	@FXML
+	private TextField yearTf;
+	@FXML
+	private TextField rs1Tf;
+	@FXML
+	private TextField rs2Tf;
+	@FXML
+	private TextField rs3Tf;
+	@FXML
+	private TextField rs4Tf;
+	@FXML
+	private TextField rs5Tf;
 	
 	@FXML
-	private HBox laptopHBox;
+	private Button borrowButton;
 	
-	
+	//private TextField[] textFields = {titleTf, uIDTf, yearTf, rs1Tf, rs2Tf, rs3Tf, rs4Tf, rs5Tf};
+
+	@FXML
+	private ListView<String> copiesList;
 
 	@Override
 	public void start() {
@@ -69,7 +112,7 @@ public class SearchResultScreen extends Screen implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	@FXML
 	protected void searchButton(Event event) {
@@ -85,10 +128,13 @@ public class SearchResultScreen extends Screen implements Initializable{
 
 		}
 
+		resourceTypeCB.getItems().setAll("Book", "DVD", "Laptop");
+		resourceTypeCB.setValue("Book");
+
 		userIcon.setImage(SwingFXUtils.toFXImage(img, null));
 		usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
 		updateSearchResults();
-		
+
 		searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
 			updateSearchResults();
 		});
@@ -109,85 +155,158 @@ public class SearchResultScreen extends Screen implements Initializable{
 
 	}
 	
+	public void borrowResource() {
+		Library.requestResource(uIDTf.getText());
+	}
+
 	@FXML
 	private void updateSearchResults() {
 		// Empty the current search results
-		bookHBox.getChildren().clear();
-		dvdHBox.getChildren().clear();
-		laptopHBox.getChildren().clear();
-		
+		resourcesVBox.getChildren().clear();
+
 		// Check the search bar
 		String searchString = searchBar.getText();
-		List<Book> books = Library.getAllBooks();
-		List<DVD> dvds = Library.getAllDVD();
-		List<Laptop> laptops = Library.getAllLaptops();
-		
-		for (Book b : books) {
-			if (b.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
-				bookHBox.getChildren().add(createStackPaneForResource(b));
-			}
+		String resourceType = resourceTypeCB.getValue();
+		List resources = null;
+
+		switch (resourceType) {
+		case "Book":
+			resources = Library.getAllBooks();
+			break;
+		case "DVD":
+			resources = Library.getAllDVD();
+			break;
+		case "Laptop":
+			resources = Library.getAllLaptops();
+			break;
+		default:
+			break;
 		}
 
-		for (DVD d : dvds) {
-			if (d.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
-				dvdHBox.getChildren().add(createStackPaneForResource(d));
-			}
-		}
-
-		for (Laptop l : laptops) {
-			if (l.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
-				laptopHBox.getChildren().add(createStackPaneForResource(l));
+		for (Object r : resources) {
+			Resource rs = (Resource) r;
+			if (rs.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
+				resourcesVBox.getChildren().add(createResourceContainer(rs));
 			}
 		}
 	}
-	
-	private StackPane createStackPaneForResource(Resource r) {
+
+	private HBox createResourceContainer(Resource r) {
 		ImageView imgV = createImageViewForResource(r);
-		Text title = new Text(r.getTitle());
-		title.setFont(Font.font("Verdana", 20));
-		title.setWrappingWidth(imgV.getImage().getWidth());
-		title.setFill(Color.BLACK);
-		title.setStroke(Color.WHITE);
-		title.setStrokeWidth(0.5D);
-		title.setTextAlignment(TextAlignment.CENTER);
-		Button btn = new Button("Borrow");
-		btn.setOnAction(e -> {
-			Library.requestResource(r.getUniqueID());
+
+		Text title = new Text("Title:" + r.getTitle());
+		Text uniqueID = new Text("Unique ID: " + r.getUniqueID());
+		Text year = new Text("Year: " + r.getYear());
+		VBox details = new VBox(title, uniqueID, year);
+
+		HBox container = new HBox(imgV, details);
+		container.setOnMouseEntered(mouse -> {
+			updateResourceDetails(r);
 		});
-		
-		
-		VBox layout = new VBox(title, btn);
-		layout.setBackground(new Background(new BackgroundFill(new Color(1D, 1D, 1D, 0.5D), null, null)));
-		layout.setAlignment(Pos.CENTER);
-		
-		layout.setVisible(false);
-		
-		StackPane sp = new StackPane(imgV, layout);
-		sp.setOnMouseEntered(mouse -> {
-			layout.setVisible(true);
-		});
-		sp.setOnMouseExited(mouse -> {
-			layout.setVisible(false);
-		});
-		return sp;
+
+		return container;
 	}
-	
+
+	private void updateResourceDetails(Resource r) {
+		resourceThumbnailImage.setImage(getResourceImage(r));
+		titleTf.setText(r.getTitle());
+		uIDTf.setText( r.getUniqueID());
+		yearTf.setText(r.getYear());
+
+		String resourceType = resourceTypeCB.getValue();
+
+		rs4Lbl.setVisible(true);
+		rs4Tf.setVisible(true);
+		rs5Lbl.setVisible(true);
+		rs5Tf.setVisible(true);
+		
+		TextField[] textFields = {titleTf, uIDTf, yearTf, rs1Tf, rs2Tf, rs3Tf, rs4Tf, rs5Tf};
+		
+		if (!Library.currentUserIsLibrarian()) {
+			for (TextField tf : textFields) {
+				tf.setEditable(true);
+			}
+		} else {
+			for (TextField tf : textFields) {
+				tf.setEditable(false);
+			}
+		}
+		
+		copiesList.getItems().clear();
+		
+		for (CopyData copy : r.getArrayListOfCopies()) {
+			copiesList.getItems().add("Copy: " + copy.getId() + " - Available: " + String.valueOf(copy.isAvailable()));
+		}
+
+		switch (resourceType) {
+		case "Book":
+			Book b = (Book) r;
+			rs1Lbl.setText("Author: ");
+			rs1Tf.setText(b.getAuthor());
+			rs2Lbl.setText("Publisher: ");
+			rs2Tf.setText(b.getPublisher());
+			rs3Lbl.setText("Genre: ");
+			rs3Tf.setText(b.getGenre());
+			rs4Lbl.setText("Director: ");
+			rs4Tf.setText(b.getIsbn());
+			
+			rs5Lbl.setText("Languages: ");
+
+			rs5Tf.setText(b.getLanguages().get(0));
+			ArrayList<String> languages = b.getLanguages();
+			languages.remove(0);
+			for (String language : languages)
+				rs5Tf.setText(rs5Tf.getText() + ", " + language);
+
+			break;
+		case "DVD":
+			DVD d = (DVD) r;
+			rs1Lbl.setText("Director: ");
+			rs1Tf.setText(d.getDirector());
+			rs2Lbl.setText("Runtime: ");
+			rs2Tf.setText(d.getRuntime());
+			rs3Lbl.setText("Language: ");
+			rs3Tf.setText(d.getLanguage());
+			
+			rs4Lbl.setText("Sub-Languages: ");
+
+			if (d.getSubLang().isEmpty()) {
+				rs4Tf.setText("N/A");
+			} else {
+				rs4Tf.setText( d.getSubLang().get(0));
+				languages = d.getSubLang();
+				languages.remove(0);
+				for (String language : languages)
+					rs4Tf.setText(rs4Tf.getText() + ", " + language);
+			}
+
+			rs5Tf.setVisible(false);
+			rs5Lbl.setVisible(false);
+
+			break;
+		case "Laptop":
+			break;
+		default:
+			break;
+		}
+	}
+
 	private ImageView createImageViewForResource(Resource r) {
 		System.out.println(r.getThumbnailImageRef());
 		ImageView imgV = new ImageView();
-		
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new File(r.getThumbnailImageRef()));
-		} catch (IOException e) {
 
-		}
+		imgV.setImage(getResourceImage(r));
 
-		imgV.setImage(SwingFXUtils.toFXImage(img, null));
-		
-		
-		
 		return imgV;
 	}
-	
+
+	private WritableImage getResourceImage(Resource r) {
+		try {
+			return SwingFXUtils.toFXImage(ImageIO.read(new File(r.getThumbnailImageRef())), null);
+		} catch (IOException e) {
+			System.out.println("Could not load Image for Resource: " + r.getUniqueID());
+		}
+		return null;
+	}
+
 }

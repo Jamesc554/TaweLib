@@ -26,7 +26,7 @@ public class Librarian extends User {
 	 * @param noOfEmploys Int number of employs.
 	 */
 	public Librarian(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
-					 String secondLineAddress, String postCode, String townName, int accountBalance, String profImage,
+					 String secondLineAddress, String postCode, String townName, double accountBalance, String profImage,
 					 int empDay, int empMonth, int empYear, String staffNumber, int noOfEmploys) {
 
 		super(userName, firstName, lastName, mobileNumber, firstLineAddress, secondLineAddress, postCode, townName,

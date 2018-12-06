@@ -1,6 +1,7 @@
 package resources;
 
 import java.util.ArrayList;
+import java.util.List;
 /**
  * <h1>DVD</h1>
  * <p>The DVD class creates DVD objects to be used by other classes
@@ -32,9 +33,8 @@ public class DVD extends Resource {
 	 */
 	
 	public DVD (String director, String runtime, String language, ArrayList<String> subLang, String year, String title, 
-			String thumbnailImg, String uniqueID ) {
-		
-		super(year, title, thumbnailImg, generateDVDID(uniqueID));
+			String thumbnailImg, String uniqueID, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory) {
+		super(year, title, thumbnailImg, generateDVDID(uniqueID), noOfCopies, loanDuration, borrowHistory);
 		this.director = director;
 		this.runtime = runtime;
 		this.language = language;
@@ -141,7 +141,7 @@ public class DVD extends Resource {
 	}
 	/**
 	 * Defines the length of the DVD.
-	 * @param model
+	 * @param runtime
 	 */
 	public void setRuntime (String runtime) {
 		this.runtime = runtime;
@@ -157,18 +157,7 @@ public class DVD extends Resource {
 	/**
 	 * Adds a copy to this DVD's unique Array of copies.
 	 */
-	public void addToCopies() {
-		super.addToCopies(generateCopyID());
-	}
-	
-	/**
-	 * Generates a copy ID based off of previous copyID.
-	 * @return hCpyID the highest ID of copies of dvd's
-	 */
-	private String generateCopyID() {
-		//
-		this.highestCopyID++;
-		String hCpyID = Integer.toString(this.highestCopyID);
-		return hCpyID;
+	public void addToCopies(String loanDuration) {
+		super.addCopy(loanDuration);
 	}
 }

@@ -2,12 +2,18 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
@@ -18,6 +24,7 @@
             <ToolBar prefHeight="33.0" prefWidth="1280.0">
                <items>
                   <TextField fx:id="searchBar" onAction="#updateSearchResults" prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." />
+                  <ComboBox fx:id="resourceTypeCB" onAction="#updateSearchResults" prefWidth="150.0" promptText="Resource Type" visibleRowCount="3" />
                   <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchButton" text="Search" />
                   <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="500.0">
                      <image>
@@ -32,10 +39,10 @@
                <items>
                   <HBox prefHeight="25.0" prefWidth="1268.0" spacing="20.0">
                      <children>
-                        <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Home" />
-                        <Button fx:id="accountBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Account" />
+                        <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#homeButton" prefHeight="25.0" prefWidth="110.0" text="Home" />
+                        <Button fx:id="accountBtn" mnemonicParsing="false" onAction="#accountDeskButton" prefHeight="25.0" prefWidth="110.0" text="Account" />
                         <Button fx:id="drawAppBtn" mnemonicParsing="false" onAction="#drawAppButton" prefHeight="25.0" prefWidth="110.0" text="Draw App" />
-                        <Button fx:id="issueDeskBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Issue Desk" visible="false" />
+                        <Button fx:id="issueDeskBtn" mnemonicParsing="false" onAction="#issueDeskButton" prefHeight="25.0" prefWidth="110.0" text="Issue Desk" visible="false" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
@@ -43,37 +50,70 @@
                   </HBox>
                </items>
             </ToolBar>
-            <VBox prefHeight="677.0" prefWidth="1280.0">
+            <HBox prefHeight="650.0" prefWidth="1280.0">
                <children>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER">
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="650.0" prefWidth="288.0">
                      <content>
-                        <HBox fx:id="bookHBox" spacing="5.0">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </HBox>
+                        <VBox fx:id="resourcesVBox" prefHeight="634.0" prefWidth="286.0" />
                      </content>
                   </ScrollPane>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER">
-                     <content>
-                        <HBox fx:id="dvdHBox" spacing="5.0">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </HBox>
-                     </content>
-                  </ScrollPane>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER">
-                     <content>
-                        <HBox fx:id="laptopHBox" spacing="5.0">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </HBox>
-                     </content>
-                  </ScrollPane>
+                  <GridPane prefHeight="650.0" prefWidth="992.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="491.0" minWidth="10.0" prefWidth="210.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="844.0" minWidth="10.0" prefWidth="782.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="320.0" minHeight="10.0" prefHeight="276.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="432.0" minHeight="10.0" prefHeight="374.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <ImageView fx:id="resourceThumbnailImage" fitHeight="212.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <image>
+                              <Image url="@../../../data/images/dvd/A%20Star%20Is%20Born.jpg" />
+                           </image>
+                        </ImageView>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label text="Resource Info" />
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="9.0">
+                                       <children>
+                                          <Label fx:id="titleLbl" text="Title:" />
+                                          <Label fx:id="uIDLbl" text="UniqueID: " />
+                                          <Label fx:id="yearLbl" text="Year:" />
+                                          <Label fx:id="rs1Lbl" text="RS1: " />
+                                          <Label fx:id="rs2Lbl" text="RS2: " />
+                                          <Label fx:id="rs3Lbl" text="RS3: " />
+                                          <Label fx:id="rs4Lbl" text="RS4: " />
+                                          <Label fx:id="rs5Lbl" text="RS5: " />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <TextField fx:id="titleTf" editable="false" />
+                                          <TextField fx:id="uIDTf" editable="false" />
+                                          <TextField fx:id="yearTf" editable="false" />
+                                          <TextField fx:id="rs1Tf" editable="false" />
+                                          <TextField fx:id="rs2Tf" editable="false" />
+                                          <TextField fx:id="rs3Tf" editable="false" />
+                                          <TextField fx:id="rs4Tf" editable="false" />
+                                          <TextField fx:id="rs5Tf" editable="false" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <ListView fx:id="copiesList" prefHeight="426.0" prefWidth="302.0" GridPane.rowIndex="1" />
+                        <Button fx:id="borrowButton" mnemonicParsing="false" onAction="#borrowResource" prefHeight="25.0" prefWidth="630.0" text="Borrow" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
                </children>
-            </VBox>
+            </HBox>
          </children>
       </VBox>
    </children>
