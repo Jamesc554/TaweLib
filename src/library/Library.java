@@ -37,8 +37,8 @@ public class Library {
 	 * @param lang Language of the book.
 	 */
 	public static void addBook(String year,String title, String thumbnailImg, String uniqueID,
-						   String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies){
-		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, lang, noOfCopies));
+						   String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies, ArrayList<String> loanDuration){
+		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, lang, noOfCopies, loanDuration));
 	}
 
 	/**
@@ -53,8 +53,8 @@ public class Library {
 	 * @param subLang The subtitles language of the DVD.
 	 */
 	public static void addDVD(String year, String title, String thumbnailImg, String uniqueID,
-						 String director, String runtime, String language, ArrayList<String> subLang, Integer noOfCopies){
-	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID, noOfCopies));
+						 String director, String runtime, String language, ArrayList<String> subLang, Integer noOfCopies, ArrayList<String> loanDuration){
+	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID, noOfCopies, loanDuration));
 	}
 
 	/**
@@ -68,8 +68,8 @@ public class Library {
 	 * @param operatingSys The operating system of the laptop.
 	 */
 	public static void addLaptop(String year, String title, String thumbnailImageRef, String uniqueID,
-							  String manufacturer, String model,  String operatingSys, Integer noOfCopies){
-	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys, noOfCopies));
+							  String manufacturer, String model,  String operatingSys, Integer noOfCopies, ArrayList<String> loanDuration){
+	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys, noOfCopies, loanDuration));
 	}
 
 	/**
@@ -183,7 +183,8 @@ public class Library {
 	public static void loanResource(String username, String resourceID){
 		getUser(username).loanResource(resourceID);
 		String[] resInfo = resourceID.split("-");
-	 	//TODO ADD THE USER TO THE CURRENTLY OUT HASH MAP IN RESOURCE
+		Resource r = Library.getResource(resInfo[0]);
+		r.loanResource(Integer.valueOf(resInfo[1]), username, Library.getCurrentDateTime());
 	}
 
 	/**

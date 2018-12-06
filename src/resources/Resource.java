@@ -2,6 +2,7 @@ package resources;
 
 import utils.Queue;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +24,8 @@ public abstract class Resource {
 	protected String uniqueID;
 	protected Queue<User> queueOfReservations;
 	protected ArrayList<String> arrayListOfCopies;
+	protected String[][] currentOutInfo;
+	protected ArrayList<String> loanDuration;
 	protected Map<String, ArrayList<String[]>> borrowHistory;//Dictionary of copy history i.e. loan date user who loaned etc. A copy can have multiple histories.
 	protected ArrayList<String[]> copyHistory; //changed from String[]
 	protected Integer noOfCopies;
@@ -40,7 +43,7 @@ public abstract class Resource {
 	 * */
 
 	public Resource(String year, String title,
-		String thumbnailImageRef, String uniqueID, Integer noOfCopies) {
+		String thumbnailImageRef, String uniqueID, Integer noOfCopies, ArrayList<String> loanDuration) {
 		
 		this.year = year;
 		this.title = title;
@@ -50,6 +53,9 @@ public abstract class Resource {
 		this.arrayListOfCopies = new ArrayList<String>();
 		this.borrowHistory = new HashMap<String, ArrayList<String[]>>();
 		this.noOfCopies = noOfCopies;
+		this.currentOutInfo = new String[this.noOfCopies][];
+		this.loanDuration = loanDuration;
+		creatCurrentOutInfo();
 	}
 
 	/* #############################################################
@@ -268,5 +274,29 @@ public abstract class Resource {
 	}
 	public String toSingleString(){
 		return year + title;
+	}
+
+	/**
+	 * Sets currently out data.
+	 * @param index uniqueID address as integer
+	 * @param data format [username, dateBorrowed, dateReturned, dateReturnedBy, loanDuration]
+	 */
+	public void setCurrentOutInfo(Integer index, String[] data){
+		this.currentOutInfo[index] = data;
+	}
+	private void creatCurrentOutInfo(){
+		for(int i = 0; i < this.currentOutInfo.length; i++){
+			String[] data = {"","","","", this.loanDuration.get(i)};
+			this.currentOutInfo[i] = data;
+		}
+	}
+
+	public ArrayList<String> getLoanDuration() {
+		return loanDuration;
+	}
+	public void loanResource(Integer copyId, String username, String date){
+		String[] data = this.currentOutInfo[copyId];
+		data[0] = username;
+		data[1] = date;
 	}
 }

@@ -1,5 +1,7 @@
 package resources;
 
+import java.util.ArrayList;
+
 /**
  * <h1>Laptop</h1>
  * <p>The laptop class creates laptop objects to be used by other classes
@@ -26,9 +28,9 @@ public class Laptop extends Resource {
 	 * The laptop's operating system
 	 */
 	public Laptop(String manufacturer, String model,  String operatingSys,String year,
-			String title, String thumbnailImg, String uniqueID, Integer noOfCopies) {
+			String title, String thumbnailImg, String uniqueID, Integer noOfCopies, ArrayList<String> loanDuration) {
 		
-		super(year, title, thumbnailImg, generateLaptopID(uniqueID), noOfCopies);
+		super(year, title, thumbnailImg, generateLaptopID(uniqueID), noOfCopies,loanDuration);
 		
 		this.manufacturer = manufacturer;
 		this.model = model;
