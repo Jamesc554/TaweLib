@@ -60,17 +60,23 @@ public class ReadFile extends IO{
 				
 				transactionArray = (JSONArray) object.get("transactionHistory");
 				if (transactionArray != null) {
-					for (Object transaction : transactionArray) {
-						String[] stringTransaction = (String[]) transaction;
-						user.addToTransactionHistory(stringTransaction);
+					for (Object transactionInformation : transactionArray) {
+						JSONArray transactionInformationArray = (JSONArray) transactionInformation;
+						String[] data = new String[2];
+						data[1] = (String) transactionInformationArray.get(0);
+						data[2] = (String) transactionInformationArray.get(1);
+						user.addToTransactionHistory(data);
 					}
 				}
-				
+
 				borrowHistoryArray = (JSONArray) object.get("borrowHistory");
 				if (borrowHistoryArray != null) {
-					for (Object borrowHistory : borrowHistoryArray) {
-						String[] stringBorrowHistory = (String[]) borrowHistory;
-						user.addToBorrowHistory(stringBorrowHistory);
+					for (Object borrowInformation : borrowHistoryArray) {
+						JSONArray borrowInformationArray = (JSONArray) borrowInformation;
+						String[] data = new String[2];
+						data[1] = (String) borrowInformationArray.get(0);
+						data[0] = (String) borrowInformationArray.get(1);
+						user.addToBorrowHistory(data);
 					}
 				}
 				
