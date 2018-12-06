@@ -160,7 +160,11 @@ public class AccountScreen extends Screen implements Initializable{
 		}
 		
 		private void setRequestedField() {
-			
+			ArrayList<String> requestedResources = Library.getCurrentLoggedInUser().getAllRequested();
+			for(String resource : requestedResources) {
+				Resource r = Library.getResource(resource);
+				requestedField.getItems().add(r.getTitle() + " " + r.getUniqueID());
+			}
 		}
 
 		private void setReservedField() {

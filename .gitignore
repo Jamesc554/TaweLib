@@ -26,3 +26,4 @@ hs_err_pid*
 *.classpath
 .idea/workspace.xml
 /.idea/
+data/backup/
