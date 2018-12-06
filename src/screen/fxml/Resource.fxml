@@ -71,7 +71,7 @@
          <items>
             <TextField fx:id="searchBar" prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." />
             <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchButton" style="-fx-background-color: #ef9d39;" text="Search" textFill="#0e0056" />
-            <Text fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Tawe Library" textAlignment="CENTER" wrappingWidth="150.7158203125">
+            <Text fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Tawe Library" textAlignment="CENTER" wrappingWidth="100.7158203125">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -93,12 +93,12 @@
             </HBox>
          </items>
       </ToolBar>
-      <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" layoutX="993.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" layoutX="1126.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../git/SEGroup2/data/images/james/testImg442.png" />
          </image>
       </ImageView>
-      <Text fx:id="usernameText" fill="#fff4f4" layoutX="1032.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+      <Text fx:id="usernameText" fill="#fff4f4" layoutX="1158.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
       <Button fx:id="logoutBtn" layoutX="1212.0" layoutY="5.0" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: #0e0056;" text="Logout" textFill="#fff2f2" underline="true" />
    </children>
 </AnchorPane>
