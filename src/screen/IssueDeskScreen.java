@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -102,11 +103,15 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField bookLanguage;
     @FXML
+    private TextField bookNumCopies;
+    @FXML
     private Label bookSuccess;
     @FXML
     private Label bookError;
     @FXML
     private Text bookImgName;
+    @FXML
+    private ImageView bookImg;
     @FXML
     private TextField dvdTitle;
     @FXML
@@ -388,11 +393,16 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 languages = new ArrayList<>(Arrays.asList(languageArray));
                 System.out.println(languages);
             }
-            //Add the book to the Library
-            String image = "./data/images/book/" + imageName;
-            Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages, 0);
-            bookSuccess.setVisible(true);
-            bookImgName.setText("");
+            try {
+                //Add the book to the Library
+                String image = "./data/images/book/" + imageName;
+                int numCopies = Integer.parseInt(bookNumCopies.getText());
+                Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages, numCopies);
+                bookSuccess.setVisible(true);
+                bookImgName.setText("");
+            } catch (NumberFormatException ex) {
+                //Error msg
+            }
         }
     }
 
@@ -477,6 +487,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         try {
             File selectedFile = getImageFile("book");
             bookImgName.setText(selectedFile.getName());
+            //File imgPath = new File("./data/images/book/" + bookImgName);
         } catch (NullPointerException ex) {
             System.out.println("No book image file selected");
         }

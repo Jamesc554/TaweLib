@@ -276,15 +276,22 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Button layoutX="188.0" layoutY="394.0" mnemonicParsing="false" onAction="#createBookButton" text="Create Book">
+                                          <Button layoutX="188.0" layoutY="434.0" mnemonicParsing="false" onAction="#createBookButton" text="Create Book">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Button>
                                           <Button layoutX="400.0" layoutY="149.0" mnemonicParsing="false" onAction="#bookImageButton" text="*Choose thumbnail image" />
-                                          <Label fx:id="bookError" layoutX="305.0" layoutY="401.0" text="Please fill all required fields" textFill="RED" visible="false" />
-                                          <Label fx:id="bookSuccess" layoutX="305.0" layoutY="401.0" text="Book added!" textFill="#34972b" visible="false" />
+                                          <Label fx:id="bookError" layoutX="297.0" layoutY="441.0" text="Please fill all required fields" textFill="RED" visible="false" />
+                                          <Label fx:id="bookSuccess" layoutX="297.0" layoutY="441.0" text="Book added!" textFill="#34972b" visible="false" />
                                           <Text fx:id="bookImgName" layoutX="400.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ImageName (leave for debugging)" />
+                                          <ImageView fx:id="bookImg" fitHeight="200.0" fitWidth="200.0" layoutX="391.0" layoutY="213.0" pickOnBounds="true" preserveRatio="true" />
+                                          <TextField fx:id="bookNumCopies" layoutX="188.0" layoutY="389.0" />
+                                          <Text layoutX="85.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
                                        </children>
                                     </AnchorPane>
                               </content>
