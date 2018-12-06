@@ -108,10 +108,14 @@ public class ReadFile extends IO {
 			while ((currentLine = reader.readLine()) != null) {
 				JSONObject object = (JSONObject) parser.parse(currentLine);
 				Librarian librarian = new Librarian((String) object.get("username"), (String) object.get("firstName"),
-						(String) object.get("lastName"), (String) object.get("mobileNumber"),
-						(String) object.get("firstLineAddress"), (String) object.get("secondLineAddress"),
-						(String) object.get("postCode"), (String) object.get("townName"),
-						Integer.parseInt((String) object.get("accountBalance")), (String) object.get("imageAddress"),
+						(String) object.get("lastName"),
+						(String) object.get("mobileNumber"),
+						(String) object.get("firstLineAddress"),
+						(String) object.get("secondLineAddress"),
+						(String) object.get("postCode"),
+						(String) object.get("townName"),
+						Double.parseDouble((String) object.get("accountBalance")),
+						(String) object.get("imageAddress"),
 						Integer.parseInt((String) object.get("empDay")),
 						Integer.parseInt((String) object.get("empMonth")),
 						Integer.parseInt((String) object.get("empYear")), (String) object.get("staffNumber"),

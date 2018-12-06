@@ -28,7 +28,7 @@ public class LoginScreen extends Screen{
 	@FXML
 	private void login(Event event) {
 		// TODO: remove test username once readAllUsers is finished
-		if (Library.checkForUser(usernameTextField.getText()) || usernameTextField.getText().equals("james") || usernameTextField.getText().equals("jhonny")) {
+		if (Library.checkForUser(usernameTextField.getText())) {
 			Library.setLoggedInUser(Library.getUser(usernameTextField.getText()));
 			ScreenManager.changeScreen(new HomeScreen());
 		} else {
