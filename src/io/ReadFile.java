@@ -46,13 +46,13 @@ public class ReadFile extends IO {
 						Double.parseDouble((String) object.get("accountBalance")), (String) object.get("imageAddress"));
 
 				resourceArray = (JSONArray) object.get("resourceBorrow");
+				ArrayList<String> borrowedResources = new ArrayList<String>();
 				if (resourceArray != null) {
 					for (Object resource : resourceArray) {
 						String stringResource = (String) resource;
-						ArrayList<String> data = new ArrayList<String>();
-						data.add(stringResource);
-						user.setResourceCurrentlyBorrowed(data);
+						borrowedResources.add(stringResource);
 					}
+					user.setResourceCurrentlyBorrowed(borrowedResources);
 				}
 
 				transactionArray = (JSONArray) object.get("transactionHistory");
