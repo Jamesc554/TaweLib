@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import resources.Book;
 import resources.DVD;
+import user.Librarian;
 import user.User;
 
 /**
@@ -13,12 +14,7 @@ import user.User;
 
 public class Tester {
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-		for(User user : ReadFile.readUsers()) {
-			System.out.println(user.getUserName());
-		}
-		System.out.println(ReadFile.readBooks());
-		for(DVD dvd : ReadFile.readDvds()) {
-			System.out.println(dvd.getUniqueID());
-		}
+		Librarian bob = new Librarian("jane", "jane", "spongebob", "01-2-1-do-1", "123 Pineapple Road", "Sketty", "SA1 0A2", "Swansea", 99999, ".data/images/jane/default_image_4.png", 10, 20, 1969, "69696", 1);
+		WriteFile.writeLibrarian(bob);
 	}
 }

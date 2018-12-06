@@ -26,7 +26,7 @@ public abstract class IO {
 	 * @return a String which contains the file path of the librarian data file.
 	 */
 	public static String getLibrarianFilePath() {
-		return usersFilePath;
+		return librarianFilePath;
 	}
 
 	/**
