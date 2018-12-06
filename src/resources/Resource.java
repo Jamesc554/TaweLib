@@ -313,6 +313,7 @@ public abstract class Resource {
 		data[2] = "";
 		data[3] = "";
 
+		this.currentOutInfo[index] = data;
 
 	}
 }
