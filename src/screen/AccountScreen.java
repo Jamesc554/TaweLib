@@ -168,7 +168,7 @@ public class AccountScreen extends Screen implements Initializable{
 			ArrayList<String> currentlyRequested = Library.getCurrentLoggedInUser().getAllRequested();
 			for(String requested : currentlyRequested) {
 				Resource r = Library.getResource(requested);
-				requestedField.getItems().add("Resource ID: " + r.getUniqueID() + " - Resource Title: " + r.getTitle());
+				requestedField.getItems().add("Resource ID: " + r.getUniqueID() + " -" + r.getTitle());
 			}
 		}
 
@@ -177,7 +177,7 @@ public class AccountScreen extends Screen implements Initializable{
 			ArrayList<String> currentlyReserved = Library.getCurrentLoggedInUser().getAllReserved();
 			for(String reserved : currentlyReserved) {
 				Resource r = Library.getResource(reserved);
-				returnedField.getItems().add("Resource ID: " + r.getUniqueID() + " - Resource Title: " + r.getTitle());
+				returnedField.getItems().add("Resource ID: " + r.getUniqueID() + " -" + r.getTitle());
 			}
 		}
 
@@ -186,7 +186,7 @@ public class AccountScreen extends Screen implements Initializable{
 			ArrayList<String> borrowedResources = Library.getCurrentLoggedInUser().getCurrentlyBorrowedResources();
 			for(String resource : borrowedResources) {
 				Resource r = Library.getResource(resource);
-				borrowedField.getItems().add("Resource ID: " + r.getUniqueID() + " - Resource Title: " + r.getTitle());
+				borrowedField.getItems().add("Resource ID: " + r.getUniqueID() + " -" + r.getTitle());
 			}
 		}
 
