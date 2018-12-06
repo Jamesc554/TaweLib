@@ -281,18 +281,43 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Button>
-                                          <Button layoutX="500.0" layoutY="149.0" mnemonicParsing="false" onAction="#bookImageButton" text="*Choose thumbnail image" />
+                                          <Button layoutX="829.0" layoutY="149.0" mnemonicParsing="false" onAction="#bookImageButton" text="*Choose thumbnail image" />
                                           <Label fx:id="bookError" layoutX="297.0" layoutY="441.0" text="Please fill all required fields" textFill="RED" visible="false" />
                                           <Label fx:id="bookSuccess" layoutX="297.0" layoutY="441.0" text="Book added!" textFill="#34972b" visible="false" />
-                                          <Text fx:id="bookImgName" layoutX="500.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ImageName (leave for debugging)" />
-                                          <ImageView fx:id="bookImg" fitHeight="200.0" fitWidth="200.0" layoutX="491.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Text fx:id="bookImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ImageName (leave for debugging)" />
+                                          <ImageView fx:id="bookImg" fitHeight="200.0" fitWidth="200.0" layoutX="829.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" />
                                           <TextField fx:id="bookNumCopies" layoutX="188.0" layoutY="389.0" />
                                           <Text layoutX="85.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Label fx:id="bookCopiesError" layoutX="365.0" layoutY="393.0" text="Invalid amount!" textFill="RED" visible="false" />
+                                          <Label fx:id="bookCopiesError" layoutX="305.0" layoutY="441.0" text="Invalid amount(s)!" textFill="RED" visible="false" />
+                                          <TextField fx:id="book1Day" layoutX="498.0" layoutY="285.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="book1Week" layoutX="498.0" layoutY="318.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="book2Weeks" layoutX="498.0" layoutY="352.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="book4Weeks" layoutX="498.0" layoutY="389.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <Text layoutX="430.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 day:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 week:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 weeks:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4 weeks:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="bookDurationError" layoutX="498.0" layoutY="433.0" text="Total should equal no. of Copies" textFill="RED" visible="false" />
                                        </children>
                                     </AnchorPane>
                               </content>

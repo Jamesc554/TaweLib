@@ -115,6 +115,16 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private ImageView bookImg;
     @FXML
+    private TextField book1Day;
+    @FXML
+    private TextField book1Week;
+    @FXML
+    private TextField book2Weeks;
+    @FXML
+    private TextField book4Weeks;
+    @FXML
+    private Label bookDurationError;
+    @FXML
     private TextField dvdTitle;
     @FXML
     private TextField dvdDirector;
@@ -384,6 +394,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         bookSuccess.setVisible(false);
         bookError.setVisible(false);
         bookCopiesError.setVisible(false);
+        bookDurationError.setVisible(false);
 
         //Check if required fields have input
         if (title.equals("") || author.equals("") || year.equals("") || publisher.equals("") || imageName.equals("")) {
@@ -405,6 +416,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 System.out.println(languages);
             }
             int numCopies;
+            int num1Day;
+            int num1Week;
+            int num2Weeks;
+            int num4Weeks;
             try {
                 //Add the book to the Library
                 String image = "./data/images/book/" + imageName;
@@ -413,10 +428,48 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 } else {
                     numCopies = Integer.parseInt(bookNumCopies.getText());
                 }
-                if (numCopies >= 0 ) {
-                    Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages, numCopies, null);
-                    bookSuccess.setVisible(true);
-                    bookImgName.setText("");
+                if (book1Day.getText().equals("")) {
+                    num1Day = 0;
+                } else {
+                    num1Day = Integer.parseInt(book1Day.getText());
+                }
+                if (book1Week.getText().equals("")) {
+                    num1Week = 0;
+                } else {
+                    num1Week = Integer.parseInt(book1Week.getText());
+                }
+                if (book2Weeks.getText().equals("")) {
+                    num2Weeks = 0;
+                } else {
+                    num2Weeks = Integer.parseInt(book2Weeks.getText());
+                }
+                if (book4Weeks.getText().equals("")) {
+                    num4Weeks = 0;
+                } else {
+                    num4Weeks = Integer.parseInt(book4Weeks.getText());
+                }
+                if (numCopies >= 0 && num1Day >= 0 && num1Week >= 0 && num2Weeks >= 0 && num4Weeks >= 0) {
+                    if (num1Day + num1Week + num2Weeks + num4Weeks == numCopies) {
+                        ArrayList<String> loanDuration = new ArrayList<>();
+                        for (int i = 0; i < num1Day; i++) {
+                            loanDuration.add("1");
+                        }
+                        for (int i = 0; i < num1Week; i++){
+                            loanDuration.add("7");
+                        }
+                        for (int i = 0; i < num2Weeks; i++) {
+                            loanDuration.add("14");
+                        }
+                        for (int i = 0; i < num4Weeks; i++) {
+                            loanDuration.add("28");
+                        }
+                        Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages,
+                                numCopies, loanDuration);
+                        bookSuccess.setVisible(true);
+                        bookImgName.setText("");
+                    } else {
+                        bookDurationError.setVisible(true);
+                    }
                 } else {
                     bookCopiesError.setVisible(true);
                 }
