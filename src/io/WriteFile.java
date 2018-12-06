@@ -35,6 +35,8 @@ public class WriteFile extends IO {
 		JSONArray resourceArray = new JSONArray();
 		JSONArray transactionArray = new JSONArray();
 		JSONArray borrowHistoryArray = new JSONArray();
+		JSONArray jsonRequestedArray = new JSONArray();
+		JSONArray jsonReservedArray = new JSONArray();
 		object.put("username", user.getUserName());
 		object.put("firstName", user.getFirstName());
 		object.put("lastName", user.getLastName());
@@ -68,10 +70,19 @@ public class WriteFile extends IO {
 			borrowHistoryArray.add(borrowArray);
 		}
 		object.put("borrowHistory", borrowHistoryArray);
-		
-		//TODO: Currently Requested
-		
-		//TODO: Currently Reserved
+
+		ArrayList<String> requestedArray = user.getAllRequested();
+		for (String requested : requestedArray) {
+			System.out.println(requested);
+			jsonRequestedArray.add(requested);
+		}
+		object.put("requested", jsonRequestedArray);
+
+		ArrayList<String> reservedArray = user.getAllReserved();
+		for (String reserved : reservedArray) {
+			jsonReservedArray.add(reserved);
+		}
+		object.put("reserved", jsonReservedArray);
 
 		try {
 			FileWriter file = new FileWriter(IO.getUsersFilePath(), true);
@@ -118,7 +129,6 @@ public class WriteFile extends IO {
 		JSONObject object = new JSONObject();
 		JSONArray languageArray = new JSONArray();
 		JSONArray bookQueueArray = new JSONArray();
-		JSONArray listOfCopiesArray = new JSONArray();
 		JSONArray listOfLoanDur = new JSONArray();
 		object.put("year", book.getYear());
 		object.put("title", book.getTitle());
@@ -141,11 +151,6 @@ public class WriteFile extends IO {
 			bookQueue.dequeue();
 		}
 		object.put("bookQueue", bookQueueArray);
-
-		for (String copies : book.getArrayListOfCopies()) {
-			listOfCopiesArray.add(copies);
-		}
-		object.put("listOfCopies", listOfCopiesArray);
 		
 		for (String loanDur : book.getLoanDuration()) {
 			listOfLoanDur.add(loanDur);
@@ -169,7 +174,6 @@ public class WriteFile extends IO {
 		JSONObject object = new JSONObject();
 		JSONArray languageArray = new JSONArray();
 		JSONArray dvdQueueArray = new JSONArray();
-		JSONArray listOfCopiesArray = new JSONArray();
 		JSONArray listOfLoanDur = new JSONArray();
 
 		object.put("year", dvd.getYear());
@@ -193,11 +197,6 @@ public class WriteFile extends IO {
 		}
 		object.put("dvdQueue", dvdQueueArray);
 		
-		for (String copies : dvd.getArrayListOfCopies()) {
-			listOfCopiesArray.add(copies);
-		}
-		object.put("listOfCopies", listOfCopiesArray);
-		
 		for (String loanDur : dvd.getLoanDuration()) {
 			listOfLoanDur.add(loanDur);
 		}
@@ -217,7 +216,6 @@ public class WriteFile extends IO {
 	public static void writeLaptop(Laptop laptop) {
 		JSONObject object = new JSONObject();
 		JSONArray laptopQueueArray = new JSONArray();
-		JSONArray listOfCopiesArray = new JSONArray();
 		JSONArray listOfLoanDur = new JSONArray();
 		
 		object.put("uniqueID", laptop.getUniqueID());
@@ -235,11 +233,6 @@ public class WriteFile extends IO {
 			laptopQueue.dequeue();
 		}
 		object.put("dvdQueue", laptopQueueArray);
-		
-		for (String copies : laptop.getArrayListOfCopies()) {
-			listOfCopiesArray.add(copies);
-		}
-		object.put("listOfCopies", listOfCopiesArray);
 		
 		for (String loanDur : laptop.getLoanDuration()) {
 			listOfLoanDur.add(loanDur);

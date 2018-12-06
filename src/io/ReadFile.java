@@ -139,7 +139,6 @@ public class ReadFile extends IO {
 		JSONParser parser = new JSONParser();
 		JSONArray languageArray = new JSONArray();
 		JSONArray bookQueueArray = new JSONArray();
-		JSONArray listOfCopiesArray = new JSONArray();
 		JSONArray listOfLoanDur = new JSONArray();
 		ArrayList<Book> bookList = new ArrayList<Book>();
 
@@ -192,14 +191,6 @@ public class ReadFile extends IO {
 					}
 				}
 
-				listOfCopiesArray = (JSONArray) object.get("resourceBorrow");
-				if (listOfCopiesArray != null) {
-					for (Object copie : listOfCopiesArray) {
-						String stringCopie = (String) copie;
-						bookToAdd.addToCopies(stringCopie);
-					}
-				}
-
 				bookList.add(bookToAdd);
 			}
 
@@ -222,7 +213,6 @@ public class ReadFile extends IO {
 		JSONParser parser = new JSONParser();
 		JSONArray languageArray = new JSONArray();
 		JSONArray dvdQueueArray = new JSONArray();
-		JSONArray listOfCopiesArray = new JSONArray();
 		JSONArray listOfLoanDur = new JSONArray();
 
 		ArrayList<DVD> dvds = new ArrayList<DVD>();
@@ -262,16 +252,6 @@ public class ReadFile extends IO {
 					}
 				}
 
-				// TODO: MAKE THIS WORK
-				listOfCopiesArray = (JSONArray) object.get("resourceBorrow");
-				String listOfCopies = "";
-				if (listOfCopiesArray != null) {
-					for (Object copie : listOfCopiesArray) {
-						String stringCopie = (String) copie;
-						listOfCopies = listOfCopies + stringCopie + ",";
-					}
-				}
-
 				ArrayList<String> loanDurs = new ArrayList<String>();
 
 				listOfLoanDur = (JSONArray) object.get("listOfLoanDur");
@@ -308,7 +288,6 @@ public class ReadFile extends IO {
 		JSONArray languageArray = new JSONArray();
 		JSONArray dvdQueueArray = new JSONArray();
 		////////////////////////
-		JSONArray listOfCopiesArray = new JSONArray();
 		JSONArray listOfLoanDur = new JSONArray();
 
 		ArrayList<Laptop> laptops = new ArrayList<Laptop>();
@@ -341,14 +320,6 @@ public class ReadFile extends IO {
 
 				Laptop laptopToAdd = new Laptop(manufacturer, model, operatingSys, year, title, thumbnailImg, uniqueID,
 						noOfCopies, loanDurs);
-
-				listOfCopiesArray = (JSONArray) object.get("listOfCopies");
-				if (listOfCopiesArray != null) {
-					for (Object copie : listOfCopiesArray) {
-						String stringCopie = (String) copie;
-						laptopToAdd.addToCopies(stringCopie);
-					}
-				}
 
 				laptops.add(laptopToAdd);
 			}
