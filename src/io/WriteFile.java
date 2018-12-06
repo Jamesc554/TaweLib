@@ -34,6 +34,7 @@ public class WriteFile extends IO {
 		JSONObject object = new JSONObject();
 		JSONArray resourceArray = new JSONArray();
 		JSONArray transactionArray = new JSONArray();
+		JSONArray borrowHistoryArray = new JSONArray();
 		object.put("username", user.getUserName());
 		object.put("firstName", user.getFirstName());
 		object.put("lastName", user.getLastName());
@@ -43,19 +44,34 @@ public class WriteFile extends IO {
 		object.put("postCode", user.getPostCode());
 		object.put("townName", user.getTownName());
 		object.put("imageAddress", user.getProfImage());
-		object.put("accountBalance", String.valueOf(user.getIntegerAccountBalance()));
+		object.put("accountBalance", String.valueOf(user.getAccountBalanceDouble()));
 
-		for (Object resource : user.getCurrentlyBorrowedResources()) {
-			resourceArray.add(((Resource) resource).getUniqueID());
+		for (String resource : user.getCurrentlyBorrowedResources()) {
+			resourceArray.add(resource);
 		}
 		object.put("resourceBorrow", resourceArray);
 
 		ArrayList<String[]> transactions = user.getTransactions();
 		for (String[] transaction : transactions) {
-			transactionArray.add(transaction[0]);
-			transactionArray.add(transaction[1]);
+			JSONArray singleTransaction = new JSONArray();
+			singleTransaction.add(transaction[0]);
+			singleTransaction.add(transaction[1]);
+			transactionArray.add(singleTransaction);
 		}
 		object.put("transactionHistory", transactionArray);
+
+		ArrayList<String[]> borrowHistoryStrings = user.getBorrowHistory();
+		for (String[] borrowHistory : borrowHistoryStrings) {
+			JSONArray borrowArray = new JSONArray();
+			borrowArray.add(borrowHistory[0]);
+			borrowArray.add(borrowHistory[1]);
+			borrowHistoryArray.add(borrowArray);
+		}
+		object.put("borrowHistory", borrowHistoryArray);
+		
+		//TODO: Currently Requested
+		
+		//TODO: Currently Reserved
 
 		try {
 			FileWriter file = new FileWriter(IO.getUsersFilePath(), true);
@@ -80,7 +96,7 @@ public class WriteFile extends IO {
 		object.put("postCode", librarian.getPostCode());
 		object.put("townName", librarian.getTownName());
 		object.put("imageAddress", librarian.getProfImage());
-		object.put("accountBalance", String.valueOf(librarian.getIntegerAccountBalance()));
+		object.put("accountBalance", String.valueOf(librarian.getAccountBalanceDouble()));
 		object.put("empDay", String.valueOf(librarian.getEmploymentDay()));
 		object.put("empMonth", String.valueOf(librarian.getEmploymentMonth()));
 		object.put("empYear", String.valueOf(librarian.getEmploymentYear()));
@@ -279,7 +295,7 @@ public class WriteFile extends IO {
 		currentFile = new File(IO.getLaptopFilePath());
 		currentFile.renameTo(new File("./data/backup/" + newFilePath + "/laptop.json"));
 		
-		fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), new ArrayList<Laptop>());
+		fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), Library.getAllLaptops());
 	}
 
 	public static void saveImageToUser(WritableImage img, String fileName) {

@@ -37,8 +37,8 @@ public class Library {
 	 * @param lang Language of the book.
 	 */
 	public static void addBook(String year,String title, String thumbnailImg, String uniqueID,
-						   String author, String genre, String isbn, String publisher, ArrayList<String> lang){
-		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, lang));
+						   String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies){
+		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, lang, noOfCopies));
 	}
 
 	/**
@@ -53,8 +53,8 @@ public class Library {
 	 * @param subLang The subtitles language of the DVD.
 	 */
 	public static void addDVD(String year, String title, String thumbnailImg, String uniqueID,
-						 String director, String runtime, String language, ArrayList<String> subLang){
-	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID));
+						 String director, String runtime, String language, ArrayList<String> subLang, Integer noOfCopies){
+	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID, noOfCopies));
 	}
 
 	/**
@@ -68,8 +68,8 @@ public class Library {
 	 * @param operatingSys The operating system of the laptop.
 	 */
 	public static void addLaptop(String year, String title, String thumbnailImageRef, String uniqueID,
-							  String manufacturer, String model,  String operatingSys){
-	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys));
+							  String manufacturer, String model,  String operatingSys, Integer noOfCopies){
+	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys, noOfCopies));
 	}
 
 	/**
@@ -159,7 +159,7 @@ public class Library {
 	public static void subtractBalance (int amount, String username) {
 		if (amount <= 0 ) {
 			throw new IllegalArgumentException("Cannot subtract negative or null amount");
-		} else if (amount > currentUser.getIntegerAccountBalance()) {
+		} else if (amount > currentUser.getAccountBalanceDouble()) {
 			throw new IllegalArgumentException("Amount superior to account balance");
 		}
 		getUser(username).subtractAccountBalance(amount);
@@ -182,6 +182,7 @@ public class Library {
 	 */
 	public static void loanResource(String username, String resourceID){
 		getUser(username).loanResource(resourceID);
+		String[] resInfo = resourceID.split("-");
 	 	//TODO ADD THE USER TO THE CURRENTLY OUT HASH MAP IN RESOURCE
 	}
 
@@ -192,7 +193,16 @@ public class Library {
 	 */
 	public static void returnResource(String username, String resourceID){
 		getUser(username).returnResource(resourceID);
-		//TODO REMOVE THE USER FROM CURRENTLY OUT HASH MAP IN RESOURCE
+		checkForRequested(resourceID);
+	}
+
+	private static void checkForRequested(String id){
+		String[] data = id.split("-");
+		Resource r = Library.getResource(data[0]);
+		if(!r.checkIfRequested()){
+			User u = r.peekQueueOfReservations();
+			u.moveToReserved(id);
+		}
 	}
 
 	/**
@@ -344,7 +354,7 @@ public class Library {
 		User u = getUser(username);
 	    String info = u.getUserName()+ "\n";
 	    info += u.getFullName()+"\n"+u.getMobileNumber()+"\n"+u.getFullAddress()+"\n";
-	    info += "Current Balance: "+u.getAccountBalance()+"\n";
+	    info += "Current Balance: "+u.getAccountBalanceString()+"\n";
 	    info += "Profile Image Path: "+u.getProfImage()+"\n";
 	    info += "Currently Borrowed:\n";
 	    for(Object id : u.getCurrentlyBorrowedResources()){
@@ -451,10 +461,26 @@ public class Library {
         }
         return sum;
     }
-    public static void requestResource(String id){
+
+	/**
+	 * Allows users to request a book that is not available.
+	 * @param id of resource to be requested
+	 */
+	public static void requestResource(String id){
 		currentUser.requestResource(id);
 	}
+
+	/**
+	 * Returns all requested books of the user currently logged in.
+	 * @return ArrayList<String>
+	 */
 	public static ArrayList<String> getAllrequestedResource(){
 		return currentUser.getAllRequested();
 	}
+
+	/**
+	 * Returns all reserved items of the user currently logged in.
+	 * @return ArrayList<String>
+	 */
+	public ArrayList<String> getAllReservedResources(){ return currentUser.getAllReserved();}
 }

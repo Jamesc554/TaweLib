@@ -71,6 +71,9 @@ public class AccountScreen extends Screen implements Initializable{
 		@SuppressWarnings("rawtypes")
 		@FXML
 		private ListView borrowedField;
+
+		@FXML
+		private ListView borrowHistoryField;
 		
 		@Override
 		public void start() {
@@ -115,6 +118,7 @@ public class AccountScreen extends Screen implements Initializable{
 	        setRequestedField();
 	        setReservedField();
 	        setBorrowedField();
+	        setBorrowHistoryField();
 		}
 		
 		private void setUsernameLabel() {
@@ -138,7 +142,7 @@ public class AccountScreen extends Screen implements Initializable{
 		}
 		
 		private void setAccountBalanceLabel() {
-			balanceField.setText((Library.getCurrentLoggedInUser().getAccountBalance()));
+			balanceField.setText((Library.getCurrentLoggedInUser().getAccountBalanceString()));
 		}
 		
 		private void setProfileImage() {
@@ -159,16 +163,22 @@ public class AccountScreen extends Screen implements Initializable{
 			}
 		}
 		
+		@SuppressWarnings("unchecked")
 		private void setRequestedField() {
-			ArrayList<String> requestedResources = Library.getCurrentLoggedInUser().getAllRequested();
-			for(String resource : requestedResources) {
-				Resource r = Library.getResource(resource);
-				requestedField.getItems().add(r.getTitle() + " " + r.getUniqueID());
+			ArrayList<String> currentlyRequested = Library.getCurrentLoggedInUser().getAllRequested();
+			for(String requested : currentlyRequested) {
+				Resource r = Library.getResource(requested);
+				requestedField.getItems().add("Resource ID: " + r.getUniqueID() + " - Resource Title: " + r.getTitle());
 			}
 		}
 
+		@SuppressWarnings("unchecked")
 		private void setReservedField() {
-	
+			ArrayList<String> currentlyReserved = Library.getCurrentLoggedInUser().getAllReserved();
+			for(String reserved : currentlyReserved) {
+				Resource r = Library.getResource(reserved);
+				returnedField.getItems().add("Resource ID: " + r.getUniqueID() + " - Resource Title: " + r.getTitle());
+			}
 		}
 
 		@SuppressWarnings("unchecked")
@@ -176,7 +186,16 @@ public class AccountScreen extends Screen implements Initializable{
 			ArrayList<String> borrowedResources = Library.getCurrentLoggedInUser().getCurrentlyBorrowedResources();
 			for(String resource : borrowedResources) {
 				Resource r = Library.getResource(resource);
-				borrowedField.getItems().add(r.getTitle() + " " + r.getUniqueID());
+				borrowedField.getItems().add("Resource ID: " + r.getUniqueID() + " - Resource Title: " + r.getTitle());
+			}
+		}
+
+		private void setBorrowHistoryField() {
+			ArrayList<String[]> borrowHistory = Library.getCurrentLoggedInUser().getBorrowHistory();
+			for(String[] borrow : borrowHistory) {
+				String resourceID = borrow[1];
+				String date = borrow[0];
+				borrowHistoryField.getItems().add("Resource ID: " + resourceID + " - Date: " + date);
 			}
 		}
 }

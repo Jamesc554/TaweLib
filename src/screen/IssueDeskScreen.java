@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -33,19 +34,25 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField loanUsername;
     @FXML
-    private TextField resourceId;
+    private TextField loanCopyID;
     @FXML
     private Label loanUserError;
     @FXML
-    private Label resourceError;
+    private Label loanCopyError;
     @FXML
     private Label loanSuccess;
-    @FXML
-    private Label returnSuccess;
     @FXML
     private Label outstandingFineMsg;
     @FXML
     private Label overdueCopyMsg;
+    @FXML
+    private TextField returnUsername;
+    @FXML
+    private ListView userBorrowList;
+    @FXML
+    private Label returnSearchError;
+    @FXML
+    private Label returnSuccess;
     @FXML
     private TextField paymentUsername;
     @FXML
@@ -56,6 +63,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Label paymentAmountError;
     @FXML
     private Label paymentSuccess;
+    @FXML
+    private Text paymentSearchBalance;
     @FXML
     private TextField userUsername;
     @FXML
@@ -176,14 +185,36 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
         //Check Library if user exists
         if (Library.checkForUser(user)) {
-            try {
-                int balance = Integer.parseInt(paymentAmount.getText()) * 100;  //Convert pounds to pence
-                Library.subtractBalance(balance, paymentUsername.getText());
-                paymentSuccess.setVisible(true);
-            //Exceptions thrown if negative amount or amount more than account balance
-            } catch (IllegalArgumentException ex) {
-                paymentAmountError.setVisible(true);
+            //User must not be current user
+            if (!Library.getUser(user).equals(Library.getCurrentLoggedInUser())) {
+                try {
+                    int balance = Integer.parseInt(paymentAmount.getText());
+                    Library.subtractBalance(balance, paymentUsername.getText());
+                    paymentSuccess.setVisible(true);
+                    //Exceptions thrown if negative amount or amount more than account balance
+                } catch (IllegalArgumentException ex) {
+                    paymentAmountError.setVisible(true);
+                }
+            } else {
+                paymentUserError.setVisible(true);
             }
+        } else {
+            paymentUserError.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void paymentSearchButton(Event e) {
+        String user = paymentUsername.getText();
+
+        //Reset error label
+        paymentUserError.setVisible(false);
+
+        //Check if user exists
+        if (Library.checkForUser(user)) {
+            String balance = Library.getUser(user).getAccountBalanceString();
+            paymentSearchBalance.setText("Current balance: " + balance);
+            paymentSearchBalance.setVisible(true);
         } else {
             paymentUserError.setVisible(true);
         }
@@ -196,30 +227,34 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private void loanButton(Event e) {
         String user = loanUsername.getText();
-        String rID = resourceId.getText();
+        String id = loanCopyID.getText();
 
         //Reset all error/success labels
         loanUserError.setVisible(false);
-        resourceError.setVisible(false);
+        loanCopyError.setVisible(false);
         loanSuccess.setVisible(false);
-        returnSuccess.setVisible(false);
         outstandingFineMsg.setVisible(false);
-        overdueCopyMsg.setVisible(false);
+        //overdueCopyMsg.setVisible(false);
 
         //Check Library if user exists
         if (Library.checkForUser(user)) {
-            //Check if user has no outstanding balance
-            if(Library.getUser(user).getIntegerAccountBalance() == 0) {
-                //Check if Resource ID is valid
-                if (Library.getResource(rID) != null) {
-                    //TODO: Check if user has overdue copies
-                    Library.loanResource(user, rID);
-                    loanSuccess.setVisible(true);
+            //User must not be current user
+            if (!Library.getUser(user).equals(Library.getCurrentLoggedInUser())) {
+                //Check if user has no outstanding balance
+                if (Library.getUser(user).getAccountBalanceDouble() == 0) {
+                    //Check if Resource ID is valid
+                    if (Library.getResource(id) != null) {
+                        //TODO: Check if user has overdue copies
+                        Library.loanResource(user, id);
+                        loanSuccess.setVisible(true);
+                    } else {
+                        loanCopyError.setVisible(true);
+                    }
                 } else {
-                    resourceError.setVisible(true);
+                    outstandingFineMsg.setVisible(true);
                 }
             } else {
-                outstandingFineMsg.setVisible(true);
+                loanUserError.setVisible(true);
             }
         } else {
             loanUserError.setVisible(true);
@@ -227,35 +262,56 @@ public class IssueDeskScreen extends Screen implements Initializable {
     }
 
     /**
+     * Event handling to return a searched user's currently borrowed items
+     * @param e the JavaFX event
+     */
+    @FXML
+    private void returnSearchButton(Event e) {
+        String user = returnUsername.getText();
+
+        //Reset all error/success labels
+        returnSearchError.setVisible(false);
+        returnSuccess.setVisible(false);
+
+        //Empty list view
+        userBorrowList.getItems().clear();
+        //Check Library if user exists
+        if (Library.checkForUser(user)) {
+            //User must not be current user
+            if (!Library.getUser(user).equals(Library.getCurrentLoggedInUser())) {
+                //Get list of borrowed copies
+                ArrayList<String> borrowList = Library.getUser(user).getCurrentlyBorrowedResources();
+                for (String item : borrowList) {
+                    userBorrowList.getItems().add(item);
+                }
+            } else {
+                returnSearchError.setVisible(true);
+            }
+        } else {
+            returnSearchError.setVisible(true);
+        }
+    }
+    /**
      * Event handling to process returns
      * @param e the JavaFX event
      */
     @FXML
     private void returnButton(Event e) {
-        String user = loanUsername.getText();
-        String rID = resourceId.getText();
+        String user = returnUsername.getText();
+        int selectedIdx = userBorrowList.getSelectionModel().getSelectedIndex();
 
         //Reset all error/success labels
-        loanUserError.setVisible(false);
-        resourceError.setVisible(false);
-        loanSuccess.setVisible(false);
         returnSuccess.setVisible(false);
         outstandingFineMsg.setVisible(false);
-        overdueCopyMsg.setVisible(false);
 
-        //Check Library if user exists
-        if (Library.checkForUser(user)) {
-            //Check if user is currently borrowing the resource
-            if (Library.getUser(user).getResource(rID) != null) {
-                Library.returnResource(user, rID);
-                returnSuccess.setVisible(true);
-            } else {
-                resourceError.setVisible(true);
-            }
-        } else {
-            loanUserError.setVisible(true);
+        if (selectedIdx != -1) {
+            String id = userBorrowList.getSelectionModel().getSelectedItem().toString();
+            Library.returnResource(user, id);
+            userBorrowList.getItems().remove(selectedIdx);
+            returnSuccess.setVisible(true);
         }
     }
+
 
     /**
      * Event handling to create a new User
@@ -334,7 +390,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
             }
             //Add the book to the Library
             String image = "./data/images/book/" + imageName;
-            Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages);
+            Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages, 0);
             bookSuccess.setVisible(true);
             bookImgName.setText("");
         }
@@ -376,7 +432,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
             }
             //Add the DVD to the Library
             String image = "./data/images/dvd/" + imageName;
-            Library.addDVD(year, title, image, null, director, runtime, language, subs);
+            Library.addDVD(year, title, image, null, director, runtime, language, subs, 0);
             dvdSuccess.setVisible(true);
             dvdImgName.setText("");
         }
@@ -406,7 +462,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         } else {
             //Add the Laptop to the Library
             String image = "./data/images/laptop/" + imageName;
-            Library.addLaptop(year, title, image, null, manufacturer, model, os);
+            Library.addLaptop(year, title, image, null, manufacturer, model, os, 0);
             laptopSuccess.setVisible(true);
             laptopImgName.setText("");
         }

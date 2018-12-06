@@ -24,11 +24,12 @@ public class User {
     protected String townName; //Town name
     protected ArrayList<String> resourceCurrentlyBorrowed = new ArrayList<>(); //List of currently borrowed books
 	protected ArrayList<String> resourceCurrentlyRequested  = new ArrayList<>();
-	protected ArrayList<String> resourceCurrentlyReserved = new ArrayList<>();
+	protected ArrayList<String> resourceCurrentlyReserved = new ArrayList<>(); //Available for pick up
     protected ArrayList<String[]> transactionHistory = new ArrayList<>(); //Transaction History
     protected ArrayList<String[]> borrowHistory = new ArrayList<>(); // Borrow history
-    protected Integer accountBalance; //current account balance
+    protected double accountBalance; //current account balance
     protected String profImage; //profile image address
+	protected String lastLogIn; //Date last log in.
 
 	/**
 	 * Generic constructor
@@ -44,7 +45,7 @@ public class User {
 	 * @param profImage path to the profile image of the user
 	 */
     public User(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
-                String secondLineAddress, String postCode, String townName, int accountBalance, String profImage){
+                String secondLineAddress, String postCode, String townName, double accountBalance, String profImage){
         setUserName(userName);
         setFirstName(firstName);
         setLastName(lastName);
@@ -115,7 +116,7 @@ public class User {
 	 * This sets the account balance of the user.
 	 * @param amount the start amount in pence.
 	 */
-	protected void setAccountBalance(int amount){this.accountBalance = amount;}
+	protected void setAccountBalance(double amount){this.accountBalance = amount;}
 
 	/**
 	 * Returns the username.
@@ -222,31 +223,11 @@ public class User {
 	 * This returns the current account balance as a String. Following format "£X.XX".
 	 * @return a string representation of the balance.
 	 */
-	public String getAccountBalance(){
-		String s = "";
-		//Temp balance so main variable is not touched
-		int tempBal = this.accountBalance;
-		//If balance is negative and - symbol and make the balance positive
-		if(tempBal < 0){
-			s = "-";
-			tempBal = tempBal * -1;
-		}
-        //If the account has at least 3 digits
-        if(String.valueOf(tempBal).length() >= 3){
-        	//Take £ add everything but last two digits add . then put last two digits at the end.
-            s = s + "£" + String.valueOf(tempBal).substring(0, String.valueOf(tempBal).length() - 2)
-                    +"."+String.valueOf(tempBal).substring(String.valueOf(tempBal).length() - 2);
-        //If two digits. take two digits and add to the end of £0.
-        }else if (String.valueOf(tempBal).length() >= 2){
-            s = s +"£0."+String.valueOf(tempBal);
-            //If one digit add to the end of £0.0
-        }else if (String.valueOf(tempBal).length() >= 1){
-            s = s + "£0.0"+String.valueOf(tempBal);
-        }
-        return s;
+	public String getAccountBalanceString(){
+			return "£"+String.valueOf(this.accountBalance);
     }
 	
-	public int getIntegerAccountBalance() {
+	public double getAccountBalanceDouble() {
 		return this.accountBalance;
 	}
 
@@ -312,20 +293,91 @@ public class User {
 		}
 	}
 
+	/**
+	 * Returns the history of the user
+	 * @return ArrayList<String[]>
+	 */
 	public ArrayList<String[]> getBorrowHistory(){
 		return this.borrowHistory;
 	}
 
+	/**
+	 * Returns the history of the user.
+	 * @param ID of resource to request.
+	 */
 	public void requestResource(String ID){
 		this.resourceCurrentlyRequested.add(ID);
 	}
 
+	/**
+	 * Get's all of users requested resources.
+	 * @return ArrayList<String>.
+	 */
 	public ArrayList<String> getAllRequested(){
 		return this.resourceCurrentlyRequested;
 	}
 
+	/**
+	 * Get all of users reserved items.
+	 * @return ArrayList<String>
+	 */
+	public ArrayList<String> getAllReserved() { return this.resourceCurrentlyReserved;}
+
+	/**
+	 * Gets current system date in following format DD-MM-YYYY HH:MM:SS.
+	 * @return String
+	 */
     private String getCurrentDate(){
 		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		return dataFormat.format(new Date());
+	}
+
+	/**
+	 * Get's the date user was last logged in.
+	 * @return
+	 */
+	public String getLastLogIn() {
+		return lastLogIn;
+	}
+
+	/**
+	 * Sets the user last login to current date.
+	 */
+	public void setLastLogIn(){
+    	this.lastLogIn = getCurrentDate();
+	}
+
+	/**
+	 * Moves requested to reserved.
+	 * @param id String id of resource.
+	 */
+	public void moveToReserved(String id){
+		resourceCurrentlyRequested.remove(id);
+		resourceCurrentlyReserved.add(id);
+	}
+
+    /**
+     * Add's to borrow history on start up.
+     * @param data
+     */
+	public void addToBorrowHistory(String[] data){
+	    borrowHistory.add(data);
+    }
+    /**
+     * Add's to transaction history on start up.
+     * @param data
+     */
+    public void addToTransactionHistory(String[] data){
+	    transactionHistory.add(data);
+    }
+
+    public void setResourceCurrentlyBorrowed(ArrayList<String> data){
+		this.resourceCurrentlyBorrowed = data;
+	}
+	public void setResourceCurrentlyReserved(ArrayList<String> data){
+		this.resourceCurrentlyReserved = data;
+	}
+	public void setResourceCurrentlyRequested(ArrayList<String> data){
+		this.resourceCurrentlyRequested = data;
 	}
 }

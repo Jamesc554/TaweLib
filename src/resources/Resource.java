@@ -23,8 +23,9 @@ public abstract class Resource {
 	protected String uniqueID;
 	protected Queue<User> queueOfReservations;
 	protected ArrayList<String> arrayListOfCopies;
-	protected Map<String, String[]> borrowHistory;//Dictionary of copy history i.e. loan date users who loaned etc.
-	protected String[] copyHistory;
+	protected Map<String, ArrayList<String[]>> borrowHistory;//Dictionary of copy history i.e. loan date user who loaned etc. A copy can have multiple histories.
+	protected ArrayList<String[]> copyHistory; //changed from String[]
+	protected Integer noOfCopies;
 
 	/**
 	 * Base Constructor for all resources.
@@ -39,7 +40,7 @@ public abstract class Resource {
 	 * */
 
 	public Resource(String year, String title,
-		String thumbnailImageRef, String uniqueID) {
+		String thumbnailImageRef, String uniqueID, Integer noOfCopies) {
 		
 		this.year = year;
 		this.title = title;
@@ -47,7 +48,8 @@ public abstract class Resource {
 		this.uniqueID = uniqueID;
 		this.queueOfReservations = new Queue<User>();
 		this.arrayListOfCopies = new ArrayList<String>();
-		this.borrowHistory = new HashMap<String, String[]>();
+		this.borrowHistory = new HashMap<String, ArrayList<String[]>>();
+		this.noOfCopies = noOfCopies;
 	}
 
 	/* #############################################################
@@ -143,6 +145,13 @@ public abstract class Resource {
 		return borrowHistory;
 	}
 	
+	/**
+	 * Sets the borrow history for a resource
+	 * @param borrowHistory the borrow history of a resource
+	 */
+	public void setBorrowHistory(Map borrowHistory) {
+		this.borrowHistory = borrowHistory;
+	}
 
 	
 	/* #############################################################
@@ -157,11 +166,13 @@ public abstract class Resource {
 	 * @param loanHistory
 	 * The loan history of this copy
 	 */
-	public void addBorrowHistory(String copyID, String[] loanHistory) {
-		/*loanHistory will store [user][dLoan][dRet]
-		 * [user] = userID of user who loaned this copy
+	public void addBorrowHistory(String copyID, ArrayList<String[]> loanHistory) {
+		/* loanHistory will store [user][dLoan][dRet][dRetBy][loanDuration]
+		 * [userName] = userName of user who loaned this copy
 		 * [dLoan]= date this copy was loaned
 		 * [dRet]= date this copy was returned
+		 * [dRetBy] = date this copy was supposed to be returned by.
+		 * [loanDuration] = the length of this copy's loan.
 		 * loanHistory thus = userID of user who loaned this copy
 		 * from the date dLoan until it was returned on dRet.
 		 * 
@@ -174,6 +185,33 @@ public abstract class Resource {
 	}
 	
 	/**
+	 * Returns a copy's history
+	 * @param copyID the id of the copy
+	 * @return copyHistory the history of this copy
+	 */
+	public ArrayList<String[]> getCopyHistory(String copyID) {
+		return this.borrowHistory.get(copyID);
+	}
+
+	/**
+	 * Returns the current loanee of a copy
+	 * @param copyID the id of the copy possibly on loan
+	 * @return the username of the user who is loaning the book.
+	 */
+	public ArrayList<String[]> getCurrentLoanee(String copyID) {
+		//check if borrow date != null and return date is null => still on loan
+		if ((this.borrowHistory.get(copyID).get(this.borrowHistory.size()))[1] != null
+				&& (this.borrowHistory.get(copyID).get(this.borrowHistory.size()))[2] == null) {
+
+			//return (this.borrowHistory.get(copyID).get(this.borrowHistory.size()))[0]; before
+			return this.borrowHistory.get(copyID);
+
+		}
+		return null;
+	}
+
+
+	/**
 	 * Adds a new copy to this Resource.
 	 * @param copyID
 	 * The unique ID of this copy.
@@ -185,9 +223,14 @@ public abstract class Resource {
 	/**
 	 * Removes a copy from the Resource
 	 */
-	public void removeCopy() {
-		//Remove from dictionary of copies, a copy the latest copy
-		this.arrayListOfCopies.remove(this.arrayListOfCopies.size() - 1);
+	public void removeCopy(String copyID) {
+		//Remove  copy from dictionary of copies
+		for (int i = 0; i < this.arrayListOfCopies.size(); i++) {
+			if (this.arrayListOfCopies.get(i) == copyID) {
+				this.arrayListOfCopies.remove(i);
+			}
+		}
+
 	}
 	
 	/**
@@ -214,6 +257,14 @@ public abstract class Resource {
 	 */
 	public User peekQueueOfReservations() {
 		return this.queueOfReservations.peek();
+	}
+
+	/**
+	 * Checks if someone requested a book.
+	 * @return
+	 */
+	public Boolean checkIfRequested(){
+		return queueOfReservations.isEmpty();
 	}
 	public String toSingleString(){
 		return year + title;

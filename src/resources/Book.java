@@ -36,9 +36,9 @@ public class Book extends Resource {
 	 * @param uniqueID
 	 */
 	public Book(String year,String title, String thumbnailImg, String uniqueID,
-			String author, String genre, String isbn, String publisher, ArrayList<String> lang) {
+			String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies) {
 		//Set all the inherited values from Resource...
-		super(year, title, thumbnailImg, generateBookID(uniqueID));
+		super(year, title, thumbnailImg, generateBookID(uniqueID), noOfCopies);
 		
 		//Set all non-inherited values
 		this.author = author;
@@ -263,7 +263,7 @@ public class Book extends Resource {
 		super.addToCopies(generateCopyID());
 	}
 
-	/**
+	/** 
 	 * Generates a copy ID based off of previous copyID.
 	 * @return hCpyID the current highest ID of a copy
 	 */
@@ -278,12 +278,15 @@ public class Book extends Resource {
 	 * Remove the latest copy of a book.
 	 */
 	@Override
-	public void removeCopy() {
+	public void removeCopy(String copyID) {
 		if (this.arrayListOfCopies.size() >= 1) {
-			super.removeCopy();
+			super.removeCopy(copyID);
 			this.highestCopyID--;
 		}
 	}
+	/**
+	 * Converts Book to single string
+	 */
 	public String toSingleString() {
 		return super.toSingleString() + author + publisher + genre + isbn;
 	}

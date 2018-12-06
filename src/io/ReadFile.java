@@ -26,14 +26,11 @@ public class ReadFile extends IO{
 	private static BufferedReader reader = null;
 	private static String currentLine = null;
 	
-	public static String readAll() {
-		return "";
-	}
-	
 	public static ArrayList<User> readUsers() {
 		JSONParser parser = new JSONParser();
 		JSONArray resourceArray = new JSONArray();
 		JSONArray transactionArray = new JSONArray();
+		JSONArray borrowHistoryArray = new JSONArray();
 		ArrayList<User> userList = new ArrayList<>();
 		try {
 			file = new FileReader(IO.getUsersFilePath());
@@ -48,9 +45,10 @@ public class ReadFile extends IO{
 						(String)object.get("secondLineAddress"),
 						(String)object.get("postCode"),
 						(String)object.get("townName"),
-						Integer.parseInt((String) object.get("accountBalance")),
+						Double.parseDouble((String) object.get("accountBalance")),
 						(String)object.get("imageAddress"));
 				
+				//TODO: Currently Borrowed
 				resourceArray = (JSONArray) object.get("resourceBorrow");
 				String resourceBorrow = "";
 				if (resourceArray != null) {
@@ -59,17 +57,26 @@ public class ReadFile extends IO{
 						resourceBorrow = resourceBorrow + stringResource + ",";
 					}
 				}
-				// user.add(resourceBorrow);
 				
 				transactionArray = (JSONArray) object.get("transactionHistory");
-				String transactionHistory = "";
 				if (transactionArray != null) {
 					for (Object transaction : transactionArray) {
-						String stringTransaction = (String) transaction;
-						transactionHistory = transactionHistory + stringTransaction + ",";
+						String[] stringTransaction = (String[]) transaction;
+						user.addToTransactionHistory(stringTransaction);
 					}
 				}
-				//user.add(transactionHistory);
+				
+				borrowHistoryArray = (JSONArray) object.get("borrowHistory");
+				if (borrowHistoryArray != null) {
+					for (Object borrowHistory : borrowHistoryArray) {
+						String[] stringBorrowHistory = (String[]) borrowHistory;
+						user.addToBorrowHistory(stringBorrowHistory);
+					}
+				}
+				
+				//TODO: Currently Requested
+				
+				//TODO: Currently Reserved
 				
 				userList.add(user);
 			}
@@ -156,7 +163,7 @@ public class ReadFile extends IO{
 				String isbn = ((String) object.get("isbn"));
 				String publisher = ((String) object.get("publisher"));
 				
-				Book bookToAdd = new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, null);
+				Book bookToAdd = new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, null, 0);
 				
 				languageArray = (JSONArray) object.get("languages");
 				if (languageArray != null) {
@@ -254,7 +261,7 @@ public class ReadFile extends IO{
 					}
 				}
 				
-				dvds.add(new DVD(director, runtime, language, subLang, year, title, thumbnailImageRef, uniqueID));
+				dvds.add(new DVD(director, runtime, language, subLang, year, title, thumbnailImageRef, uniqueID, 0));
 			}
 			
 			reader.close();
@@ -298,7 +305,7 @@ public class ReadFile extends IO{
 				String title = ((String) object.get("title"));
 				String thumbnailImg = ((String) object.get("thumbnailImg"));
 				
-				Laptop laptopToAdd = new Laptop(manufacturer, model, operatingSys, year, title, thumbnailImg, uniqueID);
+				Laptop laptopToAdd = new Laptop(manufacturer, model, operatingSys, year, title, thumbnailImg, uniqueID, 0);
 				
 				listOfCopiesArray = (JSONArray) object.get("listOfCopies");
 				if (listOfCopiesArray != null) {

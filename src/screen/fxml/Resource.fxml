@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
@@ -13,51 +15,50 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.HomeScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.ResourceScreen">
    <children>
       <SplitPane dividerPositions="0.6588419405320813" layoutY="68.0" prefHeight="658.0" prefWidth="1280.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #f4f5ff;">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="656.0" prefWidth="1277.0" style="-fx-background-color: #f4f5ff;">
                <children>
-                  <Button layoutX="58.0" layoutY="508.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="81.0" style="-fx-background-color: #ef9d39;" text="Add copy" textFill="#0e0056" wrapText="true" />
                   <Button layoutX="572.0" layoutY="283.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="81.0" style="-fx-background-color: #ef9d39;" text="Edit" textFill="#0e0056" wrapText="true" />
-                  <ImageView fitHeight="258.0" fitWidth="352.0" layoutX="51.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="258.0" fitWidth="352.0" layoutX="52.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../data/images/dvd/A%20Star%20Is%20Born.jpg" />
                      </image>
                   </ImageView>
-                  <ListView layoutX="51.0" layoutY="293.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;" />
-                  <Text layoutX="51.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of copies" />
+                  <Text layoutX="51.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avaliable copies:">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Text>
                   <ListView layoutX="483.0" layoutY="64.0" prefHeight="198.0" prefWidth="258.0" style="-fx-background-color: #f4f5ff;" />
-                  <Text layoutX="483.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Info" />
-                  <Button layoutX="170.0" layoutY="508.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="81.0" style="-fx-background-color: #ef9d39;" text="Remove copy" textAlignment="CENTER" textFill="#0e0056" wrapText="true" />
+                  <Text layoutX="483.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Info">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font></Text>
+                  <Text layoutX="166.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <SplitPane dividerPositions="0.26299694189602446" orientation="VERTICAL" prefHeight="656.0" prefWidth="433.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane orientation="VERTICAL" prefHeight="656.0" prefWidth="433.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: #f4f5ff;">
                            <children>
-                              <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Outstanding fines:">
+                              <Button layoutX="175.0" layoutY="550.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="92.0" style="-fx-background-color: #ef9d39;" text="Edit Nnumber of copies" textFill="#0e0056" wrapText="true" />
+                              <ScrollPane layoutX="26.0" layoutY="56.0" prefHeight="470.0" prefWidth="389.0">
+                                 <content>
+                                    <ScrollBar orientation="VERTICAL" prefHeight="469.0" prefWidth="14.0" />
+                                 </content>
+                              </ScrollPane>
+                              <Text layoutX="26.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Copies:">
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="System Bold" size="14.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="fineText" layoutX="169.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="£4.20">
-                                 <font>
-                                    <Font name="System Bold" size="36.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: #f4f5ff;">
-                           <children>
-                              <Text layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently Borrowed:">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                              </Text>
-                              <ListView fx:id="borrowedItemsList" layoutX="14.0" layoutY="32.0" prefHeight="415.0" prefWidth="403.0" style="-fx-background-color: #f4f5ff; -fx-background-color: #f4f5ff;" />
                            </children>
                         </AnchorPane>
                     </items>
@@ -70,7 +71,7 @@
          <items>
             <TextField fx:id="searchBar" prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." />
             <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchButton" style="-fx-background-color: #ef9d39;" text="Search" textFill="#0e0056" />
-            <Text fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Tawe Library" textAlignment="CENTER" wrappingWidth="150.7158203125">
+            <Text fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Tawe Library" textAlignment="CENTER" wrappingWidth="100.7158203125">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -85,11 +86,6 @@
                   <Button fx:id="accountBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Account" textFill="#fff4f4" underline="true" />
                   <Button fx:id="drawAppBtn" mnemonicParsing="false" onAction="#drawAppButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Draw App" textFill="#fff1f1" underline="true" />
                   <Button fx:id="issueDeskBtn" mnemonicParsing="false" onAction="#issueDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Issue Desk" textFill="#fff1f1" underline="true" visible="false" />
-                  <Text fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="sponsered by amzon">
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Text>
                </children>
                <padding>
                   <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
@@ -97,12 +93,12 @@
             </HBox>
          </items>
       </ToolBar>
-      <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" layoutX="993.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" layoutX="1126.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../git/SEGroup2/data/images/james/testImg442.png" />
          </image>
       </ImageView>
-      <Text fx:id="usernameText" fill="#fff4f4" layoutX="1032.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+      <Text fx:id="usernameText" fill="#fff4f4" layoutX="1158.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
       <Button fx:id="logoutBtn" layoutX="1212.0" layoutY="5.0" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: #0e0056;" text="Logout" textFill="#fff2f2" underline="true" />
    </children>
 </AnchorPane>
