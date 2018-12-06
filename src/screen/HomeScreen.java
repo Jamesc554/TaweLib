@@ -74,6 +74,9 @@ public class HomeScreen extends Screen implements Initializable{
 		setCurrentlyBorrowed();
 	}
 
+	/**
+	 * This method will updated the ListView of currently borrowed resources.
+	 */
 	private void setCurrentlyBorrowed() {
 		ArrayList<String> borrowedResources = Library.getCurrentLoggedInUser().getCurrentlyBorrowedResources();
 		for(String resource : borrowedResources) {
