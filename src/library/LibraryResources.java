@@ -71,6 +71,12 @@ public class LibraryResources {
 				return u;
 			}
 		}
+
+		for(Librarian r : listOfLibrarians){
+			if(r.getUserName().equals(username)){
+				return r;
+			}
+		}
 		return null;
 	}
 

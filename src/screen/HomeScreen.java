@@ -57,6 +57,9 @@ public class HomeScreen extends Screen implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		BufferedImage img = null;
+
+		System.out.println(Library.getCurrentLoggedInUser().getProfImage());
+
 		try {
 			img = ImageIO.read(new File(Library.getCurrentLoggedInUser().getProfImage()));
 		} catch (IOException e) {
@@ -70,7 +73,7 @@ public class HomeScreen extends Screen implements Initializable{
 		
 		userIcon.setImage(SwingFXUtils.toFXImage(img, null));
 		usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
-		fineText.setText("£" + String.format("%.2f", Library.getCurrentLoggedInUser().getAccountBalanceDouble()));
+		fineText.setText("ï¿½" + String.format("%.2f", Library.getCurrentLoggedInUser().getAccountBalanceDouble()));
 		setCurrentlyBorrowed();
 	}
 
