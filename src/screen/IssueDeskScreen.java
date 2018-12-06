@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -157,6 +158,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Text dvdImgName;
     @FXML
+    private ImageView dvdImg;
+    @FXML
     private TextField laptopTitle;
     @FXML
     private TextField laptopYear;
@@ -186,6 +189,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Label laptopDurationError;
     @FXML
     private Text laptopImgName;
+    @FXML
+    private ImageView laptopImg;
+
 
     @Override
     public void start() {
@@ -696,7 +702,13 @@ public class IssueDeskScreen extends Screen implements Initializable {
         try {
             File selectedFile = getImageFile("book");
             bookImgName.setText(selectedFile.getName());
-            //File imgPath = new File("./data/images/book/" + bookImgName);
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(selectedFile);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            bookImg.setImage(SwingFXUtils.toFXImage(img, null));
         } catch (NullPointerException ex) {
             System.out.println("No book image file selected");
         }
@@ -711,6 +723,13 @@ public class IssueDeskScreen extends Screen implements Initializable {
          try {
              File selectedFile = getImageFile("dvd");
              dvdImgName.setText(selectedFile.getName());
+             BufferedImage img = null;
+             try {
+                 img = ImageIO.read(selectedFile);
+             } catch (IOException ex) {
+                 ex.printStackTrace();
+             }
+             dvdImg.setImage(SwingFXUtils.toFXImage(img, null));
          } catch (NullPointerException ex) {
              System.out.println("No dvd image file selected");
          }
@@ -725,6 +744,13 @@ public class IssueDeskScreen extends Screen implements Initializable {
         try {
             File selectedFile = getImageFile("laptop");
             laptopImgName.setText(selectedFile.getName());
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(selectedFile);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            laptopImg.setImage(SwingFXUtils.toFXImage(img, null));
         } catch (NullPointerException ex) {
             System.out.println("No laptop image file selected");
         }
