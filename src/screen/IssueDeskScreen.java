@@ -414,7 +414,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                     numCopies = Integer.parseInt(bookNumCopies.getText());
                 }
                 if (numCopies >= 0 ) {
-                    Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages, numCopies);
+                    Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages, numCopies, null);
                     bookSuccess.setVisible(true);
                     bookImgName.setText("");
                 } else {
@@ -471,7 +471,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                     numCopies = Integer.parseInt(dvdNumCopies.getText());
                 }
                 if (numCopies >= 0) {
-                    Library.addDVD(year, title, image, null, director, runtime, language, subs, numCopies);
+                    Library.addDVD(year, title, image, null, director, runtime, language, subs, numCopies, null);
                     dvdSuccess.setVisible(true);
                     dvdImgName.setText("");
                 } else {
@@ -516,7 +516,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                     numCopies = Integer.parseInt(laptopNumCopies.getText());
                 }
                 if (numCopies >= 0) {
-                    Library.addLaptop(year, title, image, null, manufacturer, model, os, numCopies);
+                    Library.addLaptop(year, title, image, null, manufacturer, model, os, numCopies, null);
                     laptopSuccess.setVisible(true);
                     laptopImgName.setText("");
                 } else {

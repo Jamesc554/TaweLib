@@ -299,4 +299,20 @@ public abstract class Resource {
 		data[0] = username;
 		data[1] = date;
 	}
+	public void returnResource(Integer index, String date){
+		String[] data = this.currentOutInfo[index];
+		data[2] = date;
+		ArrayList<String> al = new ArrayList<>();
+		for(String s : data){
+			al.add(s);
+		}
+		//TODO add data to history
+		//this.borrowHistory.put(String.valueOf(index), al);
+		data[0] = "";
+		data[1] = "";
+		data[2] = "";
+		data[3] = "";
+
+
+	}
 }
