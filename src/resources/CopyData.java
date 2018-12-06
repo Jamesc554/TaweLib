@@ -1,6 +1,14 @@
 package resources;
 
+import library.Library;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class CopyData {
+
 	
 	private String id;
 	private BorrowHistoryData[] borrowHistory; // [4] [0] - User ID [1] - date borrowed [2] - date returned [3] - requested return date
@@ -51,8 +59,30 @@ public class CopyData {
 		if (currentInfo.getDateBorrowed().equals("")) {
 			return false;
 		}
-		
+
 		return true;
 	}
+	public void loanCopy(String username){
+		this.currentInfo.setUserID(username);
+		this.currentInfo.setDateBorrowed(Library.getCurrentDateTime());
+	}
+	public void requestReturn(){
+		String date = currentInfo.getDateBorrowed().split(" ")[0];
 
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy" ); //Not Required
+		Date selectedDate=null;
+		try {
+			selectedDate=dateFormat.parse(date);// replace it with selected date
+		} catch (ParseException e) {
+			System.out.println("date in wrong format");
+		}
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(selectedDate);
+		cal.add( Calendar.DATE,Integer.valueOf(loanDuration) );
+		this.currentInfo.setDateRequestedReturn(cal.getTime().toString());
+	}
+	public void returnCopy(){
+		currentInfo.setDateReturned(Library.getCurrentDateTime());
+
+	}
 }
