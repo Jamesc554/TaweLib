@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -229,6 +230,12 @@ public class SearchResultScreen extends Screen implements Initializable {
 			for (TextField tf : textFields) {
 				tf.setEditable(false);
 			}
+		}
+		
+		copiesList.getItems().clear();
+		
+		for (String copy : r.getArrayListOfCopies()) {
+			copiesList.getItems().add("Copy: " + copy + " - Available: " + String.valueOf(r.checkIfCopyAvailable(copy)));
 		}
 
 		switch (resourceType) {

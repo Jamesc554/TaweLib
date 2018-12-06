@@ -24,7 +24,7 @@ public abstract class Resource {
 	protected String uniqueID;
 	protected Queue<User> queueOfReservations;
 	protected ArrayList<String> arrayListOfCopies;
-	protected String[][] currentOutInfo;
+	protected String[][] currentOutInfo; // TODO: WHAT ARE YOU
 	protected ArrayList<String> loanDuration;
 	protected Map<String, ArrayList<String[]>> borrowHistory;//Dictionary of copy history i.e. loan date user who loaned etc. A copy can have multiple histories.
 	protected ArrayList<String[]> copyHistory; //changed from String[]
@@ -291,6 +291,7 @@ public abstract class Resource {
 		for(int i = 0; i < this.currentOutInfo.length; i++){
 			String[] data = {"","","","", this.loanDuration.get(i)};
 			this.currentOutInfo[i] = data;
+			addToCopies(String.valueOf(i));
 		}
 	}
 
