@@ -1,21 +1,22 @@
 package resources;
 
-import library.Library;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import library.Library;
 
 public class CopyData {
 
 	
 	private String id;
-	private BorrowHistoryData[] borrowHistory; // [4] [0] - User ID [1] - date borrowed [2] - date returned [3] - requested return date
+	private List<BorrowHistoryData> borrowHistory; // [4] [0] - User ID [1] - date borrowed [2] - date returned [3] - requested return date
 	private BorrowHistoryData currentInfo; // [4] [0] - User ID [1] - date borrowed [2] - date returned [3] - requested return date
 	private String loanDuration;
 	
-	public CopyData(String copyID, BorrowHistoryData[] borrowHistory, String loanDuration) {
+	public CopyData(String copyID, List<BorrowHistoryData> borrowHistory, String loanDuration) {
 		this.id = copyID;
 		this.borrowHistory = borrowHistory;
 		this.loanDuration = loanDuration;
@@ -31,11 +32,11 @@ public class CopyData {
 		this.id = id;
 	}
 
-	public BorrowHistoryData[] getBorrowHistory() {
+	public List<BorrowHistoryData> getBorrowHistory() {
 		return borrowHistory;
 	}
 
-	public void setBorrowHistory(BorrowHistoryData[] borrowHistory) {
+	public void setBorrowHistory(List<BorrowHistoryData> borrowHistory) {
 		this.borrowHistory = borrowHistory;
 	}
 
