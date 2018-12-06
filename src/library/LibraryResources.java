@@ -22,8 +22,8 @@ public class LibraryResources {
 	public static void start(){
 		listOfUsers = ReadFile.readUsers();
 		listOfDVD = ReadFile.readDvds();
-		//listOfBooks = ReadFile.readBooks();
-		//listOfLaptops = ReadFile.readLaptops();
+		listOfBooks = ReadFile.readBooks();
+		listOfLaptops = ReadFile.readLaptops();
 	}
 
 	/**
