@@ -53,7 +53,7 @@ public abstract class Resource {
 		this.arrayListOfCopies = new ArrayList<String>();
 		this.borrowHistory = new HashMap<String, ArrayList<String[]>>();
 		this.noOfCopies = noOfCopies;
-		this.currentOutInfo = new String[this.noOfCopies][];
+		this.currentOutInfo = new String[this.noOfCopies][5];
 		this.loanDuration = loanDuration;
 		creatCurrentOutInfo();
 	}
@@ -159,6 +159,9 @@ public abstract class Resource {
 		this.borrowHistory = borrowHistory;
 	}
 
+	public int getNoOfCopies() {
+		return noOfCopies;
+	}
 	
 	/* #############################################################
 	 * ########  BELOW ARE THE COMPLEX METHODS OF Resource  ########

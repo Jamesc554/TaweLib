@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -90,6 +91,9 @@ public class SearchResultScreen extends Screen implements Initializable {
 	@FXML
 	private TextField rs5Tf;
 	
+	@FXML
+	private Button borrowButton;
+	
 	//private TextField[] textFields = {titleTf, uIDTf, yearTf, rs1Tf, rs2Tf, rs3Tf, rs4Tf, rs5Tf};
 
 	@FXML
@@ -148,6 +152,10 @@ public class SearchResultScreen extends Screen implements Initializable {
 	 */
 	public void requestCopy() {
 
+	}
+	
+	public void borrowResource() {
+		Library.requestResource(uIDTf.getText());
 	}
 
 	@FXML

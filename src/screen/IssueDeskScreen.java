@@ -268,7 +268,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 //Check if user has no outstanding balance
                 if (Library.getUser(user).getAccountBalanceDouble() == 0) {
                     //Check if Resource ID is valid
-                    if (Library.getResource(id) != null) {
+                    if (Library.getResource(id.split("-")[0]) != null) {
                         //TODO: Check if user has overdue copies
                         Library.loanResource(user, id);
                         loanSuccess.setVisible(true);
