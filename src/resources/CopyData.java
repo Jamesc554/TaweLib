@@ -90,7 +90,10 @@ public class CopyData {
 	}
 	
 	public void requestReturn(){
-		this.currentInfo.setDateRequestedReturn(getEstimatedReturnData().getTime().toString());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		String date = dateFormat.format(getEstimatedReturnData().getTime());
+		
+		this.currentInfo.setDateRequestedReturn(date);
 	}
 	
 	public void returnCopy(){
@@ -120,7 +123,7 @@ public class CopyData {
 		
 		if (cal.getTime().before(new Date())) {
 			cal.setTime(new Date());
-			cal.add(Calendar.DAY_OF_MONTH, 1);
+			cal.add(Calendar.DATE, 1);
 		}
 		
 		return cal;
