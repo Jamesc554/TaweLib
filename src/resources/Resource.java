@@ -5,49 +5,49 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import library.Library;
 import user.User;
 import utils.Queue;
-
 import javax.xml.crypto.Data;
 
 /**
  * <h1>Resource</h1>
- * <p>Resource is an abstract class which provides essential attributes for all resource types
+ * <p>Resource is an abstract class which provides essential attributes for all resource types</p>
  * @author Peter Daish
- * @version 0.1
- * @since 11/11/2018
- * 
- * 
+ * @version 1.0
+ * @since 07/12/2018
  */
 public abstract class Resource {
-	protected String year;
-	protected String title;
-	protected String thumbnailImageRef;
-	protected String uniqueID;
-	protected Queue<User> queueOfReservations;
-	protected List<CopyData> copiesList;
-
-	private double FINE;
-	private double MAX_FINE;
-
+	private double FINE; //The daily fine for an overdue resource.
+	private double MAX_FINE; //The maximum fine a single resource can reach.
+	
+	protected String year; //The year this resource was published/released.
+	protected String title; //The title of this resource
+	protected String thumbnailImageRef; //The filepath of this resource's avatar.
+	protected String uniqueID; //The unique id of this resource.
+	protected Queue<User> queueOfReservations; //The queue of current reservations for this resource.
+	protected List<CopyData> copiesList; //The list of copies owned by this library for this resource.
 
 	/**
-	 * Base Constructor for all resources.
+	 * The constructor for a Resource
 	 * @param year
-	 *  The year of release of the resource.
+	 * The year this resource was published/released.
 	 * @param title
-	 *  The title of the resource.
-	 * @param thumbnailImageRef#
-	 *  The location of the avatar image on disk.
+	 * The title of this resource.
+	 * @param thumbnailImageRef
+	 * The filepath of the avatar for this resource.
 	 * @param uniqueID
-	 *  The ID of a resource.
-	 * */
-
-	public Resource(String year, String title,
-		String thumbnailImageRef, String uniqueID, Integer noOfCopies, List<String> loanDuration, 
-		List<List<BorrowHistoryData>> copyBorrowHistory, List<BorrowHistoryData> currentBorrowData) {
+	 * The unique id of this resource.
+	 * @param noOfCopies
+	 * The number of copies of this resource currently owned by the library. 
+	 * @param loanDuration
+	 * The loan duration of this resource.
+	 * @param copyBorrowHistory
+	 * The borrow history of a resource.
+	 * @param currentBorrowData
+	 * The information for borrower and dates associated with a copy of a resource.
+	 */
+	public Resource(String year, String title, String thumbnailImageRef, String uniqueID, Integer noOfCopies, List<String> loanDuration, List<List<BorrowHistoryData>> copyBorrowHistory, List<BorrowHistoryData> currentBorrowData) {
 		
 		this.year = year;
 		this.title = title;
@@ -75,103 +75,128 @@ public abstract class Resource {
 	/**
 	 * Finds the year the resource was published
 	 * @return year 
+	 * The year this resource was published/released.
 	 */
 	public String getYear() {
-		return year;
-	}
-	/**
-	 * Allocates the year the resource was published in
-	 * @param year
-	 */
-
-	public void setYear(String year) {
-		this.year = year;
-	}
-	/**
-	 * Finds the title of the Resource.
-	 * @return title
-	 */
-
-	public String getTitle() {
-		return title;
-	}
-	/**
-	 * Allocates a title to this resource.
-	 * @param title
-	 */
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	/**
-	 * Finds the filepath of the avatar of this Resource.
-	 * @return thumbnailImageRef
-	 */
-
-	public String getThumbnailImageRef() {
-		return thumbnailImageRef;
-	}
-	/**
-	 * Allocates a filepath to the avatar of this Resource.
-	 * @param thumbnailImageRef
-	 */
-
-	public void setThumbnailImageRef(String thumbnailImageRef) {
-		this.thumbnailImageRef = thumbnailImageRef;
-	}
-	/**
-	 * Finds this Resource's unique ID.
-	 * @return uniqueID
-	 */
-
-	public CopyData getCopyInfo(Integer id){
-		return copiesList.get(id);
-	}
-
-	public String getUniqueID() {
-		return uniqueID;
-	}
-	/**
-	 * Allocates a uniqueID for this Resource.
-	 * @param uniqueID
-	 */
-
-	public void setUniqueID(String uniqueID) {
-		this.uniqueID = uniqueID;
-	}
-	/**
-	 * Finds the copies of this Resource
-	 * @return dictionaryOfCopies
-	 */
-
-	public List<CopyData> getArrayListOfCopies() {
-		return this.copiesList;
-	}
-	/**
-	 * Finds the reservation queue of copies of this Resource
-	 * @return queueOfReservations
-	 */
-
-	public Queue getQueueOfReservations() {
-		return this.queueOfReservations;
-	}
-	/**
-	 * Finds the borrow history of this Resource.
-	 * @return borrowHistory.
-	 */
-
-	public List<BorrowHistoryData> getBorrowHistory(String copyID) {
-		return copiesList.get(Integer.parseInt(copyID)).getBorrowHistory();
+		return this.year;
 	}
 	
 	/**
-	 * Sets the borrow history for a resource
-	 * @param borrowHistory the borrow history of a resource
+	 * Allocates the year the resource was published in
+	 * @param year
+	 * The year this resource was published/released.
+	 */
+	public void setYear(String year) {
+		this.year = year;
+	}
+	
+	/**
+	 * Finds the title of the Resource.
+	 * @return title
+	 * The title of this resource.
+	 */
+	public String getTitle() {
+		return this.title;
+	}
+	
+	/**
+	 * Allocates a title to this resource.
+	 * @param title
+	 * The title of this resource.
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	/**
+	 * Finds the filepath of the avatar of this Resource.
+	 * @return thumbnailImageRef
+	 * The filepath for the avatar of this resource.
+	 */
+	public String getThumbnailImageRef() {
+		return this.thumbnailImageRef;
+	}
+	
+	/**
+	 * Allocates a filepath to the avatar of this Resource.
+	 * @param thumbnailImageRef
+	 * The filepath for the avatar of this resource.
+	 */
+	public void setThumbnailImageRef(String thumbnailImageRef) {
+		this.thumbnailImageRef = thumbnailImageRef;
+	}
+	
+	/**
+	 * Returns information about a copy.
+	 * @param id
+	 * The id of the copy.
+	 * @return CopyData
+	 * The information about a copy
+	 */
+	public CopyData getCopyInfo(Integer id) {
+		return this.copiesList.get(id);
+	}
+
+	/**
+	 * Returns the unique id of this resource.
+	 * @return uniqueID
+	 * The unique id of this resource.
+	 */
+	public String getUniqueID() {
+		return this.uniqueID;
+	}
+	
+	/**
+	 * Allocates a uniqueID for this Resource.
+	 * @param uniqueID
+	 * The uniqueID of this resource.
+	 */
+	public void setUniqueID(String uniqueID) {
+		this.uniqueID = uniqueID;
+	}
+	
+	/**
+	 * Returns the list of copies.
+	 * @return copiesList
+	 * The list of copies of this resource.
+	 */
+	public List<CopyData> getArrayListOfCopies() {
+		return this.copiesList;
+	}
+	
+	/**
+	 * Returns the reservation queue of copies of this Resource
+	 * @return queueOfReservations
+	 * The queue of users who have reserved a copy of this resource.
+	 */
+	public Queue getQueueOfReservations() {
+		return this.queueOfReservations;
+	}
+	
+	/**
+	 * Returns the borrow history of this Resource.
+	 * @return BorrowHistoryData
+	 * The borrow history of a copy of this resource.
+	 */
+	public List<BorrowHistoryData> getBorrowHistory(String copyID) {
+		return this.copiesList.get(Integer.parseInt(copyID)).getBorrowHistory();
+	}
+	
+	/**
+	 * Sets the borrow history of a copy of this resource.
+	 * @param copyID
+	 * The copy id.
+	 * @param borrowHistory
+	 * The borrow history of this copy.
 	 */
 	public void setBorrowHistory(String copyID, List<BorrowHistoryData> borrowHistory) {
 		copiesList.get(Integer.parseInt(copyID)).setBorrowHistory(borrowHistory);
 	}
 
+	/**
+	 * Returns the total number of copies of this resource.
+	 * @return Total number of copies of this resource.
+	 */
 	public int getNoOfCopies() {
 		return copiesList.size();
 	}
@@ -183,13 +208,13 @@ public abstract class Resource {
 
 	/**
 	 * Returns the current loanee of a copy
-	 * @param copyID the id of the copy possibly on loan
-	 * @return the username of the user who is loaning the book.
+	 * @param copyID
+	 * The copy id
+	 * @return The username of the user currently loaning this copy.
 	 */
 	public String getCurrentLoanee(String copyID) {
 		return copiesList.get(Integer.parseInt(copyID)).getCurrentInfo().getUserID();
 	}
-
 
 	/**
 	 * Adds a new copy to this Resource.
@@ -197,28 +222,30 @@ public abstract class Resource {
 	 * The length of the loan for this copy
 	 */
 	public void addCopy(String loanDuration) {
-		copiesList.add(new CopyData(String.valueOf(copiesList.size() - 1), new ArrayList<BorrowHistoryData>(), null, loanDuration));
+		copiesList.add(new CopyData(String.valueOf(copiesList.size() - 1),
+				new ArrayList<BorrowHistoryData>(), null, loanDuration));
 	}
 
 	/**
 	 * Removes a copy from the Resource
 	 */
 	public void removeCopy(String copyID) {
-		//Remove  copy from dictionary of copies
 		copiesList.remove(Integer.valueOf(copyID));
 	}
 	
 	/**
 	 * Adds a User to copy request queue.
-	 * @param userForQueue the user who requested a copy.
+	 * @param userForQueue 
+	 * The user who requested a copy.
 	 */
-	public void addUserToRequestQueue(User userForQueue){
+	public void addUserToRequestQueue(User userForQueue) {
 		this.queueOfReservations.enqueue(userForQueue);
 	}
 	
 	/**
 	 * Removes a User from request for a copy of a resource.
-	 * @return userAtFrontOfQueue the user who first requested a copy
+	 * @return userAtFrontOfQueue 
+	 * The user who first requested a copy
 	 */
 	public User removeUserFromRequestQueue() {
 		User userAtFrontOfQueue = this.queueOfReservations.peek();
@@ -228,7 +255,7 @@ public abstract class Resource {
 	
 	/**
 	 * Gets the head of the queueOfReservations
-	 * @return queueOfReservations
+	 * @return The user who is head in queueOfReservations.
 	 */
 	public User peekQueueOfReservations() {
 		return this.queueOfReservations.peek();
@@ -236,27 +263,56 @@ public abstract class Resource {
 
 	/**
 	 * Checks if someone requested a book.
-	 * @return
+	 * @return False if no user is currently requesting a book, True otherwise.
 	 */
-	public Boolean checkIfRequested(){
+	public Boolean checkIfRequested() {
 		return queueOfReservations.isEmpty();
 	}
-	public String toSingleString(){
+	
+	/**
+	 * Returns a simple string representation of this Resource.
+	 * @return year and title
+	 * The year and title of this resource.
+	 */
+	public String toSingleString() {
 		return year + title;
 	}
 
+	/**
+	 * Returns the loan duration of a resource.
+	 * @param copyID
+	 * The copy ID
+	 * @return The loan duration of a copy of a resource.
+	 */
 	public String getLoanDuration(String copyID) {
 		return copiesList.get(Integer.valueOf(copyID)).getLoanDuration();
 	}
 	
-	public void loanResource(String copyID, String username){
+	/**
+	 * Sets a user to loan a copy of a resource.
+	 * @param copyID
+	 * The copy id of the copy to be loaned.
+	 * @param username
+	 * The username of the user who is loaning the copy.
+	 */
+	public void loanResource(String copyID, String username) {
 		copiesList.get((Integer.valueOf(copyID))).loanCopy(username);
 	}
 	
-	public void requestReturn(Integer copyId){
+	/**
+	 * Sets a request to return a copy of a resource.
+	 * @param copyId
+	 * The copy id of the resource to be returned.
+	 */
+	public void requestReturn(Integer copyId) {
 		copiesList.get(copyId).requestReturn();
 	}
 	
+	/**
+	 * Sets a copy of a resource which has been returned.
+	 * @param copyId
+	 * The id of the copy of the resource.
+	 */
 	public void returnResource(Integer copyId) {
 		copiesList.get(copyId).returnCopy();
 
@@ -264,37 +320,69 @@ public abstract class Resource {
 			copiesList.get(copyId).reserveCopy(queueOfReservations.peek().getUserName());
 			queueOfReservations.peek().moveToReserved(getUniqueID());
 		}
-
 	}
 	
-	public boolean checkIfAvailable(){
+	/**
+	 * Checks if a copy of a resource is available
+	 * @return True if available, False if not.
+	 */
+	public boolean checkIfAvailable() {
 		for (CopyData copy : copiesList) {
 			if (copy.isAvailable())
 				return true;
 		}
 		return false;
 	}
-	public Boolean checkIfOverdue(Integer copyID){
+	
+	/**
+	 * Checks if a copy of a resource is overdue.
+	 * @param copyID
+	 * The copy id.
+	 * @return True if copy is overdue, False otherwise.
+	 */
+	public Boolean checkIfOverdue(Integer copyID) {
 		BorrowHistoryData data = this.copiesList.get(copyID).getCurrentInfo();
 		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		try{
+		try {
 			return dataFormat.parse(data.getDateRequestedReturn()).after(dataFormat.parse(Library.getCurrentDateTime()));
-		}catch (ParseException e){
+		} catch (ParseException e) {
 			System.out.println("Error Resource checkIfOverdue ParseException");
 		}
 		return false;
 	}
 
-	public boolean checkIfCopyAvailable(String copyID){
+	/**
+	 * Checks if a specific copy of a resource is available.
+	 * @param copyID
+	 * The id of the specific copy.
+	 * @return True if the specific copy is available, False otherwise.
+	 */
+	public boolean checkIfCopyAvailable(String copyID) {
 		return copiesList.get(Integer.parseInt(copyID)).isAvailable();
 	}
-	public double getFineAmount(){
+	
+	/**
+	 * Returns the daily fine rate of this resource.
+	 * @return FINE
+	 * The daily fine rate of this resource.
+	 */
+	public double getFineAmount() {
 		return this.FINE;
 	}
-	public double getMaxFine(){
+	
+	/**
+	 * Returns the maximum fine this resource can reach.
+	 * @return MAX_FINE
+	 * The maximum fine a resource can reach.
+	 */
+	public double getMaxFine() {
 		return  this.MAX_FINE;
 	}
 
+	/**
+	 * Returns the copy which can be returned the earliest.
+	 * @return The id of the copy which can be returned the earliest.
+	 */
 	public Integer getCopyWithEarlestReturn() {
 
 		Calendar currentlyEarliestDate = copiesList.get(0).getEstimatedReturnData();
@@ -310,7 +398,6 @@ public abstract class Resource {
 				currentEarlyCopy = copy;
 			}
 		}
-
 		return Integer.parseInt(currentEarlyCopy.getId());
 	}
 }
