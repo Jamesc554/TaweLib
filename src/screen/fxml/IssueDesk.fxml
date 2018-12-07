@@ -283,11 +283,11 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Button>
-                                          <Button layoutX="829.0" layoutY="149.0" mnemonicParsing="false" onAction="#bookImageButton" text="*Choose thumbnail image" />
+                                          <Button layoutX="379.0" layoutY="149.0" mnemonicParsing="false" onAction="#bookImageButton" text="*Choose thumbnail image" />
                                           <Label fx:id="bookError" layoutX="297.0" layoutY="441.0" text="Please fill all required fields" textFill="RED" visible="false" />
                                           <Label fx:id="bookSuccess" layoutX="297.0" layoutY="441.0" text="Book added!" textFill="#34972b" visible="false" />
                                           <Text fx:id="bookImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                                          <ImageView fx:id="bookImg" fitHeight="200.0" fitWidth="200.0" layoutX="829.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="bookImg" fitHeight="200.0" fitWidth="200.0" layoutX="629.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" />
                                           <TextField fx:id="bookNumCopies" layoutX="188.0" layoutY="389.0" />
                                           <Text layoutX="85.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
                                              <font>
@@ -320,6 +320,12 @@
                                              </font>
                                           </Text>
                                           <Label fx:id="bookDurationError" layoutX="498.0" layoutY="433.0" text="Total should equal no. of Copies" textFill="RED" visible="false" />
+                                          <Text layoutX="976.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overdue Books">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <ListView fx:id="bookOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" />
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -369,7 +375,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Button>
-                                          <Button layoutX="829.0" layoutY="149.0" mnemonicParsing="false" onAction="#dvdImageButton" text="*Choose thumbnail image" />
+                                          <Button layoutX="379.0" layoutY="149.0" mnemonicParsing="false" onAction="#dvdImageButton" text="*Choose thumbnail image" />
                                           <Text layoutX="221.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add DVD">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
@@ -410,7 +416,13 @@
                                              </font>
                                           </Text>
                                           <Label fx:id="dvdDurationError" layoutX="498.0" layoutY="401.0" text="Total should equal no. of Copies" textFill="RED" visible="false" />
-                                          <ImageView fx:id="dvdImg" fitHeight="200.0" fitWidth="200.0" layoutX="829.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="dvdImg" fitHeight="200.0" fitWidth="200.0" layoutX="629.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Text layoutX="978.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overdue DVDs">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <ListView fx:id="dvdOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" />
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -454,7 +466,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Button>
-                                          <Button layoutX="829.0" layoutY="149.0" mnemonicParsing="false" onAction="#laptopImageButton" text="*Choose thumbnail image" />
+                                          <Button layoutX="379.0" layoutY="149.0" mnemonicParsing="false" onAction="#laptopImageButton" text="*Choose thumbnail image" />
                                           <Text layoutX="221.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Laptop">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
@@ -496,6 +508,12 @@
                                           </Text>
                                           <Label fx:id="laptopDurationError" layoutX="498.0" layoutY="368.0" text="Total should equal no. of Copies" textFill="RED" visible="false" />
                                           <ImageView fx:id="laptopImg" fitHeight="200.0" fitWidth="200.0" layoutX="829.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Text layoutX="968.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overdue Laptops">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <ListView fx:id="laptopOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" />
                                        </children>
                                     </AnchorPane>
                                  </content>
