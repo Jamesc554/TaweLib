@@ -3,13 +3,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class models a Library book.
+ * <h1>This class models the Library Resource: Book.</h1>
  * @author Peter Daish
  * @since 18/11/2018
  */
+
 public class Book extends Resource {
 	
-	private static String highestBookID = "BookID:0"; //this is used to calculate a unique BookID.
+	private final double FINE = 2.00; //The fine amount of a book when overdue.
+	private final double MAX_FINE = 25.00; //The maximum fine value of any book.
+	
+	private static String highestBookID = "BookID:0"; //This is used to calculate a unique BookID.
 	
 	private int highestCopyID = 0; // this is used to calculate a unique CopyID.
 	private String author; //Author of Book
@@ -18,23 +22,36 @@ public class Book extends Resource {
 	private String isbn;//ISBN of book (Optional)
 	private ArrayList<String> languages; //The array of languages the book is currently available in (Optional).
 
-	private double FINE = 2.00;
-	private double MAX_FINE = 25.00;
-	
 	/**
-	 * The Constructor for Book.
-	 * @param author
-	 * @param genre
-	 * @param publisher
-	 * @param isbn
-	 * @param lang
+	 * <h1>The constructor for a Book.</h1>
 	 * @param year
+	 * The year this book was published.
 	 * @param title
+	 * The title of this book.
 	 * @param thumbnailImg
+	 * The filepath of the avatar of this book.
 	 * @param uniqueID
+	 * The unique ID of this book.
+	 * @param author
+	 * The author of this book.
+	 * @param genre
+	 * The genre of this book.
+	 * @param isbn
+	 * The isbn of this book.
+	 * @param publisher
+	 * The publisher of this book.
+	 * @param lang
+	 * The languages this book is available in.
+	 * @param noOfCopies
+	 * The number of copies of this book currently owned by the library.
+	 * @param loanDuration
+	 * The loan duration of this book.
+	 * @param borrowHistory
+	 * The borrow history of a copy of this book.
+	 * @param currentBorrowData
+	 * The information for borrower and dates associated with a copy of a resource.
 	 */
-	public Book(String year,String title, String thumbnailImg, String uniqueID,
-			String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData) {
+	public Book(String year, String title, String thumbnailImg, String uniqueID, String author, String genre, String isbn, String publisher, ArrayList<String> lang, int noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData) {
 		//Set all the inherited values from Resource...
 		super(year, title, thumbnailImg, generateBookID(uniqueID), noOfCopies, loanDuration, borrowHistory, currentBorrowData);
 		
@@ -45,14 +62,11 @@ public class Book extends Resource {
 		this.isbn = isbn;
 		
 		//If lang from file is null, create a new arraylist. otherwise set languages to lang from file.
-		if(lang == null) {
+		if (lang == null) {
 			this.languages = new ArrayList<String>();
 		} else {
 			this.languages = lang;
-		}
-
-
-		
+		}	
 	}
 	
 	/**
@@ -66,17 +80,15 @@ public class Book extends Resource {
 		//append 1
 		// convert back to String
 		//assign uniqueID
-		//
 		//If id != null.
 		//we are loading a book from a file thus set highestBookID to id.
+		
 		if (id == null) {
 		String[] segmentsOfString = highestBookID.split(":");
 		String typeSegment = segmentsOfString[0];
 		String numberSegmentOfString = segmentsOfString[1];
-		
 		int numberOfID = Integer.parseInt(numberSegmentOfString);
 		numberOfID++;
-		
 		highestBookID = typeSegment + ":" + Integer.toString(numberOfID);
 		return highestBookID;
 		} else {
@@ -84,12 +96,10 @@ public class Book extends Resource {
 			return highestBookID;
 		}
 	}
-
-	/**
-	 * This Method Prints out this Book's attributes for testing purposes.
-	 */
-	public String toString() {
-		return "Year: " + this.year + "\nTitle: " + this.title +
+	
+	/* This method returns the Book's attributes as a string (FOR TESTING PURPOSES ONLY)
+		public String toString() {
+			return "Year: " + this.year + "\nTitle: " + this.title +
 			   "\nThumbnailImageRef: " + this.thumbnailImageRef +
 			   "\nuniqueID: " + this.uniqueID +
 			   "\nAuthor; " + this.author +
@@ -98,7 +108,7 @@ public class Book extends Resource {
 			   "\nISBN: " + this.isbn + 
 			   "\nLanguages: " + this.languages +
 			   "\nQueueOfReservations: " + this.queueOfReservations.isEmpty();
-	}
+		}*/
 	/* #############################################################
 	 * ########  BELOW ARE THE GETTERS AND SETTERS OF BOOK  ########
 	 * #############################################################
@@ -106,7 +116,8 @@ public class Book extends Resource {
 	
 	/**
 	 * Sets a value to calculate Book IDs from.
-	 * @param hBookID the highest current value of any Book's ID.
+	 * @param hBookID 
+	 * The highest current value of any Book's ID.
 	 */
 	public void setHighestBookID(String hBookID) {
 		this.highestBookID = hBookID;
@@ -114,7 +125,8 @@ public class Book extends Resource {
 	
 	/**
 	 * Returns the ID of the latest Book.
-	 * @return highestBookID the highest current id of any book.
+	 * @return highestBookID 
+	 * The highest current id of any book.
 	 */
 	public String getHighestBookID() {
 		return this.highestBookID;
@@ -122,7 +134,8 @@ public class Book extends Resource {
 	
 	/**
 	 * Sets a value to calculate a new copy's id from.
-	 * @param hCopyID the latest ID of any copy.
+	 * @param hCopyID 
+	 * The latest ID of any copy.
 	 */
 	public void setHighestCopyID(int hCopyID) {
 		this.highestCopyID = hCopyID;
@@ -130,7 +143,8 @@ public class Book extends Resource {
 	
 	/**
 	 * Returns the newest copy's ID
-	 * @return highestCopyID the newest copy's ID.
+	 * @return highestCopyID 
+	 * The newest copy's ID.
 	 */
 	public int getHighestCopyID() {
 		return this.highestCopyID;
@@ -139,10 +153,12 @@ public class Book extends Resource {
 	/**
 	 * Returns the author of the book
 	 * @return author
+	 * The author of this book.
 	 */
 	public String getAuthor() {
 		return author;
 	}
+	
 	/**
 	 * Sets the author of this book
 	 * @param author 
@@ -158,7 +174,7 @@ public class Book extends Resource {
 	 * The publisher of this book
 	 */
 	public String getPublisher() {
-		return publisher;
+		return this.publisher;
 	}
 
 	/**
@@ -176,7 +192,7 @@ public class Book extends Resource {
 	 * The genre of this book.
 	 */
 	public String getGenre() {
-		return genre;
+		return this.genre;
 	}
 
 	/**
@@ -194,7 +210,7 @@ public class Book extends Resource {
 	 * The isbn of this book
 	 */
 	public String getIsbn() {
-		return isbn;
+		return this.isbn;
 	}
 
 	/**
@@ -212,7 +228,7 @@ public class Book extends Resource {
 	 * The languages this book is available in.
 	 */
 	public ArrayList<String> getLanguages() {
-		return languages;
+		return this.languages;
 	}
 
 	/**
@@ -262,10 +278,13 @@ public class Book extends Resource {
 		String hCpyID = Integer.toString(this.highestCopyID);
 		return hCpyID;
 	}
+	
 	/**
 	 * Converts Book to single string
+	 * @return a String representation of this book.
+	 * Returns the details of this book.
 	 */
 	public String toSingleString() {
-		return super.toSingleString() + author + publisher + genre + isbn;
+		return super.toSingleString() + this.author + this.publisher + this.genre + this.isbn;
 	}
 }
