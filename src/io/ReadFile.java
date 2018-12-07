@@ -145,6 +145,8 @@ public class ReadFile extends IO {
 		JSONArray languageArray = new JSONArray();
 		JSONArray bookQueueArray = new JSONArray();
 		JSONArray listOfLoanDur = new JSONArray();
+		JSONArray bookBorrowHistoryArray = new JSONArray();
+		JSONArray bookCurrentBorrowData = new JSONArray();
 		ArrayList<Book> bookList = new ArrayList<Book>();
 
 		try {
@@ -164,6 +166,8 @@ public class ReadFile extends IO {
 				String publisher = ((String) object.get("publisher"));
 
 				int noOfCopies = Integer.parseInt((String) object.get("noOfCopies"));
+				List<List<BorrowHistoryData>> borrowHistory = new ArrayList<>();
+				List<BorrowHistoryData> currentData = new ArrayList<>();
 
 				ArrayList<String> loanDurs = new ArrayList<String>();
 
@@ -174,9 +178,42 @@ public class ReadFile extends IO {
 						loanDurs.add(loanDurString);
 					}
 				}
+				
+				bookBorrowHistoryArray = (JSONArray) object.get("borrowHistory");
+				if (bookBorrowHistoryArray != null) {
+					for (Object copyBorrowHistoryObject : bookBorrowHistoryArray) {
+						JSONArray copyBorrowHistoryArray = (JSONArray) copyBorrowHistoryObject;
+						List<BorrowHistoryData> copyBorrowHistoryData = new ArrayList<>();
+						for (Object borrowHistoryObject : copyBorrowHistoryArray) {
+							JSONArray borrowHistoryArray = (JSONArray) borrowHistoryObject;
+							BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
+							borrowHistoryData.setUserID((String) borrowHistoryArray.get(0));
+							borrowHistoryData.setDateBorrowed((String) borrowHistoryArray.get(1));
+							borrowHistoryData.setDateReturned((String) borrowHistoryArray.get(2));
+							borrowHistoryData.setDateRequestedReturn((String) borrowHistoryArray.get(3));
+							copyBorrowHistoryData.add(borrowHistoryData);
+						}
+						borrowHistory.add(copyBorrowHistoryData);
+					}
+				}
+				
+				bookCurrentBorrowData = (JSONArray) object.get("currentData");
+				if (bookCurrentBorrowData != null) {
+					for (Object copyCurrentBorrowDataObject : bookCurrentBorrowData) {
+						JSONArray copyCurrentBorrowDataArray = (JSONArray) copyCurrentBorrowDataObject;
+						
+						BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
+						borrowHistoryData.setUserID((String) copyCurrentBorrowDataArray.get(0));
+						borrowHistoryData.setDateBorrowed((String) copyCurrentBorrowDataArray.get(1));
+						borrowHistoryData.setDateReturned((String) copyCurrentBorrowDataArray.get(2));
+						borrowHistoryData.setDateRequestedReturn((String) copyCurrentBorrowDataArray.get(3));
+						
+						currentData.add(borrowHistoryData);
+					}
+				}
 
 				Book bookToAdd = new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, null,
-						noOfCopies, loanDurs, new ArrayList<>(), new ArrayList<>());
+						noOfCopies, loanDurs, borrowHistory, currentData);
 
 				languageArray = (JSONArray) object.get("languages");
 				if (languageArray != null) {
@@ -327,10 +364,11 @@ public class ReadFile extends IO {
 	public static ArrayList<Laptop> readLaptops() {
 		JSONParser parser = new JSONParser();
 		// TODO: Implement these:
-		JSONArray languageArray = new JSONArray();
-		JSONArray dvdQueueArray = new JSONArray();
+		JSONArray laptopQueueArray = new JSONArray();
 		////////////////////////
 		JSONArray listOfLoanDur = new JSONArray();
+		JSONArray laptopBorrowHistoryArray = new JSONArray();
+		JSONArray laptopCurrentBorrowData = new JSONArray();
 
 		ArrayList<Laptop> laptops = new ArrayList<Laptop>();
 
@@ -351,6 +389,8 @@ public class ReadFile extends IO {
 				int noOfCopies = Integer.parseInt((String) object.get("noOfCopies"));
 
 				ArrayList<String> loanDurs = new ArrayList<String>();
+				List<List<BorrowHistoryData>> borrowHistory = new ArrayList<>();
+				List<BorrowHistoryData> currentData = new ArrayList<>();
 
 				listOfLoanDur = (JSONArray) object.get("listOfLoanDur");
 				if (listOfLoanDur != null) {
@@ -359,9 +399,42 @@ public class ReadFile extends IO {
 						loanDurs.add(loanDurString);
 					}
 				}
+				
+				laptopBorrowHistoryArray = (JSONArray) object.get("borrowHistory");
+				if (laptopBorrowHistoryArray != null) {
+					for (Object copyBorrowHistoryObject : laptopBorrowHistoryArray) {
+						JSONArray copyBorrowHistoryArray = (JSONArray) copyBorrowHistoryObject;
+						List<BorrowHistoryData> copyBorrowHistoryData = new ArrayList<>();
+						for (Object borrowHistoryObject : copyBorrowHistoryArray) {
+							JSONArray borrowHistoryArray = (JSONArray) borrowHistoryObject;
+							BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
+							borrowHistoryData.setUserID((String) borrowHistoryArray.get(0));
+							borrowHistoryData.setDateBorrowed((String) borrowHistoryArray.get(1));
+							borrowHistoryData.setDateReturned((String) borrowHistoryArray.get(2));
+							borrowHistoryData.setDateRequestedReturn((String) borrowHistoryArray.get(3));
+							copyBorrowHistoryData.add(borrowHistoryData);
+						}
+						borrowHistory.add(copyBorrowHistoryData);
+					}
+				}
+				
+				laptopCurrentBorrowData = (JSONArray) object.get("currentData");
+				if (laptopCurrentBorrowData != null) {
+					for (Object copyCurrentBorrowDataObject : laptopCurrentBorrowData) {
+						JSONArray copyCurrentBorrowDataArray = (JSONArray) copyCurrentBorrowDataObject;
+						
+						BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
+						borrowHistoryData.setUserID((String) copyCurrentBorrowDataArray.get(0));
+						borrowHistoryData.setDateBorrowed((String) copyCurrentBorrowDataArray.get(1));
+						borrowHistoryData.setDateReturned((String) copyCurrentBorrowDataArray.get(2));
+						borrowHistoryData.setDateRequestedReturn((String) copyCurrentBorrowDataArray.get(3));
+						
+						currentData.add(borrowHistoryData);
+					}
+				}
 
 				Laptop laptopToAdd = new Laptop(manufacturer, model, operatingSys, year, title, thumbnailImg, uniqueID,
-						noOfCopies, loanDurs, new ArrayList<>(), new ArrayList<>());
+						noOfCopies, loanDurs, borrowHistory, currentData);
 
 				laptops.add(laptopToAdd);
 			}
