@@ -22,7 +22,8 @@ public class Library {
 	 * This methods starts the library. Library is a static method so we can only
 	 * have one at a time.
 	 */
-	public static void start(){ LibraryResources.start();
+	public static void start() {
+		LibraryResources.start();
 	}
 
 	/**
@@ -38,8 +39,11 @@ public class Library {
 	 * @param lang Language of the book.
 	 */
 	public static void addBook(String year,String title, String thumbnailImg, String uniqueID,
-						   String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData){
-		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, lang, noOfCopies, loanDuration, borrowHistory, currentBorrowData));
+						   String author, String genre, String isbn, String publisher, ArrayList<String> lang,
+							   Integer noOfCopies, ArrayList<String> loanDuration,
+							   List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData){
+		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn,
+				publisher, lang, noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	}
 
 	/**
@@ -54,8 +58,11 @@ public class Library {
 	 * @param subLang The subtitles language of the DVD.
 	 */
 	public static void addDVD(String year, String title, String thumbnailImg, String uniqueID,
-						 String director, String runtime, String language, ArrayList<String> subLang, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData){
-	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID, noOfCopies, loanDuration, borrowHistory, currentBorrowData));
+						 String director, String runtime, String language, ArrayList<String> subLang, Integer noOfCopies,
+							  ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory,
+							  List<BorrowHistoryData> currentBorrowData) {
+	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID,
+				noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	}
 
 	/**
@@ -69,8 +76,11 @@ public class Library {
 	 * @param operatingSys The operating system of the laptop.
 	 */
 	public static void addLaptop(String year, String title, String thumbnailImageRef, String uniqueID,
-							  String manufacturer, String model,  String operatingSys, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData){
-	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys, noOfCopies, loanDuration, borrowHistory, currentBorrowData));
+							  String manufacturer, String model,  String operatingSys, Integer noOfCopies,
+								 ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory,
+								 List<BorrowHistoryData> currentBorrowData) {
+	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model,
+				operatingSys, noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	}
 
 	/**
@@ -87,10 +97,11 @@ public class Library {
 	 * @param profImage path to the profile image of the user.
 	 */
 	public static void addUser(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
-						  String secondLineAddress, String postCode, String townName, int accountBalance, String profImage){
+						  String secondLineAddress, String postCode, String townName, int accountBalance, String profImage) {
 		LibraryResources.addUser(new User(userName, firstName, lastName, mobileNumber, firstLineAddress,
                 secondLineAddress, postCode, townName, accountBalance, profImage));
 	}
+
 	/**
 	 * This methods adds a librarian to the library.
 	 * @param userName the username.
@@ -109,9 +120,10 @@ public class Library {
 	 * @param staffNumber staff number.
 	 * @param noOfEmploys number of employs.
 	 */
-	public static void addLibrarian(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
-								  String secondLineAddress, String postCode, String townName, int accountBalance, String profImage,
-								  int empDay, int empMonth, int empYear, String staffNumber, int noOfEmploys){
+	public static void addLibrarian(String userName, String firstName, String lastName, String mobileNumber,
+									String firstLineAddress, String secondLineAddress, String postCode, String townName,
+									int accountBalance, String profImage, int empDay, int empMonth, int empYear,
+									String staffNumber, int noOfEmploys) {
 		LibraryResources.addUser(new Librarian(userName, firstName, lastName, mobileNumber, firstLineAddress,
                 secondLineAddress, postCode, townName, accountBalance, profImage, empDay, empMonth, empYear, staffNumber,
                 noOfEmploys));
@@ -122,10 +134,10 @@ public class Library {
 	 * @param id String of ID of the resource.
 	 * @return Resource object.
 	 */
-	public static Resource getResource(String id){
+	public static Resource getResource(String id) {
 		id = id.split("-")[0];
 		String resourceType = id.substring(0, 1);
-		switch (resourceType.toLowerCase()){
+		switch (resourceType.toLowerCase()) {
 			case "l":
 				return LibraryResources.getLaptop(id);
 			case "d":
@@ -136,20 +148,22 @@ public class Library {
 				return null;
 		}
 	}
+
 	/**
 	 * Gets the user based on username.
 	 * @param username String username.
 	 * @return user object.
 	 */
-	public static User getUser(String username){
+	public static User getUser(String username) {
 		return LibraryResources.getUser(username);
 	}
+
 	/**
 	 * Adds balance to the user account.
 	 * @param amount amount to increase the balance.
 	 * @param username the username to modify.
 	 */
-	public static void addBalance(int amount, String username){
+	public static void addBalance(int amount, String username) {
 		getUser(username).addAccountBalance(amount);
 	}
 
@@ -158,6 +172,7 @@ public class Library {
 	 * @param amount amount to be removed.
 	 * @param username username of the user.
 	 */
+
 	public static void subtractBalance (int amount, String username) {
 		if (amount <= 0 ) {
 			throw new IllegalArgumentException("Cannot subtract negative or null amount");
@@ -171,7 +186,7 @@ public class Library {
 	 * Returns current date and time in the following format DD-MM-YYYY HH-MM-SS
 	 * @return String.
 	 */
-	public static String getCurrentDateTime(){
+	public static String getCurrentDateTime() {
 		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		return dataFormat.format(new Date());
 
@@ -182,7 +197,7 @@ public class Library {
 	 * @param username Username of the person borrowing a resource.
 	 * @param resourceID The id of the resource.
 	 */
-	public static void loanResource(String username, String resourceID){
+	public static void loanResource(String username, String resourceID) {
 		getUser(username).loanResource(resourceID);
 		String[] resInfo = resourceID.split("-");
 		Resource r = Library.getResource(resInfo[0]);
@@ -194,7 +209,7 @@ public class Library {
 	 * @param username Username
 	 * @param resourceID ID of the resource.
 	 */
-	public static void returnResource(String username, String resourceID){
+	public static void returnResource(String username, String resourceID) {
 		getUser(username).returnResource(resourceID);
 	}
 
@@ -202,7 +217,7 @@ public class Library {
 	 * This removes a resource from library.
 	 * @param id Unique ID of the resource.
 	 */
-	public static void removeResource(String id){
+	public static void removeResource(String id) {
         LibraryResources.removeResource(id);
     }
 
@@ -210,21 +225,22 @@ public class Library {
 	 * Remove user from the library.
 	 * @param username
 	 */
-	public static void removeUser(String username){
+	public static void removeUser(String username) {
 	    LibraryResources.removeUser(username);
 	}
 
 	/**
 	 * This methods shuts down the library.
 	 */
-	public static void shutDown(){}
+	public static void shutDown(){
 
+	}
 	/**
 	 * Checks if user exists.
 	 * @param username Username of the user
 	 * @return Boolean. True if exists False if not.
 	 */
-	public static boolean checkForUser(String username){
+	public static boolean checkForUser(String username) {
 		return LibraryResources.checkIfValidUsername(username);
 	}
 
@@ -232,28 +248,28 @@ public class Library {
 	 * Returns all books in the library.
 	 * @return ArrayList<Book> of all books.
 	 */
-	public static ArrayList<Book> getAllBooks(){
+	public static ArrayList<Book> getAllBooks() {
 		return LibraryResources.getListOfBooks();
 	}
 	/**
 	 * Returns all Laptops in the library.
 	 * @return ArrayList<Laptop> of all books.
 	 */
-	public static ArrayList<Laptop> getAllLaptops(){
+	public static ArrayList<Laptop> getAllLaptops() {
 		return LibraryResources.getListOfLaptops();
 	}
 	/**
 	 * Returns all books in the DVD's.
 	 * @return ArrayList<DVD> of all books.
 	 */
-	public static ArrayList<DVD> getAllDVD(){
+	public static ArrayList<DVD> getAllDVD() {
 		return LibraryResources.getListOfDVD();
 	}
 	/**
 	 * Returns all users in the library.
 	 * @return ArrayList<User> of all books.
 	 */
-	public static ArrayList<User> getAllUsers(){
+	public static ArrayList<User> getAllUsers() {
 		return LibraryResources.getAllUsers();
 	}
 
@@ -287,7 +303,7 @@ public class Library {
 	 * @param firstLine The first line of address.
 	 * @param secondLine Second line of address.
 	 */
-	public static void changeAddress(String username, String firstLine, String secondLine){
+	public static void changeAddress(String username, String firstLine, String secondLine) {
 	    User u = getUser(username);
 	    u.setFirstLineAddress(firstLine);
 	    u.setSecondLineAddress(secondLine);
@@ -296,9 +312,9 @@ public class Library {
 	/**
 	 * Changes the post code of the user.
 	 * @param username The username of the user for which the address should be changed.
-	 * @param postCode
+	 * @param postCode The new post code of the user.
 	 */
-	public static void changePoctCode(String username, String postCode){
+	public static void changePoctCode(String username, String postCode) {
 	    getUser(username).setPostCode(postCode);
     }
 
@@ -307,7 +323,7 @@ public class Library {
 	 * @param username The username of the user for which the address should be changed.
 	 * @param townName The new town name.
 	 */
-	public static void changeTownName(String username, String townName){
+	public static void changeTownName(String username, String townName) {
 	    getUser(username).setTownName(townName);
     }
 
@@ -316,7 +332,7 @@ public class Library {
 	 * @param username The username of the user for which the address should be changed.
 	 * @param phoneNumber The new phone number.
 	 */
-	public static void changePhoneNumber(String username, String phoneNumber){
+	public static void changePhoneNumber(String username, String phoneNumber) {
 	    getUser(username).setMobileNumber(phoneNumber);
     }
 
@@ -325,7 +341,7 @@ public class Library {
 	 * @param username The username of which data will be updated.
 	 * @param lastname The new last name.
 	 */
-	public static void changeLastName(String username, String lastname){
+	public static void changeLastName(String username, String lastname) {
 	    getUser(username).setLastName(lastname);
     }
 
@@ -334,7 +350,7 @@ public class Library {
 	 * @param username The username of the user for which the address should be changed.
 	 * @param path the new path of the profile image.
 	 */
-	public static void changeImage(String username, String path){
+	public static void changeImage(String username, String path) {
 	    getUser(username).setProfImage(path);
     }
 
@@ -343,18 +359,18 @@ public class Library {
 	 * @param username username.
 	 * @return single string will all user information.
 	 */
-	public static String userToString(String username){
+	public static String userToString(String username) {
 		User u = getUser(username);
 	    String info = u.getUserName()+ "\n";
 	    info += u.getFullName()+"\n"+u.getMobileNumber()+"\n"+u.getFullAddress()+"\n";
 	    info += "Current Balance: "+u.getAccountBalanceString()+"\n";
 	    info += "Profile Image Path: "+u.getProfImage()+"\n";
 	    info += "Currently Borrowed:\n";
-	    for(Object id : u.getCurrentlyBorrowedResources()){
+	    for(Object id : u.getCurrentlyBorrowedResources()) {
             info += getResource((String)id ).getTitle()+"\n";
         }
 	    info += "Borrow History:\n";
-	    for(String[] data : u.getBorrowHistory()){
+	    for(String[] data : u.getBorrowHistory()) {
 	        info += data[0] +" "+ getResource(data[1]).getTitle() +" "+ data[2] + "\n";
         }
 	return info;
@@ -364,7 +380,7 @@ public class Library {
      * @param text partial search parameter.
      * @return ArrayList<Resource> of object that match the search query.
      */
-	public static ArrayList<Resource> searchResources(String text){
+	public static ArrayList<Resource> searchResources(String text) {
 		//Sets size of the search for hashing.
 		int textSize = text.length();
 		//Hashes the text we searching.
@@ -384,7 +400,7 @@ public class Library {
         int i = 0;
 
         //While there are resources that have not been checked.
-        while(i < resources.size()){
+        while(i < resources.size()) {
         	//Divides the text into substring for hashing.
             textPart = partString(resources.get(i), textSize);
             //Hashes substrings.
@@ -393,9 +409,9 @@ public class Library {
             //While the are parts the need to be compared
             while(j < hashedTextPart.size()) {
             	//If the hashed numbers are the same.
-                if(hashedTextPart.get(j).equals(hashedTextSearch)){
+                if(hashedTextPart.get(j).equals(hashedTextSearch)) {
                 	//If the corresponding string are the same
-                    if(textPart.get(j).equals(text.toLowerCase())){
+                    if(textPart.get(j).equals(text.toLowerCase())) {
                     	//Add said resource to list
                         result.add(resources.get(i));
                     }
@@ -413,11 +429,11 @@ public class Library {
 	 * @param partSize The part size of the list
 	 * @return ArrayList<String> of strings.
 	 */
-    private static ArrayList<String> partString(Resource res, int partSize){
+    private static ArrayList<String> partString(Resource res, int partSize) {
 	    ArrayList<String> list = new ArrayList<>();
 	    String resString = res.toSingleString();
 	    int i = 0;
-	    while(i+partSize+1 <= resString.length()){
+	    while(i+partSize+1 <= resString.length()) {
 	        list.add(resString.substring(i,i+partSize).toLowerCase());
 	        i++;
         }
@@ -430,10 +446,10 @@ public class Library {
 	 * @param parts ArrayList<String> to be hashed.
 	 * @return ArrayList<Integer> containing hashed data.
 	 */
-	private static ArrayList<Integer> hashList(ArrayList<String> parts){
+	private static ArrayList<Integer> hashList(ArrayList<String> parts) {
 	    ArrayList<Integer> list = new ArrayList<>();
 	    Integer sum;
-	    for(String p : parts){
+	    for(String p : parts) {
 	        sum = hashText(p);
 	        list.add(sum);
         }
@@ -445,10 +461,10 @@ public class Library {
 	 * @param text string to be hashed.
 	 * @return Integer representation of the number.
 	 */
-	private static Integer hashText(String text){
-	    Integer sum = 0;
+	private static Integer hashText(String text) {
+	    int sum = 0;
 	    String t = text.toLowerCase();
-	    for(int i=0; i<t.length(); i++){
+	    for(int i=0; i<t.length(); i++) {
 	        sum += (int)t.charAt(i);
         }
         return sum;
@@ -458,7 +474,7 @@ public class Library {
 	 * Allows users to request a book that is not available.
 	 * @param id of resource to be requested
 	 */
-	public static void requestResource(String id){
+	public static void requestResource(String id) {
 		currentUser.requestResource(id); // Add it to the user
 		Resource requestedResource = getResource(id); // Get the resource
 		requestedResource.addUserToRequestQueue(currentUser);
@@ -469,7 +485,7 @@ public class Library {
 	 * Returns all requested books of the user currently logged in.
 	 * @return ArrayList<String>
 	 */
-	public static ArrayList<String> getAllrequestedResource(){
+	public static ArrayList<String> getAllrequestedResource() {
 		return currentUser.getAllRequested();
 	}
 
@@ -477,12 +493,24 @@ public class Library {
 	 * Returns all reserved items of the user currently logged in.
 	 * @return ArrayList<String>
 	 */
-	public static ArrayList<String> getAllReservedResources(){ return currentUser.getAllReserved();}
+	public static ArrayList<String> getAllReservedResources() {
+		return currentUser.getAllReserved();
+	}
 
-	public static Boolean chekcCopyOverdue(String id){
+	/**
+	 * Checks if copy is overdue.
+	 * @param id String id of copy
+	 * @return Boolean. True if overdue, False if not
+	 */
+	public static Boolean chekcCopyOverdue(String id) {
 		return Library.getResource(id).checkIfOverdue(Integer.valueOf(id.split("-")[1]));
 	}
-	public static ArrayList<String> checkForOverDue(){
+
+	/**
+	 * Returns a list of all resource copies that the current user has overdue.
+	 * @return ArrayList of ID's
+	 */
+	public static ArrayList<String> checkForOverDue() {
 		ArrayList<String> overDue = new ArrayList<>();
 		ArrayList<String> list = currentUser.getCurrentlyBorrowedResources();
 		for(String s : list){
@@ -497,7 +525,7 @@ public class Library {
 	 * @param username The username of a user to check.
 	 * @return ArrayList of ID's
 	 */
-	public static ArrayList<String> checkForOverDue(String username){
+	public static ArrayList<String> checkForOverDue(String username) {
 		ArrayList<String> overDue = new ArrayList<>();
 		ArrayList<String> list = Library.getUser(username).getCurrentlyBorrowedResources();
 		for(String s : list){
@@ -512,7 +540,7 @@ public class Library {
 	 * Calculate fines for currently logged in user.
 	 * @return double Account Balance
 	 */
-	public static double calculateFines(){
+	public static double calculateFines() {
 		ArrayList<String> overDue = checkForOverDue();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		Date currentDate = new Date();
@@ -523,15 +551,15 @@ public class Library {
 
 		try {
 			currentDate = sdf.parse(Library.getCurrentDateTime());
-		}catch (ParseException e){
+		}catch (ParseException e) {
 			System.out.println("Library calculate fine parse 1 ");
 		}
 
-		for(String s : overDue){
+		for(String s : overDue) {
 			BorrowHistoryData r = Library.getResource(s).getCopyInfo(Integer.valueOf(s.split(" ")[1])).getCurrentInfo();
 			try {
 				dateToBeReturned = sdf.parse(r.getDateRequestedReturn().split(" ")[1]);
-			}catch (ParseException e){
+			}catch (ParseException e) {
 				System.out.println("Library calculate fine parse 1 ");
 			}
 			long noOfDays = (dateToBeReturned.getTime() - currentDate.getTime())/ (1000 * 60 * 60 * 24);
@@ -552,7 +580,7 @@ public class Library {
 	 * @param username String
 	 * @return double balance amount.
 	 */
-	public static double calculateFines(String username){
+	public static double calculateFines(String username) {
 		ArrayList<String> overDue = checkForOverDue(username);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		Date currentDate = new Date();
@@ -563,19 +591,19 @@ public class Library {
 
 		try {
 			currentDate = sdf.parse(Library.getCurrentDateTime());
-		}catch (ParseException e){
+		}catch (ParseException e) {
 			System.out.println("Library calculate fine parse 1 ");
 		}
 
-		for(String s : overDue){
+		for(String s : overDue) {
 			BorrowHistoryData r = Library.getResource(s).getCopyInfo(Integer.valueOf(s.split(" ")[1])).getCurrentInfo();
 			try {
 				dateToBeReturned = sdf.parse(r.getDateRequestedReturn().split(" ")[1]);
-			}catch (ParseException e){
+			}catch (ParseException e) {
 				System.out.println("Library calculate fine parse 1 ");
 			}
 			long noOfDays = (dateToBeReturned.getTime() - currentDate.getTime())/ (1000 * 60 * 60 * 24);
-			if(noOfDays == 0){
+			if(noOfDays == 0) {
 				noOfDays = 1;
 			}
 			fineAmount = noOfDays * Library.getResource(s).getFineAmount();
@@ -586,13 +614,12 @@ public class Library {
 		}
 		return sum;
 	}
-	public static ArrayList<String> findAllOverdue(){
 
 	/**
 	 * Returns a ArrayList of all copies that overdue
 	 * @return ArrayList
 	 */
-	public ArrayList<String> findAllOverdue(){
+	public static ArrayList<String> findAllOverdue() {
 		ArrayList<User> users = Library.getAllUsers();
 		ArrayList<String> allOverDue = new ArrayList<>();
 

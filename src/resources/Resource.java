@@ -274,13 +274,21 @@ public abstract class Resource {
 		}
 		return false;
 	}
+
 	public Boolean checkIfOverdue(Integer copyID){
 		BorrowHistoryData data = this.copiesList.get(copyID).getCurrentInfo();
 		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		try{
-			return dataFormat.parse(data.getDateRequestedReturn()).after(dataFormat.parse(Library.getCurrentDateTime()));
-		}catch (ParseException e){
-			System.out.println("Error Resource checkIfOverdue ParseException");
+
+		if(data.getDateRequestedReturn().equals("")) {
+			return false;
+		} else {
+			try{
+				System.out.println(data.getDateRequestedReturn());
+				System.out.println(Library.getCurrentDateTime());
+				return dataFormat.parse(data.getDateRequestedReturn()).after(dataFormat.parse(Library.getCurrentDateTime()));
+			}catch (ParseException e){
+				System.out.println("Error Resource checkIfOverdue ParseException");
+			}
 		}
 		return false;
 	}
