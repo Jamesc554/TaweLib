@@ -194,7 +194,7 @@ public class SearchResultScreen extends Screen implements Initializable {
 	private HBox createResourceContainer(Resource r) {
 		ImageView imgV = createImageViewForResource(r);
 
-		Text title = new Text("Title:" + r.getTitle());
+		Text title = new Text("Title:" + r.getTitle());;
 		Text uniqueID = new Text("Unique ID: " + r.getUniqueID());
 		Text year = new Text("Year: " + r.getYear());
 		VBox details = new VBox(title, uniqueID, year);
@@ -203,6 +203,9 @@ public class SearchResultScreen extends Screen implements Initializable {
 		container.setOnMouseEntered(mouse -> {
 			updateResourceDetails(r);
 		});
+		
+		title.setWrappingWidth(container.getWidth() - imgV.getFitWidth());
+		uniqueID.setWrappingWidth(container.getWidth() - imgV.getFitWidth());
 
 		return container;
 	}
@@ -247,16 +250,17 @@ public class SearchResultScreen extends Screen implements Initializable {
 			rs2Tf.setText(b.getPublisher());
 			rs3Lbl.setText("Genre: ");
 			rs3Tf.setText(b.getGenre());
-			rs4Lbl.setText("Director: ");
+			rs4Lbl.setText("ISBN: ");
 			rs4Tf.setText(b.getIsbn());
 			
 			rs5Lbl.setText("Languages: ");
 
 			rs5Tf.setText(b.getLanguages().get(0));
 			ArrayList<String> languages = b.getLanguages();
-			languages.remove(0);
-			for (String language : languages)
-				rs5Tf.setText(rs5Tf.getText() + ", " + language);
+			//languages.remove(0);
+			for (int i = 1; i < languages.size(); i++) {
+				rs5Tf.setText(rs5Tf.getText() + ", " + languages.get(i));
+			}
 
 			break;
 		case "DVD":
