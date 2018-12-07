@@ -51,7 +51,7 @@ public class Book extends Resource {
 	 * @param currentBorrowData
 	 * The information for borrower and dates associated with a copy of a resource.
 	 */
-	public Book(String year, String title, String thumbnailImg, String uniqueID, String author, String genre, String isbn, String publisher, ArrayList<String> lang, int noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData) {
+	public Book(String year, String title, String thumbnailImg, String uniqueID, String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData) {
 		//Set all the inherited values from Resource...
 		super(year, title, thumbnailImg, generateBookID(uniqueID), noOfCopies, loanDuration, borrowHistory, currentBorrowData);
 		
