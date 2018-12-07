@@ -67,11 +67,16 @@
                       <RowConstraints maxHeight="432.0" minHeight="10.0" prefHeight="374.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ImageView fx:id="resourceThumbnailImage" fitHeight="212.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                           <image>
-                              <Image url="@../../../data/images/dvd/A%20Star%20Is%20Born.jpg" />
-                           </image>
-                        </ImageView>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                           <children>
+                              <ImageView fx:id="resourceThumbnailImage" fitHeight="212.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../data/images/dvd/A%20Star%20Is%20Born.jpg" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="requestButton" disable="true" mnemonicParsing="false" onAction="#requestResource" prefHeight="25.0" prefWidth="630.0" text="Request" />
+                           </children>
+                        </VBox>
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                            <children>
                               <Label text="Resource Info" />
@@ -106,7 +111,6 @@
                                     <Insets />
                                  </VBox.margin>
                               </HBox>
-                              <Button fx:id="borrowButton" mnemonicParsing="false" onAction="#borrowResource" prefHeight="25.0" prefWidth="630.0" text="Borrow" />
                            </children>
                         </VBox>
                         <ListView fx:id="copiesList" prefHeight="426.0" prefWidth="302.0" GridPane.rowIndex="1" />

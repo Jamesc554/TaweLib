@@ -1,10 +1,11 @@
 package screen;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
-import io.*;
 
+import io.WriteFile;
 import javafx.geometry.Pos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -29,6 +30,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.TriangleMesh;
+import javafx.stage.FileChooser;
+import library.Library;
 import utils.Queue;
 
 public class DrawApp extends Screen {
@@ -37,51 +40,51 @@ public class DrawApp extends Screen {
 
 	private Stack<WritableImage> previousStates;
 	private Stack<WritableImage> futureStates;
-	
+
 	// JavaFX Components
-	
+
 	// Control Header \\
 	private final MenuButton fileBtn = new MenuButton("File");
 	private final MenuButton editBtn = new MenuButton("Edit");
 	private final MenuButton viewBtn = new MenuButton("View");
 	private final MenuButton toolsBtn = new MenuButton("Tools");
-	
+
 	private final MenuItem saveItem = new MenuItem("Save");
 	private final MenuItem saveAsItem = new MenuItem("Save As");
 	private final MenuItem loadItem = new MenuItem("Load");
 	private final MenuItem exitItem = new MenuItem("Exit");
-	
+
 	private final MenuItem undoItem = new MenuItem("Undo");
 	private final MenuItem redoItem = new MenuItem("Redo");
-	
+
 	private final MenuItem zoomInItem = new MenuItem("Zoom In");
 	private final MenuItem zoomOutItem = new MenuItem("Zoom Out");
-	
+
 	private final MenuItem invertItem = new MenuItem("Invert Colours");
 	private final MenuItem grayscaleItem = new MenuItem("Convert to Grayscale");
-	
+
 	// Toolbar \\
 	private final ToggleGroup tools = new ToggleGroup();
 	private final RadioButton paintBrushBtn = new RadioButton("Paint Brush");
 	private final RadioButton paintBucketBtn = new RadioButton("Paint Bucket");
 	private final RadioButton lineToolBtn = new RadioButton("Draw Line");
-	
+
 	private final RadioButton shapeToolBtn = new RadioButton("Shape Tool");
 	private final ComboBox<String> shapeSelector = new ComboBox<>();
-	
+
 	private final ColorPicker cPicker = new ColorPicker();
 	private final Spinner<Integer> brushSize = new Spinner<Integer>(0, 64, 4);
-	
+
 	// Canvas \\
 	private final Canvas canvas = new Canvas(256, 256);
 	private final GraphicsContext gc = canvas.getGraphicsContext2D();
-	
+
 	// Shapes \\
 	private final Line line = new Line();
 	private final Rectangle rectangle = new Rectangle();
 	private final TriangleMesh triangle = new TriangleMesh();
 	private final Circle circle = new Circle();
-	
+
 	// Layout \\
 	private final HBox drawWindow = new HBox(10);
 	private final HBox controlHeader = new HBox(4);
@@ -93,7 +96,7 @@ public class DrawApp extends Screen {
 		components = new ArrayList<>();
 		previousStates = new Stack<>();
 		futureStates = new Stack<>();
-		
+
 		SetupControlHeader();
 		SetupToolbar();
 		SetupLayout();
@@ -106,13 +109,13 @@ public class DrawApp extends Screen {
 		canvas.setOnMouseReleased(mouse -> CanvasMouseReleased(mouse));
 
 	}
-	
+
 	// Canavs Mouse Events \\
-	
+
 	/**
 	 * The event called when the mouse is pressed on the canvas
-	 * @param mouse
-	 * The event object
+	 * 
+	 * @param mouse The event object
 	 */
 	private void CanvasMousePressed(MouseEvent mouse) {
 		addPreviousState(canvas);
@@ -129,29 +132,29 @@ public class DrawApp extends Screen {
 		} else if (lineToolBtn.isSelected()) {
 			line.setStartX(mouse.getX());
 			line.setStartY(mouse.getY());
-		} else if (shapeToolBtn.isSelected()){
-			switch (shapeSelector.getValue()){
-				case ("Rectangle"):
-					rectangle.setX(mouse.getX());
-					rectangle.setY(mouse.getY());
-					break;
-				case ("Triangle"):
-					// TODO: Triangle Implementation
-					break;
-				case ("Oval"):
-					circle.setCenterX(mouse.getX());
-					circle.setCenterY(mouse.getY());
-					break;
-				default:
-					break;
+		} else if (shapeToolBtn.isSelected()) {
+			switch (shapeSelector.getValue()) {
+			case ("Rectangle"):
+				rectangle.setX(mouse.getX());
+				rectangle.setY(mouse.getY());
+				break;
+			case ("Triangle"):
+				// TODO: Triangle Implementation
+				break;
+			case ("Oval"):
+				circle.setCenterX(mouse.getX());
+				circle.setCenterY(mouse.getY());
+				break;
+			default:
+				break;
 			}
 		}
 	}
 
 	/**
 	 * The event called when the mouse is dragged on the canvas
-	 * @param mouse
-	 * The event object
+	 * 
+	 * @param mouse The event object
 	 */
 	private void CanvasMouseDragged(MouseEvent mouse) {
 		if (paintBrushBtn.isSelected()) {
@@ -164,31 +167,32 @@ public class DrawApp extends Screen {
 			gc.drawImage(prevState, 0, 0);
 			prevState = convertToImage(canvas);
 			gc.strokeLine(line.getStartX(), line.getStartY(), mouse.getX(), mouse.getY());
-		} else if (shapeToolBtn.isSelected()){
+		} else if (shapeToolBtn.isSelected()) {
 			gc.drawImage(prevState, 0, 0);
 			prevState = convertToImage(canvas);
-			switch (shapeSelector.getValue()){
-				case ("Rectangle"):
-					rectangle.setWidth(mouse.getX() - rectangle.getX());
-					rectangle.setHeight(mouse.getY() - rectangle.getY());
-					gc.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
-					break;
-				case ("Triangle"):
-					break;
-				case ("Oval"):
-					circle.setRadius((mouse.getX() + mouse.getY()) - (circle.getCenterX() + circle.getCenterY()));
-					gc.fillOval(circle.getCenterX() - circle.getRadius() / 2, circle.getCenterY() - circle.getRadius() / 2, circle.getRadius(), circle.getRadius());
-					break;
-				default:
-					break;
+			switch (shapeSelector.getValue()) {
+			case ("Rectangle"):
+				rectangle.setWidth(mouse.getX() - rectangle.getX());
+				rectangle.setHeight(mouse.getY() - rectangle.getY());
+				gc.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+				break;
+			case ("Triangle"):
+				break;
+			case ("Oval"):
+				circle.setRadius((mouse.getX() + mouse.getY()) - (circle.getCenterX() + circle.getCenterY()));
+				gc.fillOval(circle.getCenterX() - circle.getRadius() / 2, circle.getCenterY() - circle.getRadius() / 2,
+						circle.getRadius(), circle.getRadius());
+				break;
+			default:
+				break;
 			}
 		}
 	}
-	
+
 	/**
 	 * The event called when the mouse is released on the canvas
-	 * @param mouse
-	 * The event object
+	 * 
+	 * @param mouse The event object
 	 */
 	private void CanvasMouseReleased(MouseEvent mouse) {
 		if (paintBrushBtn.isSelected()) {
@@ -203,52 +207,60 @@ public class DrawApp extends Screen {
 			gc.drawImage(prevState, 0, 0);
 			gc.strokeLine(line.getStartX(), line.getStartY(), mouse.getX(), mouse.getY());
 			prevState = convertToImage(canvas);
-		} else if (shapeToolBtn.isSelected()){
-			switch (shapeSelector.getValue()){
-				case ("Rectangle"):
-					gc.drawImage(prevState, 0, 0);
-					gc.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
-					prevState = convertToImage(canvas);
-					break;
-				case ("Triangle"):
-					break;
-				case ("Oval"):
-					gc.drawImage(prevState, 0, 0);
-					gc.fillOval(circle.getCenterX() - circle.getRadius() / 2, circle.getCenterY() - circle.getRadius() / 2, circle.getRadius(), circle.getRadius());
-					prevState = convertToImage(canvas);
-					break;
-				default:
-					break;
+		} else if (shapeToolBtn.isSelected()) {
+			switch (shapeSelector.getValue()) {
+			case ("Rectangle"):
+				gc.drawImage(prevState, 0, 0);
+				gc.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+				prevState = convertToImage(canvas);
+				break;
+			case ("Triangle"):
+				break;
+			case ("Oval"):
+				gc.drawImage(prevState, 0, 0);
+				gc.fillOval(circle.getCenterX() - circle.getRadius() / 2, circle.getCenterY() - circle.getRadius() / 2,
+						circle.getRadius(), circle.getRadius());
+				prevState = convertToImage(canvas);
+				break;
+			default:
+				break;
 			}
 		}
 	}
-	
+
 	// Component Setup \\
-	
+
 	/**
 	 * Initialisation of JavaFX components on the ControlHeader
 	 */
 	private void SetupControlHeader() {
-		fileBtn.getItems().addAll(saveItem, saveAsItem, loadItem, exitItem);
+		fileBtn.getItems().addAll(saveItem, loadItem, exitItem);
 		editBtn.getItems().addAll(undoItem, redoItem);
 		viewBtn.getItems().addAll(zoomInItem, zoomOutItem);
 		toolsBtn.getItems().addAll(invertItem, grayscaleItem);
-		
+
 		// File Functions \\
-		saveItem.setOnAction(e ->{
-			saveImage(canvas);
+		saveItem.setOnAction(e -> {
+			FileChooser fileChooser = new FileChooser();
+			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+			fileChooser.getExtensionFilters().add(extFilter);
+			String currentUserName = Library.getCurrentLoggedInUser().getUserName();
+			String directoryPath = ("./data/images/" + currentUserName);
+			File initDir = new File(directoryPath);
+			fileChooser.setInitialDirectory(initDir);
+
+			File file = fileChooser.showSaveDialog(ScreenManager.getStage());
+
+			if (file != null)
+				saveImage(canvas, file);
 		});
-		
-		saveAsItem.setOnAction(e -> {
-			saveImage(canvas);
-		});
-		
+
 		// TODO: Load Image Functionality
-		
+
 		exitItem.setOnAction(e -> {
 			ScreenManager.previousScreen();
 		});
-		
+
 		// Edit Functions \\
 		undoItem.setOnAction(e -> {
 			undo(canvas);
@@ -257,17 +269,17 @@ public class DrawApp extends Screen {
 		redoItem.setOnAction(e -> {
 			redo(canvas);
 		});
-		
+
 		// View Functions \\
-		
+
 		// TODO: Zoom Functionality
-		
+
 		// Tools Functions \\
 		invertItem.setOnAction(e -> {
 			gc.drawImage(InvertImage(canvas), 0, 0);
 		});
-		
-		grayscaleItem.setOnAction(e ->{
+
+		grayscaleItem.setOnAction(e -> {
 			gc.drawImage(GrayscaleImage(canvas), 0, 0);
 		});
 	}
@@ -288,7 +300,6 @@ public class DrawApp extends Screen {
 		shapeSelector.getItems().addAll("Rectangle", "Triangle", "Oval");
 		shapeSelector.setValue("Rectangle");
 	}
-	
 
 	/**
 	 * Initialisation of JavaFX components for the layout
@@ -297,20 +308,21 @@ public class DrawApp extends Screen {
 		controlHeader.setPrefWidth(1280);
 		controlHeader.getChildren().addAll(fileBtn, editBtn, viewBtn, toolsBtn);
 		controlHeader.setBackground(new Background(new BackgroundFill(Color.LIGHTPINK, null, null)));
-		
+
 		header.setPrefWidth(1280);
-		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, lineToolBtn, shapeToolBtn, shapeSelector, cPicker, brushSize);
+		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, lineToolBtn, shapeToolBtn, shapeSelector, cPicker,
+				brushSize);
 		header.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
-		
+
 		drawWindow.getChildren().add(canvas);
 		drawWindow.setAlignment(Pos.CENTER);
-		
+
 		content.getChildren().addAll(controlHeader, header, drawWindow);
 		content.setAlignment(Pos.TOP_LEFT);
-		
+
 		components.add(content);
 	}
-	
+
 	private WritableImage convertToImage(Canvas c) {
 		SnapshotParameters sp = new SnapshotParameters();
 		sp.setFill(Color.TRANSPARENT);
@@ -358,7 +370,8 @@ public class DrawApp extends Screen {
 	}
 
 	private WritableImage floodFill(int x, int y, Color startC, Color newC, WritableImage img) {
-		// Get the Pixel Reader and Writer from the canvas so we can read and write to the image directly
+		// Get the Pixel Reader and Writer from the canvas so we can read and write to
+		// the image directly
 		PixelReader pr = img.getPixelReader();
 		PixelWriter pw = img.getPixelWriter();
 
@@ -432,40 +445,42 @@ public class DrawApp extends Screen {
 	/*
 	 * Temporary function, going to be fully implemented in WriteFile
 	 */
-	private void saveImage(Canvas c) {
+	private void saveImage(Canvas c, File file) {
 		WritableImage img = convertToImage(c);
-		WriteFile.saveImageToUser(img, "testImg" + new Random().nextInt(1000));
+		WriteFile.saveImageToUser(img, file);
 	}
-	
+
 	private WritableImage InvertImage(Canvas c) {
-		// Get the canvas and convert it to a Writable image so you can read and write directly to the pixels
+		// Get the canvas and convert it to a Writable image so you can read and write
+		// directly to the pixels
 		WritableImage tmpImg = convertToImage(c);
 		PixelReader pr = tmpImg.getPixelReader();
 		PixelWriter pw = tmpImg.getPixelWriter();
-		
+
 		// Loop over every pixel and invert its colour
 		for (int x = 0; x < c.getWidth(); x++) {
 			for (int y = 0; y < c.getHeight(); y++) {
 				pw.setColor(x, y, pr.getColor(x, y).invert());
 			}
 		}
-		
+
 		return tmpImg;
 	}
-	
+
 	private WritableImage GrayscaleImage(Canvas c) {
-		// Get the canvas and convert it to a Writable image so you can read and write directly to the pixels
+		// Get the canvas and convert it to a Writable image so you can read and write
+		// directly to the pixels
 		WritableImage tmpImg = convertToImage(c);
 		PixelReader pr = tmpImg.getPixelReader();
 		PixelWriter pw = tmpImg.getPixelWriter();
-		
+
 		// Loop over every pixel and convert its colour to grayscale
 		for (int x = 0; x < c.getWidth(); x++) {
 			for (int y = 0; y < c.getHeight(); y++) {
 				pw.setColor(x, y, pr.getColor(x, y).grayscale());
 			}
 		}
-		
+
 		return tmpImg;
 	}
 }

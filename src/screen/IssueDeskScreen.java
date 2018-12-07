@@ -24,6 +24,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import library.Library;
+import resources.CopyData;
+import resources.Resource;
 
 /**
  * This class represents the Issue Desk, a screen only available to Librarians to authorise payments and loans, as well
@@ -306,8 +308,20 @@ public class IssueDeskScreen extends Screen implements Initializable {
                     //Check if Resource ID is valid
                     if (Library.getResource(id.split("-")[0]) != null) {
                         //TODO: Check if user has overdue copies
-                        Library.loanResource(user, id);
-                        loanSuccess.setVisible(true);
+                    	Resource r = Library.getResource(id.split("-")[0]);
+                    	CopyData copy = r.getArrayListOfCopies().get(Integer.parseInt(id.split("-")[1]));
+                    	if (copy.isAvailable()) {
+                    		Library.loanResource(user, id);
+                            loanSuccess.setVisible(true);
+                    	}
+                    	else if (copy.isReserved()) {
+                    		if (copy.getReservedUser().equals(user)) {
+                        		Library.loanResource(user, id);
+                                loanSuccess.setVisible(true);
+                    		}
+                    		else 
+                    			loanUserError.setVisible(true);
+                    	}
                     } else {
                         loanCopyError.setVisible(true);
                     }

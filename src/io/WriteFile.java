@@ -404,14 +404,7 @@ public class WriteFile extends IO {
 		fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), Library.getAllLaptops());
 	}
 
-	public static void saveImageToUser(WritableImage img, String fileName) {
-		String currentUserName = Library.getCurrentLoggedInUser().getUserName();
-		String directoryPath = ("./data/images/" + currentUserName);
-		String filePath = (directoryPath + "/" + fileName + ".png");
-
-		new File(directoryPath).mkdirs();
-		File file = new File(filePath);
-
+	public static void saveImageToUser(WritableImage img, File file) {
 		try {
 			ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", file);
 		} catch (IOException e) {

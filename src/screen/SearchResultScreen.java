@@ -94,7 +94,7 @@ public class SearchResultScreen extends Screen implements Initializable {
 	private TextField rs5Tf;
 
 	@FXML
-	private Button borrowButton;
+	private Button requestButton;
 
 	// private TextField[] textFields = {titleTf, uIDTf, yearTf, rs1Tf, rs2Tf,
 	// rs3Tf, rs4Tf, rs5Tf};
@@ -166,7 +166,8 @@ public class SearchResultScreen extends Screen implements Initializable {
 
 	}
 
-	public void borrowResource() {
+	@FXML
+	public void requestResource() {
 		Library.requestResource(uIDTf.getText());
 	}
 
@@ -263,11 +264,19 @@ public class SearchResultScreen extends Screen implements Initializable {
 		}
 
 		copiesList.getItems().clear();
+		requestButton.setDisable(true);
 
+		boolean isAvailable = false;
 		for (CopyData copy : r.getArrayListOfCopies()) {
 			copiesList.getItems().add("Copy: " + r.getUniqueID() + "-" + copy.getId() + "- Available: "
 					+ String.valueOf(copy.isAvailable()));
+			
+			if (copy.isAvailable())
+				isAvailable = true;
 		}
+		
+		if (!isAvailable)
+			requestButton.setDisable(false);
 
 		switch (resourceType) {
 		case "Book":

@@ -195,16 +195,6 @@ public class Library {
 	 */
 	public static void returnResource(String username, String resourceID){
 		getUser(username).returnResource(resourceID);
-		checkForRequested(resourceID);
-	}
-
-	private static void checkForRequested(String id){
-		String[] data = id.split("-");
-		Resource r = Library.getResource(data[0]);
-		if(!r.checkIfRequested()){
-			User u = r.peekQueueOfReservations();
-			u.moveToReserved(id);
-		}
 	}
 
 	/**
@@ -469,7 +459,10 @@ public class Library {
 	 * @param id of resource to be requested
 	 */
 	public static void requestResource(String id){
-		currentUser.requestResource(id);
+		currentUser.requestResource(id); // Add it to the user
+		Resource requestedResource = getResource(id); // Get the resource
+		requestedResource.addUserToRequestQueue(currentUser);
+		requestedResource.requestReturn(requestedResource.getCopyWithEarlestReturn());
 	}
 
 	/**

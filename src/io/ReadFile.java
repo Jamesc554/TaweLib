@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import library.Library;
 import resources.Book;
 import resources.BorrowHistoryData;
 import resources.DVD;
@@ -171,6 +172,8 @@ public class ReadFile extends IO {
 				List<BorrowHistoryData> currentData = new ArrayList<>();
 
 				ArrayList<String> loanDurs = new ArrayList<String>();
+				
+				System.out.println("Loading Resource: " + uniqueID);
 
 				listOfLoanDur = (JSONArray) object.get("listOfLoanDur");
 				if (listOfLoanDur != null) {
@@ -182,9 +185,12 @@ public class ReadFile extends IO {
 				
 				bookBorrowHistoryArray = (JSONArray) object.get("borrowHistory");
 				if (bookBorrowHistoryArray != null) {
+					int i = 0;
 					for (Object copyBorrowHistoryObject : bookBorrowHistoryArray) {
 						JSONArray copyBorrowHistoryArray = (JSONArray) copyBorrowHistoryObject;
 						List<BorrowHistoryData> copyBorrowHistoryData = new ArrayList<>();
+
+						System.out.println("Loading Copy History for: " + uniqueID + ":" + i++);
 						for (Object borrowHistoryObject : copyBorrowHistoryArray) {
 							JSONArray borrowHistoryArray = (JSONArray) borrowHistoryObject;
 							BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
@@ -226,13 +232,13 @@ public class ReadFile extends IO {
 
 				// TODO: Make this work
 				bookQueueArray = (JSONArray) object.get("bookQueue");
-				String bookQueues = "";
 				if (bookQueueArray != null) {
-					for (Object bookQueue : bookQueueArray) {
-						String stringBookQueue = (String) bookQueue;
-						bookQueues = bookQueues + stringBookQueue + ",";
+					for (Object user : bookQueueArray) {
+						String username = (String) user;
+						bookToAdd.addUserToRequestQueue(Library.getUser(username));
 					}
 				}
+				
 
 				bookList.add(bookToAdd);
 			}
@@ -279,6 +285,8 @@ public class ReadFile extends IO {
 				int noOfCopies = Integer.parseInt((String) object.get("noOfCopies"));
 				List<List<BorrowHistoryData>> borrowHistory = new ArrayList<>();
 				List<BorrowHistoryData> currentData = new ArrayList<>();
+				
+				System.out.println("Loading Resource: " + uniqueID);
 
 				languageArray = (JSONArray) object.get("sub-languages");
 				ArrayList<String> subLang = new ArrayList<>();
@@ -311,9 +319,12 @@ public class ReadFile extends IO {
 				
 				dvdBorrowHistoryArray = (JSONArray) object.get("borrowHistory");
 				if (dvdBorrowHistoryArray != null) {
+					int i = 0;
 					for (Object copyBorrowHistoryObject : dvdBorrowHistoryArray) {
 						JSONArray copyBorrowHistoryArray = (JSONArray) copyBorrowHistoryObject;
 						List<BorrowHistoryData> copyBorrowHistoryData = new ArrayList<>();
+
+						System.out.println("Loading Copy History for: " + uniqueID + ":" + i++);
 						for (Object borrowHistoryObject : copyBorrowHistoryArray) {
 							JSONArray borrowHistoryArray = (JSONArray) borrowHistoryObject;
 							BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
@@ -388,6 +399,8 @@ public class ReadFile extends IO {
 				String title = ((String) object.get("title"));
 				String thumbnailImg = ((String) object.get("thumbnailImg"));
 				int noOfCopies = Integer.parseInt((String) object.get("noOfCopies"));
+				
+				System.out.println("Loading Resource: " + uniqueID);
 
 				ArrayList<String> loanDurs = new ArrayList<String>();
 				List<List<BorrowHistoryData>> borrowHistory = new ArrayList<>();
@@ -403,9 +416,11 @@ public class ReadFile extends IO {
 				
 				laptopBorrowHistoryArray = (JSONArray) object.get("borrowHistory");
 				if (laptopBorrowHistoryArray != null) {
+					int i = 0;
 					for (Object copyBorrowHistoryObject : laptopBorrowHistoryArray) {
 						JSONArray copyBorrowHistoryArray = (JSONArray) copyBorrowHistoryObject;
 						List<BorrowHistoryData> copyBorrowHistoryData = new ArrayList<>();
+						System.out.println("Loading Copy History for: " + uniqueID + ":" + i++);
 						for (Object borrowHistoryObject : copyBorrowHistoryArray) {
 							JSONArray borrowHistoryArray = (JSONArray) borrowHistoryObject;
 							BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
@@ -434,7 +449,7 @@ public class ReadFile extends IO {
 					}
 				}
 
-				Laptop laptopToAdd = new Laptop(manufacturer, model, operatingSys, year, title, thumbnailImg, uniqueID,
+				Laptop laptopToAdd = new Laptop(year, title, thumbnailImg, uniqueID, manufacturer, model, operatingSys,
 						noOfCopies, loanDurs, borrowHistory, currentData);
 
 				laptops.add(laptopToAdd);
