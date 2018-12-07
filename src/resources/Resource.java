@@ -28,6 +28,10 @@ public abstract class Resource {
 	protected Queue<User> queueOfReservations;
 	protected List<CopyData> copiesList;
 
+	private double FINE;
+	private double MAX_FINE;
+
+
 	/**
 	 * Base Constructor for all resources.
 	 * @param year
@@ -271,5 +275,11 @@ public abstract class Resource {
 
 	public boolean checkIfCopyAvailable(String copyID){
 		return copiesList.get(Integer.parseInt(copyID)).isAvailable();
+	}
+	public double getFineAmount(){
+		return this.FINE;
+	}
+	public double getMaxFine(){
+		return  this.MAX_FINE;
 	}
 }

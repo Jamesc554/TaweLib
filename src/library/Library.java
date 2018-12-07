@@ -489,10 +489,19 @@ public class Library {
 	 * Returns all reserved items of the user currently logged in.
 	 * @return ArrayList<String>
 	 */
-	public ArrayList<String> getAllReservedResources(){ return currentUser.getAllReserved();}
+	public static ArrayList<String> getAllReservedResources(){ return currentUser.getAllReserved();}
 
-	public Boolean chekcIfOverDue(String id){
+	public static Boolean chekcCopyOverdue(String id){
 		return Library.getResource(id).checkIfOverdue(Integer.valueOf(id.split("-")[1]));
 	}
-
+	public static ArrayList<String> checkForOverDue(){
+		ArrayList<String> overDue = new ArrayList<>();
+		ArrayList<String> list = currentUser.getCurrentlyBorrowedResources();
+		for(String s : list){
+			if(Library.getResource(s).checkIfOverdue(Integer.valueOf(s.split("-")[1]))){
+				overDue.add(s);
+			}
+		}
+		return overDue;
+	}
 }
