@@ -294,6 +294,8 @@ public class SearchResultScreen extends Screen implements Initializable {
 	private ImageView createImageViewForResource(Resource r) {
 		System.out.println(r.getThumbnailImageRef());
 		ImageView imgV = new ImageView();
+		imgV.setFitWidth(101);
+		imgV.setFitHeight(150);
 
 		imgV.setImage(getResourceImage(r));
 

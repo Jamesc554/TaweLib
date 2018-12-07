@@ -467,7 +467,13 @@ public class IssueDeskScreen extends Screen implements Initializable {
             } else {
                 //Split language input into ArrayList
                 String[] languageArray = languageString.split(", ");
-                languages = new ArrayList<>(Arrays.asList(languageArray));
+                if (languageArray.length > 0)
+                	languages = new ArrayList<>(Arrays.asList(languageArray));
+                else {
+                	ArrayList<String> languagesList = new ArrayList<>();
+                	languagesList.add(languageString);
+                	languages = languagesList;
+                }
                 System.out.println(languages);
             }
             int numCopies;
