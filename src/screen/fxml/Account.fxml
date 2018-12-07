@@ -43,7 +43,7 @@
                 <Label fx:id="balanceField" font="$x1" layoutX="190.0" layoutY="359.0" text="null" textAlignment="RIGHT" wrapText="true" />
                 <ImageView fx:id="profileImageField" fitHeight="150.0" fitWidth="200.0" layoutX="40.0" layoutY="461.0" pickOnBounds="true" preserveRatio="true" />
                         <ListView fx:id="addressField" layoutX="167.0" layoutY="236.0" prefHeight="115.0" prefWidth="200.0" />
-                        <Button layoutX="239.0" layoutY="461.0" mnemonicParsing="false" onAction="#changeButtonClick" text="Change" />
+                        <Button layoutX="239.0" layoutY="461.0" mnemonicParsing="false" onAction="#changeButtonClick" style="-fx-background-color: #ef9d39;" text="Change" textFill="#0e0056" />
                         <Label fx:id="changeProfileImageLbl" layoutX="240.0" layoutY="486.0" text="Null" />
               </children>
             </AnchorPane>
@@ -111,8 +111,8 @@
                </font>
             </Text>
         <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutButton" prefWidth="60.0" style="-fx-background-color: #0e0056;" text="Logout" textFill="#fff1f1" translateX="600.0" underline="true" />
-        <Text fx:id="usernameText" fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" translateX="480.0" />
-        <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" translateX="390.0">
+        <Text fx:id="usernameText" fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" translateX="450.0" />
+        <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" translateX="340.0">
           <image>
             <Image url="@../../../data/images/james/testImg442.png" />
           </image>
