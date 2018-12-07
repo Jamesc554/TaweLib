@@ -68,7 +68,7 @@ public class AccountScreen extends Screen implements Initializable{
 		
 		@SuppressWarnings("rawtypes")
 		@FXML
-		private ListView returnedField;
+		private ListView reservedField;
 		
 		@SuppressWarnings("rawtypes")
 		@FXML
@@ -210,7 +210,7 @@ public class AccountScreen extends Screen implements Initializable{
 			ArrayList<String> currentlyReserved = Library.getCurrentLoggedInUser().getAllReserved();
 			for(String reserved : currentlyReserved) {
 				Resource r = Library.getResource(reserved);
-				returnedField.getItems().add("Resource ID: " + r.getUniqueID() + " - " + r.getTitle());
+				reservedField.getItems().add("Resource ID: " + r.getUniqueID() + " - " + r.getTitle());
 			}
 		}
 

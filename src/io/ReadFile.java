@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import library.Library;
 import resources.Book;
 import resources.BorrowHistoryData;
 import resources.DVD;
@@ -231,13 +232,13 @@ public class ReadFile extends IO {
 
 				// TODO: Make this work
 				bookQueueArray = (JSONArray) object.get("bookQueue");
-				String bookQueues = "";
 				if (bookQueueArray != null) {
-					for (Object bookQueue : bookQueueArray) {
-						String stringBookQueue = (String) bookQueue;
-						bookQueues = bookQueues + stringBookQueue + ",";
+					for (Object user : bookQueueArray) {
+						String username = (String) user;
+						bookToAdd.addUserToRequestQueue(Library.getUser(username));
 					}
 				}
+				
 
 				bookList.add(bookToAdd);
 			}

@@ -264,6 +264,7 @@ public class SearchResultScreen extends Screen implements Initializable {
 		}
 
 		copiesList.getItems().clear();
+		requestButton.setDisable(true);
 
 		boolean isAvailable = false;
 		for (CopyData copy : r.getArrayListOfCopies()) {

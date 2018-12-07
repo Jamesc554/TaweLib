@@ -63,7 +63,7 @@ public class CopyData {
 	}
 	
 	public boolean isAvailable() {
-		if (currentInfo.getDateBorrowed().equals("")) {
+		if (currentInfo.getDateBorrowed().equals("") && !isReserved()) {
 			return true;
 		}
 
@@ -71,10 +71,10 @@ public class CopyData {
 	}
 	
 	public boolean isReserved() {
-		if (reservedUserID != "" || reservedUserID != null)
-			return true;
+		if (reservedUserID == "" || reservedUserID == null)
+			return false;
 		
-		return false;
+		return true;
 	}
 	
 	public String getReservedUser() {
@@ -97,6 +97,7 @@ public class CopyData {
 		currentInfo.setDateReturned(Library.getCurrentDateTime());
 		this.borrowHistory.add(currentInfo);
 		currentInfo = new BorrowHistoryData();
+		System.out.println("Copy has been returned");
 	}
 	
 	public void reserveCopy(String userID) {
