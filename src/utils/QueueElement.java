@@ -45,7 +45,7 @@ public class QueueElement<T> {
     }
 
     /**
-     * Returns the value of this QueueElement
+     * Returns the value of this QueueElement.
      * @return element
      * This current element.
      */
