@@ -226,7 +226,11 @@ public class User {
 	public String getAccountBalanceString(){
 			return "£"+String.valueOf(this.accountBalance);
     }
-	
+
+	/**
+	 * Ger current account balance
+	 * @return Double account balance
+	 */
 	public double getAccountBalanceDouble() {
 		return this.accountBalance;
 	}
@@ -239,8 +243,12 @@ public class User {
     	this.resourceCurrentlyBorrowed.add(id);
     	addResourceToHistory(id);
     }
-    //Not used as we do not collect stats
-    protected void addResourceToHistory(String resourceID){
+
+	/**
+	 * Add's resource to user history.
+	 * @param resourceID ID of resource.
+	 */
+	protected void addResourceToHistory(String resourceID){
     	String[] data = new String[3];
     	data[0] = getCurrentDate();
     	data[1] = resourceID;
@@ -269,7 +277,12 @@ public class User {
         String[] data = {getCurrentDate(), String.valueOf(amount), ""};
         transactionHistory.add(data);
     }
-    public void returnResource(String resourceID){
+
+	/**
+	 * Returns resource.
+	 * @param resourceID ID of resource to return
+	 */
+	public void returnResource(String resourceID){
 		int j = 0;
 		Boolean done = false;
 		while(j >= this.resourceCurrentlyBorrowed.size()-1 && !done){
@@ -358,7 +371,11 @@ public class User {
 		resourceCurrentlyRequested.remove(id);
 		resourceCurrentlyReserved.add(id);
 	}
-	
+
+	/**
+	 * Adds resource to reserved.
+	 * @param id String ID of resource to add to reserved.
+	 */
 	public void addToReserved(String id) {
 		resourceCurrentlyReserved.add(id);
 	}

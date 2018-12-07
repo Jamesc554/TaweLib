@@ -364,7 +364,6 @@ public class Library {
      * @param text partial search parameter.
      * @return ArrayList<Resource> of object that match the search query.
      */
-
 	public static ArrayList<Resource> searchResources(String text){
 		//Sets size of the search for hashing.
 		int textSize = text.length();
@@ -480,9 +479,19 @@ public class Library {
 	 */
 	public static ArrayList<String> getAllReservedResources(){ return currentUser.getAllReserved();}
 
+	/**
+	 * Checks if copy is overdue.
+	 * @param id String id of copy
+	 * @return Boolean. True if overdue, False if not
+	 */
 	public static Boolean chekcCopyOverdue(String id){
 		return Library.getResource(id).checkIfOverdue(Integer.valueOf(id.split("-")[1]));
 	}
+
+	/**
+	 * Returns a list of all resource copies that the current user has overdue.
+	 * @return ArrayList of ID's
+	 */
 	public static ArrayList<String> checkForOverDue(){
 		ArrayList<String> overDue = new ArrayList<>();
 		ArrayList<String> list = currentUser.getCurrentlyBorrowedResources();
@@ -493,6 +502,11 @@ public class Library {
 		}
 		return overDue;
 	}
+	/**
+	 * Returns a list of all resource copies that the user has overdue.
+	 * @param username The username of a user to check.
+	 * @return ArrayList of ID's
+	 */
 	public static ArrayList<String> checkForOverDue(String username){
 		ArrayList<String> overDue = new ArrayList<>();
 		ArrayList<String> list = Library.getUser(username).getCurrentlyBorrowedResources();
@@ -503,6 +517,11 @@ public class Library {
 		}
 		return overDue;
 	}
+
+	/**
+	 * Calculate fines for currently logged in user.
+	 * @return double Account Balance
+	 */
 	public static double calculateFines(){
 		ArrayList<String> overDue = checkForOverDue();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -537,6 +556,12 @@ public class Library {
 		}
 		return sum;
 	}
+
+	/**
+	 * Calculate new fine amount for selected user.
+	 * @param username String
+	 * @return double balance amount.
+	 */
 	public static double calculateFines(String username){
 		ArrayList<String> overDue = checkForOverDue(username);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -571,6 +596,11 @@ public class Library {
 		}
 		return sum;
 	}
+
+	/**
+	 * Returns a ArrayList of all copies that overdue
+	 * @return ArrayList
+	 */
 	public ArrayList<String> findAllOverdue(){
 		ArrayList<User> users = Library.getAllUsers();
 		ArrayList<String> allOverDue = new ArrayList<>();
@@ -580,6 +610,11 @@ public class Library {
 		}
 		return allOverDue;
 	}
+
+	/**
+	 * onLogIn will set current user and calculate that user new account balance
+	 * @param username String username of user logging in.
+	 */
 	public void onLogIn(String username){
 		Library.setLoggedInUser(getUser(username));
 		currentUser.setAccountBalance(calculateFines(username));

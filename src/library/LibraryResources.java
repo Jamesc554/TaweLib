@@ -19,7 +19,6 @@ public class LibraryResources {
 	/**
 	 * On start create all users, dvd, books, laptops.
 	 */
-	//TODO add books and laptops
 	public static void start(){
 		listOfUsers = ReadFile.readUsers();
 		listOfDVD = ReadFile.readDvds();
@@ -82,8 +81,8 @@ public class LibraryResources {
 
 	/**
 	 * Checks if a user is valid.
-	 * @param username
-	 * @return
+	 * @param username the username
+	 * @return True is is valid ID else false
 	 */
 	protected static boolean checkIfValidUsername(String username){
 		if (listOfUsers.isEmpty())
