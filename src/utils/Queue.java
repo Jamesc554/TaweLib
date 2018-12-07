@@ -1,5 +1,5 @@
 package utils;
-
+import java.util.NoSuchElementException;
 
 /**
  * <h1>Queue</h1>
@@ -11,7 +11,6 @@ package utils;
  * @since 18/11/2018
  */
 
-import java.util.NoSuchElementException;
 
 public class Queue<T> {
 
@@ -27,6 +26,7 @@ public class Queue<T> {
 
     /**
      * Returns true if the queue is empty
+     * @return True or False depending on whether the Queue is empty.
      */
     public boolean isEmpty() {
         return (head == null || tail == null);
@@ -34,11 +34,12 @@ public class Queue<T> {
 
     /**
      * Returns the element at the head of the queue
+     * @return The element at the head of the Queue.
      */
     public T peek() throws NoSuchElementException {
-        if (isEmpty())
+        if (isEmpty()) {
             throw new NoSuchElementException();
-
+        }
         return head.getElement();
     }
 
@@ -46,9 +47,9 @@ public class Queue<T> {
      * Removes the front element of the queue
      */
     public void dequeue() throws NoSuchElementException {
-        if (isEmpty())
+        if (isEmpty()) {
             throw new NoSuchElementException();
-
+        }
         head = head.getNext();
     }
 
@@ -59,7 +60,7 @@ public class Queue<T> {
      */
     public void enqueue(T element) {
         QueueElement<T> tmp;
-        if (isEmpty()){
+        if (isEmpty()) {
             tmp = new QueueElement<>(element, null);
             head = tmp;
             tail = tmp;
@@ -83,7 +84,7 @@ public class Queue<T> {
         QueueElement<T> tmp = head;
         System.out.println(tmp.getElement() + ",");
 
-        while (tmp.getNext() != null){
+        while (tmp.getNext() != null) {
             tmp = tmp.getNext();
             System.out.println(tmp.getElement() + ",");
         }
