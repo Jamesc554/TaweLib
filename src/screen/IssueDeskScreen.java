@@ -226,6 +226,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
      * @param arg1 The resources used to localize the root object, or null if the root object was not localized.
      */
     @Override
+    @SuppressWarnings("Duplicates")
     public void initialize(URL arg0, ResourceBundle arg1) {
         BufferedImage img = null;
         try {
@@ -240,15 +241,14 @@ public class IssueDeskScreen extends Screen implements Initializable {
         userIcon.setImage(SwingFXUtils.toFXImage(img, null));
         usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
 
-        //TODO: set overdue copies lists
+        ArrayList<String> allOverdueIDs = Library.findAllOverdue();
     }
 
     /**
      * Event handling to process payments.
-     * @param e the JavaFX event event
      */
     @FXML
-    private void paymentButton(Event e) {
+    private void paymentButton() {
         String user = paymentUsername.getText();
 
         //Reset all error/success labels
@@ -278,7 +278,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Event handling to let a Librarian get a user's current balance.
-     * @param e the JavaFX event
      */
     @FXML
     private void paymentSearchButton() {
@@ -299,11 +298,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Event handling to process loans.
-     * @param e the JavaFX event
      */
     @FXML
     @SuppressWarnings("Duplicates")
-    private void loanButton(Event e) {
+    private void loanButton() {
         String user = loanUsername.getText();
         String id = loanCopyID.getText();
 
@@ -312,7 +310,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         loanCopyError.setVisible(false);
         loanSuccess.setVisible(false);
         outstandingFineMsg.setVisible(false);
-        //overdueCopyMsg.setVisible(false);
+        overdueCopyMsg.setVisible(false);
 
         //Check Library if user exists
         if (Library.checkForUser(user)) {
@@ -320,25 +318,27 @@ public class IssueDeskScreen extends Screen implements Initializable {
             if (!Library.getUser(user).equals(Library.getCurrentLoggedInUser())) {
                 //Check if user has no outstanding balance
                 if (Library.getUser(user).getAccountBalanceDouble() == 0) {
-                    //Check if Resource ID is valid
-                    if (Library.getResource(id.split("-")[0]) != null) {
-                        //TODO: Check if user has overdue copies
-                    	Resource r = Library.getResource(id.split("-")[0]);
-                    	CopyData copy = r.getArrayListOfCopies().get(Integer.parseInt(id.split("-")[1]));
-                    	if (copy.isAvailable()) {
-                    		Library.loanResource(user, id);
-                            loanSuccess.setVisible(true);
-                    	}
-                    	else if (copy.isReserved()) {
-                    		if (copy.getReservedUser().equals(user)) {
-                        		Library.loanResource(user, id);
+                    //Check user has no overdue copies
+                    if (Library.checkForOverDue(user).isEmpty()) {
+                        //Check if Resource ID is valid
+                        if (Library.getResource(id.split("-")[0]) != null) {
+                            Resource r = Library.getResource(id.split("-")[0]);
+                            CopyData copy = r.getArrayListOfCopies().get(Integer.parseInt(id.split("-")[1]));
+                            if (copy.isAvailable()) {
+                                Library.loanResource(user, id);
                                 loanSuccess.setVisible(true);
-                    		}
-                    		else 
-                    			loanUserError.setVisible(true);
-                    	}
+                            } else if (copy.isReserved()) {
+                                if (copy.getReservedUser().equals(user)) {
+                                    Library.loanResource(user, id);
+                                    loanSuccess.setVisible(true);
+                                } else
+                                    loanUserError.setVisible(true);
+                            }
+                        } else {
+                            loanCopyError.setVisible(true);
+                        }
                     } else {
-                        loanCopyError.setVisible(true);
+                        overdueCopyMsg.setVisible(true);
                     }
                 } else {
                     outstandingFineMsg.setVisible(true);
@@ -353,10 +353,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Event handling to return a searched user's currently borrowed items.
-     * @param e the JavaFX event
      */
     @FXML
-    private void returnSearchButton(Event e) {
+    private void returnSearchButton() {
         String user = returnUsername.getText();
 
         //Reset all error/success labels
@@ -372,6 +371,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 //Get list of borrowed copies
                 ArrayList<String> borrowList = Library.getUser(user).getCurrentlyBorrowedResources();
                 for (String item : borrowList) {
+                    for (String copy : Library.checkForOverDue(user)) {
+                        if (item.split("-")[1].equals(copy)) {
+                            item += " (OVERDUE)";
+                        }
+                    }
                     userBorrowList.getItems().add(item);
                 }
             } else {
@@ -383,10 +387,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
     }
     /**
      * Event handling to process returns.
-     * @param e the JavaFX event
      */
     @FXML
-    private void returnButton(Event e) {
+    private void returnButton() {
         String user = returnUsername.getText();
         int selectedIdx = userBorrowList.getSelectionModel().getSelectedIndex();
 
@@ -405,11 +408,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Event handling to create a new User.
-     * @param e the JavaFX event
      */
     @FXML
     @SuppressWarnings("Duplicates")
-    private void createUserButton(Event e) {
+    private void createUserButton() {
         String username = userUsername.getText();
         String firstName = userFirstName.getText();
         String lastName = userLastName.getText();
@@ -448,10 +450,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Event handling to let a user choose their avatar.
-     * @param e the JavaFX event
      */
     @FXML
-    private void userAvatarButton(Event e) {
+    private void userAvatarButton() {
         try {
             File selectedFile = getImageFile("default");
             userAvatarName.setText(selectedFile.getName());
@@ -463,11 +464,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Event handling to create a new Book.
-     * @param e the JavaFX event
      */
     @FXML
     @SuppressWarnings("Duplicates")
-    private void createBookButton(Event e) {
+    private void createBookButton() {
         String title = bookTitle.getText();
         String author = bookAuthor.getText();
         String year = bookYear.getText();
@@ -575,11 +575,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Event handling to create a new DVD.
-     * @param e the JavaFX event
      */
     @FXML
     @SuppressWarnings("Duplicates")
-    private void createDVDButton(Event e) {
+    private void createDVDButton() {
         String title = dvdTitle.getText();
         String director = dvdDirector.getText();
         String year = dvdYear.getText();
@@ -676,11 +675,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Event handling to create a new Laptop.
-     * @param e the JavaFX event
      */
     @FXML
     @SuppressWarnings("Duplicates")
-    private void createLaptopButton(Event e) {
+    private void createLaptopButton() {
         String title = laptopTitle.getText();
         String year = laptopYear.getText();
         String manufacturer = laptopManuf.getText();
@@ -765,10 +763,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Event handling to choose a book thumbnail image.
-     * @param e the JavaFX event
      */
     @FXML
-    private void bookImageButton(Event e) {
+    private void bookImageButton() {
         try {
             File selectedFile = getImageFile("book");
             bookImgName.setText(selectedFile.getName());
@@ -780,10 +777,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Event handling to choose a dvd thumbnail image.
-     * @param e the JavaFX event
      */
     @FXML
-    private void dvdImageButton(Event e) {
+    private void dvdImageButton() {
          try {
              File selectedFile = getImageFile("dvd");
              dvdImgName.setText(selectedFile.getName());
@@ -795,10 +791,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Event handling to choose a laptop thumbnail image.
-     * @param e the JavaFX event
      */
     @FXML
-    private void laptopImageButton(Event e) {
+    private void laptopImageButton() {
         try {
             File selectedFile = getImageFile("laptop");
             laptopImgName.setText(selectedFile.getName());

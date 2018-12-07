@@ -571,7 +571,7 @@ public class Library {
 		}
 		return sum;
 	}
-	public ArrayList<String> findAllOverdue(){
+	public static ArrayList<String> findAllOverdue(){
 		ArrayList<User> users = Library.getAllUsers();
 		ArrayList<String> allOverDue = new ArrayList<>();
 
