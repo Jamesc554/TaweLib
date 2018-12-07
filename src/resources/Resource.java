@@ -333,7 +333,6 @@ public abstract class Resource {
 		}
 		return false;
 	}
-<<<<<<< HEAD
 	
 	/**
 	 * Checks if a copy of a resource is overdue.
@@ -342,30 +341,12 @@ public abstract class Resource {
 	 * @return True if copy is overdue, False otherwise.
 	 */
 	public Boolean checkIfOverdue(Integer copyID) {
-=======
-
-	public Boolean checkIfOverdue(Integer copyID){
->>>>>>> branch 'master' of https://github.com/Jamesc554/SEGroup2.git
 		BorrowHistoryData data = this.copiesList.get(copyID).getCurrentInfo();
 		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-<<<<<<< HEAD
 		try {
 			return dataFormat.parse(data.getDateRequestedReturn()).after(dataFormat.parse(Library.getCurrentDateTime()));
 		} catch (ParseException e) {
 			System.out.println("Error Resource checkIfOverdue ParseException");
-=======
-
-		if(data.getDateRequestedReturn().equals("")) {
-			return false;
-		} else {
-			try{
-				System.out.println(data.getDateRequestedReturn());
-				System.out.println(Library.getCurrentDateTime());
-				return dataFormat.parse(data.getDateRequestedReturn()).after(dataFormat.parse(Library.getCurrentDateTime()));
-			}catch (ParseException e){
-				System.out.println("Error Resource checkIfOverdue ParseException");
-			}
->>>>>>> branch 'master' of https://github.com/Jamesc554/SEGroup2.git
 		}
 		return false;
 	}
