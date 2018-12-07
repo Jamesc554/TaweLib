@@ -34,6 +34,8 @@ public class ReadFile extends IO {
 		JSONArray resourceArray = new JSONArray();
 		JSONArray transactionArray = new JSONArray();
 		JSONArray borrowHistoryArray = new JSONArray();
+		JSONArray requestedArray = new JSONArray();
+		JSONArray reservedArray = new JSONArray();
 		ArrayList<User> userList = new ArrayList<>();
 		try {
 			file = new FileReader(IO.getUsersFilePath());
@@ -79,8 +81,22 @@ public class ReadFile extends IO {
 				}
 
 				// TODO: Currently Requested
+				requestedArray = (JSONArray) object.get("requested");
+				if (requestedArray != null) {
+					for (Object requestedResource : requestedArray) {
+						String requestedResourceID = (String) requestedResource;
+						user.requestResource(requestedResourceID);
+					}
+				}
 
 				// TODO: Currently Reserved
+				reservedArray = (JSONArray) object.get("reserved");
+				if (reservedArray != null) {
+					for (Object reservedResource : requestedArray) {
+						String reservedResourceID = (String) reservedResource;
+						user.addToReserved(reservedResourceID);
+					}
+				}
 
 				userList.add(user);
 			}

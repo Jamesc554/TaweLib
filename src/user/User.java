@@ -358,6 +358,10 @@ public class User {
 		resourceCurrentlyRequested.remove(id);
 		resourceCurrentlyReserved.add(id);
 	}
+	
+	public void addToReserved(String id) {
+		resourceCurrentlyReserved.add(id);
+	}
 
     /**
      * Add's to borrow history on start up.
