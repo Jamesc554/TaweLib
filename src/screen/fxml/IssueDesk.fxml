@@ -107,6 +107,7 @@
                         <Label fx:id="returnSearchError" layoutX="574.0" layoutY="259.0" text="Invalid Username!" textFill="RED" visible="false" />
                         <Label fx:id="returnSuccess" layoutX="904.0" layoutY="481.0" text="Return succesful! " textFill="#34972b" visible="false" />
                         <Label fx:id="overdueCopyMsg" layoutX="359.0" layoutY="298.0" text="User has overdue copies!" textFill="RED" visible="false" />
+                        <Label fx:id="unavailableCopyMsg" layoutX="359.0" layoutY="298.0" text="Copy Unavailable!" textFill="RED" visible="false" />
                      </children>
                   </AnchorPane>
             </content>

@@ -49,6 +49,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Label overdueCopyMsg;
     @FXML
+    private Label unavailableCopyMsg;
+    @FXML
     private TextField returnUsername;
     @FXML
     private ListView userBorrowList;
@@ -311,6 +313,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         outstandingFineMsg.setVisible(false);
         overdueCopyMsg.setVisible(false);
 
+
         //Check Library if user exists
         if (Library.checkForUser(user)) {
             //User must not be current user
@@ -332,6 +335,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
                                     loanSuccess.setVisible(true);
                                 } else
                                     loanUserError.setVisible(true);
+                            } else {
+                                unavailableCopyMsg.setVisible(true);
                             }
                         } else {
                             loanCopyError.setVisible(true);
@@ -370,8 +375,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 //Get list of borrowed copies
                 ArrayList<String> borrowList = Library.getUser(user).getCurrentlyBorrowedResources();
                 for (String item : borrowList) {
+                    System.out.println("item: " + item);
                     for (String copy : Library.checkForOverDue(user)) {
-                        System.out.println(copy);
+                        System.out.println("copy:" + copy);
                         if (item.split("-")[1].equals(copy)) {
                             item += " (OVERDUE)";
                             System.out.println(item + " is overdue");
