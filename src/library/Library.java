@@ -571,4 +571,13 @@ public class Library {
 		}
 		return sum;
 	}
+	public ArrayList<String> findAllOverdue(){
+		ArrayList<User> users = Library.getAllUsers();
+		ArrayList<String> allOverDue = new ArrayList<>();
+
+		for(User u : users){
+			allOverDue.addAll(checkForOverDue(u.getUserName()));
+		}
+		return allOverDue;
+	}
 }
