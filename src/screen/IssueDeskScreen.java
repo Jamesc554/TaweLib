@@ -1,6 +1,5 @@
 package screen;
 
-import java.util.List;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +24,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import library.Library;
-import resources.BorrowHistoryData;
 
 /**
  * This class represents the Issue Desk, a screen only available to Librarians to authorise payments and loans, as well
@@ -132,6 +130,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Label bookDurationError;
     @FXML
+    private ListView bookOverdueList;
+    @FXML
     private TextField dvdTitle;
     @FXML
     private TextField dvdDirector;
@@ -166,6 +166,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private ImageView dvdImg;
     @FXML
+    private ListView dvdOverdueList;
+    @FXML
     private TextField laptopTitle;
     @FXML
     private TextField laptopYear;
@@ -197,6 +199,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Text laptopImgName;
     @FXML
     private ImageView laptopImg;
+    @FXML
+    private ListView laptopOverdueList;
 
 
     @Override
