@@ -32,7 +32,7 @@
                </image>
             </ImageView>
             <Text fx:id="usernameText" fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" translateX="490.0" />
-            <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: #0e0056;" text="Logout" textFill="#fff1f1" translateX="510.0" />
+            <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: #0e0056;" text="Logout" textFill="#fff1f1" translateX="520.0" underline="true" />
          </items>
       </ToolBar>
       <ToolBar layoutY="35.0" prefHeight="35.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;">
