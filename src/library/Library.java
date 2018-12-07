@@ -230,12 +230,6 @@ public class Library {
 	}
 
 	/**
-	 * This methods shuts down the library.
-	 */
-	public static void shutDown(){
-
-	}
-	/**
 	 * Checks if user exists.
 	 * @param username Username of the user
 	 * @return Boolean. True if exists False if not.
