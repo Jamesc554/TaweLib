@@ -479,19 +479,9 @@ public class Library {
 	 */
 	public static ArrayList<String> getAllReservedResources(){ return currentUser.getAllReserved();}
 
-	/**
-	 * Checks if copy is overdue.
-	 * @param id String id of copy
-	 * @return Boolean. True if overdue, False if not
-	 */
 	public static Boolean chekcCopyOverdue(String id){
 		return Library.getResource(id).checkIfOverdue(Integer.valueOf(id.split("-")[1]));
 	}
-
-	/**
-	 * Returns a list of all resource copies that the current user has overdue.
-	 * @return ArrayList of ID's
-	 */
 	public static ArrayList<String> checkForOverDue(){
 		ArrayList<String> overDue = new ArrayList<>();
 		ArrayList<String> list = currentUser.getCurrentlyBorrowedResources();
@@ -596,6 +586,7 @@ public class Library {
 		}
 		return sum;
 	}
+	public static ArrayList<String> findAllOverdue(){
 
 	/**
 	 * Returns a ArrayList of all copies that overdue
@@ -615,7 +606,7 @@ public class Library {
 	 * onLogIn will set current user and calculate that user new account balance
 	 * @param username String username of user logging in.
 	 */
-	public void onLogIn(String username){
+	public void onLogIn(String username) {
 		Library.setLoggedInUser(getUser(username));
 		currentUser.setAccountBalance(calculateFines(username));
 	}
