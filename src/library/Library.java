@@ -1,15 +1,10 @@
 package library;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import resources.Book;
-import resources.BorrowHistoryData;
-import resources.DVD;
-import resources.Laptop;
-import resources.Resource;
+import resources.*;
 import user.Librarian;
 import user.User;
 
@@ -503,5 +498,39 @@ public class Library {
 			}
 		}
 		return overDue;
+	}
+	public static double calculateFines(){
+		ArrayList<String> overDue = checkForOverDue();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		Date currentDate = new Date();
+		Date dateToBeReturned = new Date();
+
+		double sum = 0;
+		double fineAmount;
+
+		try {
+			currentDate = sdf.parse(Library.getCurrentDateTime());
+		}catch (ParseException e){
+			System.out.println("Library calculate fine parse 1 ");
+		}
+
+		for(String s : overDue){
+			BorrowHistoryData r = Library.getResource(s).getCopyInfo(Integer.valueOf(s.split(" ")[1])).getCurrentInfo();
+			try {
+				dateToBeReturned = sdf.parse(r.getDateRequestedReturn().split(" ")[1]);
+			}catch (ParseException e){
+				System.out.println("Library calculate fine parse 1 ");
+			}
+			long noOfDays = (dateToBeReturned.getTime() - currentDate.getTime())/ (1000 * 60 * 60 * 24);
+			if(noOfDays == 0){
+				noOfDays = 1;
+			}
+			fineAmount = noOfDays * Library.getResource(s).getFineAmount();
+			if(fineAmount > Library.getResource(s).getMaxFine()){
+				fineAmount = Library.getResource(s).getMaxFine();
+			}
+			sum += fineAmount;
+		}
+		return sum;
 	}
 }

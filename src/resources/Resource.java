@@ -123,6 +123,10 @@ public abstract class Resource {
 	 * @return uniqueID
 	 */
 
+	public CopyData getCopyInfo(Integer id){
+		return copiesList.get(id);
+	}
+
 	public String getUniqueID() {
 		return uniqueID;
 	}
@@ -269,8 +273,9 @@ public abstract class Resource {
 		try{
 			return dataFormat.parse(data.getDateRequestedReturn()).after(dataFormat.parse(Library.getCurrentDateTime()));
 		}catch (ParseException e){
-			return null;
+			System.out.println("Error Resource checkIfOverdue ParseException");
 		}
+		return false;
 	}
 
 	public boolean checkIfCopyAvailable(String copyID){
