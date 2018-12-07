@@ -89,7 +89,7 @@
                                           <Label fx:id="rs5Lbl" text="RS5: " />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                                    <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="273.0">
                                        <children>
                                           <TextField fx:id="titleTf" editable="false" />
                                           <TextField fx:id="uIDTf" editable="false" />
@@ -106,10 +106,15 @@
                                     <Insets />
                                  </VBox.margin>
                               </HBox>
+                              <Button fx:id="borrowButton" mnemonicParsing="false" onAction="#borrowResource" prefHeight="25.0" prefWidth="630.0" text="Borrow" />
                            </children>
                         </VBox>
                         <ListView fx:id="copiesList" prefHeight="426.0" prefWidth="302.0" GridPane.rowIndex="1" />
-                        <Button fx:id="borrowButton" mnemonicParsing="false" onAction="#borrowResource" prefHeight="25.0" prefWidth="630.0" text="Borrow" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <ListView fx:id="copyHistoryList" prefHeight="374.0" prefWidth="380.0" />
+                           </children>
+                        </HBox>
                      </children>
                   </GridPane>
                </children>

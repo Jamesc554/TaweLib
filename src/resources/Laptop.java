@@ -28,14 +28,14 @@ public class Laptop extends Resource {
 	 * @param operatingSys
 	 * The laptop's operating system
 	 */
-	public Laptop(String manufacturer, String model,  String operatingSys,String year,
-			String title, String thumbnailImg, String uniqueID, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> copyBorrowHistory, List<BorrowHistoryData> currentBorrowData) {
+	public Laptop(String year, String title,  String thumbnailImg,String uniqueID,
+			String manufacturer, String model, String os, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> copyBorrowHistory, List<BorrowHistoryData> currentBorrowData) {
 		
 		super(year, title, thumbnailImg, generateLaptopID(uniqueID), noOfCopies,loanDuration, copyBorrowHistory, currentBorrowData);
 		
 		this.manufacturer = manufacturer;
 		this.model = model;
-		this.operatingSys = operatingSys;
+		this.operatingSys = os;
 	}
 	private static String generateLaptopID(String id) {
 		//split laptop ID into two strings if ID == null.

@@ -164,6 +164,7 @@ public class ReadFile extends IO {
 				String genre = ((String) object.get("genre"));
 				String isbn = ((String) object.get("isbn"));
 				String publisher = ((String) object.get("publisher"));
+				ArrayList<String> languages = new ArrayList<>();
 
 				int noOfCopies = Integer.parseInt((String) object.get("noOfCopies"));
 				List<List<BorrowHistoryData>> borrowHistory = new ArrayList<>();
@@ -212,16 +213,16 @@ public class ReadFile extends IO {
 					}
 				}
 
-				Book bookToAdd = new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, null,
-						noOfCopies, loanDurs, borrowHistory, currentData);
-
 				languageArray = (JSONArray) object.get("languages");
 				if (languageArray != null) {
 					for (Object language : languageArray) {
 						String stringLanguage = (String) language;
-						bookToAdd.addLanguage(stringLanguage);
+						languages.add(stringLanguage);
 					}
 				}
+
+				Book bookToAdd = new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, languages,
+						noOfCopies, loanDurs, borrowHistory, currentData);
 
 				// TODO: Make this work
 				bookQueueArray = (JSONArray) object.get("bookQueue");

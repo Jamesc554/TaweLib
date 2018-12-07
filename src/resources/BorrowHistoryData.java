@@ -52,4 +52,9 @@ public class BorrowHistoryData {
 		this.dateReturned = "";
 		this.dateRequestedReturn = "";
 	}
+	
+	@Override
+	public String toString() {
+		return getUserID() + " - " + getDateBorrowed() + " - " + getDateReturned() + " - " + getDateRequestedReturn();
+	}
 }
