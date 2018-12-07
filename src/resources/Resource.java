@@ -1,10 +1,17 @@
 package resources;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import library.Library;
 import user.User;
 import utils.Queue;
+
+import javax.xml.crypto.Data;
+
 /**
  * <h1>Resource</h1>
  * <p>Resource is an abstract class which provides essential attributes for all resource types
@@ -253,6 +260,16 @@ public abstract class Resource {
 		}
 		return false;
 	}
+	public Boolean checkIfOverdue(Integer copyID){
+		BorrowHistoryData data = this.copiesList.get(copyID).getCurrentInfo();
+		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		try{
+			return dataFormat.parse(data.getDateRequestedReturn()).after(dataFormat.parse(Library.getCurrentDateTime()));
+		}catch (ParseException e){
+			return null;
+		}
+	}
+
 	public boolean checkIfCopyAvailable(String copyID){
 		return copiesList.get(Integer.parseInt(copyID)).isAvailable();
 	}
