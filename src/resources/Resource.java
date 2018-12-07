@@ -1,6 +1,7 @@
 package resources;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import user.User;
@@ -244,6 +245,12 @@ public abstract class Resource {
 	
 	public void returnResource(Integer copyId) {
 		copiesList.get(copyId).returnCopy();
+		
+		if (!queueOfReservations.isEmpty()) {
+			copiesList.get(copyId).reserveCopy(queueOfReservations.peek().getUserName());
+			queueOfReservations.peek().moveToReserved(getUniqueID());
+		}
+		
 	}
 	
 	public boolean checkIfAvailable(){
@@ -255,5 +262,24 @@ public abstract class Resource {
 	}
 	public boolean checkIfCopyAvailable(String copyID){
 		return copiesList.get(Integer.parseInt(copyID)).isAvailable();
+	}
+
+	public Integer getCopyWithEarlestReturn() {
+		
+		Calendar currentlyEarliestDate = copiesList.get(0).getEstimatedReturnData();
+		CopyData currentEarlyCopy = copiesList.get(0);
+		// Loop over every resource
+		for (CopyData copy : copiesList) {
+			Calendar returnDate = copy.getEstimatedReturnData();
+			
+			// If the estimated return date is earlier than the current earliest
+			// change the current to this copy.
+			if (returnDate.before(currentlyEarliestDate)) {
+				currentlyEarliestDate = returnDate;
+				currentEarlyCopy = copy;
+			}
+		}
+		
+		return Integer.parseInt(currentEarlyCopy.getId());
 	}
 }

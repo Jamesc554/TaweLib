@@ -473,7 +473,10 @@ public class Library {
 	 * @param id of resource to be requested
 	 */
 	public static void requestResource(String id){
-		currentUser.requestResource(id);
+		currentUser.requestResource(id); // Add it to the user
+		Resource requestedResource = getResource(id); // Get the resource
+		requestedResource.addUserToRequestQueue(currentUser);
+		requestedResource.requestReturn(requestedResource.getCopyWithEarlestReturn());
 	}
 
 	/**
