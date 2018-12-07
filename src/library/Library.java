@@ -580,4 +580,8 @@ public class Library {
 		}
 		return allOverDue;
 	}
+	public void onLogIn(String username){
+		Library.setLoggedInUser(getUser(username));
+		currentUser.setAccountBalance(calculateFines(username));
+	}
 }

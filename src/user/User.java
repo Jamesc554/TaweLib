@@ -116,7 +116,7 @@ public class User {
 	 * This sets the account balance of the user.
 	 * @param amount the start amount in pence.
 	 */
-	protected void setAccountBalance(double amount){this.accountBalance = amount;}
+	public void setAccountBalance(double amount){this.accountBalance = amount;}
 
 	/**
 	 * Returns the username.
