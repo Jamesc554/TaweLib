@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.IssueDeskScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.IssueDeskScreen">
    <children>
       <ToolBar prefHeight="33.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;">
          <items>
@@ -98,7 +98,7 @@
                         <Label fx:id="loanUserError" layoutX="359.0" layoutY="227.0" text="Invalid Username!" textFill="RED" visible="false" />
                         <Label fx:id="loanCopyError" layoutX="359.0" layoutY="259.0" text="Invalid Copy ID!" textFill="RED" visible="false" />
                         <Label fx:id="loanSuccess" layoutX="359.0" layoutY="298.0" text="Loan succesful! " textFill="#34972b" visible="false" />
-                        <Label fx:id="outstandingFineMsg" layoutX="359.0" layoutY="227.0" text="User has outstanding fines!" textFill="RED" visible="false" />
+                        <Label fx:id="outstandingFineMsg" layoutX="359.0" layoutY="298.0" text="User has outstanding fines!" textFill="RED" visible="false" />
                         <Button layoutX="737.0" layoutY="221.0" mnemonicParsing="false" onAction="#returnSearchButton" style="-fx-background-color: #ef9d39;" text="Search" textFill="#0e0056">
                            <font>
                               <Font size="14.0" />
@@ -106,6 +106,7 @@
                         </Button>
                         <Label fx:id="returnSearchError" layoutX="574.0" layoutY="259.0" text="Invalid Username!" textFill="RED" visible="false" />
                         <Label fx:id="returnSuccess" layoutX="904.0" layoutY="481.0" text="Return succesful! " textFill="#34972b" visible="false" />
+                        <Label fx:id="overdueCopyMsg" layoutX="359.0" layoutY="298.0" text="User has overdue copies!" textFill="RED" visible="false" />
                      </children>
                   </AnchorPane>
             </content>

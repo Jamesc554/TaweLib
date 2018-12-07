@@ -11,7 +11,6 @@ import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -372,8 +371,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 ArrayList<String> borrowList = Library.getUser(user).getCurrentlyBorrowedResources();
                 for (String item : borrowList) {
                     for (String copy : Library.checkForOverDue(user)) {
+                        System.out.println(copy);
                         if (item.split("-")[1].equals(copy)) {
                             item += " (OVERDUE)";
+                            System.out.println(item + " is overdue");
                         }
                     }
                     userBorrowList.getItems().add(item);
