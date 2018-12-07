@@ -161,7 +161,7 @@ public class Library {
 	public static void subtractBalance (int amount, String username) {
 		if (amount <= 0 ) {
 			throw new IllegalArgumentException("Cannot subtract negative or null amount");
-		} else if (amount > currentUser.getAccountBalanceDouble()) {
+		} else if (amount > getUser(username).getAccountBalanceDouble()) {
 			throw new IllegalArgumentException("Amount superior to account balance");
 		}
 		getUser(username).subtractAccountBalance(amount);
