@@ -19,6 +19,8 @@ public class DVD extends Resource {
 	private String runtime;
 	private String language;
 	ArrayList<String> subLang = new ArrayList<String>();
+	private double FINE = 2.00;
+	private double MAX_FINE = 25.00;
 	
 	/**
 	 * Constructor used to create DVD objects.

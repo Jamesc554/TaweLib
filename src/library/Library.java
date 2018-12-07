@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import resources.Book;
 import resources.BorrowHistoryData;
 import resources.DVD;
@@ -489,4 +490,9 @@ public class Library {
 	 * @return ArrayList<String>
 	 */
 	public ArrayList<String> getAllReservedResources(){ return currentUser.getAllReserved();}
+
+	public Boolean chekcIfOverDue(String id){
+		return Library.getResource(id).checkIfOverdue(Integer.valueOf(id.split("-")[1]));
+	}
+
 }

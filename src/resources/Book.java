@@ -18,6 +18,8 @@ public class Book extends Resource {
 	private String isbn;//ISBN of book (Optional)
 	private ArrayList<String> languages; //The array of languages the book is currently available in (Optional).
 
+	private double FINE = 2.00;
+	private double MAX_FINE = 25.00;
 	
 	/**
 	 * The Constructor for Book.

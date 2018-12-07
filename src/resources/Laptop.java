@@ -18,6 +18,8 @@ public class Laptop extends Resource {
 	private String manufacturer;
 	private String model;
 	private String operatingSys;
+	private double FINE = 10.00;
+	private double MAX_FINE = 100.00;
 	
 	/**
 	 * Constructor used to create laptop objects.
@@ -25,7 +27,7 @@ public class Laptop extends Resource {
 	 *  Who manufactured the laptop.
 	 * @param model
 	 *  What the laptop's model is.
-	 * @param operatingSys
+	 * @param os
 	 * The laptop's operating system
 	 */
 	public Laptop(String year, String title,  String thumbnailImg,String uniqueID,
