@@ -1,39 +1,52 @@
 package resources;
-
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * <h1>DVD</h1>
- * <p>The DVD class creates DVD objects to be used by other classes
+ * <p>The DVD class creates DVD objects to be used by other classes</p>
  * @author Deyan Naydenov Peter Daish
  * @version 0.0.0.2
  * @since 18/11/2018
 */
-
 public class DVD extends Resource {
-	
 	private static String highestDVDID = "DVDID:0"; // used to calculate a unique DVD ID.
 	
+	private double FINE = 2.00; //The daily fine rate of this DVD.
+	private double MAX_FINE = 25.00; // The maximum fine this DVD can reach.
 	private int highestCopyID = 0; // this is used to calculate a unique CopyID.
-	private String director;
-	private String runtime;
-	private String language;
-	ArrayList<String> subLang = new ArrayList<String>();
-	private double FINE = 2.00;
-	private double MAX_FINE = 25.00;
+	private String director; //The director of this DVD
+	private String runtime; //The runtime of this DVD.
+	private String language; //The languages this DVD is available in.
+	ArrayList<String> subLang = new ArrayList<String>(); //The subtitle languages this DVD is available in.
 	
 	/**
-	 * Constructor used to create DVD objects.
+	 * The constructor for a DVD
 	 * @param director
-	 *  Who the director of the DVD was.
+	 * The director of this DVD
 	 * @param runtime
-	 *  How long the DVD is.
+	 * The runtime of this DVD
 	 * @param language
-	 * What the DVDs original language is 
+	 * The language this available in.
 	 * @param subLang
-	 * The list of available subtitle languages for the DVD 
+	 * The subtitle languages this DVD is available in.
+	 * @param year
+	 * The year this DVD was released.
+	 * @param title
+	 * The title of this DVD.
+	 * @param thumbnailImg
+	 * The filepath for the avatar of this DVD.
+	 * @param uniqueID
+	 * The unique id of this DVD.
+	 * @param noOfCopies
+	 * The number of copies the library currently owns of this DVD.
+	 * @param loanDuration
+	 * The loan duration of this DVD.
+	 * @param borrowHistory
+	 * The borrow history of a copy of this DVD
+	 * @param currentBorrowData
+	 * The information for borrower and dates associated with a copy of a resource.
 	 */
-	
 	public DVD (String director, String runtime, String language, ArrayList<String> subLang, String year, String title, 
 			String thumbnailImg, String uniqueID, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData) {
 		super(year, title, thumbnailImg, generateDVDID(uniqueID), noOfCopies, loanDuration, borrowHistory, currentBorrowData);
@@ -42,6 +55,14 @@ public class DVD extends Resource {
 		this.language = language;
 		this.subLang = subLang;
 	}
+	
+	/**
+	 * Generates a unique DVD ID if not already set.
+	 * @param id
+	 * The id of the DVD.
+	 * @return highestDVDID
+	 * The id of the latest created book.
+	 */
 	private static String generateDVDID(String id) {
 		//split DVD ID into two strings if ID == null.
 		//convert anything after ": " into DVD
@@ -66,91 +87,110 @@ public class DVD extends Resource {
 			return highestDVDID;
 		}
 	}
+	
 	/**
 	 * Sets a value to calculate DVD IDs from.
-	 * @param hDVDID the highest current value of any DVD ID.
+	 * @param hDVDID 
+	 * The highest current value of any DVD ID.
 	 */
 	public void setHighestDVDID(String hDVDID) {
 		this.highestDVDID = hDVDID;
 	}
 	
 	/**
-	 * Sets a value to calculate a new copy's id from.
-	 * @param hCopyID the latest ID of any copy.
-	 */
-	/**
 	 * Returns the newest copy's ID
-	 * @return highestCopyID the newest copy's ID.
+	 * @return highestCopyID 
+	 * The newest copy's ID.
 	 */
 	public int getHighestCopyID() {
 		return this.highestCopyID;
 	}
 	
+	/**
+	 * Sets the highest copy id to the latest ID of any DVD
+	 * @param hCopyID
+	 * The highest current copyID.
+	 */
 	public void setHighestCopyID(int hCopyID) {
 		this.highestCopyID = hCopyID;
 	}
 	
 	/**
 	 * Returns the ID of the latest DVD.
-	 * @return highestDVDID the highest current id of any book.
+	 * @return highestDVDID 
+	 * The highest current id of any book.
 	 */
 	public String getHighestDVDID() {
 		return this.highestDVDID;
 	}
+	
 	/**
 	 * Finds the director of the DVD
 	 * @return director 
+	 * The director of this DVD
 	 */
 	public String getDirector() {
-		return director;
-	}
-	/**
-	 * Finds the length of the DVD
-	 * @return runtime 
-	 */
-	public String getRuntime() {
-		return runtime;
-	}
-	/**
-	 * Finds the original language of the DVD
-	 * @return language 
-	 */
-	public String getLanguage() {
-		return language;
+		return this.director;
 	}
 	
 	/**
-	 * Finds the list of available subtitle languages of the DVD
-	 * @return manufacturer 
+	 * Finds the length of the DVD
+	 * @return runtime 
+	 * The runtime of this DVD
+	 */
+	public String getRuntime() {
+		return this.runtime;
+	}
+	
+	/**
+	 * Finds the original language of the DVD
+	 * @return language 
+	 * The spoken language this DVD is available in.
+	 */
+	public String getLanguage() {
+		return this.language;
+	}
+	
+	/**
+	 * Returns the subtitle languages available in this DVD
+	 * @return subLang
+	 * The languages which have subtitles in this DVD
 	 */
 	public ArrayList<String> getSubLang() {
-		return subLang;
+		return this.subLang;
 	}
 	
 	/**
 	 * Updates the subtitle languages available
-	 * @param langs the subtitle languages available including new additions if any.
+	 * @param langs 
+	 * The subtitle languages available including new additions if any.
 	 */
 	public void setSubLang(ArrayList<String> langs) {
 		this.subLang = langs;
 	}
+	
 	/**
 	 * Defines the director of the DVD.
 	 * @param director
+	 * The director of this DVD.
 	 */
 	public void setDirector(String director) {
 		this.director = director;
 	}
+	
 	/**
 	 * Defines the length of the DVD.
 	 * @param runtime
+	 * The runtime of this DVD.
 	 */
 	public void setRuntime (String runtime) {
 		this.runtime = runtime;
 	}
+	
 	/**
-	 * Defines a original language of the DVD.
+	 * Sets the spoken language of the DVD.
 	 * @param language
+	 * The spoken language of the DVD.
 	 */
 	public void setLanguage (String language) {
 		this.language = language;
