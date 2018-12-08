@@ -39,7 +39,7 @@ public class BorrowHistoryData {
 	}
 
 	public String getDateRequestedReturn() {
-		return dateRequestedReturn;
+		return this.dateRequestedReturn;
 	}
 
 	public void setDateRequestedReturn(String dateRequestedReturn) {

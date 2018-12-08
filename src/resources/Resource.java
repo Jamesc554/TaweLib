@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import library.Library;
 import user.User;
@@ -344,7 +345,9 @@ public abstract class Resource {
 		BorrowHistoryData data = this.copiesList.get(copyID).getCurrentInfo();
 		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		try {
-			return dataFormat.parse(data.getDateRequestedReturn()).after(dataFormat.parse(Library.getCurrentDateTime()));
+			Date date1 = dataFormat.parse(data.getDateRequestedReturn());
+			Date date2 = dataFormat.parse(Library.getCurrentDateTime());
+			return date2.after(date1);
 		} catch (ParseException e) {
 			System.out.println("Error Resource checkIfOverdue ParseException");
 		}

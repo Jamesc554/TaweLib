@@ -183,4 +183,22 @@ public class Laptop extends Resource {
 	public void addToCopies(String loanDuration) {
 		super.addCopy(loanDuration);
 	}
+
+	/**
+	 * Returns the daily fine rate of this resource.
+	 * @return FINE
+	 * The daily fine rate of this resource.
+	 */
+	public double getFineAmount() {
+		return this.FINE;
+	}
+
+	/**
+	 * Returns the maximum fine this resource can reach.
+	 * @return MAX_FINE
+	 * The maximum fine a resource can reach.
+	 */
+	public double getMaxFine() {
+		return  this.MAX_FINE;
+	}
 }

@@ -20,6 +20,8 @@ import resources.Laptop;
 import user.Librarian;
 import user.User;
 
+@SuppressWarnings("Duplicates")
+
 /**
  * @author Samuel Jankinson
  */
@@ -364,7 +366,7 @@ public class ReadFile extends IO {
 						borrowHistoryData.setDateBorrowed((String) copyCurrentBorrowDataArray.get(1));
 						borrowHistoryData.setDateReturned((String) copyCurrentBorrowDataArray.get(2));
 						borrowHistoryData.setDateRequestedReturn((String) copyCurrentBorrowDataArray.get(3));
-						
+
 						currentData.add(borrowHistoryData);
 					}
 				}

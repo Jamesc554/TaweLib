@@ -519,13 +519,14 @@ public class Library {
 		}
 
 		for(String s : overDue){
-			BorrowHistoryData r = Library.getResource(s).getCopyInfo(Integer.valueOf(s.split(" ")[1])).getCurrentInfo();
+			BorrowHistoryData r = Library.getResource(s).getCopyInfo(Integer.valueOf(s.split("-")[1])).getCurrentInfo();
+			System.out.println(r.getDateRequestedReturn());
 			try {
-				dateToBeReturned = sdf.parse(r.getDateRequestedReturn().split(" ")[1]);
+				dateToBeReturned = sdf.parse(r.getDateRequestedReturn());
 			}catch (ParseException e){
 				System.out.println("Library calculate fine parse 1 ");
 			}
-			long noOfDays = (dateToBeReturned.getTime() - currentDate.getTime())/ (1000 * 60 * 60 * 24);
+			long noOfDays = (currentDate.getTime() - dateToBeReturned.getTime())/ (1000 * 60 * 60 * 24);
 			if(noOfDays == 0){
 				noOfDays = 1;
 			}
@@ -555,11 +556,11 @@ public class Library {
 		for(String s : overDue){
 			BorrowHistoryData r = Library.getResource(s).getCopyInfo(Integer.valueOf(s.split(" ")[1])).getCurrentInfo();
 			try {
-				dateToBeReturned = sdf.parse(r.getDateRequestedReturn().split(" ")[1]);
+				dateToBeReturned = sdf.parse(r.getDateRequestedReturn());
 			}catch (ParseException e){
 				System.out.println("Library calculate fine parse 1 ");
 			}
-			long noOfDays = (dateToBeReturned.getTime() - currentDate.getTime())/ (1000 * 60 * 60 * 24);
+			long noOfDays = (currentDate.getTime() - dateToBeReturned.getTime())/ (1000 * 60 * 60 * 24);
 			if(noOfDays == 0){
 				noOfDays = 1;
 			}

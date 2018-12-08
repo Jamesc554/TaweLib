@@ -1,10 +1,11 @@
 package user;
 
 public class Librarian extends User {
+	private static int numberOfEmploys;
+
 	private int employmentMonth;
 	private int employmentYear;
 	private String staffNumber;
-	private static int numberOfEmploys;
 	private int employmentDay;
 
 	/**
