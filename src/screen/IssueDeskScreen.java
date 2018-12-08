@@ -245,15 +245,18 @@ public class IssueDeskScreen extends Screen implements Initializable {
         ArrayList<String> allOverdueIDs = Library.findAllOverdue();
         for (String copy : allOverdueIDs) {
             String type = copy.split(":")[0];
+            String rID = copy.split("-")[0];
+            String cID = copy.split("-")[1];
+            String user = Library.getResource(rID).getCopyInfo(Integer.parseInt(cID)).getCurrentInfo().getUserID();
             switch (type) {
                 case "Book":
-                    bookOverdueList.getItems().add(copy);
+                    bookOverdueList.getItems().add(copy + " - " + user);
                     break;
                 case "DVD":
-                    dvdOverdueList.getItems().add(copy);
+                    dvdOverdueList.getItems().add(copy + " - " + user);
                     break;
                 case "Laptop":
-                    laptopOverdueList.getItems().add(copy);
+                    laptopOverdueList.getItems().add(copy + " - " + user);
                     break;
                 default:
                     break;
