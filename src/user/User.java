@@ -320,9 +320,9 @@ public class User {
 	 * Add's transaction to history of the user.
 	 * @param amount
 	 */
-	protected void addTransaction(int amount) {
+	public void addTransaction(String system, double amount) {
 		//Computes current system data
-        String[] data = {getCurrentDate(), String.valueOf(amount), ""};
+        String[] data = {system, getCurrentDate(), String.valueOf(amount)};
         transactionHistory.add(data);
     }
 
