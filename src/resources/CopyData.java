@@ -63,11 +63,13 @@ public class CopyData {
 	}
 	
 	public boolean isAvailable() {
-		if (currentInfo.getDateBorrowed().equals("") && !isReserved()) {
-			return true;
-		}
-
-		return false;
+//		if (currentInfo.getDateBorrowed().equals("") && !isReserved()) {
+//			return true;
+//		}
+//		
+//		return false;
+		
+		return (currentInfo.getDateBorrowed().equals("") &&!isReserved() ? true : false);
 	}
 	
 	public boolean isReserved() {
