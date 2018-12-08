@@ -187,7 +187,10 @@ public class AccountScreen extends Screen implements Initializable{
 	        }
 	        profileImageField.setImage(SwingFXUtils.toFXImage(profileImage, null));
 		}
-		
+
+		/**
+		 * This method adds each transaction to an item in a ListView.
+	 	 */
 		@SuppressWarnings("unchecked")
 		private void setTransactionField() {
 			ArrayList<String[]> transactionHistory = Library.getCurrentLoggedInUser().getTransactions();
@@ -195,7 +198,10 @@ public class AccountScreen extends Screen implements Initializable{
 				transactionHistoryField.getItems().add(transaction);
 			}
 		}
-		
+
+		/**
+		 * This method adds each resource request to an item in a ListView.
+		 */
 		@SuppressWarnings("unchecked")
 		private void setRequestedField() {
 			ArrayList<String> currentlyRequested = Library.getCurrentLoggedInUser().getAllRequested();
@@ -205,6 +211,9 @@ public class AccountScreen extends Screen implements Initializable{
 			}
 		}
 
+		/**
+	     * This method adds each reserved resource to an item in a ListView.
+	     */
 		@SuppressWarnings("unchecked")
 		private void setReservedField() {
 			ArrayList<String> currentlyReserved = Library.getCurrentLoggedInUser().getAllReserved();
@@ -214,6 +223,9 @@ public class AccountScreen extends Screen implements Initializable{
 			}
 		}
 
+		/**
+	 	 * This method adds each resource borrowed by the currently logged in user to an item in a ListView.
+		 */
 		@SuppressWarnings("unchecked")
 		private void setBorrowedField() {
 			ArrayList<String> borrowedResources = Library.getCurrentLoggedInUser().getCurrentlyBorrowedResources();
@@ -223,6 +235,9 @@ public class AccountScreen extends Screen implements Initializable{
 			}
 		}
 
+		/**
+		 * This method adds the users borrow history to an item in a ListView.
+		 */
 		private void setBorrowHistoryField() {
 			ArrayList<String[]> borrowHistory = Library.getCurrentLoggedInUser().getBorrowHistory();
 			for(String[] borrow : borrowHistory) {
@@ -254,19 +269,28 @@ public class AccountScreen extends Screen implements Initializable{
 			changeProfileImageLbl.setText("Failed!");
 			changeProfileImageLbl.setVisible(true);
 		}
-		
+
+		/**
+	 	 * This method opens a file dialog, that allows the user to pick an image file.
+	     * @return File which the user picked in the file dialog.
+	     */
 		private File getImageFile() {
 	        FileChooser fileChooser = new FileChooser();
 	        fileChooser.setTitle("Choose an image");
-	        fileChooser.setInitialDirectory(new File("./data/images/" + Library.getCurrentLoggedInUser().getUserName()));
+	        fileChooser.setInitialDirectory(new File("./data/images/" +
+					Library.getCurrentLoggedInUser().getUserName()));
 	        fileChooser.getExtensionFilters().addAll(
 	                new FileChooser.ExtensionFilter("Images files", "*png", "*jpg")
 	        );
 	        return fileChooser.showOpenDialog(ScreenManager.getStage());
 	    }
-		
+
+		/**
+		 * This fxml method is called when the user clicks the change profile image button. It allows them to choose
+		 * an image and it sets this as their profile image.
+	 	 */
 		@FXML
-		private void changeButtonClick(Event event) {
+		private void changeButtonClick() {
 			try {
 				File selectedFile = getImageFile();
 		        BufferedImage img = null;
