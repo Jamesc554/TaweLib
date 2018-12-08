@@ -1,17 +1,14 @@
 package io;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import library.Library;
 import resources.Book;
 import resources.BorrowHistoryData;
@@ -23,14 +20,19 @@ import user.User;
 @SuppressWarnings("Duplicates")
 
 /**
+ * This class reads data from files saved on disk.
  * @author Samuel Jankinson
  */
-
 public class ReadFile extends IO {
 	private static FileReader file = null;
 	private static BufferedReader reader = null;
 	private static String currentLine = null;
 
+	/**
+	 * Returns users read from file.
+	 * @return userList
+	 * A list of users stores on disk.
+	 */
 	public static ArrayList<User> readUsers() {
 		JSONParser parser = new JSONParser();
 		JSONArray resourceArray = new JSONArray();
@@ -99,7 +101,6 @@ public class ReadFile extends IO {
 						user.addToReserved(reservedResourceID);
 					}
 				}
-
 				userList.add(user);
 			}
 
@@ -118,10 +119,14 @@ public class ReadFile extends IO {
 		return userList;
 	}
 
+	/**
+	 * Returns a list of librarians currently employed by the library.
+	 * @return librarianList
+	 * The list of librarians employed by this library.
+	 */
 	public static ArrayList<Librarian> readLibrarians() {
 		JSONParser parser = new JSONParser();
 		ArrayList<Librarian> librarianList = new ArrayList<>();
-
 		try {
 			file = new FileReader(IO.getLibrarianFilePath());
 			reader = new BufferedReader(file);
@@ -142,7 +147,6 @@ public class ReadFile extends IO {
 						Integer.parseInt((String) object.get("noOfEmploys")));
 				librarianList.add(librarian);
 			}
-
 			reader.close();
 			file.close();
 		} catch (FileNotFoundException e) {
@@ -158,7 +162,11 @@ public class ReadFile extends IO {
 		return librarianList;
 	}
 
-	// TODO: CHANGE TO ArrayList<Book>
+	/**
+	 * Returns a list of books owned by this library.
+	 * @return bookList
+	 * The list of books currently owned by this library.
+	 */
 	public static ArrayList<Book> readBooks() {
 		JSONParser parser = new JSONParser();
 		JSONArray languageArray = new JSONArray();
@@ -167,14 +175,11 @@ public class ReadFile extends IO {
 		JSONArray bookBorrowHistoryArray = new JSONArray();
 		JSONArray bookCurrentBorrowData = new JSONArray();
 		ArrayList<Book> bookList = new ArrayList<Book>();
-
 		try {
 			file = new FileReader(IO.getBookFilePath());
 			reader = new BufferedReader(file);
-
 			while ((currentLine = reader.readLine()) != null) {
 				JSONObject object = (JSONObject) parser.parse(currentLine);
-
 				String year = ((String) object.get("year"));
 				String title = ((String) object.get("title"));
 				String thumbnailImg = ((String) object.get("thumbnailImg"));
@@ -184,15 +189,11 @@ public class ReadFile extends IO {
 				String isbn = ((String) object.get("isbn"));
 				String publisher = ((String) object.get("publisher"));
 				ArrayList<String> languages = new ArrayList<>();
-
 				int noOfCopies = Integer.parseInt((String) object.get("noOfCopies"));
 				List<List<BorrowHistoryData>> borrowHistory = new ArrayList<>();
 				List<BorrowHistoryData> currentData = new ArrayList<>();
-
 				ArrayList<String> loanDurs = new ArrayList<String>();
-				
 				System.out.println("Loading Resource: " + uniqueID);
-
 				listOfLoanDur = (JSONArray) object.get("listOfLoanDur");
 				if (listOfLoanDur != null) {
 					for (Object loanDur : listOfLoanDur) {
@@ -207,7 +208,6 @@ public class ReadFile extends IO {
 					for (Object copyBorrowHistoryObject : bookBorrowHistoryArray) {
 						JSONArray copyBorrowHistoryArray = (JSONArray) copyBorrowHistoryObject;
 						List<BorrowHistoryData> copyBorrowHistoryData = new ArrayList<>();
-
 						System.out.println("Loading Copy History for: " + uniqueID + ":" + i++);
 						for (Object borrowHistoryObject : copyBorrowHistoryArray) {
 							JSONArray borrowHistoryArray = (JSONArray) borrowHistoryObject;
@@ -248,7 +248,6 @@ public class ReadFile extends IO {
 				Book bookToAdd = new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, languages,
 						noOfCopies, loanDurs, borrowHistory, currentData);
 
-				// TODO: Make this work
 				bookQueueArray = (JSONArray) object.get("bookQueue");
 				if (bookQueueArray != null) {
 					for (Object user : bookQueueArray) {
@@ -276,6 +275,11 @@ public class ReadFile extends IO {
 		return bookList;
 	}
 
+	/**
+	 * Returns a list of DVDs owned by this library.
+	 * @return dvds
+	 * The list of dvds owned by this library.
+	 */
 	public static ArrayList<DVD> readDvds() {
 		JSONParser parser = new JSONParser();
 		JSONArray languageArray = new JSONArray();
@@ -283,7 +287,6 @@ public class ReadFile extends IO {
 		JSONArray listOfLoanDur = new JSONArray();
 		JSONArray dvdBorrowHistoryArray = new JSONArray();
 		JSONArray dvdCurrentBorrowData = new JSONArray();
-
 		ArrayList<DVD> dvds = new ArrayList<DVD>();
 
 		try {
@@ -315,7 +318,6 @@ public class ReadFile extends IO {
 					}
 				}
 
-				// TODO: MAKE THIS WORK
 				dvdQueueArray = (JSONArray) object.get("bookQueue");
 				String dvdQueues = "";
 				if (dvdQueueArray != null) {
@@ -387,15 +389,17 @@ public class ReadFile extends IO {
 			System.out.println("ERROR parsing users JSON");
 			e.printStackTrace();
 		}
-
 		return dvds;
 	}
 
+	/**
+	 * Returns a list of laptops owned by the library.
+	 * @return laptops
+	 * The list of laptops currently owned by the library.
+	 */
 	public static ArrayList<Laptop> readLaptops() {
 		JSONParser parser = new JSONParser();
-		// TODO: Implement these:
 		JSONArray laptopQueueArray = new JSONArray();
-		////////////////////////
 		JSONArray listOfLoanDur = new JSONArray();
 		JSONArray laptopBorrowHistoryArray = new JSONArray();
 		JSONArray laptopCurrentBorrowData = new JSONArray();
@@ -485,7 +489,6 @@ public class ReadFile extends IO {
 			System.out.println("ERROR parsing users JSON");
 			e.printStackTrace();
 		}
-
 		return laptops;
 	}
 }
