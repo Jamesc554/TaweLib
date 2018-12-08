@@ -150,6 +150,7 @@ public class SearchResultScreen extends Screen implements Initializable {
 		copiesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			updateCopyHistoryList(newValue);
 		});
+		searchBar.setText(Library.getSearchScreenText());
 
 	}
 
@@ -212,7 +213,7 @@ public class SearchResultScreen extends Screen implements Initializable {
 
 		for (Object r : resources) {
 			Resource rs = (Resource) r;
-			if (rs.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
+			if (rs.toSingleString().toLowerCase().contains(searchString.toLowerCase())) {
 				resourcesVBox.getChildren().add(createResourceContainer(rs));
 			}
 		}

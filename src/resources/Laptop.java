@@ -122,6 +122,15 @@ public class Laptop extends Resource {
 	public String getHighestLaptopID() {
 		return this.highestLaptopID;
 	}
+	
+	/**
+	 * Converts Laptop to single string
+	 * @return a String representation of this Laptop.
+	 * Returns the details of this Laptop.
+	 */
+	public String toSingleString() {
+		return super.toSingleString() + this.manufacturer + this.model + this.operatingSys;
+	}
 
 	/**
 	 * Finds the manufacturer of the laptop
