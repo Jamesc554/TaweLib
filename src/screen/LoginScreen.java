@@ -1,7 +1,5 @@
 package screen;
-
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -14,8 +12,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import library.Library;
 
-public class LoginScreen extends Screen{
-	
+/**
+ * <h1>This class models a screen used for a user to login to their library account.</h1>
+ * @author James Carter Sam Jankinson Ammar Almari
+ * @version 1.0
+ */
+public class LoginScreen extends Screen {
 	@FXML
 	private Label statusLabel;
 	
@@ -26,6 +28,11 @@ public class LoginScreen extends Screen{
 	private Button loginBtn;
 
 	@FXML
+	/**
+	 * This method handles login attempts.
+	 * @param event
+	 * The event which triggers a login - the pressing of the login button.
+	 */
 	private void login(Event event) {
 		// TODO: remove test username once readAllUsers is finished
 		if (Library.checkForUser(usernameTextField.getText())) {
@@ -38,18 +45,25 @@ public class LoginScreen extends Screen{
 	}
 	
 	@FXML
+	/**
+	 * This methods allows user to attempt to login by pressing the "Enter" key.
+	 * @param actionEvent
+	 * The event to trigger a login - the pressing of the enter key.
+	 */
 	private void onEnter(ActionEvent actionEvent) {
 		login(actionEvent);
 	}
 
 	@Override
+	/**
+	 * This method displays the scene LoginScreen to user.
+	 */
 	public void start() {
 		Pane root;
 		try {
 			root = FXMLLoader.load(getClass().getResource("fxml/LoginScreen.fxml"));
 			ScreenManager.setCurrentScene(new Scene(root, 1280, 720));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
