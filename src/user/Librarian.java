@@ -120,4 +120,7 @@ public class Librarian extends User {
 		return numberOfEmploys;
 	}
 
+	public String getProfImage() {
+		return this.profImage;
+	}
 }
