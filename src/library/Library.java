@@ -580,4 +580,29 @@ public class Library {
 		}
 		return allOverDue;
 	}
+
+	public static void editBook(String id, String title, String year, String author, String publisher, String genre,
+								String isbn, ArrayList<String> languages) {
+		LibraryResources.getBook(id).setTitle(title);
+		LibraryResources.getBook(id).setYear(year);
+		LibraryResources.getBook(id).setAuthor(author);
+		LibraryResources.getBook(id).setPublisher(publisher);
+		LibraryResources.getBook(id).setGenre(genre);
+		LibraryResources.getBook(id).setIsbn(isbn);
+		LibraryResources.getBook(id).setLanguages(languages);
+	}
+
+	public static void editDVD(String id, String title, String year, String director, String runtime, String language,
+							   ArrayList<String> subs) {
+		LibraryResources.getDVD(id).setTitle(title);
+		LibraryResources.getDVD(id).setYear(year);
+		LibraryResources.getDVD(id).setDirector(director);
+		LibraryResources.getDVD(id).setRuntime(runtime);
+		LibraryResources.getDVD(id).setLanguage(language);
+		LibraryResources.getDVD(id).setSubLang(subs);
+	}
+
+	public static void editLaptop() {
+
+	}
 }

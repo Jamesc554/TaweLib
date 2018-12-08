@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -28,6 +29,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import library.Library;
+import library.LibraryResources;
 import resources.Book;
 import resources.BorrowHistoryData;
 import resources.CopyData;
@@ -92,6 +94,9 @@ public class SearchResultScreen extends Screen implements Initializable {
 	private TextField rs4Tf;
 	@FXML
 	private TextField rs5Tf;
+
+	@FXML
+	private Button editResourceButton;
 
 	@FXML
 	private Button requestButton;
@@ -217,6 +222,43 @@ public class SearchResultScreen extends Screen implements Initializable {
 		}
 	}
 
+	@FXML
+	private void editResource() {
+		String resourceType = resourceTypeCB.getSelectionModel().getSelectedItem();
+
+		switch(resourceType) {
+			case "Book":
+				ArrayList<String> languages;
+				String languageString = rs5Tf.getText();
+				String[] languageArray = languageString.split(", ");
+				if (languageString.equals("")) {
+					languages = null;
+				} else {
+					languages = new ArrayList<>(Arrays.asList(languageArray));
+				}
+				Library.editBook(uIDTf.getText(), titleTf.getText(), yearTf.getText(), rs1Tf.getText(),
+						rs2Tf.getText(), rs3Tf.getText(), rs4Tf.getText(), languages);
+				break;
+			case "DVD":
+				ArrayList<String> subs;
+				String subsString = rs4Tf.getText();
+				if (subsString.equals("")) {
+					subs = null;
+				} else {
+					//Split subtitles input into ArrayList
+					String[] subsArray = subsString.split(", ");
+					subs = new ArrayList<>(Arrays.asList(subsArray));
+				}
+				Library.editDVD(uIDTf.getText(), titleTf.getText(), yearTf.getText(), rs1Tf.getText(), rs2Tf.getText(),
+						rs3Tf.getText(), subs);
+				break;
+			case "Laptop":
+				break;
+			default:
+				break;
+		}
+	}
+
 	private HBox createResourceContainer(Resource r) {
 		ImageView imgV = createImageViewForResource(r);
 
@@ -251,11 +293,12 @@ public class SearchResultScreen extends Screen implements Initializable {
 		rs5Lbl.setVisible(true);
 		rs5Tf.setVisible(true);
 
-		TextField[] textFields = { titleTf, uIDTf, yearTf, rs1Tf, rs2Tf, rs3Tf, rs4Tf, rs5Tf };
+		TextField[] textFields = { titleTf, yearTf, rs1Tf, rs2Tf, rs3Tf, rs4Tf, rs5Tf };
 
-		if (!Library.currentUserIsLibrarian()) {
+		if (Library.currentUserIsLibrarian()) {
 			for (TextField tf : textFields) {
 				tf.setEditable(true);
+				editResourceButton.setVisible(true);
 			}
 		} else {
 			for (TextField tf : textFields) {
