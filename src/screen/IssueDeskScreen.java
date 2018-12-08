@@ -243,6 +243,22 @@ public class IssueDeskScreen extends Screen implements Initializable {
         usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
 
         ArrayList<String> allOverdueIDs = Library.findAllOverdue();
+        for (String copy : allOverdueIDs) {
+            String type = copy.split(":")[0];
+            switch (type) {
+                case "Book":
+                    bookOverdueList.getItems().add(copy);
+                    break;
+                case "DVD":
+                    dvdOverdueList.getItems().add(copy);
+                    break;
+                case "Laptop":
+                    laptopOverdueList.getItems().add(copy);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     /**

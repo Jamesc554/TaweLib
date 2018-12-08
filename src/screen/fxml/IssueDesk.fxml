@@ -428,7 +428,7 @@
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Text>
-                                          <ListView fx:id="dvdOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" />
+                                          <ListView fx:id="dvdOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" style="-fx-background-color: #f4f5ff;" />
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -519,7 +519,7 @@
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Text>
-                                          <ListView fx:id="laptopOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" />
+                                          <ListView fx:id="laptopOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" style="-fx-background-color: #f4f5ff;" />
                                        </children>
                                     </AnchorPane>
                                  </content>
