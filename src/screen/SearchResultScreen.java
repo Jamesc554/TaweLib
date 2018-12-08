@@ -5,12 +5,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -29,10 +29,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import library.Library;
-import resources.Book;
-import resources.CopyData;
-import resources.DVD;
-import resources.Resource;
+import library.LibraryResources;
+import resources.*;
 
 /**
  * This class represents the search results screen, a list of Resources which
@@ -75,7 +73,7 @@ public class SearchResultScreen extends Screen implements Initializable {
 
 	@FXML
 	private Label rs5Lbl;
-	
+
 	@FXML
 	private TextField titleTf;
 	@FXML
@@ -92,14 +90,23 @@ public class SearchResultScreen extends Screen implements Initializable {
 	private TextField rs4Tf;
 	@FXML
 	private TextField rs5Tf;
-	
+
 	@FXML
-	private Button borrowButton;
-	
-	//private TextField[] textFields = {titleTf, uIDTf, yearTf, rs1Tf, rs2Tf, rs3Tf, rs4Tf, rs5Tf};
+	private Button editResourceButton;
+
+	@FXML
+	private Button requestButton;
+
+	// private TextField[] textFields = {titleTf, uIDTf, yearTf, rs1Tf, rs2Tf,
+	// rs3Tf, rs4Tf, rs5Tf};
 
 	@FXML
 	private ListView<String> copiesList;
+
+	@FXML
+	private ListView<String> copyHistoryList;
+
+	private Resource selectedResource;
 
 	@Override
 	public void start() {
@@ -140,6 +147,10 @@ public class SearchResultScreen extends Screen implements Initializable {
 			updateSearchResults();
 		});
 
+		copiesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			updateCopyHistoryList(newValue);
+		});
+
 	}
 
 	/**
@@ -155,9 +166,24 @@ public class SearchResultScreen extends Screen implements Initializable {
 	public void requestCopy() {
 
 	}
-	
-	public void borrowResource() {
+
+	@FXML
+	public void requestResource() {
 		Library.requestResource(uIDTf.getText());
+	}
+
+	private void updateCopyHistoryList(String newValue) {
+		if (newValue != null && newValue != "") {
+			String[] ids = newValue.split(":")[2].split("-");
+
+			CopyData c = selectedResource.getArrayListOfCopies().get(Integer.parseInt(ids[1]));
+
+			copyHistoryList.getItems().clear();
+
+			for (BorrowHistoryData borrowHistory : c.getBorrowHistory()) {
+				copyHistoryList.getItems().add(borrowHistory.toString());
+			}
+		}
 	}
 
 	@FXML
@@ -192,10 +218,55 @@ public class SearchResultScreen extends Screen implements Initializable {
 		}
 	}
 
+	/**
+	 * Event handling for a Librarian to edit a Resource.
+	 */
+	@FXML
+	private void editResource() {
+		String resourceType = resourceTypeCB.getSelectionModel().getSelectedItem();
+
+		//TODO: Error checking + error/success labels
+		switch(resourceType) {
+			case "Book":
+				ArrayList<String> languages;
+				String languageString = rs5Tf.getText();
+				if (languageString.equals("")) {
+					languages = null;
+				} else {
+					//Split languages input into ArratList
+					String[] languageArray = languageString.split(", ");
+					languages = new ArrayList<>(Arrays.asList(languageArray));
+				}
+				Library.editBook(uIDTf.getText(), titleTf.getText(), yearTf.getText(), rs1Tf.getText(),
+						rs2Tf.getText(), rs3Tf.getText(), rs4Tf.getText(), languages);
+				break;
+			case "DVD":
+				ArrayList<String> subs;
+				String subsString = rs4Tf.getText();
+				if (subsString.equals("")) {
+					subs = null;
+				} else {
+					//Split subtitles input into ArrayList
+					String[] subsArray = subsString.split(", ");
+					subs = new ArrayList<>(Arrays.asList(subsArray));
+				}
+				Library.editDVD(uIDTf.getText(), titleTf.getText(), yearTf.getText(), rs1Tf.getText(), rs2Tf.getText(),
+						rs3Tf.getText(), subs);
+				break;
+			case "Laptop":
+				Library.editLaptop(uIDTf.getText(), titleTf.getText(), yearTf.getText(), rs1Tf.getText(),
+						rs2Tf.getText(), rs3Tf.getText());
+				break;
+			default:
+				break;
+		}
+	}
+
 	private HBox createResourceContainer(Resource r) {
 		ImageView imgV = createImageViewForResource(r);
 
 		Text title = new Text("Title:" + r.getTitle());
+		;
 		Text uniqueID = new Text("Unique ID: " + r.getUniqueID());
 		Text year = new Text("Year: " + r.getYear());
 		VBox details = new VBox(title, uniqueID, year);
@@ -205,13 +276,17 @@ public class SearchResultScreen extends Screen implements Initializable {
 			updateResourceDetails(r);
 		});
 
+		title.setWrappingWidth(container.getWidth() - imgV.getFitWidth());
+		uniqueID.setWrappingWidth(container.getWidth() - imgV.getFitWidth());
+
 		return container;
 	}
 
 	private void updateResourceDetails(Resource r) {
+		selectedResource = r;
 		resourceThumbnailImage.setImage(getResourceImage(r));
 		titleTf.setText(r.getTitle());
-		uIDTf.setText( r.getUniqueID());
+		uIDTf.setText(r.getUniqueID());
 		yearTf.setText(r.getYear());
 
 		String resourceType = resourceTypeCB.getValue();
@@ -220,24 +295,34 @@ public class SearchResultScreen extends Screen implements Initializable {
 		rs4Tf.setVisible(true);
 		rs5Lbl.setVisible(true);
 		rs5Tf.setVisible(true);
-		
-		TextField[] textFields = {titleTf, uIDTf, yearTf, rs1Tf, rs2Tf, rs3Tf, rs4Tf, rs5Tf};
-		
-		if (!Library.currentUserIsLibrarian()) {
+
+		TextField[] textFields = { titleTf, yearTf, rs1Tf, rs2Tf, rs3Tf, rs4Tf, rs5Tf };
+
+		if (Library.currentUserIsLibrarian()) {
 			for (TextField tf : textFields) {
 				tf.setEditable(true);
+				editResourceButton.setVisible(true);
 			}
 		} else {
 			for (TextField tf : textFields) {
 				tf.setEditable(false);
 			}
 		}
-		
+
 		copiesList.getItems().clear();
-		
+		requestButton.setDisable(true);
+
+		boolean isAvailable = false;
 		for (CopyData copy : r.getArrayListOfCopies()) {
-			copiesList.getItems().add("Copy: " + copy + " - Available: " + String.valueOf(copy.isAvailable()));
+			copiesList.getItems().add("Copy: " + r.getUniqueID() + "-" + copy.getId() + "- Available: "
+					+ String.valueOf(copy.isAvailable()));
+			
+			if (copy.isAvailable())
+				isAvailable = true;
 		}
+		
+		if (!isAvailable)
+			requestButton.setDisable(false);
 
 		switch (resourceType) {
 		case "Book":
@@ -248,16 +333,17 @@ public class SearchResultScreen extends Screen implements Initializable {
 			rs2Tf.setText(b.getPublisher());
 			rs3Lbl.setText("Genre: ");
 			rs3Tf.setText(b.getGenre());
-			rs4Lbl.setText("Director: ");
+			rs4Lbl.setText("ISBN: ");
 			rs4Tf.setText(b.getIsbn());
-			
+
 			rs5Lbl.setText("Languages: ");
 
 			rs5Tf.setText(b.getLanguages().get(0));
 			ArrayList<String> languages = b.getLanguages();
-			languages.remove(0);
-			for (String language : languages)
-				rs5Tf.setText(rs5Tf.getText() + ", " + language);
+			// languages.remove(0);
+			for (int i = 1; i < languages.size(); i++) {
+				rs5Tf.setText(rs5Tf.getText() + ", " + languages.get(i));
+			}
 
 			break;
 		case "DVD":
@@ -268,13 +354,13 @@ public class SearchResultScreen extends Screen implements Initializable {
 			rs2Tf.setText(d.getRuntime());
 			rs3Lbl.setText("Language: ");
 			rs3Tf.setText(d.getLanguage());
-			
+
 			rs4Lbl.setText("Sub-Languages: ");
 
 			if (d.getSubLang().isEmpty()) {
 				rs4Tf.setText("N/A");
 			} else {
-				rs4Tf.setText( d.getSubLang().get(0));
+				rs4Tf.setText(d.getSubLang().get(0));
 				languages = d.getSubLang();
 				languages.remove(0);
 				for (String language : languages)
@@ -286,6 +372,18 @@ public class SearchResultScreen extends Screen implements Initializable {
 
 			break;
 		case "Laptop":
+			Laptop l = (Laptop) r;
+			rs1Lbl.setText("Manufacturer: ");
+			rs1Tf.setText(l.getManufacturer());
+			rs2Lbl.setText("Model: ");
+			rs2Tf.setText(l.getModel());
+			rs3Lbl.setText("Operating System: ");
+			rs3Tf.setText(l.getOperatingSys());
+
+			rs4Lbl.setVisible(false);
+			rs4Tf.setVisible(false);
+			rs5Lbl.setVisible(false);
+			rs5Tf.setVisible(false);
 			break;
 		default:
 			break;
@@ -295,6 +393,8 @@ public class SearchResultScreen extends Screen implements Initializable {
 	private ImageView createImageViewForResource(Resource r) {
 		System.out.println(r.getThumbnailImageRef());
 		ImageView imgV = new ImageView();
+		imgV.setFitWidth(101);
+		imgV.setFitHeight(150);
 
 		imgV.setImage(getResourceImage(r));
 

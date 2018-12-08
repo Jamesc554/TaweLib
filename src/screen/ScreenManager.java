@@ -1,13 +1,11 @@
 package screen;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-
 import java.util.Stack;
 
 import io.WriteFile;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 /**
  * <h1>ScreenManager</h1>

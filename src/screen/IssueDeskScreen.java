@@ -1,22 +1,5 @@
 package screen;
 
-import javafx.embed.swing.SwingFXUtils;
-import javafx.event.Event;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import library.Library;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +7,24 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import library.Library;
+import resources.CopyData;
+import resources.Resource;
 
 /**
  * This class represents the Issue Desk, a screen only available to Librarians to authorise payments and loans, as well
@@ -47,6 +48,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Label outstandingFineMsg;
     @FXML
     private Label overdueCopyMsg;
+    @FXML
+    private Label unavailableCopyMsg;
     @FXML
     private TextField returnUsername;
     @FXML
@@ -130,6 +133,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Label bookDurationError;
     @FXML
+    private ListView bookOverdueList;
+    @FXML
     private TextField dvdTitle;
     @FXML
     private TextField dvdDirector;
@@ -164,6 +169,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private ImageView dvdImg;
     @FXML
+    private ListView dvdOverdueList;
+    @FXML
     private TextField laptopTitle;
     @FXML
     private TextField laptopYear;
@@ -195,8 +202,13 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Text laptopImgName;
     @FXML
     private ImageView laptopImg;
+    @FXML
+    private ListView laptopOverdueList;
 
 
+    /**
+     * Sets IssueDesk as the current scene.
+     */
     @Override
     public void start() {
         Pane root;
@@ -208,7 +220,14 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
+    /**
+     * Called to initialize a controller after its root element has been completely processed.
+     * @param arg0 The location used to resolve relative paths for the root object,
+     *            or null if the location is not known.
+     * @param arg1 The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
+    @SuppressWarnings("Duplicates")
     public void initialize(URL arg0, ResourceBundle arg1) {
         BufferedImage img = null;
         try {
@@ -216,21 +235,21 @@ public class IssueDeskScreen extends Screen implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //TODO: Change to only librarians once librarian is added
-        if (!Library.currentUserIsLibrarian()) {
+        if (Library.currentUserIsLibrarian()) {
             issueDeskBtn.setVisible(true);
         }
 
         userIcon.setImage(SwingFXUtils.toFXImage(img, null));
         usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
+
+        ArrayList<String> allOverdueIDs = Library.findAllOverdue();
     }
 
     /**
      * Event handling to process payments.
-     * @param e the JavaFX event event
      */
     @FXML
-    private void paymentButton(Event e) {
+    private void paymentButton() {
         String user = paymentUsername.getText();
 
         //Reset all error/success labels
@@ -258,8 +277,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
+    /**
+     * Event handling to let a Librarian get a user's current balance.
+     */
     @FXML
-    private void paymentSearchButton(Event e) {
+    private void paymentSearchButton() {
         String user = paymentUsername.getText();
 
         //Reset error label
@@ -277,10 +299,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Event handling to process loans.
-     * @param e the JavaFX event
      */
     @FXML
-    private void loanButton(Event e) {
+    @SuppressWarnings("Duplicates")
+    private void loanButton() {
         String user = loanUsername.getText();
         String id = loanCopyID.getText();
 
@@ -289,7 +311,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
         loanCopyError.setVisible(false);
         loanSuccess.setVisible(false);
         outstandingFineMsg.setVisible(false);
-        //overdueCopyMsg.setVisible(false);
+        overdueCopyMsg.setVisible(false);
+
 
         //Check Library if user exists
         if (Library.checkForUser(user)) {
@@ -297,13 +320,29 @@ public class IssueDeskScreen extends Screen implements Initializable {
             if (!Library.getUser(user).equals(Library.getCurrentLoggedInUser())) {
                 //Check if user has no outstanding balance
                 if (Library.getUser(user).getAccountBalanceDouble() == 0) {
-                    //Check if Resource ID is valid
-                    if (Library.getResource(id.split("-")[0]) != null) {
-                        //TODO: Check if user has overdue copies
-                        Library.loanResource(user, id);
-                        loanSuccess.setVisible(true);
+                    //Check user has no overdue copies
+                    if (Library.checkForOverDue(user).isEmpty()) {
+                        //Check if Resource ID is valid
+                        if (Library.getResource(id.split("-")[0]) != null) {
+                            Resource r = Library.getResource(id.split("-")[0]);
+                            CopyData copy = r.getArrayListOfCopies().get(Integer.parseInt(id.split("-")[1]));
+                            if (copy.isAvailable()) {
+                                Library.loanResource(user, id);
+                                loanSuccess.setVisible(true);
+                            } else if (copy.isReserved()) {
+                                if (copy.getReservedUser().equals(user)) {
+                                    Library.loanResource(user, id);
+                                    loanSuccess.setVisible(true);
+                                } else
+                                    loanUserError.setVisible(true);
+                            } else {
+                                unavailableCopyMsg.setVisible(true);
+                            }
+                        } else {
+                            loanCopyError.setVisible(true);
+                        }
                     } else {
-                        loanCopyError.setVisible(true);
+                        overdueCopyMsg.setVisible(true);
                     }
                 } else {
                     outstandingFineMsg.setVisible(true);
@@ -317,11 +356,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
     }
 
     /**
-     * Event handling to return a searched user's currently borrowed items
-     * @param e the JavaFX event
+     * Event handling to return a searched user's currently borrowed items.
      */
     @FXML
-    private void returnSearchButton(Event e) {
+    private void returnSearchButton() {
         String user = returnUsername.getText();
 
         //Reset all error/success labels
@@ -337,6 +375,14 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 //Get list of borrowed copies
                 ArrayList<String> borrowList = Library.getUser(user).getCurrentlyBorrowedResources();
                 for (String item : borrowList) {
+                    System.out.println("item: " + item);
+                    for (String copy : Library.checkForOverDue(user)) {
+                        System.out.println("copy:" + copy);
+                        if (item.split("-")[1].equals(copy)) {
+                            item += " (OVERDUE)";
+                            System.out.println(item + " is overdue");
+                        }
+                    }
                     userBorrowList.getItems().add(item);
                 }
             } else {
@@ -347,11 +393,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
     /**
-     * Event handling to process returns
-     * @param e the JavaFX event
+     * Event handling to process returns.
      */
     @FXML
-    private void returnButton(Event e) {
+    private void returnButton() {
         String user = returnUsername.getText();
         int selectedIdx = userBorrowList.getSelectionModel().getSelectedIndex();
 
@@ -369,11 +414,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
 
     /**
-     * Event handling to create a new User
-     * @param e the JavaFX event
+     * Event handling to create a new User.
      */
     @FXML
-    private void createUserButton(Event e) {
+    @SuppressWarnings("Duplicates")
+    private void createUserButton() {
         String username = userUsername.getText();
         String firstName = userFirstName.getText();
         String lastName = userLastName.getText();
@@ -410,29 +455,26 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
+    /**
+     * Event handling to let a user choose their avatar.
+     */
     @FXML
-    private void userAvatarButton(Event e) {
+    private void userAvatarButton() {
         try {
             File selectedFile = getImageFile("default");
             userAvatarName.setText(selectedFile.getName());
-            BufferedImage img = null;
-            try {
-                img = ImageIO.read(selectedFile);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            userAvatar.setImage(SwingFXUtils.toFXImage(img, null));
+            setImage(userAvatar, selectedFile);
         } catch (NullPointerException ex) {
             System.out.println("No book image file selected");
         }
     }
 
     /**
-     * Event handling to create a new Book
-     * @param e the JavaFX event
+     * Event handling to create a new Book.
      */
     @FXML
-    private void createBookButton(Event e) {
+    @SuppressWarnings("Duplicates")
+    private void createBookButton() {
         String title = bookTitle.getText();
         String author = bookAuthor.getText();
         String year = bookYear.getText();
@@ -466,7 +508,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 //Split language input into ArrayList
                 String[] languageArray = languageString.split(", ");
                 languages = new ArrayList<>(Arrays.asList(languageArray));
-                System.out.println(languages);
             }
             int numCopies;
             int num1Day;
@@ -517,7 +558,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                             loanDuration.add("28");
                         }
                         Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages,
-                                numCopies, loanDuration);
+                                numCopies, loanDuration, new ArrayList<>(), new ArrayList<>());
                         bookSuccess.setVisible(true);
                         bookImgName.setText("");
                     } else {
@@ -533,11 +574,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
     }
 
     /**
-     * Event handling to create a new DVD
-     * @param e the JavaFX event
+     * Event handling to create a new DVD.
      */
     @FXML
-    private void createDVDButton(Event e) {
+    @SuppressWarnings("Duplicates")
+    private void createDVDButton() {
         String title = dvdTitle.getText();
         String director = dvdDirector.getText();
         String year = dvdYear.getText();
@@ -617,7 +658,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                             loanDuration.add("28");
                         }
                         Library.addDVD(year, title, image, null, director, runtime, language, subs, numCopies,
-                                loanDuration);
+                                loanDuration, new ArrayList<>(), new ArrayList<>());
                         dvdSuccess.setVisible(true);
                         dvdImgName.setText("");
                     } else {
@@ -633,11 +674,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
     }
 
     /**
-     * Event handling to create a new Laptop
-     * @param e the JavaFX event
+     * Event handling to create a new Laptop.
      */
     @FXML
-    private void createLaptopButton(Event e) {
+    @SuppressWarnings("Duplicates")
+    private void createLaptopButton() {
         String title = laptopTitle.getText();
         String year = laptopYear.getText();
         String manufacturer = laptopManuf.getText();
@@ -705,7 +746,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                             loanDuration.add("28");
                         }
                         Library.addLaptop(year, title, image, null, manufacturer, model, os, numCopies,
-                                loanDuration);
+                                loanDuration, new ArrayList<>(), new ArrayList<>());
                         laptopSuccess.setVisible(true);
                         laptopImgName.setText("");
                     } else {
@@ -721,70 +762,49 @@ public class IssueDeskScreen extends Screen implements Initializable {
     }
 
     /**
-     * Event handling to choose a book thumbnail image
-     * @param e the JavaFX event
+     * Event handling to choose a book thumbnail image.
      */
     @FXML
-    private void bookImageButton(Event e) {
+    private void bookImageButton() {
         try {
             File selectedFile = getImageFile("book");
             bookImgName.setText(selectedFile.getName());
-            BufferedImage img = null;
-            try {
-                img = ImageIO.read(selectedFile);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            bookImg.setImage(SwingFXUtils.toFXImage(img, null));
+            setImage(bookImg, selectedFile);
         } catch (NullPointerException ex) {
             System.out.println("No book image file selected");
         }
     }
 
     /**
-     * Event handling to choose a dvd thumbnail image
-     * @param e the JavaFX event
+     * Event handling to choose a dvd thumbnail image.
      */
     @FXML
-    private void dvdImageButton(Event e) {
+    private void dvdImageButton() {
          try {
              File selectedFile = getImageFile("dvd");
              dvdImgName.setText(selectedFile.getName());
-             BufferedImage img = null;
-             try {
-                 img = ImageIO.read(selectedFile);
-             } catch (IOException ex) {
-                 ex.printStackTrace();
-             }
-             dvdImg.setImage(SwingFXUtils.toFXImage(img, null));
+             setImage(dvdImg, selectedFile);
          } catch (NullPointerException ex) {
              System.out.println("No dvd image file selected");
          }
     }
 
     /**
-     * Event handling to choose a laptop thumbnail image
-     * @param e the JavaFX event
+     * Event handling to choose a laptop thumbnail image.
      */
     @FXML
-    private void laptopImageButton(Event e) {
+    private void laptopImageButton() {
         try {
             File selectedFile = getImageFile("laptop");
             laptopImgName.setText(selectedFile.getName());
-            BufferedImage img = null;
-            try {
-                img = ImageIO.read(selectedFile);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            laptopImg.setImage(SwingFXUtils.toFXImage(img, null));
+            setImage(laptopImg, selectedFile);
         } catch (NullPointerException ex) {
             System.out.println("No laptop image file selected");
         }
     }
 
     /**
-     * Opens a FileChooser in the image directory of the selected type
+     * Opens a FileChooser in the image directory of the selected type.
      * @param type the type of resource for which to choose an image (i.e. book/dvd/laptop)
      * @return a File object correspondng to the selected image (null if cancelled)
      */
@@ -796,5 +816,20 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 new FileChooser.ExtensionFilter("Images files", "*png", "*jpg")
         );
         return fileChooser.showOpenDialog(ScreenManager.getStage());
+    }
+
+    /**
+     * Sets an image to an ImageView object
+     * @param imv the ImageView object
+     * @param imgFile the image file object
+     */
+    private void setImage(ImageView imv, File imgFile) {
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(imgFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        imv.setImage(SwingFXUtils.toFXImage(img, null));
     }
 }

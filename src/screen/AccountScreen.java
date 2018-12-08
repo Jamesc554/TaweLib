@@ -24,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import library.Library;
 import resources.Resource;
 
@@ -67,7 +68,7 @@ public class AccountScreen extends Screen implements Initializable{
 		
 		@SuppressWarnings("rawtypes")
 		@FXML
-		private ListView returnedField;
+		private ListView reservedField;
 		
 		@SuppressWarnings("rawtypes")
 		@FXML
@@ -75,6 +76,9 @@ public class AccountScreen extends Screen implements Initializable{
 
 		@FXML
 		private ListView borrowHistoryField;
+		
+		@FXML
+		private Label changeProfileImageLbl;
 
 		/**
 		 * This method changes the screen manager to the Account screen, so that the user can see their information.
@@ -128,6 +132,7 @@ public class AccountScreen extends Screen implements Initializable{
 	        setReservedField();
 	        setBorrowedField();
 	        setBorrowHistoryField();
+	        setChangeImageLabel();
 		}
 
 		/**
@@ -205,7 +210,7 @@ public class AccountScreen extends Screen implements Initializable{
 			ArrayList<String> currentlyReserved = Library.getCurrentLoggedInUser().getAllReserved();
 			for(String reserved : currentlyReserved) {
 				Resource r = Library.getResource(reserved);
-				returnedField.getItems().add("Resource ID: " + r.getUniqueID() + " - " + r.getTitle());
+				reservedField.getItems().add("Resource ID: " + r.getUniqueID() + " - " + r.getTitle());
 			}
 		}
 
@@ -225,5 +230,58 @@ public class AccountScreen extends Screen implements Initializable{
 				String date = borrow[0];
 				borrowHistoryField.getItems().add("Resource ID: " + resourceID + " - Date: " + date);
 			}
+		}
+		
+		/**
+		 * This method sets the status label when changing profile image to hidden when screen is opened.
+		 */
+		private void setChangeImageLabel() {
+			changeProfileImageLbl.setVisible(false);
+		}
+		
+		/**
+		 * This method changes FXML attributes based on if image change succeeded.
+		 */
+		private void changeImageSuccess() {
+			changeProfileImageLbl.setText("Success!");
+			changeProfileImageLbl.setVisible(true);
+		}
+		
+		/**
+		 * This method changes FXML attributes based on if image change failed.
+		 */
+		private void changeImageFail() {
+			changeProfileImageLbl.setText("Failed!");
+			changeProfileImageLbl.setVisible(true);
+		}
+		
+		private File getImageFile() {
+	        FileChooser fileChooser = new FileChooser();
+	        fileChooser.setTitle("Choose an image");
+	        fileChooser.setInitialDirectory(new File("./data/images/" + Library.getCurrentLoggedInUser().getUserName()));
+	        fileChooser.getExtensionFilters().addAll(
+	                new FileChooser.ExtensionFilter("Images files", "*png", "*jpg")
+	        );
+	        return fileChooser.showOpenDialog(ScreenManager.getStage());
+	    }
+		
+		@FXML
+		private void changeButtonClick(Event event) {
+			try {
+				File selectedFile = getImageFile();
+		        BufferedImage img = null;
+		        try {
+		        	img = ImageIO.read(selectedFile);
+		        } catch (IOException ex) {
+		        	changeImageFail();
+		            ex.printStackTrace();
+		        }
+		        changeImageSuccess();
+		        profileImageField.setImage(SwingFXUtils.toFXImage(img, null));
+		        Library.getCurrentLoggedInUser().setProfImage(selectedFile.toString());
+			} catch (NullPointerException ex) {
+				changeImageFail();
+		        System.out.println("No image file selected");
+		    }
 		}
 }

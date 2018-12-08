@@ -39,7 +39,7 @@ public class BorrowHistoryData {
 	}
 
 	public String getDateRequestedReturn() {
-		return dateRequestedReturn;
+		return this.dateRequestedReturn;
 	}
 
 	public void setDateRequestedReturn(String dateRequestedReturn) {
@@ -51,5 +51,10 @@ public class BorrowHistoryData {
 		this.dateBorrowed = "";
 		this.dateReturned = "";
 		this.dateRequestedReturn = "";
+	}
+	
+	@Override
+	public String toString() {
+		return getUserID() + " - " + getDateBorrowed() + " - " + getDateReturned() + " - " + getDateRequestedReturn();
 	}
 }

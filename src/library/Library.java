@@ -1,11 +1,13 @@
 package library;
-import user.*;
-import resources.*;
-import io.*;
-
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import resources.*;
+import user.Librarian;
+import user.User;
+@SuppressWarnings("Duplicates")
 
 /**
  * This class implements all methods required for library operations.
@@ -36,8 +38,8 @@ public class Library {
 	 * @param lang Language of the book.
 	 */
 	public static void addBook(String year,String title, String thumbnailImg, String uniqueID,
-						   String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies, ArrayList<String> loanDuration){
-		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, lang, noOfCopies, loanDuration));
+						   String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData){
+		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, lang, noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	}
 
 	/**
@@ -52,8 +54,8 @@ public class Library {
 	 * @param subLang The subtitles language of the DVD.
 	 */
 	public static void addDVD(String year, String title, String thumbnailImg, String uniqueID,
-						 String director, String runtime, String language, ArrayList<String> subLang, Integer noOfCopies, ArrayList<String> loanDuration){
-	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID, noOfCopies, loanDuration));
+						 String director, String runtime, String language, ArrayList<String> subLang, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData){
+	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID, noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	}
 
 	/**
@@ -67,8 +69,8 @@ public class Library {
 	 * @param operatingSys The operating system of the laptop.
 	 */
 	public static void addLaptop(String year, String title, String thumbnailImageRef, String uniqueID,
-							  String manufacturer, String model,  String operatingSys, Integer noOfCopies, ArrayList<String> loanDuration){
-	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys, noOfCopies, loanDuration));
+							  String manufacturer, String model,  String operatingSys, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData){
+	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys, noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	}
 
 	/**
@@ -159,7 +161,7 @@ public class Library {
 	public static void subtractBalance (int amount, String username) {
 		if (amount <= 0 ) {
 			throw new IllegalArgumentException("Cannot subtract negative or null amount");
-		} else if (amount > currentUser.getAccountBalanceDouble()) {
+		} else if (amount > getUser(username).getAccountBalanceDouble()) {
 			throw new IllegalArgumentException("Amount superior to account balance");
 		}
 		getUser(username).subtractAccountBalance(amount);
@@ -184,7 +186,7 @@ public class Library {
 		getUser(username).loanResource(resourceID);
 		String[] resInfo = resourceID.split("-");
 		Resource r = Library.getResource(resInfo[0]);
-		r.loanResource(Integer.valueOf(resInfo[1]), username, Library.getCurrentDateTime());
+		r.loanResource(resInfo[1], username);
 	}
 
 	/**
@@ -194,16 +196,6 @@ public class Library {
 	 */
 	public static void returnResource(String username, String resourceID){
 		getUser(username).returnResource(resourceID);
-		checkForRequested(resourceID);
-	}
-
-	private static void checkForRequested(String id){
-		String[] data = id.split("-");
-		Resource r = Library.getResource(data[0]);
-		if(!r.checkIfRequested()){
-			User u = r.peekQueueOfReservations();
-			u.moveToReserved(id);
-		}
 	}
 
 	/**
@@ -468,7 +460,10 @@ public class Library {
 	 * @param id of resource to be requested
 	 */
 	public static void requestResource(String id){
-		currentUser.requestResource(id);
+		currentUser.requestResource(id); // Add it to the user
+		Resource requestedResource = getResource(id); // Get the resource
+		requestedResource.addUserToRequestQueue(currentUser);
+		requestedResource.requestReturn(requestedResource.getCopyWithEarlestReturn());
 	}
 
 	/**
@@ -483,5 +478,166 @@ public class Library {
 	 * Returns all reserved items of the user currently logged in.
 	 * @return ArrayList<String>
 	 */
-	public ArrayList<String> getAllReservedResources(){ return currentUser.getAllReserved();}
+	public static ArrayList<String> getAllReservedResources(){ return currentUser.getAllReserved();}
+
+	public static Boolean chekcCopyOverdue(String id){
+		return Library.getResource(id).checkIfOverdue(Integer.valueOf(id.split("-")[1]));
+	}
+	public static ArrayList<String> checkForOverDue(){
+		ArrayList<String> overDue = new ArrayList<>();
+		ArrayList<String> list = currentUser.getCurrentlyBorrowedResources();
+		for(String s : list){
+			if(Library.getResource(s).checkIfOverdue(Integer.valueOf(s.split("-")[1]))){
+				overDue.add(s);
+			}
+		}
+		return overDue;
+	}
+	public static ArrayList<String> checkForOverDue(String username){
+		ArrayList<String> overDue = new ArrayList<>();
+		ArrayList<String> list = Library.getUser(username).getCurrentlyBorrowedResources();
+		for(String s : list){
+			if(Library.getResource(s).checkIfOverdue(Integer.valueOf(s.split("-")[1]))){
+				overDue.add(s);
+			}
+		}
+		return overDue;
+	}
+	public static double calculateFines(){
+		ArrayList<String> overDue = checkForOverDue();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		Date currentDate = new Date();
+		Date dateToBeReturned = new Date();
+
+		double sum = 0;
+		double fineAmount;
+
+		try {
+			currentDate = sdf.parse(Library.getCurrentDateTime());
+		}catch (ParseException e){
+			System.out.println("Library calculate fine parse 1 ");
+		}
+
+		for(String s : overDue){
+			BorrowHistoryData r = Library.getResource(s).getCopyInfo(Integer.valueOf(s.split("-")[1])).getCurrentInfo();
+			System.out.println(r.getDateRequestedReturn());
+			try {
+				dateToBeReturned = sdf.parse(r.getDateRequestedReturn());
+			}catch (ParseException e){
+				System.out.println("Library calculate fine parse 1 ");
+			}
+			long noOfDays = (currentDate.getTime() - dateToBeReturned.getTime())/ (1000 * 60 * 60 * 24);
+			if(noOfDays == 0){
+				noOfDays = 1;
+			}
+			fineAmount = noOfDays * Library.getResource(s).getFineAmount();
+			if(fineAmount > Library.getResource(s).getMaxFine()){
+				fineAmount = Library.getResource(s).getMaxFine();
+			}
+			sum += fineAmount;
+		}
+		return sum;
+	}
+	public static double calculateFines(String username){
+		ArrayList<String> overDue = checkForOverDue(username);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		Date currentDate = new Date();
+		Date dateToBeReturned = new Date();
+
+		double sum = 0;
+		double fineAmount;
+
+		try {
+			currentDate = sdf.parse(Library.getCurrentDateTime());
+		}catch (ParseException e){
+			System.out.println("Library calculate fine parse 1 ");
+		}
+
+		for(String s : overDue){
+			BorrowHistoryData r = Library.getResource(s).getCopyInfo(Integer.valueOf(s.split(" ")[1])).getCurrentInfo();
+			try {
+				dateToBeReturned = sdf.parse(r.getDateRequestedReturn());
+			}catch (ParseException e){
+				System.out.println("Library calculate fine parse 1 ");
+			}
+			long noOfDays = (currentDate.getTime() - dateToBeReturned.getTime())/ (1000 * 60 * 60 * 24);
+			if(noOfDays == 0){
+				noOfDays = 1;
+			}
+			fineAmount = noOfDays * Library.getResource(s).getFineAmount();
+			if(fineAmount > Library.getResource(s).getMaxFine()){
+				fineAmount = Library.getResource(s).getMaxFine();
+			}
+			sum += fineAmount;
+		}
+		return sum;
+	}
+	public static ArrayList<String> findAllOverdue(){
+		ArrayList<User> users = Library.getAllUsers();
+		ArrayList<String> allOverDue = new ArrayList<>();
+
+		for(User u : users){
+			allOverDue.addAll(checkForOverDue(u.getUserName()));
+		}
+		return allOverDue;
+	}
+
+	/**
+	 * Updates a book's properties.
+	 * @param id the book resource unique ID
+	 * @param title the updated book title
+	 * @param year the updated book year
+	 * @param author the updated book author
+	 * @param publisher the updated book publisher
+	 * @param genre the updated book genre
+	 * @param isbn the updated book isbn
+	 * @param languages the updated book available languages
+	 */
+	public static void editBook(String id, String title, String year, String author, String publisher, String genre,
+								String isbn, ArrayList<String> languages) {
+		LibraryResources.getBook(id).setTitle(title);
+		LibraryResources.getBook(id).setYear(year);
+		LibraryResources.getBook(id).setAuthor(author);
+		LibraryResources.getBook(id).setPublisher(publisher);
+		LibraryResources.getBook(id).setGenre(genre);
+		LibraryResources.getBook(id).setIsbn(isbn);
+		LibraryResources.getBook(id).setLanguages(languages);
+	}
+
+	/**
+	 * Updates a DVD's properties
+	 * @param id the DVD resource unique ID
+	 * @param title the updated DVD title
+	 * @param year the updated DVD year
+	 * @param director the updated DVD director
+	 * @param runtime the updated DVD runtime
+	 * @param language the updated DVD language
+	 * @param subs the updated DVD available subtitle languages
+	 */
+	public static void editDVD(String id, String title, String year, String director, String runtime, String language,
+							   ArrayList<String> subs) {
+		LibraryResources.getDVD(id).setTitle(title);
+		LibraryResources.getDVD(id).setYear(year);
+		LibraryResources.getDVD(id).setDirector(director);
+		LibraryResources.getDVD(id).setRuntime(runtime);
+		LibraryResources.getDVD(id).setLanguage(language);
+		LibraryResources.getDVD(id).setSubLang(subs);
+	}
+
+	/**
+	 * Updates a Laptop's properties
+	 * @param id the Laptop resource unique ID
+	 * @param title the updated Laptop title
+	 * @param year the updated Laptop year
+	 * @param manufacturer the updated Laptop manufacturer
+	 * @param model the updated Laptop model
+	 * @param os the updated Laptop operating system
+	 */
+	public static void editLaptop(String id, String title, String year, String manufacturer, String model, String os) {
+		LibraryResources.getLaptop(id).setTitle(title);
+		LibraryResources.getLaptop(id).setYear(year);
+		LibraryResources.getLaptop(id).setManufacturer(manufacturer);
+		LibraryResources.getLaptop(id).setModel(model);
+		LibraryResources.getLaptop(id).setOperatingSys(os);
+	}
 }

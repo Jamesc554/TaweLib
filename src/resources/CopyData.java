@@ -15,13 +15,19 @@ public class CopyData {
 	private List<BorrowHistoryData> borrowHistory; // [4] [0] - User ID [1] - date borrowed [2] - date returned [3] - requested return date
 	private BorrowHistoryData currentInfo; // [4] [0] - User ID [1] - date borrowed [2] - date returned [3] - requested return date
 	private String loanDuration;
+	private String reservedUserID;
 	
-	public CopyData(String copyID, List<BorrowHistoryData> borrowHistory, String loanDuration) {
+	public CopyData(String copyID, List<BorrowHistoryData> borrowHistory, BorrowHistoryData currentInfo, String loanDuration) {
 		this.id = copyID;
 		this.borrowHistory = borrowHistory;
 		this.loanDuration = loanDuration;
 		
-		this.currentInfo = new BorrowHistoryData();
+		if (currentInfo == null)
+			this.currentInfo = new BorrowHistoryData();
+		else 
+			this.currentInfo = currentInfo;
+		
+		reservedUserID = "";
 	}
 
 	public String getId() {
@@ -57,11 +63,25 @@ public class CopyData {
 	}
 	
 	public boolean isAvailable() {
-		if (currentInfo.getDateBorrowed().equals("")) {
-			return false;
+		if (currentInfo.getDateBorrowed().equals("") && !isReserved()) {
+			return true;
 		}
 
+		return false;
+	}
+	
+	public boolean isReserved() {
+		if (reservedUserID == "" || reservedUserID == null)
+			return false;
+		
 		return true;
+	}
+	
+	public String getReservedUser() {
+		if (reservedUserID != "" || reservedUserID != null)
+			return reservedUserID;
+		
+		return null;
 	}
 	
 	public void loanCopy(String username){
@@ -70,6 +90,24 @@ public class CopyData {
 	}
 	
 	public void requestReturn(){
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		String date = dateFormat.format(getEstimatedReturnData().getTime());
+		
+		this.currentInfo.setDateRequestedReturn(date);
+	}
+	
+	public void returnCopy(){
+		currentInfo.setDateReturned(Library.getCurrentDateTime());
+		this.borrowHistory.add(currentInfo);
+		currentInfo = new BorrowHistoryData();
+		System.out.println("Copy has been returned");
+	}
+	
+	public void reserveCopy(String userID) {
+		this.reservedUserID = userID;
+	}
+	
+	public Calendar getEstimatedReturnData() {
 		String date = currentInfo.getDateBorrowed().split(" ")[0];
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy" ); //Not Required
@@ -82,12 +120,12 @@ public class CopyData {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(selectedDate);
 		cal.add( Calendar.DATE,Integer.valueOf(loanDuration) );
-		this.currentInfo.setDateRequestedReturn(cal.getTime().toString());
-	}
-	
-	public void returnCopy(){
-		currentInfo.setDateReturned(Library.getCurrentDateTime());
-		this.borrowHistory.add(currentInfo);
-		currentInfo.clearInfo();
+		
+		if (cal.getTime().before(new Date())) {
+			cal.setTime(new Date());
+			cal.add(Calendar.DATE, 1);
+		}
+		
+		return cal;
 	}
 }

@@ -75,8 +75,8 @@
       </items>
     </ToolBar>
   <Button fx:id="logoutBtn" layoutX="1220.0" layoutY="1.0" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: #0e0056;" text="Logout" textFill="#fff1f1" underline="true" />
-  <Text fx:id="usernameText" fill="#fff1f1" layoutX="1166.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
-  <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" layoutX="1129.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+  <Text fx:id="usernameText" fill="#fff1f1" layoutX="1166.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" translateX="-40.0" />
+  <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" layoutX="1129.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" translateX="-40.0">
     <image>
       <Image url="@../../../data/images/james/testImg442.png" />
     </image>

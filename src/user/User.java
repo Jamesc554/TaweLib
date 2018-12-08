@@ -62,126 +62,164 @@ public class User {
 	 * This sets the user name of the user. Can only be done once.
 	 * @param userName username of the user.
 	 */
-	protected void setUserName(String userName){this.userName = userName;}
+	protected void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	/**
 	 * This sets the first name of the user. Can only be done once.
 	 * @param firstName name of the user.
 	 */
-    protected void setFirstName(String firstName){this.firstName = firstName;}
+    protected void setFirstName(String firstName) {
+    	this.firstName = firstName;
+    }
 
 	/**
 	 * This sets the last name of the user can be changed later.
 	 * @param lastName last name of the user.
 	 */
-	public void setLastName(String lastName){this.lastName = lastName;}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
 	/**
 	 * This sets mobile number of the user. Can be changed later.
 	 * @param mobileNumber the mobile number of the user.
 	 */
-    public void setMobileNumber(String mobileNumber){this.mobileNumber = mobileNumber;}
+    public void setMobileNumber(String mobileNumber) {
+    	this.mobileNumber = mobileNumber;
+    }
 
 	/**
 	 * Sets the first line address of the user. Can be changed later.
 	 * @param firstLineAddress first line address of the user.
 	 */
-	public void setFirstLineAddress(String firstLineAddress){this.firstLineAddress = firstLineAddress;}
+	public void setFirstLineAddress(String firstLineAddress) {
+		this.firstLineAddress = firstLineAddress;
+	}
 
 	/**
 	 * Sets the second line address of the user. Can be changed later.
 	 * @param secondLineAddress second line address of the user.
 	 */
-    public void setSecondLineAddress(String secondLineAddress){this.secondLineAddress = secondLineAddress;}
+    public void setSecondLineAddress(String secondLineAddress) {
+    	this.secondLineAddress = secondLineAddress;
+    }
 
 	/**
 	 * Sets the post code of the user. Can be changed later.
 	 * @param postCode the postcode of the user.
 	 */
-	public void setPostCode(String postCode){this.postCode = postCode;}
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
+	}
 
 	/**
 	 * This sets the town name of the user. Can be changed later.
 	 * @param townName the name of the town the user lives in.
 	 */
-	public void setTownName(String townName){this.townName = townName;}
+	public void setTownName(String townName) {
+		this.townName = townName;
+	}
 
 	/**
 	 * This sets the path for the profile image of the user.
  	 * @param profImage the path to the image of the user.
 	 */
-    public void setProfImage(String profImage){this.profImage = profImage;}
+    public void setProfImage(String profImage) {
+    	this.profImage = profImage;
+    }
 
 	/**
 	 * This sets the account balance of the user.
 	 * @param amount the start amount in pence.
 	 */
-	protected void setAccountBalance(double amount){this.accountBalance = amount;}
+	public void setAccountBalance(double amount) {
+		this.accountBalance = amount;
+	}
 
 	/**
 	 * Returns the username.
 	 * @return username as String.
 	 */
-    public String getUserName(){return this.userName;}
+    public String getUserName() {
+    	return this.userName;
+    }
 
 	/**
 	 * Returns the first name of the user.
 	 * @return first name as String.
 	 */
-	public String getFirstName(){return this.firstName;}
+	public String getFirstName() {
+		return this.firstName;
+	}
 
 	/**
 	 * Return the last name of the user.
 	 * @return last name as String.
 	 */
-    public String getLastName(){return this.lastName;}
+    public String getLastName() {
+    	return this.lastName;
+    }
 
 	/**
 	 * This return first and last name separated by a space as one string.
 	 * @return String of "First Last" name
 	 */
-	public String getFullName(){return this.firstName + " " + this.lastName;}
+	public String getFullName() {
+		return this.firstName + " " + this.lastName;
+	}
 
 	/**
 	 * Returns the mobile number of the user.
 	 * @return the number as a String.
 	 */
-    public String getMobileNumber(){return this.mobileNumber;}
+    public String getMobileNumber() {
+    	return this.mobileNumber;
+    }
 
 	/**
 	 * Returns the first line of address.
 	 * @return String of first line of address.
 	 */
-	public String getFirstLineAddress(){return this.firstLineAddress;}
+	public String getFirstLineAddress() {
+		return this.firstLineAddress;
+	}
 
 	/**
 	 * Returns the second line of address.
 	 * @return string of second line of address.
 	 */
-    public String getSecondLineAddress(){return this.secondLineAddress;}
+    public String getSecondLineAddress() {
+    	return this.secondLineAddress;
+    }
 
 	/**
 	 * Returns the post code of the user.
 	 * @return a string representing the post code of the user
 	 */
-	public String getPostCode(){return this.postCode;}
+	public String getPostCode() {
+		return this.postCode;
+	}
 
 	/**
 	 * Returns the name of the town of the user
 	 * @return a string representation the name of the town of the usr.
 	 */
-    public String getTownName(){return this.townName;}
+    public String getTownName() {
+    	return this.townName;
+    }
 
 	/**
 	 * This returns the full address formatted for postage
 	 * @return single String
 	 */
-	public String getFullAddress(){
+	public String getFullAddress()  {
 		String address = getFirstLineAddress();
-		if (!getSecondLineAddress().equals("")){
+		if (!getSecondLineAddress().equals("")) {
 			return address + getSecondLineAddress()
 					+ "\n" + getTownName() + "\n" + getPostCode();
-		}else{
+		}else {
 			return address + "\n" + getTownName() + "\n" + getPostCode();
 		}
     }
@@ -189,7 +227,9 @@ public class User {
 	 * This returns the path to the profile image of the user
 	 * @return String
 	 */
-	public String getProfImage(){return this.profImage;}
+	public String getProfImage() {
+		return this.profImage;
+	}
 
 	/**
 	 * Get the resource with specific ID from the user currently borrowed
@@ -197,9 +237,9 @@ public class User {
 	 * @return Resource object representing resource with ID, returns null if unique ID does not match
 	 * any item in the list.
 	 */
-    public String getResource(String resourceID){
-        for (String id : this.resourceCurrentlyBorrowed){
-            if (id.equals(resourceID)){
+    public String getResource(String resourceID) {
+        for (String id : this.resourceCurrentlyBorrowed) {
+            if (id.equals(resourceID)) {
                 return id;
             }
         }
@@ -210,23 +250,31 @@ public class User {
 	 * Returns full list of resources borrowed by the user.
 	 * @return ArrayList storing all Resource objects.
 	 */
-	public ArrayList<String> getCurrentlyBorrowedResources(){return this.resourceCurrentlyBorrowed;}
+	public ArrayList<String> getCurrentlyBorrowedResources() {
+		return this.resourceCurrentlyBorrowed;
+	}
 
 	/**
 	 * Returns all transaction history of the user.
 	 * @return a ArrayList. This arrayList holds arrays in the following way,
 	 * DateOfTransaction	Amount of Transaction
 	 */
-    public ArrayList<String[]> getTransactions(){return this.transactionHistory;}
+    public ArrayList<String[]> getTransactions() {
+    	return this.transactionHistory;
+    }
 
 	/**
 	 * This returns the current account balance as a String. Following format "£X.XX".
 	 * @return a string representation of the balance.
 	 */
-	public String getAccountBalanceString(){
+	public String getAccountBalanceString() {
 			return "£"+String.valueOf(this.accountBalance);
     }
-	
+
+	/**
+	 * Ger current account balance
+	 * @return Double account balance
+	 */
 	public double getAccountBalanceDouble() {
 		return this.accountBalance;
 	}
@@ -235,12 +283,16 @@ public class User {
 	 * Adds a resource to users current loan.
 	 * @param id The resource to be added to the current borrow.
 	 */
-    public void loanResource(String id){
+    public void loanResource(String id) {
     	this.resourceCurrentlyBorrowed.add(id);
     	addResourceToHistory(id);
     }
-    //Not used as we do not collect stats
-    protected void addResourceToHistory(String resourceID){
+
+	/**
+	 * Add's resource to user history.
+	 * @param resourceID ID of resource.
+	 */
+	protected void addResourceToHistory(String resourceID) {
     	String[] data = new String[3];
     	data[0] = getCurrentDate();
     	data[1] = resourceID;
@@ -252,39 +304,51 @@ public class User {
 	 * Add balance to the account.
 	 * @param amount the amount to be added.
 	 */
-	public void addAccountBalance(int amount){this.accountBalance = this.accountBalance + amount;}
+	public void addAccountBalance(int amount) {
+		this.accountBalance = this.accountBalance + amount;
+	}
 
 	/**
 	 * Remove balance from account.
 	 * @param amount the amount to be removed from account.
 	 */
-    public void subtractAccountBalance(int amount){this.accountBalance = this.accountBalance - amount;}
+    public void subtractAccountBalance(int amount) {
+    	this.accountBalance = this.accountBalance - amount;
+    }
 
 	/**
 	 * Add's transaction to history of the user.
 	 * @param amount
 	 */
-	protected void addTransaction(int amount){
+	protected void addTransaction(int amount) {
 		//Computes current system data
         String[] data = {getCurrentDate(), String.valueOf(amount), ""};
         transactionHistory.add(data);
     }
-    public void returnResource(String resourceID){
+
+	/**
+	 * Returns resource.
+	 * @param resourceID ID of resource to return
+	 */
+	public void returnResource(String resourceID) {
 		int j = 0;
 		Boolean done = false;
-		while(j >= this.resourceCurrentlyBorrowed.size()-1 && !done){
-			if(this.resourceCurrentlyBorrowed.get(j).equals(resourceID)){
+		while(j >= this.resourceCurrentlyBorrowed.size()-1 && !done) {
+			if(this.resourceCurrentlyBorrowed.get(j).equals(resourceID)) {
 				this.resourceCurrentlyBorrowed.remove(j);
+				String[] resourceCopyID = resourceID.split("-");
+				Library.getResource(resourceCopyID[0]).returnResource(Integer.parseInt(resourceCopyID[1]));
 				done = true;
 			}
 			j++;
 		}
+		
 		done = false;
 		int i = this.borrowHistory.size()-1;
-		while(!done && i >= 0){
+		while(!done && i >= 0) {
 			String[] data = borrowHistory.get(i);
 			if (data[1].equals(resourceID)){
-				data[2] = getCurrentDate();
+				data[0] = getCurrentDate();
 				borrowHistory.remove(i);
 				borrowHistory.add(i, data);
 				done = true;
@@ -297,7 +361,7 @@ public class User {
 	 * Returns the history of the user
 	 * @return ArrayList<String[]>
 	 */
-	public ArrayList<String[]> getBorrowHistory(){
+	public ArrayList<String[]> getBorrowHistory() {
 		return this.borrowHistory;
 	}
 
@@ -305,7 +369,7 @@ public class User {
 	 * Returns the history of the user.
 	 * @param ID of resource to request.
 	 */
-	public void requestResource(String ID){
+	public void requestResource(String ID) {
 		this.resourceCurrentlyRequested.add(ID);
 	}
 
@@ -313,7 +377,7 @@ public class User {
 	 * Get's all of users requested resources.
 	 * @return ArrayList<String>.
 	 */
-	public ArrayList<String> getAllRequested(){
+	public ArrayList<String> getAllRequested() {
 		return this.resourceCurrentlyRequested;
 	}
 
@@ -327,7 +391,7 @@ public class User {
 	 * Gets current system date in following format DD-MM-YYYY HH:MM:SS.
 	 * @return String
 	 */
-    private String getCurrentDate(){
+    private String getCurrentDate() {
 		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		return dataFormat.format(new Date());
 	}
@@ -343,7 +407,7 @@ public class User {
 	/**
 	 * Sets the user last login to current date.
 	 */
-	public void setLastLogIn(){
+	public void setLastLogIn() {
     	this.lastLogIn = getCurrentDate();
 	}
 
@@ -351,8 +415,12 @@ public class User {
 	 * Moves requested to reserved.
 	 * @param id String id of resource.
 	 */
-	public void moveToReserved(String id){
+	public void moveToReserved(String id) {
 		resourceCurrentlyRequested.remove(id);
+		resourceCurrentlyReserved.add(id);
+	}
+
+	public void addToReserved(String id) {
 		resourceCurrentlyReserved.add(id);
 	}
 
@@ -360,24 +428,38 @@ public class User {
      * Add's to borrow history on start up.
      * @param data
      */
-	public void addToBorrowHistory(String[] data){
+	public void addToBorrowHistory(String[] data) {
 	    borrowHistory.add(data);
     }
     /**
      * Add's to transaction history on start up.
      * @param data
      */
-    public void addToTransactionHistory(String[] data){
+    public void addToTransactionHistory(String[] data) {
 	    transactionHistory.add(data);
     }
 
-    public void setResourceCurrentlyBorrowed(ArrayList<String> data){
+	/**
+	 * Sets a user currently borrowed
+	 * @param data ArrayList<String>
+	 */
+	public void setResourceCurrentlyBorrowed(ArrayList<String> data) {
 		this.resourceCurrentlyBorrowed = data;
 	}
-	public void setResourceCurrentlyReserved(ArrayList<String> data){
+
+	/**
+	 * Sets a user currently reserved
+	 * @param data ArrayList<String>
+	 */
+	public void setResourceCurrentlyReserved(ArrayList<String> data) {
 		this.resourceCurrentlyReserved = data;
 	}
-	public void setResourceCurrentlyRequested(ArrayList<String> data){
+
+	/**
+	 * Sets a user currently requested
+	 * @param data ArrayList<String>
+	 */
+	public void setResourceCurrentlyRequested(ArrayList<String> data) {
 		this.resourceCurrentlyRequested = data;
 	}
 }
