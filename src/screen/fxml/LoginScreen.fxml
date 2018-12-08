@@ -31,7 +31,7 @@
                </font>
             </Text>
             <Label fx:id="statusLabel" text="Please Login" />
-            <TextField fx:id="usernameTextField" onAction="#enterLogin" />
+            <TextField fx:id="usernameTextField" onAction="#onEnter" />
             <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #ef9d39;" text="Login" />
          </children>
          <GridPane.margin>
