@@ -150,6 +150,7 @@ public class SearchResultScreen extends Screen implements Initializable {
 		copiesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			updateCopyHistoryList(newValue);
 		});
+		searchBar.setText(Library.getSearchScreenText());
 
 	}
 
