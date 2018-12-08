@@ -1,10 +1,8 @@
 package screen;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
-
 import io.WriteFile;
 import javafx.geometry.Pos;
 import javafx.scene.SnapshotParameters;
@@ -34,63 +32,68 @@ import javafx.stage.FileChooser;
 import library.Library;
 import utils.Queue;
 
+/**
+ * <h1>This class models a drawing application for profile images.</h1>
+ * @author James Carter
+ * @version 1.0
+ */
 public class DrawApp extends Screen {
+	// JavaFX Components
+	// Control Header \\
+	private static final MenuButton FILE_BTN = new MenuButton("File");
+	private static final MenuButton EDIT_BTN = new MenuButton("Edit");
+	private static final MenuButton VIEW_BTN = new MenuButton("View");
+	private static final MenuButton TOOLS_BTN = new MenuButton("Tools");
+
+	private static final MenuItem SAVE_ITEM = new MenuItem("Save");
+	private static final MenuItem SAVE_AS_ITEM = new MenuItem("Save As");
+	private static final MenuItem LOAD_ITEM = new MenuItem("Load");
+	private static final MenuItem EXIT_ITEM = new MenuItem("Exit");
+
+	private static final MenuItem UNDO_ITEM = new MenuItem("Undo");
+	private static final MenuItem REDO_ITEM = new MenuItem("Redo");
+
+	private static final MenuItem ZOOM_IN_ITEM = new MenuItem("Zoom In");
+	private static final MenuItem ZOOM_OUT_ITEM = new MenuItem("Zoom Out");
+
+	private static final MenuItem INVERT_ITEM = new MenuItem("Invert Colours");
+	private static final MenuItem GRAYSCALE_ITEM = new MenuItem("Convert to Grayscale");
+
+	// Toolbar \\
+	private static final ToggleGroup TOOLS = new ToggleGroup();
+	private static final RadioButton PAINT_BRUSH_ITEM = new RadioButton("Paint Brush");
+	private static final RadioButton PAINT_BUCKET_BTN = new RadioButton("Paint Bucket");
+	private static final RadioButton LINE_TOOL_BTN = new RadioButton("Draw Line");
+
+	private static final RadioButton SHAPE_TOOL_BTN = new RadioButton("Shape Tool");
+	private static final ComboBox<String> SHAPE_SELECTOR = new ComboBox<>();
+
+	private static final ColorPicker C_PICKER = new ColorPicker();
+	private static final Spinner<Integer> BRUSH_SIZE = new Spinner<Integer>(0, 64, 4);
+
+	// Canvas \\
+	private static final Canvas CANVAS = new Canvas(256, 256);
+	private static final GraphicsContext GC = CANVAS.getGraphicsContext2D();
+
+	// Shapes \\
+	private static final Line LINE = new Line();
+	private static final Rectangle RECTANGLE = new Rectangle();
+	private static final TriangleMesh TRIANGLE = new TriangleMesh();
+	private static final Circle CIRCLE = new Circle();
+
+	// Layout \\
+	private static final HBox DRAW_WINDOW = new HBox(10);
+	private static final HBox CONTROL_HEADER = new HBox(4);
+	private static final HBox HEADER = new HBox(8);
+	private static final VBox CONTENT = new VBox(0);
+
 
 	private WritableImage prevState = null;
 
 	private Stack<WritableImage> previousStates;
 	private Stack<WritableImage> futureStates;
 
-	// JavaFX Components
-
-	// Control Header \\
-	private final MenuButton fileBtn = new MenuButton("File");
-	private final MenuButton editBtn = new MenuButton("Edit");
-	private final MenuButton viewBtn = new MenuButton("View");
-	private final MenuButton toolsBtn = new MenuButton("Tools");
-
-	private final MenuItem saveItem = new MenuItem("Save");
-	private final MenuItem saveAsItem = new MenuItem("Save As");
-	private final MenuItem loadItem = new MenuItem("Load");
-	private final MenuItem exitItem = new MenuItem("Exit");
-
-	private final MenuItem undoItem = new MenuItem("Undo");
-	private final MenuItem redoItem = new MenuItem("Redo");
-
-	private final MenuItem zoomInItem = new MenuItem("Zoom In");
-	private final MenuItem zoomOutItem = new MenuItem("Zoom Out");
-
-	private final MenuItem invertItem = new MenuItem("Invert Colours");
-	private final MenuItem grayscaleItem = new MenuItem("Convert to Grayscale");
-
-	// Toolbar \\
-	private final ToggleGroup tools = new ToggleGroup();
-	private final RadioButton paintBrushBtn = new RadioButton("Paint Brush");
-	private final RadioButton paintBucketBtn = new RadioButton("Paint Bucket");
-	private final RadioButton lineToolBtn = new RadioButton("Draw Line");
-
-	private final RadioButton shapeToolBtn = new RadioButton("Shape Tool");
-	private final ComboBox<String> shapeSelector = new ComboBox<>();
-
-	private final ColorPicker cPicker = new ColorPicker();
-	private final Spinner<Integer> brushSize = new Spinner<Integer>(0, 64, 4);
-
-	// Canvas \\
-	private final Canvas canvas = new Canvas(256, 256);
-	private final GraphicsContext gc = canvas.getGraphicsContext2D();
-
-	// Shapes \\
-	private final Line line = new Line();
-	private final Rectangle rectangle = new Rectangle();
-	private final TriangleMesh triangle = new TriangleMesh();
-	private final Circle circle = new Circle();
-
-	// Layout \\
-	private final HBox drawWindow = new HBox(10);
-	private final HBox controlHeader = new HBox(4);
-	private final HBox header = new HBox(8);
-	private final VBox content = new VBox(0);
-
+	
 	@Override
 	public void start() {
 		components = new ArrayList<>();
@@ -101,12 +104,12 @@ public class DrawApp extends Screen {
 		SetupToolbar();
 		SetupLayout();
 
-		gc.setFill(Color.WHITE);
-		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		GC.setFill(Color.WHITE);
+		GC.fillRect(0, 0, CANVAS.getWidth(), CANVAS.getHeight());
 
-		canvas.setOnMousePressed(mouse -> CanvasMousePressed(mouse));
-		canvas.setOnMouseDragged(mouse -> CanvasMouseDragged(mouse));
-		canvas.setOnMouseReleased(mouse -> CanvasMouseReleased(mouse));
+		CANVAS.setOnMousePressed(mouse -> CanvasMousePressed(mouse));
+		CANVAS.setOnMouseDragged(mouse -> CanvasMouseDragged(mouse));
+		CANVAS.setOnMouseReleased(mouse -> CanvasMouseReleased(mouse));
 
 	}
 
@@ -118,32 +121,32 @@ public class DrawApp extends Screen {
 	 * @param mouse The event object
 	 */
 	private void CanvasMousePressed(MouseEvent mouse) {
-		addPreviousState(canvas);
-		gc.setLineWidth((double) brushSize.getValueFactory().getValue());
-		gc.setStroke(cPicker.getValue());
-		gc.setFill(cPicker.getValue());
-		if (paintBrushBtn.isSelected()) {
-			gc.beginPath();
-			gc.lineTo(mouse.getX(), mouse.getY());
-			prevState = convertToImage(canvas);
-		} else if (paintBucketBtn.isSelected()) {
-			gc.drawImage(paintBucket(cPicker.getValue(), (int) mouse.getX(), (int) mouse.getY(), canvas), 0, 0);
-			prevState = convertToImage(canvas);
-		} else if (lineToolBtn.isSelected()) {
-			line.setStartX(mouse.getX());
-			line.setStartY(mouse.getY());
-		} else if (shapeToolBtn.isSelected()) {
-			switch (shapeSelector.getValue()) {
+		addPreviousState(CANVAS);
+		GC.setLineWidth((double) BRUSH_SIZE.getValueFactory().getValue());
+		GC.setStroke(C_PICKER.getValue());
+		GC.setFill(C_PICKER.getValue());
+		if (PAINT_BRUSH_ITEM.isSelected()) {
+			GC.beginPath();
+			GC.lineTo(mouse.getX(), mouse.getY());
+			prevState = convertToImage(CANVAS);
+		} else if (PAINT_BUCKET_BTN.isSelected()) {
+			GC.drawImage(paintBucket(C_PICKER.getValue(), (int) mouse.getX(), (int) mouse.getY(), CANVAS), 0, 0);
+			prevState = convertToImage(CANVAS);
+		} else if (LINE_TOOL_BTN.isSelected()) {
+			LINE.setStartX(mouse.getX());
+			LINE.setStartY(mouse.getY());
+		} else if (SHAPE_TOOL_BTN.isSelected()) {
+			switch (SHAPE_SELECTOR.getValue()) {
 			case ("Rectangle"):
-				rectangle.setX(mouse.getX());
-				rectangle.setY(mouse.getY());
+				RECTANGLE.setX(mouse.getX());
+				RECTANGLE.setY(mouse.getY());
 				break;
 			case ("Triangle"):
 				// TODO: Triangle Implementation
 				break;
 			case ("Oval"):
-				circle.setCenterX(mouse.getX());
-				circle.setCenterY(mouse.getY());
+				CIRCLE.setCenterX(mouse.getX());
+				CIRCLE.setCenterY(mouse.getY());
 				break;
 			default:
 				break;
@@ -157,31 +160,31 @@ public class DrawApp extends Screen {
 	 * @param mouse The event object
 	 */
 	private void CanvasMouseDragged(MouseEvent mouse) {
-		if (paintBrushBtn.isSelected()) {
-			gc.strokeOval(mouse.getX(), mouse.getY(), (double) brushSize.getValueFactory().getValue(),
-					(double) brushSize.getValueFactory().getValue());
-			gc.lineTo(mouse.getX(), mouse.getY());
-		} else if (paintBucketBtn.isSelected()) {
+		if (PAINT_BRUSH_ITEM.isSelected()) {
+			GC.strokeOval(mouse.getX(), mouse.getY(), (double) BRUSH_SIZE.getValueFactory().getValue(),
+					(double) BRUSH_SIZE.getValueFactory().getValue());
+			GC.lineTo(mouse.getX(), mouse.getY());
+		} else if (PAINT_BUCKET_BTN.isSelected()) {
 			// TODO: Paint Bucket Implementation
-		} else if (lineToolBtn.isSelected()) {
-			gc.drawImage(prevState, 0, 0);
-			prevState = convertToImage(canvas);
-			gc.strokeLine(line.getStartX(), line.getStartY(), mouse.getX(), mouse.getY());
-		} else if (shapeToolBtn.isSelected()) {
-			gc.drawImage(prevState, 0, 0);
-			prevState = convertToImage(canvas);
-			switch (shapeSelector.getValue()) {
+		} else if (LINE_TOOL_BTN.isSelected()) {
+			GC.drawImage(prevState, 0, 0);
+			prevState = convertToImage(CANVAS);
+			GC.strokeLine(LINE.getStartX(), LINE.getStartY(), mouse.getX(), mouse.getY());
+		} else if (SHAPE_TOOL_BTN.isSelected()) {
+			GC.drawImage(prevState, 0, 0);
+			prevState = convertToImage(CANVAS);
+			switch (SHAPE_SELECTOR.getValue()) {
 			case ("Rectangle"):
-				rectangle.setWidth(mouse.getX() - rectangle.getX());
-				rectangle.setHeight(mouse.getY() - rectangle.getY());
-				gc.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+				RECTANGLE.setWidth(mouse.getX() - RECTANGLE.getX());
+				RECTANGLE.setHeight(mouse.getY() - RECTANGLE.getY());
+				GC.fillRect(RECTANGLE.getX(), RECTANGLE.getY(), RECTANGLE.getWidth(), RECTANGLE.getHeight());
 				break;
 			case ("Triangle"):
 				break;
 			case ("Oval"):
-				circle.setRadius((mouse.getX() + mouse.getY()) - (circle.getCenterX() + circle.getCenterY()));
-				gc.fillOval(circle.getCenterX() - circle.getRadius() / 2, circle.getCenterY() - circle.getRadius() / 2,
-						circle.getRadius(), circle.getRadius());
+				CIRCLE.setRadius((mouse.getX() + mouse.getY()) - (CIRCLE.getCenterX() + CIRCLE.getCenterY()));
+				GC.fillOval(CIRCLE.getCenterX() - CIRCLE.getRadius() / 2, CIRCLE.getCenterY() - CIRCLE.getRadius() / 2,
+						CIRCLE.getRadius(), CIRCLE.getRadius());
 				break;
 			default:
 				break;
@@ -195,32 +198,32 @@ public class DrawApp extends Screen {
 	 * @param mouse The event object
 	 */
 	private void CanvasMouseReleased(MouseEvent mouse) {
-		if (paintBrushBtn.isSelected()) {
-			gc.strokeOval(mouse.getX(), mouse.getY(), (double) brushSize.getValueFactory().getValue(),
-					(double) brushSize.getValueFactory().getValue());
-			gc.lineTo(mouse.getX(), mouse.getY());
-			gc.closePath();
-			prevState = convertToImage(canvas);
-		} else if (paintBucketBtn.isSelected()) {
+		if (PAINT_BRUSH_ITEM.isSelected()) {
+			GC.strokeOval(mouse.getX(), mouse.getY(), (double) BRUSH_SIZE.getValueFactory().getValue(),
+					(double) BRUSH_SIZE.getValueFactory().getValue());
+			GC.lineTo(mouse.getX(), mouse.getY());
+			GC.closePath();
+			prevState = convertToImage(CANVAS);
+		} else if (PAINT_BUCKET_BTN.isSelected()) {
 			// TODO: Paint Bucket Implementation
-		} else if (lineToolBtn.isSelected()) {
-			gc.drawImage(prevState, 0, 0);
-			gc.strokeLine(line.getStartX(), line.getStartY(), mouse.getX(), mouse.getY());
-			prevState = convertToImage(canvas);
-		} else if (shapeToolBtn.isSelected()) {
-			switch (shapeSelector.getValue()) {
+		} else if (LINE_TOOL_BTN.isSelected()) {
+			GC.drawImage(prevState, 0, 0);
+			GC.strokeLine(LINE.getStartX(), LINE.getStartY(), mouse.getX(), mouse.getY());
+			prevState = convertToImage(CANVAS);
+		} else if (SHAPE_TOOL_BTN.isSelected()) {
+			switch (SHAPE_SELECTOR.getValue()) {
 			case ("Rectangle"):
-				gc.drawImage(prevState, 0, 0);
-				gc.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
-				prevState = convertToImage(canvas);
+				GC.drawImage(prevState, 0, 0);
+				GC.fillRect(RECTANGLE.getX(), RECTANGLE.getY(), RECTANGLE.getWidth(), RECTANGLE.getHeight());
+				prevState = convertToImage(CANVAS);
 				break;
 			case ("Triangle"):
 				break;
 			case ("Oval"):
-				gc.drawImage(prevState, 0, 0);
-				gc.fillOval(circle.getCenterX() - circle.getRadius() / 2, circle.getCenterY() - circle.getRadius() / 2,
-						circle.getRadius(), circle.getRadius());
-				prevState = convertToImage(canvas);
+				GC.drawImage(prevState, 0, 0);
+				GC.fillOval(CIRCLE.getCenterX() - CIRCLE.getRadius() / 2, CIRCLE.getCenterY() - CIRCLE.getRadius() / 2,
+						CIRCLE.getRadius(), CIRCLE.getRadius());
+				prevState = convertToImage(CANVAS);
 				break;
 			default:
 				break;
@@ -234,13 +237,13 @@ public class DrawApp extends Screen {
 	 * Initialisation of JavaFX components on the ControlHeader
 	 */
 	private void SetupControlHeader() {
-		fileBtn.getItems().addAll(saveItem, loadItem, exitItem);
-		editBtn.getItems().addAll(undoItem, redoItem);
-		viewBtn.getItems().addAll(zoomInItem, zoomOutItem);
-		toolsBtn.getItems().addAll(invertItem, grayscaleItem);
+		FILE_BTN.getItems().addAll(SAVE_ITEM, LOAD_ITEM, EXIT_ITEM);
+		EDIT_BTN.getItems().addAll(UNDO_ITEM, REDO_ITEM);
+		VIEW_BTN.getItems().addAll(ZOOM_IN_ITEM, ZOOM_OUT_ITEM);
+		TOOLS_BTN.getItems().addAll(INVERT_ITEM, GRAYSCALE_ITEM);
 
 		// File Functions \\
-		saveItem.setOnAction(e -> {
+		SAVE_ITEM.setOnAction(e -> {
 			FileChooser fileChooser = new FileChooser();
 			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
 			fileChooser.getExtensionFilters().add(extFilter);
@@ -252,22 +255,22 @@ public class DrawApp extends Screen {
 			File file = fileChooser.showSaveDialog(ScreenManager.getStage());
 
 			if (file != null)
-				saveImage(canvas, file);
+				saveImage(CANVAS, file);
 		});
 
 		// TODO: Load Image Functionality
 
-		exitItem.setOnAction(e -> {
+		EXIT_ITEM.setOnAction(e -> {
 			ScreenManager.previousScreen();
 		});
 
 		// Edit Functions \\
-		undoItem.setOnAction(e -> {
-			undo(canvas);
+		UNDO_ITEM.setOnAction(e -> {
+			undo(CANVAS);
 		});
 
-		redoItem.setOnAction(e -> {
-			redo(canvas);
+		REDO_ITEM.setOnAction(e -> {
+			redo(CANVAS);
 		});
 
 		// View Functions \\
@@ -275,12 +278,12 @@ public class DrawApp extends Screen {
 		// TODO: Zoom Functionality
 
 		// Tools Functions \\
-		invertItem.setOnAction(e -> {
-			gc.drawImage(InvertImage(canvas), 0, 0);
+		INVERT_ITEM.setOnAction(e -> {
+			GC.drawImage(InvertImage(CANVAS), 0, 0);
 		});
 
-		grayscaleItem.setOnAction(e -> {
-			gc.drawImage(GrayscaleImage(canvas), 0, 0);
+		GRAYSCALE_ITEM.setOnAction(e -> {
+			GC.drawImage(GrayscaleImage(CANVAS), 0, 0);
 		});
 	}
 
@@ -288,39 +291,39 @@ public class DrawApp extends Screen {
 	 * Initialisation of JavaFX components on the Toolbar
 	 */
 	private void SetupToolbar() {
-		paintBrushBtn.setToggleGroup(tools);
-		paintBrushBtn.setSelected(true);
+		PAINT_BRUSH_ITEM.setToggleGroup(TOOLS);
+		PAINT_BRUSH_ITEM.setSelected(true);
 
-		paintBucketBtn.setToggleGroup(tools);
+		PAINT_BUCKET_BTN.setToggleGroup(TOOLS);
 
-		lineToolBtn.setToggleGroup(tools);
+		LINE_TOOL_BTN.setToggleGroup(TOOLS);
 
-		shapeToolBtn.setToggleGroup(tools);
+		SHAPE_TOOL_BTN.setToggleGroup(TOOLS);
 
-		shapeSelector.getItems().addAll("Rectangle", "Triangle", "Oval");
-		shapeSelector.setValue("Rectangle");
+		SHAPE_SELECTOR.getItems().addAll("Rectangle", "Triangle", "Oval");
+		SHAPE_SELECTOR.setValue("Rectangle");
 	}
 
 	/**
 	 * Initialisation of JavaFX components for the layout
 	 */
 	private void SetupLayout() {
-		controlHeader.setPrefWidth(1280);
-		controlHeader.getChildren().addAll(fileBtn, editBtn, viewBtn, toolsBtn);
-		controlHeader.setBackground(new Background(new BackgroundFill(Color.LIGHTPINK, null, null)));
+		CONTROL_HEADER.setPrefWidth(1280);
+		CONTROL_HEADER.getChildren().addAll(FILE_BTN, EDIT_BTN, VIEW_BTN, TOOLS_BTN);
+		CONTROL_HEADER.setBackground(new Background(new BackgroundFill(Color.LIGHTPINK, null, null)));
 
-		header.setPrefWidth(1280);
-		header.getChildren().addAll(paintBrushBtn, paintBucketBtn, lineToolBtn, shapeToolBtn, shapeSelector, cPicker,
-				brushSize);
-		header.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+		HEADER.setPrefWidth(1280);
+		HEADER.getChildren().addAll(PAINT_BRUSH_ITEM, PAINT_BUCKET_BTN, LINE_TOOL_BTN, SHAPE_TOOL_BTN, SHAPE_SELECTOR, C_PICKER,
+				BRUSH_SIZE);
+		HEADER.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 
-		drawWindow.getChildren().add(canvas);
-		drawWindow.setAlignment(Pos.CENTER);
+		DRAW_WINDOW.getChildren().add(CANVAS);
+		DRAW_WINDOW.setAlignment(Pos.CENTER);
 
-		content.getChildren().addAll(controlHeader, header, drawWindow);
-		content.setAlignment(Pos.TOP_LEFT);
+		CONTENT.getChildren().addAll(CONTROL_HEADER, HEADER, DRAW_WINDOW);
+		CONTENT.setAlignment(Pos.TOP_LEFT);
 
-		components.add(content);
+		components.add(CONTENT);
 	}
 
 	private WritableImage convertToImage(Canvas c) {
