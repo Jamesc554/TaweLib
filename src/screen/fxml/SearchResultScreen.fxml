@@ -65,15 +65,15 @@
                   </ScrollPane>
                   <GridPane prefHeight="650.0" prefWidth="992.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="491.0" minWidth="10.0" prefWidth="210.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="844.0" minWidth="10.0" prefWidth="782.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="491.0" minWidth="10.0" prefWidth="244.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="844.0" minWidth="10.0" prefWidth="696.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="320.0" minHeight="10.0" prefHeight="276.0" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="432.0" minHeight="10.0" prefHeight="374.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #f4f5ff;">
                            <children>
                               <ImageView fx:id="resourceThumbnailImage" fitHeight="212.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -83,7 +83,7 @@
                               <Button fx:id="requestButton" disable="true" mnemonicParsing="false" onAction="#requestResource" prefHeight="25.0" prefWidth="630.0" style="-fx-background-color: #ef9d39;" text="Request" textFill="#0e0056" />
                            </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #f4f5ff;" GridPane.columnIndex="1">
                            <children>
                               <Label text="Resource Info" />
                               <HBox alignment="CENTER" prefHeight="200.0" prefWidth="782.0" style="-fx-background-color: #f4f5ff;">
@@ -120,7 +120,7 @@
                               <Button fx:id="editResourceButton" mnemonicParsing="false" onAction="#editResource" style="-fx-background-color: #ef9d39;" text="Edit" textFill="#0e0056" translateX="50.0" translateY="30.0" visible="false" />
                            </children>
                         </VBox>
-                        <ListView fx:id="copiesList" prefHeight="426.0" prefWidth="199.0" style="-fx-background-color: #f4f5ff;" GridPane.rowIndex="1" />
+                        <ListView fx:id="copiesList" prefHeight="426.0" prefWidth="170.0" style="-fx-background-color: #f4f5ff;" GridPane.rowIndex="1" />
                         <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
                               <ListView fx:id="copyHistoryList" prefHeight="374.0" prefWidth="380.0" style="-fx-background-color: #f4f5ff;" />
