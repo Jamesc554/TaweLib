@@ -136,6 +136,12 @@ public class SearchResultScreen extends Screen implements Initializable {
 
 		}
 
+		if (Library.currentUserIsLibrarian()) {
+			copyHistoryList.setVisible(true);
+		}else {
+			copyHistoryList.setVisible(false);
+		}
+
 		resourceTypeCB.getItems().setAll("Book", "DVD", "Laptop");
 		resourceTypeCB.setValue("Book");
 
