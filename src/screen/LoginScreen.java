@@ -1,8 +1,8 @@
 package screen;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +35,11 @@ public class LoginScreen extends Screen{
 			statusLabel.setText("Username is invalid!");
 			statusLabel.setTextFill(Color.RED);
 		}
+	}
+	
+	@FXML
+	private void onEnter(ActionEvent actionEvent) {
+		login(actionEvent);
 	}
 
 	@Override
