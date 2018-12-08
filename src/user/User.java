@@ -1,18 +1,16 @@
 package user;
-
 import library.Library;
 import resources.Resource;
-
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
 /**
  * This class models a Library User.
  * @author Dominik R Wojtasiewicz
  * @since 18/11/2018
  */
-
 public class User {
     protected String userName; //unique userName
     protected String firstName; //First name
@@ -219,7 +217,7 @@ public class User {
 		if (!getSecondLineAddress().equals("")) {
 			return address + getSecondLineAddress()
 					+ "\n" + getTownName() + "\n" + getPostCode();
-		}else {
+		} else {
 			return address + "\n" + getTownName() + "\n" + getPostCode();
 		}
     }
@@ -333,7 +331,7 @@ public class User {
 	public void returnResource(String resourceID) {
 		int j = 0;
 		Boolean done = false;
-		while(j >= this.resourceCurrentlyBorrowed.size()-1 && !done) {
+		while (j >= this.resourceCurrentlyBorrowed.size()-1 && !done) {
 			if(this.resourceCurrentlyBorrowed.get(j).equals(resourceID)) {
 				this.resourceCurrentlyBorrowed.remove(j);
 				String[] resourceCopyID = resourceID.split("-");
@@ -345,9 +343,9 @@ public class User {
 		
 		done = false;
 		int i = this.borrowHistory.size()-1;
-		while(!done && i >= 0) {
+		while (!done && i >= 0) {
 			String[] data = borrowHistory.get(i);
-			if (data[1].equals(resourceID)){
+			if (data[1].equals(resourceID)) {
 				data[0] = getCurrentDate();
 				borrowHistory.remove(i);
 				borrowHistory.add(i, data);
@@ -385,7 +383,9 @@ public class User {
 	 * Get all of users reserved items.
 	 * @return ArrayList<String>
 	 */
-	public ArrayList<String> getAllReserved() { return this.resourceCurrentlyReserved;}
+	public ArrayList<String> getAllReserved() {
+		return this.resourceCurrentlyReserved;
+	}
 
 	/**
 	 * Gets current system date in following format DD-MM-YYYY HH:MM:SS.
