@@ -133,6 +133,10 @@ public class WriteFile extends IO {
 		}
 	}
 
+	/**
+	 * This method saves a book to the book json file. It saves everything to do with the book.
+	 * @param book a book of the library.
+	 */
 	@SuppressWarnings("unchecked")
 	public static void writeBook(Book book) {
 		JSONObject object = new JSONObject();
@@ -357,7 +361,7 @@ public class WriteFile extends IO {
 
 	/**
 	 * This method overwrites the user json file with all of the users passed into the method.
-	 * @param users an arraylist of users from the library.
+	 * @param users an ArrayList of users from the library.
 	 */
 	public static void overwriteUsers(ArrayList<User> users) {
 		File usersFile = new File(IO.getUsersFilePath());
@@ -371,6 +375,10 @@ public class WriteFile extends IO {
 		}
 	}
 
+	/**
+	 * This method overwrites the librarian json file with all of the librarians passed into the method.
+	 * @param librarians an ArrayList of librarians from the library.
+	 */
 	public static void overwriteLibrarians(ArrayList<Librarian> librarians) {
 		File librarianFile = new File(IO.getLibrarianFilePath());
 
@@ -383,6 +391,12 @@ public class WriteFile extends IO {
 		}
 	}
 
+	/**
+	 * This method overwrites all of the resource json files, with all of the resources passed into the method.
+	 * @param books an ArrayList of books from the library.
+	 * @param dvds an ArrayList of dvds from the library.
+	 * @param laptops an ArrayList of laptops from the library.
+	 */
 	public static void overwriteResources(ArrayList<Book> books, ArrayList<DVD> dvds, ArrayList<Laptop> laptops) {
 		File[] resourceFiles = { new File(IO.getBookFilePath()), new File(IO.getDvdFilePath()),
 				new File(IO.getLaptopFilePath()) };
@@ -407,6 +421,14 @@ public class WriteFile extends IO {
 		}
 	}
 
+	/**
+	 * This method is used to overwrite all of data in the json files that the program is using.
+	 * @param users an ArrayList of users from the library.
+	 * @param books an ArrayList of the books from the library.
+	 * @param dvds an ArrayList of dvds from the library.
+	 * @param laptops an ArrayList of laptops from the library.
+	 * @param librarians an ArrayList of librarians from the library.
+	 */
 	public static void fullWrite(ArrayList<User> users, ArrayList<Book> books, ArrayList<DVD> dvds,
 			ArrayList<Laptop> laptops, ArrayList<Librarian> librarians) {
 			overwriteUsers(users);
@@ -414,6 +436,10 @@ public class WriteFile extends IO {
 			overwriteLibrarians(librarians);
 	}
 
+	/**
+	 * This method backs up all of the current json files and creates new ones with the new data from the library
+	 * (does a full write).
+	 */
 	public static void backupCurrent() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
 		String newFilePath = dateFormat.format(new Date());
@@ -438,6 +464,11 @@ public class WriteFile extends IO {
 		fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), Library.getAllLaptops(), Library.getAllLibrarians());
 	}
 
+	/**
+	 * This method saves as image to a specific file path.
+	 * @param img WritableImage to save.
+	 * @param file File path to save to.
+	 */
 	public static void saveImageToUser(WritableImage img, File file) {
 		try {
 			ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", file);
