@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -83,4 +84,9 @@ public class HomeScreen extends Screen implements Initializable{
 			borrowedItemsList.getItems().add("Resource ID: " + r.getUniqueID() + " - " + r.getTitle());
 		}
 	}
+
+    public void onEnter(ActionEvent actionEvent) {
+		Library.setSearchStringText(searchBar.getText());
+		ScreenManager.changeScreen(new SearchResultScreen());
+    }
 }

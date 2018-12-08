@@ -50,7 +50,7 @@
     </SplitPane>
     <ToolBar layoutX="1.0" layoutY="-3.0" prefHeight="35.0" prefWidth="1096.0" style="-fx-background-color: #0e0056;">
       <items>
-        <TextField fx:id="searchBar" prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." />
+        <TextField fx:id="searchBar" prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." onAction="#onEnter"/>
         <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchButton" style="-fx-background-color: #ef9d39;" text="Search" textFill="#0e0056" />
             <Text fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Tawe Library">
                <font>
