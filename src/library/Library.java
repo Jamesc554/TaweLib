@@ -400,7 +400,7 @@ public class Library {
 		try {
 			currentDate = sdf.parse(Library.getCurrentDateTime());
 		}catch (ParseException e){
-			System.out.println("Library calculate fine parse 1 ");
+			System.out.println("Library403 calculate fine parse 1 ");
 		}
 
 		BorrowHistoryData r = Library.getResource(copyID.split("-")[0]).getCopyInfo(Integer.valueOf(copyID.split("-")[1])).getCurrentInfo();
@@ -408,7 +408,7 @@ public class Library {
 		try {
 			dateToBeReturned = sdf.parse(r.getDateRequestedReturn());
 		}catch (ParseException e){
-			System.out.println("Library calculate fine parse 1 ");
+			System.out.println("Library411 calculate fine parse 2 ");
 		}
 		long noOfDays = (currentDate.getTime() - dateToBeReturned.getTime())/ (1000 * 60 * 60 * 24);
 		if(noOfDays == 0){
