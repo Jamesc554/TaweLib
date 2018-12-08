@@ -158,6 +158,10 @@ public class SearchResultScreen extends Screen implements Initializable {
 		});
 		searchBar.setText(Library.getSearchScreenText());
 
+		if (Library.currentUserIsLibrarian()) {
+			issueDeskBtn.setVisible(true);
+		}
+
 	}
 
 	/**

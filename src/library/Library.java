@@ -47,8 +47,11 @@ public class Library {
 	 * @param lang Language of the book.
 	 */
 	public static void addBook(String year,String title, String thumbnailImg, String uniqueID,
-						   String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData) {
-		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, lang, noOfCopies, loanDuration, borrowHistory, currentBorrowData));
+						   String author, String genre, String isbn, String publisher, ArrayList<String> lang,
+							   Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory,
+							   List<BorrowHistoryData> currentBorrowData) {
+		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher,
+				lang, noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	}
 
 	/**
@@ -63,8 +66,11 @@ public class Library {
 	 * @param subLang The subtitles language of the DVD.
 	 */
 	public static void addDVD(String year, String title, String thumbnailImg, String uniqueID,
-						 String director, String runtime, String language, ArrayList<String> subLang, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData) {
-	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID, noOfCopies, loanDuration, borrowHistory, currentBorrowData));
+						 String director, String runtime, String language, ArrayList<String> subLang, Integer noOfCopies,
+							  ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory,
+							  List<BorrowHistoryData> currentBorrowData) {
+	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID,
+				noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	}
 
 	/**
@@ -78,8 +84,11 @@ public class Library {
 	 * @param operatingSys The operating system of the laptop.
 	 */
 	public static void addLaptop(String year, String title, String thumbnailImageRef, String uniqueID,
-							  String manufacturer, String model,  String operatingSys, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData) {
-	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys, noOfCopies, loanDuration, borrowHistory, currentBorrowData));
+							  String manufacturer, String model,  String operatingSys, Integer noOfCopies,
+								 ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory,
+								 List<BorrowHistoryData> currentBorrowData) {
+	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys,
+				noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	}
 
 	/**
@@ -100,6 +109,7 @@ public class Library {
 		LibraryResources.addUser(new User(userName, firstName, lastName, mobileNumber, firstLineAddress,
                 secondLineAddress, postCode, townName, accountBalance, profImage));
 	}
+
 	/**
 	 * This methods adds a librarian to the library.
 	 * @param userName the username.
@@ -134,7 +144,7 @@ public class Library {
 	public static Resource getResource(String id) {
 		id = id.split("-")[0];
 		String resourceType = id.substring(0, 1);
-		switch (resourceType.toLowerCase()){
+		switch (resourceType.toLowerCase()) {
 			case "l":
 				return LibraryResources.getLaptop(id);
 			case "d":
@@ -168,7 +178,7 @@ public class Library {
 	 * @param username username of the user.
 	 */
 	public static void subtractBalance (int amount, String username) {
-		if (amount <= 0 ) {
+		if (amount <= 0) {
 			throw new IllegalArgumentException("Cannot subtract negative or null amount");
 		} else if (amount > getUser(username).getAccountBalanceDouble()) {
 			throw new IllegalArgumentException("Amount superior to account balance");
@@ -183,7 +193,6 @@ public class Library {
 	public static String getCurrentDateTime() {
 		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		return dataFormat.format(new Date());
-
 	}
 
 	public static void setSearchStringText(String s) {
@@ -228,16 +237,11 @@ public class Library {
 
 	/**
 	 * Remove user from the library.
-	 * @param username
+	 * @param username String
 	 */
 	public static void removeUser(String username) {
 	    LibraryResources.removeUser(username);
 	}
-
-	/**
-	 * This methods shuts down the library.
-	 */
-	public static void shutDown(){}
 
 	/**
 	 * Checks if user exists.
@@ -263,7 +267,7 @@ public class Library {
 		return LibraryResources.getListOfLaptops();
 	}
 	/**
-	 * Returns all books in the DVD's.
+	 * Returns all DVD in the library.
 	 * @return ArrayList<DVD> of all books.
 	 */
 	public static ArrayList<DVD> getAllDVD() {
@@ -272,14 +276,17 @@ public class Library {
 
 	/**
 	 * Returns all users in the library.
-	 * @return ArrayList<User> of all books.
+	 * @return ArrayList of all books.
 	 */
-
-	public static ArrayList<User> getAllUsers(){
+	public static ArrayList<User> getAllUsers() {
 		return LibraryResources.getAllUsers();
 	}
 
-	public static ArrayList<Librarian> getAllLibrarians(){
+	/**
+	 * Returns all librarians in the library.
+	 * @return ArrayList
+	 */
+	public static ArrayList<Librarian> getAllLibrarians() {
 		return LibraryResources.getAllLibrarians();
 	}
 
@@ -360,7 +367,7 @@ public class Library {
 	 * @param username The username of the user for which the address should be changed.
 	 * @param path the new path of the profile image.
 	 */
-	public static void changeImage(String username, String path ){
+	public static void changeImage(String username, String path ) {
 	    getUser(username).setProfImage(path);
     }
 
@@ -395,16 +402,27 @@ public class Library {
 		return Library.getResource(id).checkIfOverdue(Integer.valueOf(id.split("-")[1]));
 	}
 
+	/**
+	 * Returns a list of all overdue resource of a user.
+	 * @param username String of the user
+	 * @return ArrayList
+	 */
 	public static ArrayList<String> checkForOverDue(String username) {
 		ArrayList<String> overDue = new ArrayList<>();
 		ArrayList<String> list = Library.getUser(username).getCurrentlyBorrowedResources();
-		for(String s : list){
-			if(Library.getResource(s).checkIfOverdue(Integer.valueOf(s.split("-")[1]))){
+		for (String s : list) {
+			if (Library.getResource(s).checkIfOverdue(Integer.valueOf(s.split("-")[1]))) {
 				overDue.add(s);
 			}
 		}
 		return overDue;
 	}
+
+	/**
+	 * Calculates a fine for a copy of resource.
+	 * @param copyID String ID of resource to be checked.
+	 * @return int amount fine.
+	 */
 	public static int calculateFine(String copyID) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		Date currentDate = new Date();
@@ -414,30 +432,33 @@ public class Library {
 
 		try {
 			currentDate = sdf.parse(Library.getCurrentDateTime());
-		}catch (ParseException e){
+		} catch (ParseException e) {
 			System.out.println("Library403 calculate fine parse 1 ");
 		}
 
-		BorrowHistoryData r = Library.getResource(copyID.split("-")[0]).getCopyInfo(Integer.valueOf(copyID.split("-")[1])).getCurrentInfo();
+		BorrowHistoryData r = Library.getResource(copyID.split("-")[0]).getCopyInfo(
+				Integer.valueOf(copyID.split("-")[1])).getCurrentInfo();
 
 		try {
 			dateToBeReturned = sdf.parse(r.getDateRequestedReturn());
-		}catch (ParseException e){
+		} catch (ParseException e) {
 			System.out.println("Library411 calculate fine parse 2 ");
 		}
-		long noOfDays = (currentDate.getTime() - dateToBeReturned.getTime())/ (1000 * 60 * 60 * 24);
-		if(noOfDays == 0){
+		long noOfDays = (currentDate.getTime() - dateToBeReturned.getTime()) / (1000 * 60 * 60 * 24);
+		if (noOfDays == 0) {
 			noOfDays = 1;
 		}
 		fineAmount = noOfDays * Library.getResource(copyID.split("-")[0]).getFineAmount();
-		if(fineAmount > Library.getResource(copyID.split("-")[0]).getMaxFine()){
+		if (fineAmount > Library.getResource(copyID.split("-")[0]).getMaxFine()) {
 			fineAmount = Library.getResource(copyID.split("-")[0]).getMaxFine();
 		}
-
 		return (int) Math.round(fineAmount);
-		}
+	}
 
-
+	/**
+	 * Find's all overdue resources.
+	 * @return ArrayList.
+	 */
 	public static ArrayList<String> findAllOverdue() {
 		ArrayList<User> users = Library.getAllUsers();
 		ArrayList<String> allOverDue = new ArrayList<>();

@@ -120,6 +120,10 @@ public class Librarian extends User {
 		return numberOfEmploys;
 	}
 
+	/**
+	 * Returns profile image path of profile image.
+	 * @return String
+	 */
 	public String getProfImage() {
 		return this.profImage;
 	}
