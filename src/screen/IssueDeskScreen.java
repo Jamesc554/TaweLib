@@ -243,6 +243,22 @@ public class IssueDeskScreen extends Screen implements Initializable {
         usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
 
         ArrayList<String> allOverdueIDs = Library.findAllOverdue();
+        for (String copy : allOverdueIDs) {
+            String type = copy.split(":")[0];
+            switch (type) {
+                case "Book":
+                    bookOverdueList.getItems().add(copy);
+                    break;
+                case "DVD":
+                    dvdOverdueList.getItems().add(copy);
+                    break;
+                case "Laptop":
+                    laptopOverdueList.getItems().add(copy);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     /**
@@ -374,13 +390,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
             if (!Library.getUser(user).equals(Library.getCurrentLoggedInUser())) {
                 //Get list of borrowed copies
                 ArrayList<String> borrowList = Library.getUser(user).getCurrentlyBorrowedResources();
+                //Check for overdue copies
                 for (String item : borrowList) {
-                    System.out.println("item: " + item);
                     for (String copy : Library.checkForOverDue(user)) {
-                        System.out.println("copy:" + copy);
-                        if (item.split("-")[1].equals(copy)) {
+                        if (item.equals(copy)) {
                             item += " (OVERDUE)";
-                            System.out.println(item + " is overdue");
                         }
                     }
                     userBorrowList.getItems().add(item);

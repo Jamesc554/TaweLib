@@ -88,6 +88,7 @@ public abstract class Screen {
 	
 	@FXML
 	protected void searchButton(Event event) {
+    	Library.setSearchStringText(searchBar.getText());
 		ScreenManager.changeScreen(new SearchResultScreen());
 	}
 	

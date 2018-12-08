@@ -269,12 +269,18 @@ public class Library {
 	public static ArrayList<DVD> getAllDVD() {
 		return LibraryResources.getListOfDVD();
 	}
+
 	/**
 	 * Returns all users in the library.
 	 * @return ArrayList<User> of all books.
 	 */
+
 	public static ArrayList<User> getAllUsers(){
 		return LibraryResources.getAllUsers();
+	}
+
+	public static ArrayList<Librarian> getAllLibrarians(){
+		return LibraryResources.getAllLibrarians();
 	}
 
 	/**
