@@ -30,11 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import library.Library;
 import library.LibraryResources;
-import resources.Book;
-import resources.BorrowHistoryData;
-import resources.CopyData;
-import resources.DVD;
-import resources.Resource;
+import resources.*;
 
 /**
  * This class represents the search results screen, a list of Resources which
@@ -222,18 +218,23 @@ public class SearchResultScreen extends Screen implements Initializable {
 		}
 	}
 
+	/**
+	 * Event handling for a Librarian to edit a Resource.
+	 */
 	@FXML
 	private void editResource() {
 		String resourceType = resourceTypeCB.getSelectionModel().getSelectedItem();
 
+		//TODO: Error checking + error/success labels
 		switch(resourceType) {
 			case "Book":
 				ArrayList<String> languages;
 				String languageString = rs5Tf.getText();
-				String[] languageArray = languageString.split(", ");
 				if (languageString.equals("")) {
 					languages = null;
 				} else {
+					//Split languages input into ArratList
+					String[] languageArray = languageString.split(", ");
 					languages = new ArrayList<>(Arrays.asList(languageArray));
 				}
 				Library.editBook(uIDTf.getText(), titleTf.getText(), yearTf.getText(), rs1Tf.getText(),
@@ -253,6 +254,8 @@ public class SearchResultScreen extends Screen implements Initializable {
 						rs3Tf.getText(), subs);
 				break;
 			case "Laptop":
+				Library.editLaptop(uIDTf.getText(), titleTf.getText(), yearTf.getText(), rs1Tf.getText(),
+						rs2Tf.getText(), rs3Tf.getText());
 				break;
 			default:
 				break;
@@ -369,6 +372,18 @@ public class SearchResultScreen extends Screen implements Initializable {
 
 			break;
 		case "Laptop":
+			Laptop l = (Laptop) r;
+			rs1Lbl.setText("Manufacturer: ");
+			rs1Tf.setText(l.getManufacturer());
+			rs2Lbl.setText("Model: ");
+			rs2Tf.setText(l.getModel());
+			rs3Lbl.setText("Operating System: ");
+			rs3Tf.setText(l.getOperatingSys());
+
+			rs4Lbl.setVisible(false);
+			rs4Tf.setVisible(false);
+			rs5Lbl.setVisible(false);
+			rs5Tf.setVisible(false);
 			break;
 		default:
 			break;

@@ -581,6 +581,17 @@ public class Library {
 		return allOverDue;
 	}
 
+	/**
+	 * Updates a book's properties.
+	 * @param id the book resource unique ID
+	 * @param title the updated book title
+	 * @param year the updated book year
+	 * @param author the updated book author
+	 * @param publisher the updated book publisher
+	 * @param genre the updated book genre
+	 * @param isbn the updated book isbn
+	 * @param languages the updated book available languages
+	 */
 	public static void editBook(String id, String title, String year, String author, String publisher, String genre,
 								String isbn, ArrayList<String> languages) {
 		LibraryResources.getBook(id).setTitle(title);
@@ -592,6 +603,16 @@ public class Library {
 		LibraryResources.getBook(id).setLanguages(languages);
 	}
 
+	/**
+	 * Updates a DVD's properties
+	 * @param id the DVD resource unique ID
+	 * @param title the updated DVD title
+	 * @param year the updated DVD year
+	 * @param director the updated DVD director
+	 * @param runtime the updated DVD runtime
+	 * @param language the updated DVD language
+	 * @param subs the updated DVD available subtitle languages
+	 */
 	public static void editDVD(String id, String title, String year, String director, String runtime, String language,
 							   ArrayList<String> subs) {
 		LibraryResources.getDVD(id).setTitle(title);
@@ -602,7 +623,20 @@ public class Library {
 		LibraryResources.getDVD(id).setSubLang(subs);
 	}
 
-	public static void editLaptop() {
-
+	/**
+	 * Updates a Laptop's properties
+	 * @param id the Laptop resource unique ID
+	 * @param title the updated Laptop title
+	 * @param year the updated Laptop year
+	 * @param manufacturer the updated Laptop manufacturer
+	 * @param model the updated Laptop model
+	 * @param os the updated Laptop operating system
+	 */
+	public static void editLaptop(String id, String title, String year, String manufacturer, String model, String os) {
+		LibraryResources.getLaptop(id).setTitle(title);
+		LibraryResources.getLaptop(id).setYear(year);
+		LibraryResources.getLaptop(id).setManufacturer(manufacturer);
+		LibraryResources.getLaptop(id).setModel(model);
+		LibraryResources.getLaptop(id).setOperatingSys(os);
 	}
 }
