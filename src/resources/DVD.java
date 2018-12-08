@@ -125,6 +125,15 @@ public class DVD extends Resource {
 	}
 	
 	/**
+	 * Converts DVD to single string
+	 * @return a String representation of this DVD.
+	 * Returns the details of this DVD.
+	 */
+	public String toSingleString() {
+		return super.toSingleString() + this.director + this.runtime + this.language;
+	}
+	
+	/**
 	 * Finds the director of the DVD
 	 * @return director 
 	 * The director of this DVD

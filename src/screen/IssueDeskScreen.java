@@ -374,13 +374,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
             if (!Library.getUser(user).equals(Library.getCurrentLoggedInUser())) {
                 //Get list of borrowed copies
                 ArrayList<String> borrowList = Library.getUser(user).getCurrentlyBorrowedResources();
+                //Check for overdue copies
                 for (String item : borrowList) {
-                    System.out.println("item: " + item);
                     for (String copy : Library.checkForOverDue(user)) {
-                        System.out.println("copy:" + copy);
-                        if (item.split("-")[1].equals(copy)) {
+                        if (item.equals(copy)) {
                             item += " (OVERDUE)";
-                            System.out.println(item + " is overdue");
                         }
                     }
                     userBorrowList.getItems().add(item);
