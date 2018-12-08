@@ -30,6 +30,7 @@ public class LoginScreen extends Screen{
 		// TODO: remove test username once readAllUsers is finished
 		if (Library.checkForUser(usernameTextField.getText())) {
 			Library.onLogin(usernameTextField.getText());
+			ScreenManager.changeScreen(new HomeScreen());
 		} else {
 			statusLabel.setText("Username is invalid!");
 			statusLabel.setTextFill(Color.RED);

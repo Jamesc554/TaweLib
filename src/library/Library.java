@@ -17,6 +17,7 @@ import user.User;
 
 public class Library {
 	private static User currentUser; //Stores the currently logged-in user.
+	private static String searchScreenText = "";
 
 	/**
 	 * This methods starts the library. Library is a static method so we can only
@@ -183,6 +184,14 @@ public class Library {
 		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		return dataFormat.format(new Date());
 
+	}
+
+	public static void setSearchStringText(String s) {
+		searchScreenText = s;
+	}
+
+	public static String getSearchScreenText() {
+		return searchScreenText;
 	}
 
 	/**
