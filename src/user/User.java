@@ -420,6 +420,10 @@ public class User {
 		resourceCurrentlyReserved.add(id);
 	}
 
+	/**
+	 * Adds book to user reserved.
+	 * @param id String id of resource to be added.
+	 */
 	public void addToReserved(String id) {
 		resourceCurrentlyReserved.add(id);
 	}
@@ -431,6 +435,7 @@ public class User {
 	public void addToBorrowHistory(String[] data) {
 	    borrowHistory.add(data);
     }
+
     /**
      * Add's to transaction history on start up.
      * @param data

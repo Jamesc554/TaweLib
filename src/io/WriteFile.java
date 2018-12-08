@@ -63,6 +63,7 @@ public class WriteFile extends IO {
 			JSONArray singleTransaction = new JSONArray();
 			singleTransaction.add(transaction[0]);
 			singleTransaction.add(transaction[1]);
+			singleTransaction.add(transaction[2]);
 			transactionArray.add(singleTransaction);
 		}
 		object.put("transactionHistory", transactionArray);

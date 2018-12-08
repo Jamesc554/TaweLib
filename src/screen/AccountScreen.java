@@ -195,7 +195,7 @@ public class AccountScreen extends Screen implements Initializable{
 		private void setTransactionField() {
 			ArrayList<String[]> transactionHistory = Library.getCurrentLoggedInUser().getTransactions();
 			for(String[] transaction : transactionHistory) {
-				transactionHistoryField.getItems().add(transaction);
+				transactionHistoryField.getItems().add(transaction[0] + " " + transaction[1] + " " + transaction[2]);
 			}
 		}
 

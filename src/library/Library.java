@@ -1,4 +1,5 @@
 package library;
+import java.awt.image.SampleModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -184,6 +185,7 @@ public class Library {
 			throw new IllegalArgumentException("Amount superior to account balance");
 		}
 		getUser(username).subtractAccountBalance(amount);
+		getUser(username).addTransaction(currentUser.getUserName(), amount);
 	}
 
 	/**
