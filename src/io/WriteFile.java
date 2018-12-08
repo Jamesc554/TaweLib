@@ -31,8 +31,7 @@ import utils.Queue;
  */
 public class WriteFile extends IO {
 	/**
-	 * This method saves as user object to the user json file. It saves everything to do with the user, including
-	 * borrow history, transaction history and requested history.
+	 * This method saves a user object to the user json file.
 	 * @param user a user of the library.
 	 */
 	@SuppressWarnings({ "unchecked" })
@@ -99,7 +98,11 @@ public class WriteFile extends IO {
 			System.out.println("Error writing user to " + IO.getUsersFilePath() + " " + user.getUserName());
 		}
 	}
-	
+
+	/**
+	 * This method saves a librarian object to the librarian json file. It saves everything to do with the librarian.
+	 * @param librarian a librarian of the library.
+	 */
 	@SuppressWarnings("unchecked")
 	public static void writeLibrarian(Librarian librarian) {
 		JSONObject object = new JSONObject();
@@ -204,8 +207,10 @@ public class WriteFile extends IO {
 		}
 	}
 
-	// will be changed to Dvd dvd and Laptop laptop when those classes are added to
-	// git.
+	/**
+	 * This method writes (saves) a DVD to the DVD json file.
+	 * @param dvd a DVD from the library.
+	 */
 	@SuppressWarnings("unchecked")
 	public static void writeDvd(DVD dvd) {
 		JSONObject object = new JSONObject();
@@ -279,6 +284,10 @@ public class WriteFile extends IO {
 		}
 	}
 
+	/**
+	 * This method writes (saves) a laptop to the laptop json file.
+	 * @param laptop a laptop from the library.
+	 */
 	@SuppressWarnings("unchecked")
 	public static void writeLaptop(Laptop laptop) {
 		JSONObject object = new JSONObject();
@@ -346,6 +355,10 @@ public class WriteFile extends IO {
 		}
 	}
 
+	/**
+	 * This method overwrites the user json file with all of the users passed into the method.
+	 * @param users an arraylist of users from the library.
+	 */
 	public static void overwriteUsers(ArrayList<User> users) {
 		File usersFile = new File(IO.getUsersFilePath());
 
@@ -398,6 +411,7 @@ public class WriteFile extends IO {
 			ArrayList<Laptop> laptops, ArrayList<Librarian> librarians) {
 			overwriteUsers(users);
 			overwriteResources(books, dvds, laptops);
+			overwriteLibrarians(librarians);
 	}
 
 	public static void backupCurrent() {
@@ -419,7 +433,7 @@ public class WriteFile extends IO {
 		currentFile.renameTo(new File("./data/backup/" + newFilePath + "/laptop.json"));
 
 		currentFile = new File(IO.getLibrarianFilePath());
-		currentFile.renameTo(new File("./data/backup/" + newFilePath + "/librarian.json"));
+		currentFile.renameTo(new File("./data/backup/" + newFilePath + "/librarians.json"));
 		
 		fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), Library.getAllLaptops(), Library.getAllLibrarians());
 	}
