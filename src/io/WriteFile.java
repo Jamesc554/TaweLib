@@ -25,12 +25,17 @@ import user.User;
 import utils.Queue;
 
 /**
+ * This class handles all of the data storing for the program. It writes all of the data to JSON files, in which the
+ * file path are stored in the IO class.
  * @author Samuel Jankinson
  */
-
 public class WriteFile extends IO {
+	/**
+	 * This method saves as user object to the user json file. It saves everything to do with the user, including
+	 * borrow history, transaction history and requested history.
+	 * @param user a user of the library.
+	 */
 	@SuppressWarnings({ "unchecked" })
-	// will add borrow history etc after discussed with meeting.
 	public static void writeUser(User user) {
 		JSONObject object = new JSONObject();
 		JSONArray resourceArray = new JSONArray();
@@ -353,6 +358,18 @@ public class WriteFile extends IO {
 		}
 	}
 
+	public static void overwriteLibrarians(ArrayList<Librarian> librarians) {
+		File librarianFile = new File(IO.getLibrarianFilePath());
+
+		if (librarianFile.exists()) {
+			librarianFile.delete();
+		}
+
+		for (Librarian librarian : librarians) {
+			writeLibrarian(librarian);
+		}
+	}
+
 	public static void overwriteResources(ArrayList<Book> books, ArrayList<DVD> dvds, ArrayList<Laptop> laptops) {
 		File[] resourceFiles = { new File(IO.getBookFilePath()), new File(IO.getDvdFilePath()),
 				new File(IO.getLaptopFilePath()) };
@@ -378,9 +395,9 @@ public class WriteFile extends IO {
 	}
 
 	public static void fullWrite(ArrayList<User> users, ArrayList<Book> books, ArrayList<DVD> dvds,
-			ArrayList<Laptop> laptops) {
-		overwriteUsers(users);
-		overwriteResources(books, dvds, laptops);
+			ArrayList<Laptop> laptops, ArrayList<Librarian> librarians) {
+			overwriteUsers(users);
+			overwriteResources(books, dvds, laptops);
 	}
 
 	public static void backupCurrent() {
@@ -400,8 +417,11 @@ public class WriteFile extends IO {
 		
 		currentFile = new File(IO.getLaptopFilePath());
 		currentFile.renameTo(new File("./data/backup/" + newFilePath + "/laptop.json"));
+
+		currentFile = new File(IO.getLibrarianFilePath());
+		currentFile.renameTo(new File("./data/backup/" + newFilePath + "/librarian.json"));
 		
-		fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), Library.getAllLaptops());
+		fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), Library.getAllLaptops(), Library.getAllLibrarians());
 	}
 
 	public static void saveImageToUser(WritableImage img, File file) {
