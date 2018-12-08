@@ -1,24 +1,24 @@
 package io;
 
 /**
+ * <h1>This class holds all of the file locations of all of the data files that this program uses.</h1>
+ * <p>This contains the getters for all of the file locations, which are private variables.</p>
  * @author Samuel Jankinson
- * This class holds all of the file locations of all of the data files that this program uses.
- * It contains the getters for all of the file locations, which are private variables.
  */
 public abstract class IO {
 	//Private attributes, they contain the location of all of the data files of the program.
-	private static final String usersFilePath = "./data/users.json";
-	private static final String librarianFilePath = "./data/librarians.json";
-	private static final String bookFilePath = "./data/book.json";
-	private static final String dvdFilePath = "./data/dvd.json";
-	private static final String laptopFilePath = "./data/laptop.json";
+	private static final String USERS_FILEPATH = "./data/users.json";
+	private static final String LIBRARIAN_FILEPATH = "./data/librarians.json";
+	private static final String BOOK_FILEPATH = "./data/book.json";
+	private static final String DVD_FILEPATH = "./data/dvd.json";
+	private static final String LAPTOP_FILEPATH = "./data/laptop.json";
 
 	/**
 	 * This method returns the file path of the data file that holds the users information.
 	 * @return a String which contains the file path of the users data file.
 	 */
 	public static String getUsersFilePath() {
-		return usersFilePath;
+		return USERS_FILEPATH;
 	}
 
 	/**
@@ -26,7 +26,7 @@ public abstract class IO {
 	 * @return a String which contains the file path of the librarian data file.
 	 */
 	public static String getLibrarianFilePath() {
-		return librarianFilePath;
+		return LIBRARIAN_FILEPATH;
 	}
 
 	/**
@@ -34,7 +34,7 @@ public abstract class IO {
 	 * @return a String which contains the file path of the book data file.
 	 */
 	public static String getBookFilePath() {
-		return bookFilePath;
+		return BOOK_FILEPATH;
 	}
 
 	/**
@@ -42,14 +42,14 @@ public abstract class IO {
 	 * @return a String which contains the file path of the DVD data file.
 	 */
 	public static String getDvdFilePath() {
-		return dvdFilePath;
+		return DVD_FILEPATH;
 	}
 
 	/**
 	 * This method returns the file path of the data file that holds the laptops information.
-	 * @return a String which
+	 * @return a String which contains the file path of the laptops.
 	 */
 	public static String getLaptopFilePath() {
-		return laptopFilePath;
+		return LAPTOP_FILEPATH;
 	}
 }
