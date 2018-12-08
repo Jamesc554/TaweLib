@@ -1,14 +1,11 @@
 package screen;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import javax.imageio.ImageIO;
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -26,14 +23,13 @@ import library.Library;
 import resources.Resource;
 
 /**
- * This class represents the Home screen, the first screen the User sees after
- * logging in.
- * 
+ * <h1>This class represents the Home screen.</h1> 
+ * <p> This is first screen the User sees after
+ * logging in.</p>
  * @author Etienne Badoche, James Carter
  * @version 1.0
  */
 public class HomeScreen extends Screen implements Initializable{
-
 	// TOP TOOL BAR - COMMON BETWEEN SCREENS - COPY FROM HERE - MAKE SURE THE IDs IN
 	// SCENEBUILDER ARE OF THE SAME NAME AS THE VARIBLES HERE!!!!!
 	@FXML
@@ -43,6 +39,9 @@ public class HomeScreen extends Screen implements Initializable{
 	private ListView borrowedItemsList;
 
 	@Override
+	/**
+	 * This method changes the screen manager to the HomeScreen.
+	 */
 	public void start() {
 		Pane root;
 		try {
@@ -50,12 +49,18 @@ public class HomeScreen extends Screen implements Initializable{
 			ScreenManager.setCurrentScene(new Scene(root, 1280, 720));
 	        //setupEvents();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@Override
+	/**
+	 * Initialises the scene.
+	 * @param arg0
+	 * The location of the root object.
+	 * @param arg1
+	 * The resource used to localise the root object.
+	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		BufferedImage img = null;
 		try {
@@ -79,12 +84,18 @@ public class HomeScreen extends Screen implements Initializable{
 	 */
 	private void setCurrentlyBorrowed() {
 		ArrayList<String> borrowedResources = Library.getCurrentLoggedInUser().getCurrentlyBorrowedResources();
-		for(String resource : borrowedResources) {
+		for (String resource : borrowedResources) {
 			Resource r = Library.getResource(resource);
 			borrowedItemsList.getItems().add("Resource ID: " + r.getUniqueID() + " - " + r.getTitle());
 		}
 	}
 
+	/**
+	 * Searches the library database for results matching full/partial information
+	 * entered in the toolbar at the top of the screen.
+	 * @param actionEvent
+	 * The pressing of the "Enter" key on the user's keyboard.
+	 */
     public void onEnter(ActionEvent actionEvent) {
 		Library.setSearchStringText(searchBar.getText());
 		ScreenManager.changeScreen(new SearchResultScreen());
