@@ -58,9 +58,9 @@
             </ToolBar>
             <HBox prefHeight="650.0" prefWidth="1280.0">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="650.0" prefWidth="288.0">
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="650.0" prefWidth="392.0">
                      <content>
-                        <VBox fx:id="resourcesVBox" prefHeight="634.0" prefWidth="287.0" style="-fx-background-color: #f4f5ff;" />
+                        <VBox fx:id="resourcesVBox" prefHeight="634.0" prefWidth="339.0" style="-fx-background-color: #f4f5ff;" />
                      </content>
                   </ScrollPane>
                   <GridPane prefHeight="650.0" prefWidth="992.0">
@@ -120,7 +120,7 @@
                               <Button fx:id="editResourceButton" mnemonicParsing="false" onAction="#editResource" style="-fx-background-color: #ef9d39;" text="Edit" textFill="#0e0056" translateX="50.0" translateY="30.0" visible="false" />
                            </children>
                         </VBox>
-                        <ListView fx:id="copiesList" prefHeight="426.0" prefWidth="129.0" style="-fx-background-color: #f4f5ff;" GridPane.rowIndex="1" />
+                        <ListView fx:id="copiesList" prefHeight="426.0" prefWidth="199.0" style="-fx-background-color: #f4f5ff;" GridPane.rowIndex="1" />
                         <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
                               <ListView fx:id="copyHistoryList" prefHeight="374.0" prefWidth="380.0" style="-fx-background-color: #f4f5ff;" />
