@@ -108,6 +108,11 @@ public class WriteFile extends IO {
 	@SuppressWarnings("unchecked")
 	public static void writeLibrarian(Librarian librarian) {
 		JSONObject object = new JSONObject();
+		JSONArray resourceArray = new JSONArray();
+		JSONArray transactionArray = new JSONArray();
+		JSONArray borrowHistoryArray = new JSONArray();
+		JSONArray jsonRequestedArray = new JSONArray();
+		JSONArray jsonReservedArray = new JSONArray();
 		
 		object.put("username", librarian.getUserName());
 		object.put("firstName", librarian.getFirstName());
@@ -124,6 +129,43 @@ public class WriteFile extends IO {
 		object.put("empYear", String.valueOf(librarian.getEmploymentYear()));
 		object.put("staffNumber", librarian.getStaffNumber());
 		object.put("noOfEmploys", String.valueOf(librarian.getNumberOfEmploys()));
+		
+		for (String resource : librarian.getCurrentlyBorrowedResources()) {
+			resourceArray.add(resource);
+		}
+		object.put("resourceBorrow", resourceArray);
+
+		ArrayList<String[]> transactions = librarian.getTransactions();
+		for (String[] transaction : transactions) {
+			JSONArray singleTransaction = new JSONArray();
+			singleTransaction.add(transaction[0]);
+			singleTransaction.add(transaction[1]);
+			singleTransaction.add(transaction[2]);
+			transactionArray.add(singleTransaction);
+		}
+		object.put("transactionHistory", transactionArray);
+
+		ArrayList<String[]> borrowHistoryStrings = librarian.getBorrowHistory();
+		for (String[] borrowHistory : borrowHistoryStrings) {
+			JSONArray borrowArray = new JSONArray();
+			borrowArray.add(borrowHistory[0]);
+			borrowArray.add(borrowHistory[1]);
+			borrowHistoryArray.add(borrowArray);
+		}
+		object.put("borrowHistory", borrowHistoryArray);
+
+		ArrayList<String> requestedArray = librarian.getAllRequested();
+		for (String requested : requestedArray) {
+			System.out.println(requested);
+			jsonRequestedArray.add(requested);
+		}
+		object.put("requested", jsonRequestedArray);
+
+		ArrayList<String> reservedArray = librarian.getAllReserved();
+		for (String reserved : reservedArray) {
+			jsonReservedArray.add(reserved);
+		}
+		object.put("reserved", jsonReservedArray);
 		
 		try {
 			FileWriter file = new FileWriter(IO.getLibrarianFilePath(), true);

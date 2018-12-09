@@ -86,7 +86,6 @@ public class ReadFile extends IO {
 					}
 				}
 
-				// TODO: Currently Requested
 				requestedArray = (JSONArray) object.get("requested");
 				if (requestedArray != null) {
 					for (Object requestedResource : requestedArray) {
@@ -95,7 +94,6 @@ public class ReadFile extends IO {
 					}
 				}
 
-				// TODO: Currently Reserved
 				reservedArray = (JSONArray) object.get("reserved");
 				if (reservedArray != null) {
 					for (Object reservedResource : requestedArray) {
@@ -128,6 +126,11 @@ public class ReadFile extends IO {
 	 */
 	public static ArrayList<Librarian> readLibrarians() {
 		JSONParser parser = new JSONParser();
+		JSONArray resourceArray = new JSONArray();
+		JSONArray transactionArray = new JSONArray();
+		JSONArray borrowHistoryArray = new JSONArray();
+		JSONArray requestedArray = new JSONArray();
+		JSONArray reservedArray = new JSONArray();
 		ArrayList<Librarian> librarianList = new ArrayList<>();
 		try {
 			file = new FileReader(IO.getLibrarianFilePath());
@@ -147,6 +150,55 @@ public class ReadFile extends IO {
 						Integer.parseInt((String) object.get("empMonth")),
 						Integer.parseInt((String) object.get("empYear")), (String) object.get("staffNumber"),
 						Integer.parseInt((String) object.get("noOfEmploys")));
+				
+				resourceArray = (JSONArray) object.get("resourceBorrow");
+				ArrayList<String> borrowedResources = new ArrayList<String>();
+				if (resourceArray != null) {
+					for (Object resource : resourceArray) {
+						String stringResource = (String) resource;
+						borrowedResources.add(stringResource);
+					}
+					librarian.setResourceCurrentlyBorrowed(borrowedResources);
+				}
+
+				transactionArray = (JSONArray) object.get("transactionHistory");
+				if (transactionArray != null) {
+					for (Object transactionInformation : transactionArray) {
+						JSONArray transactionInformationArray = (JSONArray) transactionInformation;
+						String[] data = new String[3];
+						data[0] = (String) transactionInformationArray.get(0);
+						data[1] = (String) transactionInformationArray.get(1);
+						data[2] = (String) transactionInformationArray.get(2);
+						librarian.addToTransactionHistory(data);
+					}
+				}
+
+				borrowHistoryArray = (JSONArray) object.get("borrowHistory");
+				if (borrowHistoryArray != null) {
+					for (Object borrowInformation : borrowHistoryArray) {
+						JSONArray borrowInformationArray = (JSONArray) borrowInformation;
+						String[] data = new String[2];
+						data[1] = (String) borrowInformationArray.get(0);
+						data[0] = (String) borrowInformationArray.get(1);
+						librarian.addToBorrowHistory(data);
+					}
+				}
+
+				requestedArray = (JSONArray) object.get("requested");
+				if (requestedArray != null) {
+					for (Object requestedResource : requestedArray) {
+						String requestedResourceID = (String) requestedResource;
+						librarian.requestResource(requestedResourceID);
+					}
+				}
+
+				reservedArray = (JSONArray) object.get("reserved");
+				if (reservedArray != null) {
+					for (Object reservedResource : requestedArray) {
+						String reservedResourceID = (String) reservedResource;
+						librarian.addToReserved(reservedResourceID);
+					}
+				}
 				librarianList.add(librarian);
 			}
 			reader.close();
