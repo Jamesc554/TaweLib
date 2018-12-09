@@ -36,6 +36,7 @@ public abstract class Screen {
 	protected Button issueDeskBtn;
 	@FXML
 	protected Button drawAppBtn;
+	
     public abstract void start();
 
     /**
