@@ -7,7 +7,7 @@ import io.*;
 /**
  * <h1>LibraryResources.</h1>
  * <p>This class implements the LibraryResources database. This class is static.</p>
- * @author Dominik Wojtasiewicz
+ * @author Dominik Wojtasiewicz, Peter Daish, James Carter
  * @since 18/11/2018
  */
 public class LibraryResources {
@@ -90,8 +90,9 @@ public class LibraryResources {
 			return false;
 		}
 		for (User u : listOfUsers) {
-			if (u.getUserName().equals(username))
+			if (u.getUserName().equals(username)) {
 				return true;
+			}
 		}
 
 		if (listOfLibrarians.isEmpty()) {
@@ -233,7 +234,7 @@ public class LibraryResources {
         for (int index = 0; index < listOfUsers.size(); index++) {
             if (listOfUsers.get(index).getUserName().equals(username)) {
                 listOfUsers.remove(index);
-                break;
+                index = listOfUsers.size();
             }
         }
 	}
