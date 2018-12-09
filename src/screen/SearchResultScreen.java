@@ -30,10 +30,10 @@ import library.LibraryResources;
 import resources.*;
 
 /**
- * <h1>SearchResultScreen</h1>
+ * <h1>SearchResultScreen.</h1>
  * <p>This class represents the search results screen, a list of Resources which
  * are shown as a result of searching for resources.</p>
- * @author James Carter, Ammar Alamri, Sam Jankinson.
+ * @author James Carter, Ammar Almari, Sam Jankinson.
  * @version 1.0
  */
 public class SearchResultScreen extends Screen implements Initializable {
@@ -86,7 +86,6 @@ public class SearchResultScreen extends Screen implements Initializable {
 	@FXML
 	private ListView<String> copyHistoryList;
 	private Resource selectedResource;
-
 
 	@Override
 	/**
