@@ -6,12 +6,10 @@ import java.util.NoSuchElementException;
  * <p>Queue is a self implemented version of the Queue functionality Java provides, this is to allow us more control
  * over what can be stored in the queue, and how big it can be.
  * T - the type of object stored in the queue.</p>
- * @author James Carter
+ * @author James Carter, Deyan Naydenov, Peter Daish
  * @version 0.1
  * @since 18/11/2018
  */
-
-
 public class Queue<T> {
 
     private QueueElement<T> head; // The object at the start of the queue

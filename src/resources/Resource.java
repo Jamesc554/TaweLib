@@ -12,15 +12,15 @@ import utils.Queue;
 import javax.xml.crypto.Data;
 
 /**
- * <h1>Resource</h1>
+ * <h1>Resource.</h1>
  * <p>Resource is an abstract class which provides essential attributes for all resource types</p>
- * @author Peter Daish
+ * @author Peter Daish, James Carter, Dominik Wojtasiewicz
  * @version 1.0
  * @since 07/12/2018
  */
 public abstract class Resource {
-	private double FINE; //The daily fine for an overdue resource.
-	private double MAX_FINE; //The maximum fine a single resource can reach.
+	private double FINE; //The daily fine for an overdue resource. CONSTANT
+	private double MAX_FINE; //The maximum fine a single resource can reach. CONSTANT
 	
 	protected String year; //The year this resource was published/released.
 	protected String title; //The title of this resource
@@ -48,7 +48,10 @@ public abstract class Resource {
 	 * @param currentBorrowData
 	 * The information for borrower and dates associated with a copy of a resource.
 	 */
-	public Resource(String year, String title, String thumbnailImageRef, String uniqueID, Integer noOfCopies, List<String> loanDuration, List<List<BorrowHistoryData>> copyBorrowHistory, List<BorrowHistoryData> currentBorrowData) {
+	public Resource(String year, String title, String thumbnailImageRef,
+			String uniqueID, Integer noOfCopies, List<String> loanDuration,
+			List<List<BorrowHistoryData>> copyBorrowHistory,
+			List<BorrowHistoryData> currentBorrowData) {
 		
 		this.year = year;
 		this.title = title;
@@ -67,7 +70,6 @@ public abstract class Resource {
 			copiesList.add(newCopy);
 		}
 	}
-
 	/* #############################################################
 	 * ########BELOW ARE THE GETTERS AND SETTERS OF Resource########
 	 * #############################################################
@@ -201,7 +203,6 @@ public abstract class Resource {
 	public int getNoOfCopies() {
 		return copiesList.size();
 	}
-	
 	/* #############################################################
 	 * ########  BELOW ARE THE COMPLEX METHODS OF Resource  ########
 	 * #############################################################
@@ -241,13 +242,14 @@ public abstract class Resource {
 	 */
 	public void addUserToRequestQueue(User userForQueue) {
 		this.queueOfReservations.enqueue(userForQueue);
-		if (checkIfAvailable())
+		if (checkIfAvailable()) {
 			for (CopyData copy : copiesList) {
 				if (copy.isAvailable()) {
 					copy.reserveCopy(queueOfReservations.peek().getUserName());
 					queueOfReservations.peek().moveToReserved(getUniqueID());
 				}
 			}
+		}
 	}
 	
 	/**
@@ -336,8 +338,9 @@ public abstract class Resource {
 	 */
 	public boolean checkIfAvailable() {
 		for (CopyData copy : copiesList) {
-			if (copy.isAvailable())
+			if (copy.isAvailable()) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -390,7 +393,7 @@ public abstract class Resource {
 	 * The maximum fine a resource can reach.
 	 */
 	public double getMaxFine() {
-		return  this.MAX_FINE;
+		return this.MAX_FINE;
 	}
 
 	/**

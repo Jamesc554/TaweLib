@@ -1,12 +1,11 @@
 package resources;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <h1>Laptop</h1>
+ * <h1>Laptop.</h1>
  * <p>The laptop class creates laptop objects to be used by other classes </p>
- * @author Deyan Naydenov Peter Daish
+ * @author Deyan Naydenov Peter Daish, James Carter
  * @version 1.0
  * @since 08/12/2018
  */
@@ -21,7 +20,6 @@ public class Laptop extends Resource {
 	private String model; //The model of this laptop.
 	private String operatingSys; //The operating system of this laptop.
 
-	
 	/**
 	 * Constructor for Laptop.
 	 * @param year
@@ -48,7 +46,9 @@ public class Laptop extends Resource {
 	 * The information stored about who currently is loaning this laptop and dates of loan and return etc.
 	 */
 	public Laptop(String year, String title,  String thumbnailImg,String uniqueID,
-			String manufacturer, String model, String os, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> copyBorrowHistory, List<BorrowHistoryData> currentBorrowData) {
+			String manufacturer, String model, String os, Integer noOfCopies,
+			ArrayList<String> loanDuration, List<List<BorrowHistoryData>> copyBorrowHistory,
+			List<BorrowHistoryData> currentBorrowData) {
 		
 		super(year, title, thumbnailImg, generateLaptopID(uniqueID), noOfCopies,loanDuration, copyBorrowHistory, currentBorrowData);
 		

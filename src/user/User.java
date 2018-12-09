@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * <h1>User</h1>
+ * <h1>User.</h1>
  * <p>This class models a Library User.</p>
- * @author Dominik R Wojtasiewicz, Sam Jankinson
+ * @author Dominik R Wojtasiewicz, Sam Jankinson, Ammar Alamri.
  * @since 18/11/2018
  */
 public class User {
@@ -44,7 +44,7 @@ public class User {
 	 * @param profImage path to the profile image of the user
 	 */
     public User(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
-                String secondLineAddress, String postCode, String townName, double accountBalance, String profImage){
+                String secondLineAddress, String postCode, String townName, double accountBalance, String profImage) {
         setUserName(userName);
         setFirstName(firstName);
         setLastName(lastName);
@@ -211,7 +211,7 @@ public class User {
 
 	/**
 	 * This returns the full address formatted for postage
-	 * @return single String
+	 * @return String representation of a user's full address.
 	 */
 	public String getFullAddress()  {
 		String address = getFirstLineAddress();
@@ -222,9 +222,10 @@ public class User {
 			return address + "\n" + getTownName() + "\n" + getPostCode();
 		}
     }
+	
 	/**
 	 * This returns the path to the profile image of the user
-	 * @return String
+	 * @return String representation of this user's profile image filepath.
 	 */
 	public String getProfImage() {
 		return this.profImage;
@@ -267,7 +268,7 @@ public class User {
 	 * @return a string representation of the balance.
 	 */
 	public String getAccountBalanceString() {
-			return "£"+String.valueOf(this.accountBalance);
+		return "£"+String.valueOf(this.accountBalance);
     }
 
 	/**
@@ -317,7 +318,7 @@ public class User {
 
 	/**
 	 * Add's transaction to history of the user.
-	 * @param amount
+	 * @param amount the balance of the user.
 	 */
 	public void addTransaction(String system, double amount) {
 		//Computes current system data
@@ -358,7 +359,8 @@ public class User {
 
 	/**
 	 * Returns the history of the user
-	 * @return ArrayList<String[]>
+	 * @return borrowHistory
+	 * The User's borrow history
 	 */
 	public ArrayList<String[]> getBorrowHistory() {
 		return this.borrowHistory;
@@ -374,7 +376,8 @@ public class User {
 
 	/**
 	 * Get's all of users requested resources.
-	 * @return ArrayList<String>.
+	 * @return resourceCurrentlyRequested
+	 * All the resources this user has currently requested.
 	 */
 	public ArrayList<String> getAllRequested() {
 		return this.resourceCurrentlyRequested;
@@ -382,7 +385,8 @@ public class User {
 
 	/**
 	 * Get all of users reserved items.
-	 * @return ArrayList<String>
+	 * @return resourceCurrentlyReserved
+	 * All the resources this user currently has reserved.
 	 */
 	public ArrayList<String> getAllReserved() {
 		return this.resourceCurrentlyReserved;
@@ -390,7 +394,7 @@ public class User {
 
 	/**
 	 * Gets current system date in following format DD-MM-YYYY HH:MM:SS.
-	 * @return String
+	 * @return The current date
 	 */
     private String getCurrentDate() {
 		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -399,7 +403,7 @@ public class User {
 
 	/**
 	 * Get's the date user was last logged in.
-	 * @return
+	 * @return lastLogIn The date the user last logged in to the library.
 	 */
 	public String getLastLogIn() {
 		return lastLogIn;
@@ -433,7 +437,7 @@ public class User {
 
     /**
      * Add's to borrow history on start up.
-     * @param data
+     * @param data Information about the user's borrow history
      */
 	public void addToBorrowHistory(String[] data) {
 	    borrowHistory.add(data);
@@ -441,7 +445,7 @@ public class User {
 
     /**
      * Add's to transaction history on start up.
-     * @param data
+     * @param data Information about the user's transaction history
      */
     public void addToTransactionHistory(String[] data) {
 	    transactionHistory.add(data);
@@ -457,7 +461,7 @@ public class User {
 
 	/**
 	 * Sets a user currently reserved
-	 * @param data ArrayList<String>
+	 * @param data The information about the user's currently reserved resources.
 	 */
 	public void setResourceCurrentlyReserved(ArrayList<String> data) {
 		this.resourceCurrentlyReserved = data;
@@ -465,7 +469,7 @@ public class User {
 
 	/**
 	 * Sets a user currently requested
-	 * @param data ArrayList<String>
+	 * @param data The data about the user's currently requested resources.
 	 */
 	public void setResourceCurrentlyRequested(ArrayList<String> data) {
 		this.resourceCurrentlyRequested = data;

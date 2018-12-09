@@ -1,14 +1,12 @@
 package user;
 
 /**
- * This class models a Librarian and stores all of its information.
- * 
- * @author Dominik R Wojtasiewicz, Sam Jankinson
- *
+ * <h1>Librarian.</h1>
+ * <p>This class models a Librarian and stores all of its information.</p>
+ * @author Dominik R Wojtasiewicz, Sam Jankinson, Ammar Alamri
  */
 public class Librarian extends User {
 	private static int numberOfEmploys;
-
 	private int employmentMonth;
 	private int employmentYear;
 	private String staffNumber;

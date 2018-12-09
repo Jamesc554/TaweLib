@@ -4,11 +4,10 @@ package utils;
  * <h1>QueueElement.</h1>
  * <p>QueueElement is an object and link to the next QueueElement in a queue.
  * T - the type of object stored in the queue.</p>
- * @author James Carter
+ * @author James Carter, Deyan Naydenov, Peter Daish.
  * @version 0.1
  * @since 18/11/2018
  */
-
 public class QueueElement<T> {
 	
     private T element; // The element contained in this linked list

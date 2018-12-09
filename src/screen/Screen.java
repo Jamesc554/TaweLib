@@ -10,42 +10,33 @@ import library.Library;
 import java.util.List;
 
 /**
- * <h1>Screen</h1>
+ * <h1>Screen.</h1>
  * <p>Screen is an abstract outline of how a Screen functions so that the ScreenManager can use them.</p>
- * @author James Carter, Etienne Badoche,
- * @version 0.1
+ * @author James Carter, Etienne Badoche, Deyan Naydenov 
+ * @version 1.0
  * @since 11/11/2018
  */
 public abstract class Screen {
     protected List<Node> components;
-    
     @FXML
 	protected TextField searchBar;
-
 	@FXML
 	protected Button searchBtn;
-
 	@FXML
 	protected ImageView userIcon;
-
 	@FXML
 	protected Text usernameText;
-
 	@FXML
 	protected Button logoutBtn;
-
 	@FXML
 	protected Button homeBtn;
-
 	@FXML
 	protected Button accountBtn;
-
 	@FXML
 	protected Button issueDeskBtn;
-
 	@FXML
 	protected Button drawAppBtn;
-
+	
     public abstract void start();
 
     /**
@@ -53,14 +44,14 @@ public abstract class Screen {
      * @param screen
      * Screen being switched to
      */
-    public void switchScreen(Screen screen){
+    public void switchScreen(Screen screen) {
         ScreenManager.changeScreen(screen);
     }
 
     /**
      * Sets the display back to the previous Screen
      */
-    public void prevScreen(){
+    public void prevScreen() {
         ScreenManager.previousScreen();
     }
 
@@ -68,14 +59,14 @@ public abstract class Screen {
      * Gets the list of components on the Screen (Everything that needs to be displayed/have functionality)
      * @return List of the components on the Screen
      */
-    public List<Node> getComponents(){
+    public List<Node> getComponents() {
         return components;
     }
 
     /**
      * Logs the current user out of the system and returns to login screen.
      */
-    protected void logout(){
+    protected void logout() {
     	Library.setLoggedInUser(null);
     	ScreenManager.changeScreen(new LoginScreen());
     }
