@@ -12,8 +12,8 @@ import java.util.List;
 /**
  * <h1>Screen</h1>
  * <p>Screen is an abstract outline of how a Screen functions so that the ScreenManager can use them.</p>
- * @author James Carter, Etienne Badoche,
- * @version 0.1
+ * @author James Carter, Etienne Badoche, Deyan Naydenov 
+ * @version 1.0
  * @since 11/11/2018
  */
 public abstract class Screen {
