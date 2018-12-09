@@ -1,5 +1,4 @@
 package screen;
-
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -8,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import library.Library;
-
 import java.util.List;
 
 /**
@@ -19,7 +17,6 @@ import java.util.List;
  * @since 11/11/2018
  */
 public abstract class Screen {
-
     protected List<Node> components;
     
     @FXML
@@ -49,7 +46,6 @@ public abstract class Screen {
 	@FXML
 	protected Button drawAppBtn;
 
-    // TODO: start implementation
     public abstract void start();
 
     /**
@@ -76,41 +72,73 @@ public abstract class Screen {
         return components;
     }
 
+    /**
+     * Logs the current user out of the system and returns to login screen.
+     */
     protected void logout(){
     	Library.setLoggedInUser(null);
     	ScreenManager.changeScreen(new LoginScreen());
     }
     
     @FXML
+    /**
+     * Opens the DrawApp
+     * @param event
+     * The event of pressing the "DrawApp" button.
+     */
 	protected void drawAppButton(Event event) {
 		ScreenManager.changeScreen(new DrawApp());
 	}
 	
 	@FXML
+	/**
+	 * Searches the library's database based off full or partial information provided in search bar.
+	 * @param event
+	 * The event of pressing the "search" button.
+	 */
 	protected void searchButton(Event event) {
     	Library.setSearchStringText(searchBar.getText());
 		ScreenManager.changeScreen(new SearchResultScreen());
 	}
 	
 	@FXML
+	/**
+	 * Allows for the user to logout when the logout button is pressed.
+	 * @param event
+	 * The event of pressing the logout button.
+	 */
 	protected void logoutButton(Event event) {
 		logout();
 	}
 
 	@FXML
+	/**
+	 * Changes current screen to IssueDeskScreen when button pressed.
+	 * @param event
+	 * The event of pressing the IssueDesk button.
+	 */
 	protected void issueDeskButton(Event event) {
 		ScreenManager.changeScreen(new IssueDeskScreen());
 	}
 	
 	@FXML
+	/**
+	 * Changes current screen to AccountScreen when button pressed.
+	 * @param event
+	 * The event of pressing the AccountScreen button.
+	 */
 	protected void accountDeskButton(Event event) {
 		ScreenManager.changeScreen(new AccountScreen());
 	}
 	
 	//TODO: Fix home button
 	@FXML
+	/**
+	 * Changes current screen to HomeScreen when button pressed.
+	 * @param event
+	 * The event of pressing the Home button.
+	 */
     protected void homeButton(Event event) {
         ScreenManager.changeScreen(new HomeScreen());
     }
-
 }
