@@ -422,7 +422,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
         outstandingFineMsg.setVisible(false);
 
         if (selectedIdx != -1) {
-            String id = userBorrowList.getSelectionModel().getSelectedItem().toString();
+            String copy = userBorrowList.getSelectionModel().getSelectedItem().toString();
+            String id = copy.split(" ")[0];
             Library.returnResource(user, id);
             userBorrowList.getItems().remove(selectedIdx);
             returnSuccess.setVisible(true);
