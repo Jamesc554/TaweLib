@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
@@ -13,11 +15,22 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.HomeScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.HomeScreen">
   <children>
     <SplitPane dividerPositions="0.6588419405320813" layoutY="68.0" prefHeight="658.0" prefWidth="1280.0">
       <items>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #f4f5ff;" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #f4f5ff;">
+               <children>
+                  <TableView fx:id="borrowTable" layoutX="14.0" layoutY="14.0" prefHeight="631.0" prefWidth="811.0">
+                    <columns>
+                      <TableColumn fx:id="rIDCol" editable="false" prefWidth="75.0" text="Resource ID" />
+                      <TableColumn fx:id="rTitleCol" editable="false" prefWidth="229.0" text="Resource Title" />
+                      <TableColumn fx:id="borrowDateCol" editable="false" prefWidth="193.0" text="Borrow Date" />
+                      <TableColumn fx:id="returnDateCol" editable="false" prefWidth="206.0" text="Return Date" />
+                      <TableColumn fx:id="overdueCol" editable="false" prefWidth="107.0" text="Overdue?" />
+                    </columns>
+                  </TableView>
+               </children></AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
           <children>
             <SplitPane dividerPositions="0.26299694189602446" orientation="VERTICAL" prefHeight="656.0" prefWidth="433.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -50,7 +63,7 @@
     </SplitPane>
     <ToolBar layoutX="1.0" layoutY="-3.0" prefHeight="35.0" prefWidth="1096.0" style="-fx-background-color: #0e0056;">
       <items>
-        <TextField fx:id="searchBar" prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." onAction="#onEnter"/>
+        <TextField fx:id="searchBar" onAction="#onEnter" prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." />
         <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchButton" style="-fx-background-color: #ef9d39;" text="Search" textFill="#0e0056" />
             <Text fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Tawe Library">
                <font>
