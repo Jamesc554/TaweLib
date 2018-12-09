@@ -26,9 +26,9 @@ import library.Library;
 import resources.Resource;
 
 /**
- * <h1>This class represents the Account screen.</h1>
- * <p>This screen shows the user their information and resources they have,
- * borrowed, requested, etc.</P>
+ * <h1>AccountScreen.</h1>
+ * <p>This class represents the Account screen. 
+ * This screen shows the user their information and resources they have, borrowed, requested, etc.</p>
  * @author Samuel Jankinson
  * @version 1.0
  */

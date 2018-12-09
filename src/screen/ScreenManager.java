@@ -33,7 +33,6 @@ public class ScreenManager {
      * Inherited from Application, entry point for the JavaFX App
      * @param primaryStage
      */
-    
     public static void start(Stage primaryStage) {
         stage = primaryStage;
         
