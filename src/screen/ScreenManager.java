@@ -1,7 +1,5 @@
 package screen;
-
 import java.util.Stack;
-
 import io.WriteFile;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -16,11 +14,11 @@ import javafx.stage.Stage;
  * @since 11/11/2018
  */
 public class ScreenManager {
-
+	private static final int WIDTH = 1280;
+    private static final int HEIGHT = 720;
+    
     private static Stack<Screen> loadedScreens = new Stack<>();
     private static Scene scene;
-    private static final int WIDTH = 1280;
-    private static final int HEIGHT = 720;
     private static Stage stage;
 
     /**

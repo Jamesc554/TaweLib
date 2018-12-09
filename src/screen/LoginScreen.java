@@ -13,7 +13,8 @@ import javafx.scene.paint.Color;
 import library.Library;
 
 /**
- * <h1>This class models a screen used for a user to login to their library account.</h1>
+ * <h1>LoginScreen.</h1>
+ * <p>This class models a screen used for a user to login to their library account.<p>
  * @author James Carter Sam Jankinson Ammar Almari
  * @version 1.0
  */

@@ -23,8 +23,8 @@ import library.Library;
 import resources.Resource;
 
 /**
- * <h1>This class represents the Home screen.</h1> 
- * <p> This is first screen the User sees after
+ * <h1>HomeScreen.</h1>
+ * <p>This class represents the Home screen. This is first screen the User sees after
  * logging in.</p>
  * @author Etienne Badoche, James Carter
  * @version 1.0
