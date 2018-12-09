@@ -3,17 +3,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <h1>DVD</h1>
- * <p>The DVD class creates DVD objects to be used by other classes</p>
- * @author Deyan Naydenov Peter Daish
- * @version 0.0.0.2
+ * <h1>DVD.</h1>
+ * <p>The DVD class creates DVD objects to be used by other classes.</p>
+ * @author Deyan Naydenov Peter Daish, James Carter.
+ * @version 1.0
  * @since 18/11/2018
 */
 public class DVD extends Resource {
-	private static String highestDVDID = "DVDID:0"; // used to calculate a unique DVD ID.
+	private final double FINE = 2.00; //The daily fine rate of this DVD.
+	private final double MAX_FINE = 25.00; // The maximum fine this DVD can reach.
 	
-	private double FINE = 2.00; //The daily fine rate of this DVD.
-	private double MAX_FINE = 25.00; // The maximum fine this DVD can reach.
+	private static String highestDVDID = "DVDID:0"; // used to calculate a unique DVD ID.
+
 	private int highestCopyID = 0; // this is used to calculate a unique CopyID.
 	private String director; //The director of this DVD
 	private String runtime; //The runtime of this DVD.
@@ -48,7 +49,8 @@ public class DVD extends Resource {
 	 * The information for borrower and dates associated with a copy of a resource.
 	 */
 	public DVD (String director, String runtime, String language, ArrayList<String> subLang, String year, String title, 
-			String thumbnailImg, String uniqueID, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData) {
+			String thumbnailImg, String uniqueID, Integer noOfCopies, ArrayList<String> loanDuration,
+			List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData) {
 		super(year, title, thumbnailImg, generateDVDID(uniqueID), noOfCopies, loanDuration, borrowHistory, currentBorrowData);
 		this.director = director;
 		this.runtime = runtime;
