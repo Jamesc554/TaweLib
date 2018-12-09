@@ -3,14 +3,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <h1>Book</h1>
+ * <h1>Book.</h1>
  * <p>This class models the Library Resource: Book.</p>
- * @author Peter Daish
+ * @author Peter Daish, Deyan Naydenov, Dominik Wojtasiewicz 
  * @since 18/11/2018
  */
-
 public class Book extends Resource {
-	
 	private final double FINE = 2.00; //The fine amount of a book when overdue.
 	private final double MAX_FINE = 25.00; //The maximum fine value of any book.
 	
@@ -52,7 +50,10 @@ public class Book extends Resource {
 	 * @param currentBorrowData
 	 * The information for borrower and dates associated with a copy of a resource.
 	 */
-	public Book(String year, String title, String thumbnailImg, String uniqueID, String author, String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData) {
+	public Book(String year, String title, String thumbnailImg, String uniqueID, String author,
+			String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies,
+			ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory,
+			List<BorrowHistoryData> currentBorrowData) {
 		//Set all the inherited values from Resource...
 		super(year, title, thumbnailImg, generateBookID(uniqueID), noOfCopies, loanDuration, borrowHistory, currentBorrowData);
 		
@@ -97,7 +98,6 @@ public class Book extends Resource {
 			return highestBookID;
 		}
 	}
-	
 	/* This method returns the Book's attributes as a string (FOR TESTING PURPOSES ONLY)
 		public String toString() {
 			return "Year: " + this.year + "\nTitle: " + this.title +
