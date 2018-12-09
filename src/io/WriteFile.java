@@ -25,10 +25,10 @@ import user.User;
 import utils.Queue;
 
 /**
- * <h1>WriteFile</h1>
+ * <h1>WriteFile.</h1>
  * <p>This class handles all of the data storing for the program. It writes all of the data to JSON files, in which the
  * file path are stored in the IO class.</p>
- * @author Samuel Jankinson, , Etienne Badoche
+ * @author Samuel Jankinson, James Carter, Etienne Badoche
  */
 public class WriteFile extends IO {
 	/**
@@ -475,6 +475,7 @@ public class WriteFile extends IO {
 	 */
 	public static void fullWrite(ArrayList<User> users, ArrayList<Book> books, ArrayList<DVD> dvds,
 			ArrayList<Laptop> laptops, ArrayList<Librarian> librarians) {
+		
 			overwriteUsers(users);
 			overwriteResources(books, dvds, laptops);
 			overwriteLibrarians(librarians);
