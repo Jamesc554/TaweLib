@@ -1,5 +1,10 @@
 package resources;
 
+/**
+ * <h1>This class models the borrow history for a copy.</h1>
+ * @author James Carter
+ *
+ */
 public class BorrowHistoryData {
 	
 	private String userID;
@@ -7,6 +12,10 @@ public class BorrowHistoryData {
 	private String dateReturned;
 	private String dateRequestedReturn;
 	
+	/**
+	 * Constructor for BorrowHistoryData, 
+	 * initialises everything to an empty String.
+	 */
 	public BorrowHistoryData() {
 		userID = "";
 		dateBorrowed = "";
@@ -14,38 +23,82 @@ public class BorrowHistoryData {
 		dateRequestedReturn = "";
 	}
 
+	/**
+	 * Returns the username of the user who borrowed this copy.
+	 * @return usedID
+	 * THe username
+	 */
 	public String getUserID() {
 		return userID;
 	}
 
-	public void setUserID(String userID) {
+	/**
+	 * Sets the username of the user who borrowed this copy.
+	 * @param userID
+	 * The username to set
+	 */
+	public void setUserID(final String userID) {
 		this.userID = userID;
 	}
 
+	/**
+	 * Returns the date this copy was borrowed.
+	 * @return dateBorrowed
+	 * The date this copy was borrowed
+	 */
 	public String getDateBorrowed() {
 		return dateBorrowed;
 	}
 
-	public void setDateBorrowed(String dateBorrowed) {
+	/**
+	 * Sets the date borrowed to the given date.
+	 * @param dateBorrowed
+	 * The date this copy was borrowed
+	 */
+	public void setDateBorrowed(final String dateBorrowed) {
 		this.dateBorrowed = dateBorrowed;
 	}
 
+	/**
+	 * Returns the date this copy was returned.
+	 * @return dateReturned
+	 * The date this copy was returned
+	 */
 	public String getDateReturned() {
 		return dateReturned;
 	}
 
-	public void setDateReturned(String dateReturned) {
+	/**
+	 * Sets the date returned to the given date.
+	 * @param dateReturned
+	 * The date this copy was returned
+	 */
+	public void setDateReturned(final String dateReturned) {
 		this.dateReturned = dateReturned;
 	}
 
+	/**
+	 * Returns the date this copy was requested to be returned.
+	 * @return dateRequestedReturn
+	 * The date this copy was requested to be returned
+	 */
 	public String getDateRequestedReturn() {
 		return this.dateRequestedReturn;
 	}
 
-	public void setDateRequestedReturn(String dateRequestedReturn) {
+	/**
+	 * Sets the date this copy needed to be returned.
+	 * @param dateRequestedReturn
+	 * The date this copy is requested to be returned
+	 */
+	public void setDateRequestedReturn(final String dateRequestedReturn) {
 		this.dateRequestedReturn = dateRequestedReturn;
 	}
 
+	/**
+	 * Sets userID, dateBorrowed, dateReturned.
+	 * dateRequestedReturn to an empty String
+	 */
 	public void clearInfo(){
 		this.userID = "";
 		this.dateBorrowed = "";
@@ -54,7 +107,8 @@ public class BorrowHistoryData {
 	}
 	
 	@Override
-	public String toString() {
-		return getUserID() + " - " + getDateBorrowed() + " - " + getDateReturned() + " - " + getDateRequestedReturn();
+	public final String toString() {
+		return getUserID() + " - " + getDateBorrowed() + " - " + 
+	getDateReturned() + " - " + getDateRequestedReturn();
 	}
 }
