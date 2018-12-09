@@ -4,11 +4,12 @@ import library.Library;
 import screen.ScreenManager;
 
 /**
- * The main class which starts upon load.
+ * <h1>Main.</h1>
+ * <p>The main class which starts upon load.</p>
  * @author Peter Daish  
- *
  */
 public class Main extends Application {
+	
 	/**
 	 * The main method which loads the program.
 	 * @param args

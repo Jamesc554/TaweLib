@@ -5,7 +5,8 @@ import user.*;
 import io.*;
 
 /**
- * This class implements the LibraryResources database. This class is static.
+ * <h1>LibraryResources.</h1>
+ * <p>This class implements the LibraryResources database. This class is static.</p>
  * @author Dominik Wojtasiewicz
  * @since 18/11/2018
  */

@@ -1,7 +1,7 @@
 package utils;
 
 /**
- * <h1>QueueElement</h1>
+ * <h1>QueueElement.</h1>
  * <p>QueueElement is an object and link to the next QueueElement in a queue.
  * T - the type of object stored in the queue.</p>
  * @author James Carter

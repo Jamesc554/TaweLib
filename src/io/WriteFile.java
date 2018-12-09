@@ -25,8 +25,9 @@ import user.User;
 import utils.Queue;
 
 /**
- * This class handles all of the data storing for the program. It writes all of the data to JSON files, in which the
- * file path are stored in the IO class.
+ * <h1>WriteFile</h1>
+ * <p>This class handles all of the data storing for the program. It writes all of the data to JSON files, in which the
+ * file path are stored in the IO class.</p>
  * @author Samuel Jankinson
  */
 public class WriteFile extends IO {

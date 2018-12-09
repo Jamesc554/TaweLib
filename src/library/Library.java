@@ -11,7 +11,8 @@ import user.User;
 @SuppressWarnings("Duplicates")
 
 /**
- * This class implements all methods required for library operations.
+ * <h1>Library.</h1>
+ * <p>This class implements all methods required for library operations.</p>
  * @author Dominik R Wojtasiewicz
  * @since 18/11/2018
  */

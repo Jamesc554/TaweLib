@@ -20,7 +20,8 @@ import user.User;
 @SuppressWarnings("Duplicates")
 
 /**
- * This class reads data from files saved on disk.
+ * <h1>ReadFile.</h1>
+ * <p>This class reads data from files saved on disk.</p>
  * @author Samuel Jankinson
  */
 public class ReadFile extends IO {

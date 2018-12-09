@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * This class models a Library User.
+ * <h1>User</h1>
+ * <p>This class models a Library User.</p>
  * @author Dominik R Wojtasiewicz
  * @since 18/11/2018
  */

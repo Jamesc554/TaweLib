@@ -2,7 +2,7 @@ package utils;
 import java.util.NoSuchElementException;
 
 /**
- * <h1>Queue</h1>
+ * <h1>Queue.</h1>
  * <p>Queue is a self implemented version of the Queue functionality Java provides, this is to allow us more control
  * over what can be stored in the queue, and how big it can be.
  * T - the type of object stored in the queue.</p>

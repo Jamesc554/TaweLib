@@ -5,7 +5,7 @@ import resources.Resource;
 import java.util.List;
 
 /**
- * <h1>This class sorts resources.</h1>
+ * <h1>Sort.</h1>
  * <p>Resources can be sorted by their: name, year, author, publisher. </p>
  * @author James Carter
  * @version 1.0

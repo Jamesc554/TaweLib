@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <h1>This class models the Library Resource: Book.</h1>
+ * <h1>Book</h1>
+ * <p>This class models the Library Resource: Book.</p>
  * @author Peter Daish
  * @since 18/11/2018
  */

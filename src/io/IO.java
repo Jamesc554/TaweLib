@@ -1,8 +1,9 @@
 package io;
 
 /**
- * <h1>This class holds all of the file locations of all of the data files that this program uses.</h1>
- * <p>This contains the getters for all of the file locations, which are private variables.</p>
+ * <h1>IO.</h1>
+ * <p>This class holds all of the file locations of all of the data files that this program uses.
+ * This contains the getters for all of the file locations, which are private variables.</p>
  * @author Samuel Jankinson
  */
 public abstract class IO {
