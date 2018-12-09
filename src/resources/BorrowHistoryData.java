@@ -99,7 +99,7 @@ public class BorrowHistoryData {
 	 * Sets userID, dateBorrowed, dateReturned.
 	 * dateRequestedReturn to an empty String
 	 */
-	public void clearInfo(){
+	public void clearInfo() {
 		this.userID = "";
 		this.dateBorrowed = "";
 		this.dateReturned = "";
