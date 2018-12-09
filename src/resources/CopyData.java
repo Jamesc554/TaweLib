@@ -8,10 +8,9 @@ import java.util.List;
 import library.Library;
 
 /**
- * <h1>CopyData</h1>
+ * <h1>CopyData.</h1>
  * <p>This class models a copy of a resource.</p>
- * @author James Carter, , Etienne Badoche
- *
+ * @author James Carter, Dominik Wojtasiewicz, Etienne Badoche
  */
 public class CopyData {
 	private String id;

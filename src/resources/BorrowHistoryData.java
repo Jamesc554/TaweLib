@@ -1,9 +1,9 @@
 package resources;
 
 /**
- * <h1>This class models the borrow history for a copy.</h1>
- * @author James Carter
- *
+ * <h1>BorrowHistoryData.</h1>
+ * <p>This class models the borrow history for a copy.</p>
+ * @author James Carter, Dominik Wojtasiewicz, Etienne Badoche 
  */
 public class BorrowHistoryData {
 	
@@ -26,7 +26,7 @@ public class BorrowHistoryData {
 	/**
 	 * Returns the username of the user who borrowed this copy.
 	 * @return usedID
-	 * THe username
+	 * The username of the user who borrowed this copy.
 	 */
 	public String getUserID() {
 		return userID;
@@ -107,6 +107,10 @@ public class BorrowHistoryData {
 	}
 	
 	@Override
+	/**
+	 * Converts this borrow history to a string.
+	 * @return A string representation of this borrowHistory
+	 */
 	public final String toString() {
 		return getUserID() + " - " + getDateBorrowed() + " - " + 
 	getDateReturned() + " - " + getDateRequestedReturn();
