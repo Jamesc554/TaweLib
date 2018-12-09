@@ -129,7 +129,7 @@ public class HomeScreen extends Screen implements Initializable {
 			Resource r = Library.getResource(resource);
 			CopyData c = null;
 			for (CopyData copy : r.getArrayListOfCopies()) {
-				if (copy.getCurrentInfo().getUserID() == user.getUserName()) {
+				if (copy.getCurrentInfo().getUserID().contentEquals(user.getUserName())) {
 					c = copy;
 				}
 			}
