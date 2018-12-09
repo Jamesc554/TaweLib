@@ -35,7 +35,7 @@ import utils.Queue;
 /**
  * <h1>DrawApp.</h1>
  * <p>This class models a drawing application for profile images.</p>
- * @author James Carter, Etienne Badoche,
+ * @author James Carter, Etienne Badoche, Sam Jankinson
  * @version 1.0
  */
 public class DrawApp extends Screen {
@@ -390,7 +390,8 @@ public class DrawApp extends Screen {
 	 * The y initial coordinate of the cursor on canvas.
 	 * @param canvas
 	 * The current canvas
-	 * @return
+	 * @return wi
+	 * The writable image of the current canvas.
 	 */
 	private WritableImage paintBucket(Color c, int startX, int startY, Canvas canvas) {
 		WritableImage wi = convertToImage(canvas);
