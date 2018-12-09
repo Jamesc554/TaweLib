@@ -1,5 +1,4 @@
 package screen;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -8,9 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.imageio.ImageIO;
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -33,47 +30,35 @@ import library.LibraryResources;
 import resources.*;
 
 /**
- * This class represents the search results screen, a list of Resources which
- * are shown as a result of searching for resources.
- * 
- * @author James Carter, Ammar Alamri 
+ * <h1>SearchResultScreen</h1>
+ * <p>This class represents the search results screen, a list of Resources which
+ * are shown as a result of searching for resources.</p>
+ * @author James Carter, Ammar Alamri, Sam Jankinson.
  * @version 1.0
  */
 public class SearchResultScreen extends Screen implements Initializable {
-
 	@FXML
 	private ComboBox<String> resourceTypeCB;
-
 	@FXML
 	private VBox resourcesVBox;
-
 	@FXML
 	private ImageView resourceThumbnailImage;
-
 	@FXML
 	private Label titleLbl;
-
 	@FXML
 	private Label uIDLbl;
-
 	@FXML
 	private Label yearLbl;
-
 	@FXML
 	private Label rs1Lbl;
-
 	@FXML
 	private Label rs2Lbl;
-
 	@FXML
 	private Label rs3Lbl;
-
 	@FXML
 	private Label rs4Lbl;
-
 	@FXML
 	private Label rs5Lbl;
-
 	@FXML
 	private TextField titleTf;
 	@FXML
@@ -90,25 +75,23 @@ public class SearchResultScreen extends Screen implements Initializable {
 	private TextField rs4Tf;
 	@FXML
 	private TextField rs5Tf;
-
 	@FXML
 	private Button editResourceButton;
-
 	@FXML
 	private Button requestButton;
-
 	// private TextField[] textFields = {titleTf, uIDTf, yearTf, rs1Tf, rs2Tf,
 	// rs3Tf, rs4Tf, rs5Tf};
-
 	@FXML
 	private ListView<String> copiesList;
-
 	@FXML
 	private ListView<String> copyHistoryList;
-
 	private Resource selectedResource;
 
+
 	@Override
+	/**
+	 * This method handles the startup procedure for SearchResultScreen such as displaying the scene.
+	 */
 	public void start() {
 		Pane root;
 		try {
@@ -116,29 +99,38 @@ public class SearchResultScreen extends Screen implements Initializable {
 			ScreenManager.setCurrentScene(new Scene(root, 1280, 720));
 			// setupEvents();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	@FXML
+	/**
+	 * Handles the event when the search button is pressed to search the library.
+	 */
 	protected void searchButton(Event event) {
 		updateSearchResults();
 	}
 
 	@Override
+	/**
+	 * Initialises the scene.
+	 * @param arg0
+	 * The location of the root object.
+	 * @param arg1
+	 * The resource used to localise the root object.
+	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		BufferedImage img = null;
 		try {
 			img = ImageIO.read(new File(Library.getCurrentLoggedInUser().getProfImage()));
 		} catch (IOException e) {
-
+			e.printStackTrace();
 		}
-
+		
 		if (Library.currentUserIsLibrarian()) {
 			copyHistoryList.setVisible(true);
-		}else {
+		} else {
 			copyHistoryList.setVisible(false);
 		}
 
@@ -179,10 +171,18 @@ public class SearchResultScreen extends Screen implements Initializable {
 	}
 
 	@FXML
+	/**
+	 * Sets the current user to request a copy of the resource highlighted.
+	 */
 	public void requestResource() {
 		Library.requestResource(uIDTf.getText());
 	}
 
+	/**
+	 * Updates the borrow history associated with a copy of a resource.
+	 * @param newValue
+	 * The full id of the the copy including resource id.
+	 */
 	private void updateCopyHistoryList(String newValue) {
 		if (newValue != null && newValue != "") {
 			String[] ids = newValue.split(":")[2].split("-");
@@ -198,6 +198,9 @@ public class SearchResultScreen extends Screen implements Initializable {
 	}
 
 	@FXML
+	/**
+	 * Updates the search results when queried.
+	 */
 	private void updateSearchResults() {
 		// Empty the current search results
 		resourcesVBox.getChildren().clear();
@@ -208,17 +211,17 @@ public class SearchResultScreen extends Screen implements Initializable {
 		List resources = null;
 
 		switch (resourceType) {
-		case "Book":
-			resources = Library.getAllBooks();
-			break;
-		case "DVD":
-			resources = Library.getAllDVD();
-			break;
-		case "Laptop":
-			resources = Library.getAllLaptops();
-			break;
-		default:
-			break;
+			case "Book":
+				resources = Library.getAllBooks();
+				break;
+			case "DVD":
+				resources = Library.getAllDVD();
+				break;
+			case "Laptop":
+				resources = Library.getAllLaptops();
+				break;
+			default:
+				break;
 		}
 
 		for (Object r : resources) {
@@ -229,10 +232,10 @@ public class SearchResultScreen extends Screen implements Initializable {
 		}
 	}
 
+	@FXML
 	/**
 	 * Event handling for a Librarian to edit a Resource.
 	 */
-	@FXML
 	private void editResource() {
 		String resourceType = resourceTypeCB.getSelectionModel().getSelectedItem();
 
@@ -273,11 +276,17 @@ public class SearchResultScreen extends Screen implements Initializable {
 		}
 	}
 
+	/**
+	 * Creates the JavaFX container for a resource.
+	 * @param r
+	 * The resource to be contained.
+	 * @return container
+	 * The container for the resource on screen.
+	 */
 	private HBox createResourceContainer(Resource r) {
 		ImageView imgV = createImageViewForResource(r);
 
 		Text title = new Text("Title:" + r.getTitle());
-		;
 		Text uniqueID = new Text("Unique ID: " + r.getUniqueID());
 		Text year = new Text("Year: " + r.getYear());
 		VBox details = new VBox(title, uniqueID, year);
@@ -289,10 +298,14 @@ public class SearchResultScreen extends Screen implements Initializable {
 
 		title.setWrappingWidth(container.getWidth() - imgV.getFitWidth());
 		uniqueID.setWrappingWidth(container.getWidth() - imgV.getFitWidth());
-
 		return container;
 	}
 
+	/**
+	 * Updates the resources details if the user is a librarian.
+	 * @param r
+	 * The current resource which needs updating selected by the user.
+	 */
 	private void updateResourceDetails(Resource r) {
 		selectedResource = r;
 		resourceThumbnailImage.setImage(getResourceImage(r));
@@ -307,7 +320,7 @@ public class SearchResultScreen extends Screen implements Initializable {
 		rs5Lbl.setVisible(true);
 		rs5Tf.setVisible(true);
 
-		TextField[] textFields = { titleTf, yearTf, rs1Tf, rs2Tf, rs3Tf, rs4Tf, rs5Tf };
+		TextField[] textFields = {titleTf, yearTf, rs1Tf, rs2Tf, rs3Tf, rs4Tf, rs5Tf};
 
 		if (Library.currentUserIsLibrarian()) {
 			for (TextField tf : textFields) {
@@ -328,79 +341,89 @@ public class SearchResultScreen extends Screen implements Initializable {
 			copiesList.getItems().add("Copy: " + r.getUniqueID() + "-" + copy.getId() + "- Available: "
 					+ String.valueOf(copy.isAvailable()));
 			
-			if (copy.isAvailable())
+			if (copy.isAvailable()) {
 				isAvailable = true;
+			}
 		}
 		
-		if (!isAvailable)
+		if (!isAvailable) {
 			requestButton.setDisable(false);
+		}
 
 		switch (resourceType) {
-		case "Book":
-			Book b = (Book) r;
-			rs1Lbl.setText("Author: ");
-			rs1Tf.setText(b.getAuthor());
-			rs2Lbl.setText("Publisher: ");
-			rs2Tf.setText(b.getPublisher());
-			rs3Lbl.setText("Genre: ");
-			rs3Tf.setText(b.getGenre());
-			rs4Lbl.setText("ISBN: ");
-			rs4Tf.setText(b.getIsbn());
-
-			rs5Lbl.setText("Languages: ");
-
-			rs5Tf.setText(b.getLanguages().get(0));
-			ArrayList<String> languages = b.getLanguages();
-			// languages.remove(0);
-			for (int i = 1; i < languages.size(); i++) {
-				rs5Tf.setText(rs5Tf.getText() + ", " + languages.get(i));
-			}
-
-			break;
-		case "DVD":
-			DVD d = (DVD) r;
-			rs1Lbl.setText("Director: ");
-			rs1Tf.setText(d.getDirector());
-			rs2Lbl.setText("Runtime: ");
-			rs2Tf.setText(d.getRuntime());
-			rs3Lbl.setText("Language: ");
-			rs3Tf.setText(d.getLanguage());
-
-			rs4Lbl.setText("Sub-Languages: ");
-
-			if (d.getSubLang().isEmpty()) {
-				rs4Tf.setText("N/A");
-			} else {
-				rs4Tf.setText(d.getSubLang().get(0));
-				languages = d.getSubLang();
-				languages.remove(0);
-				for (String language : languages)
-					rs4Tf.setText(rs4Tf.getText() + ", " + language);
-			}
-
-			rs5Tf.setVisible(false);
-			rs5Lbl.setVisible(false);
-
-			break;
-		case "Laptop":
-			Laptop l = (Laptop) r;
-			rs1Lbl.setText("Manufacturer: ");
-			rs1Tf.setText(l.getManufacturer());
-			rs2Lbl.setText("Model: ");
-			rs2Tf.setText(l.getModel());
-			rs3Lbl.setText("Operating System: ");
-			rs3Tf.setText(l.getOperatingSys());
-
-			rs4Lbl.setVisible(false);
-			rs4Tf.setVisible(false);
-			rs5Lbl.setVisible(false);
-			rs5Tf.setVisible(false);
-			break;
-		default:
-			break;
+			case "Book":
+				Book b = (Book) r;
+				rs1Lbl.setText("Author: ");
+				rs1Tf.setText(b.getAuthor());
+				rs2Lbl.setText("Publisher: ");
+				rs2Tf.setText(b.getPublisher());
+				rs3Lbl.setText("Genre: ");
+				rs3Tf.setText(b.getGenre());
+				rs4Lbl.setText("ISBN: ");
+				rs4Tf.setText(b.getIsbn());
+	
+				rs5Lbl.setText("Languages: ");
+	
+				rs5Tf.setText(b.getLanguages().get(0));
+				ArrayList<String> languages = b.getLanguages();
+				// languages.remove(0);
+				for (int i = 1; i < languages.size(); i++) {
+					rs5Tf.setText(rs5Tf.getText() + ", " + languages.get(i));
+				}
+	
+				break;
+			case "DVD":
+				DVD d = (DVD) r;
+				rs1Lbl.setText("Director: ");
+				rs1Tf.setText(d.getDirector());
+				rs2Lbl.setText("Runtime: ");
+				rs2Tf.setText(d.getRuntime());
+				rs3Lbl.setText("Language: ");
+				rs3Tf.setText(d.getLanguage());
+	
+				rs4Lbl.setText("Sub-Languages: ");
+	
+				if (d.getSubLang().isEmpty()) {
+					rs4Tf.setText("N/A");
+				} else {
+					rs4Tf.setText(d.getSubLang().get(0));
+					languages = d.getSubLang();
+					languages.remove(0);
+					for (String language : languages) {
+						rs4Tf.setText(rs4Tf.getText() + ", " + language);
+					}
+				}
+	
+				rs5Tf.setVisible(false);
+				rs5Lbl.setVisible(false);
+	
+				break;
+			case "Laptop":
+				Laptop l = (Laptop) r;
+				rs1Lbl.setText("Manufacturer: ");
+				rs1Tf.setText(l.getManufacturer());
+				rs2Lbl.setText("Model: ");
+				rs2Tf.setText(l.getModel());
+				rs3Lbl.setText("Operating System: ");
+				rs3Tf.setText(l.getOperatingSys());
+	
+				rs4Lbl.setVisible(false);
+				rs4Tf.setVisible(false);
+				rs5Lbl.setVisible(false);
+				rs5Tf.setVisible(false);
+				break;
+			default:
+				break;
 		}
 	}
 
+	/**
+	 * Creates a JavaFX Image view for the resource based off of its referenced filepath.
+	 * @param r
+	 * The resource to create an image view of.
+	 * @return imgV
+	 * The created image view of the avatar of a resource.
+	 */
 	private ImageView createImageViewForResource(Resource r) {
 		System.out.println(r.getThumbnailImageRef());
 		ImageView imgV = new ImageView();
@@ -412,6 +435,12 @@ public class SearchResultScreen extends Screen implements Initializable {
 		return imgV;
 	}
 
+	/**
+	 * Creates a Writable Image of the avatar read in from filepath on disk.
+	 * @param r
+	 * The resource to create an image of.
+	 * @return The writable image of the resources avatar.
+	 */
 	private WritableImage getResourceImage(Resource r) {
 		try {
 			return SwingFXUtils.toFXImage(ImageIO.read(new File(r.getThumbnailImageRef())), null);
@@ -420,5 +449,4 @@ public class SearchResultScreen extends Screen implements Initializable {
 		}
 		return null;
 	}
-
 }
