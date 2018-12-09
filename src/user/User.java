@@ -427,6 +427,8 @@ public class User {
 	 */
 	public void addToReserved(String id) {
 		resourceCurrentlyReserved.add(id);
+		Resource r = Library.getResource(id);
+		r.addUserToRequestQueue(this);
 	}
 
     /**

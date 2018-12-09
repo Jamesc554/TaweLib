@@ -241,6 +241,13 @@ public abstract class Resource {
 	 */
 	public void addUserToRequestQueue(User userForQueue) {
 		this.queueOfReservations.enqueue(userForQueue);
+		if (checkIfAvailable())
+			for (CopyData copy : copiesList) {
+				if (copy.isAvailable()) {
+					copy.reserveCopy(queueOfReservations.peek().getUserName());
+					queueOfReservations.peek().moveToReserved(getUniqueID());
+				}
+			}
 	}
 	
 	/**
