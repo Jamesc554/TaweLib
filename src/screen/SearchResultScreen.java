@@ -36,7 +36,7 @@ import resources.*;
  * This class represents the search results screen, a list of Resources which
  * are shown as a result of searching for resources.
  * 
- * @author Etienne Badoche, James Carter
+ * @author James Carter, Ammar Alamri
  * @version 1.0
  */
 public class SearchResultScreen extends Screen implements Initializable {

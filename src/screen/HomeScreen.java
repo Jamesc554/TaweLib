@@ -26,7 +26,7 @@ import resources.Resource;
  * <h1>HomeScreen.</h1>
  * <p>This class represents the Home screen. This is first screen the User sees after
  * logging in.</p>
- * @author Etienne Badoche, James Carter
+ * @author Etienne Badoche, James Carter, Ammar Alamri
  * @version 1.0
  */
 public class HomeScreen extends Screen implements Initializable{
