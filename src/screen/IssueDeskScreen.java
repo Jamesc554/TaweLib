@@ -242,6 +242,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         userIcon.setImage(SwingFXUtils.toFXImage(img, null));
         usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
 
+        //Add overdue copies to respective resource lists
         ArrayList<String> allOverdueIDs = Library.findAllOverdue();
         for (String copy : allOverdueIDs) {
             String type = copy.split(":")[0];
