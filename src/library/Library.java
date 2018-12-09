@@ -13,29 +13,42 @@ import user.User;
 /**
  * <h1>Library.</h1>
  * <p>This class implements all methods required for library operations.</p>
- * @author Dominik R Wojtasiewicz
+ * @author Dominik R Wojtasiewicz, Peter Daish, James Carter.
  * @since 18/11/2018
  */
-
 public class Library {
 	private static User currentUser; //Stores the currently logged-in user.
 	private static String searchScreenText = "";
 
 	/**
-	 * This methods starts the library. Library is a static method so we can only
+	 * This methods starts the library. Library is static so we can only
 	 * have one at a time.
 	 */
 	public static void start() {
 		LibraryResources.start();
 	}
 
+	/**
+	 * Sets the user to logged in.
+	 * @param username
+	 * The username of the user who logged in.
+	 */
 	public static void onLogin(String username) {
 		Library.setLoggedInUser(Library.getUser(username));
 	}
+	
+	/**
+	 * Adds a fine to logged in user.
+	 * @param username
+	 * The logged in user's username.
+	 * @param fineAmount
+	 * The fine to add to his account.
+	 */
 	private static void addFine(String username, int fineAmount) {
 		Library.getUser(username).addAccountBalance(fineAmount);
 		Library.getUser(username).addTransaction("Library", fineAmount);
 	}
+	
 	/**
 	 * This methods adds a new book to the library.
 	 * @param year	Year published.
@@ -47,13 +60,21 @@ public class Library {
 	 * @param isbn ISBN of the book.
 	 * @param publisher The name of the published.
 	 * @param lang Language of the book.
+	 * @param noOfCopies The number of copies this library owns of this book
+	 * @param loanDuration The default loan duration of all copies of this book.
+	 * @param borrowHistory The borrow history associated with this book.
+	 * @param currentBorrowData The information about the current state of this book.
 	 */
 	public static void addBook(String year,String title, String thumbnailImg, String uniqueID,
-						   String author, String genre, String isbn, String publisher, ArrayList<String> lang,
-							   Integer noOfCopies, ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory,
-							   List<BorrowHistoryData> currentBorrowData) {
+						   		String author, String genre, String isbn,
+						   		String publisher, ArrayList<String> lang,
+						   		Integer noOfCopies, ArrayList<String> loanDuration,
+						   		List<List<BorrowHistoryData>> borrowHistory,
+						   		List<BorrowHistoryData> currentBorrowData) {
+		
 		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher,
 				lang, noOfCopies, loanDuration, borrowHistory, currentBorrowData));
+		
 	}
 
 	/**
@@ -66,13 +87,21 @@ public class Library {
 	 * @param runtime The run time of the movie.
 	 * @param language The language of the movie.
 	 * @param subLang The subtitles language of the DVD.
+	 * @param noOfCopies The number of copies this library owns of this DVD
+	 * @param loanDuration The default loan duration of all copies of this DVD.
+	 * @param borrowHistory The borrow history associated with this DVD.
+	 * @param currentBorrowData The information about the current state of this DVD.
 	 */
 	public static void addDVD(String year, String title, String thumbnailImg, String uniqueID,
-						 String director, String runtime, String language, ArrayList<String> subLang, Integer noOfCopies,
-							  ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory,
-							  List<BorrowHistoryData> currentBorrowData) {
+						 		String director, String runtime, String language,
+						 		ArrayList<String> subLang, Integer noOfCopies,
+						 		ArrayList<String> loanDuration,
+						 		List<List<BorrowHistoryData>> borrowHistory,
+						 		List<BorrowHistoryData> currentBorrowData) {
+		
 	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID,
 				noOfCopies, loanDuration, borrowHistory, currentBorrowData));
+	    
 	}
 
 	/**
@@ -84,11 +113,17 @@ public class Library {
 	 * @param manufacturer The manufacture of the laptop.
 	 * @param model The model of the laptop.
 	 * @param operatingSys The operating system of the laptop.
+	 * @param noOfCopies The number of copies this library owns of this laptop
+	 * @param loanDuration The default loan duration of all copies of this laptop.
+	 * @param borrowHistory The borrow history associated with this laptop.
+	 * @param currentBorrowData The information about the current state of this laptop.
 	 */
 	public static void addLaptop(String year, String title, String thumbnailImageRef, String uniqueID,
-							  String manufacturer, String model,  String operatingSys, Integer noOfCopies,
-								 ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory,
-								 List<BorrowHistoryData> currentBorrowData) {
+							  		String manufacturer, String model,  String operatingSys, 
+							  		Integer noOfCopies, ArrayList<String> loanDuration, 
+							  		List<List<BorrowHistoryData>> borrowHistory,
+							  		List<BorrowHistoryData> currentBorrowData) {
+		
 	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys,
 				noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	}
@@ -106,8 +141,10 @@ public class Library {
 	 * @param accountBalance account balance
 	 * @param profImage path to the profile image of the user.
 	 */
-	public static void addUser(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
-						  String secondLineAddress, String postCode, String townName, int accountBalance, String profImage) {
+	public static void addUser(String userName, String firstName, String lastName, String mobileNumber,
+									String firstLineAddress, String secondLineAddress, String postCode,
+									String townName, int accountBalance, String profImage) {
+		
 		LibraryResources.addUser(new User(userName, firstName, lastName, mobileNumber, firstLineAddress,
                 secondLineAddress, postCode, townName, accountBalance, profImage));
 	}
@@ -130,16 +167,18 @@ public class Library {
 	 * @param staffNumber staff number.
 	 * @param noOfEmploys number of employs.
 	 */
-	public static void addLibrarian(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
-								  String secondLineAddress, String postCode, String townName, int accountBalance, String profImage,
-								  int empDay, int empMonth, int empYear, String staffNumber, int noOfEmploys) {
+	public static void addLibrarian(String userName, String firstName, String lastName, String mobileNumber,
+										String firstLineAddress, String secondLineAddress, String postCode,
+										String townName, int accountBalance, String profImage, int empDay,
+										int empMonth, int empYear, String staffNumber, int noOfEmploys) {
+		
 		LibraryResources.addUser(new Librarian(userName, firstName, lastName, mobileNumber, firstLineAddress,
                 secondLineAddress, postCode, townName, accountBalance, profImage, empDay, empMonth, empYear, staffNumber,
                 noOfEmploys));
 	}
 
 	/**
-	 * Get's resource when the id of sed resource is known. Used for all resources.
+	 * Get's resource when the id of the resource is known. Used for all resources.
 	 * @param id String of ID of the resource.
 	 * @return Resource object.
 	 */
@@ -157,6 +196,7 @@ public class Library {
 				return null;
 		}
 	}
+	
 	/**
 	 * Gets the user based on username.
 	 * @param username String username.
@@ -165,6 +205,7 @@ public class Library {
 	public static User getUser(String username) {
 		return LibraryResources.getUser(username);
 	}
+	
 	/**
 	 * Adds balance to the user account.
 	 * @param amount amount to increase the balance.
@@ -198,10 +239,20 @@ public class Library {
 		return dataFormat.format(new Date());
 	}
 
+	/**
+	 * Sets text entered into the search bar.
+	 * @param s
+	 * The text entered into the search bar.
+	 */
 	public static void setSearchStringText(String s) {
 		searchScreenText = s;
 	}
 
+	/**
+	 * Returns the text from the search bar.
+	 * @return searchScreenText
+	 * The text entered into the search bar.
+	 */
 	public static String getSearchScreenText() {
 		return searchScreenText;
 	}
@@ -224,7 +275,7 @@ public class Library {
 	 * @param resourceID ID of the resource.
 	 */
 	public static void returnResource(String username, String resourceID) {
-		if(chekcCopyOverdue(resourceID)){
+		if (chekcCopyOverdue(resourceID)) {
 			Library.addFine(username, Library.calculateFine(resourceID));
 		}
 		getUser(username).returnResource(resourceID);
@@ -262,6 +313,7 @@ public class Library {
 	public static ArrayList<Book> getAllBooks() {
 		return LibraryResources.getListOfBooks();
 	}
+	
 	/**
 	 * Returns all Laptops in the library.
 	 * @return ArrayList<Laptop> of all books.
@@ -269,6 +321,7 @@ public class Library {
 	public static ArrayList<Laptop> getAllLaptops() {
 		return LibraryResources.getListOfLaptops();
 	}
+	
 	/**
 	 * Returns all DVD in the library.
 	 * @return ArrayList<DVD> of all books.
@@ -339,8 +392,8 @@ public class Library {
     }
 
 	/**
-	 * Changes the post code of the user.
-	 * @param username The username of the user for which the address should be changed.
+	 * Changes the Town name of the user.
+	 * @param username The username of the user for which the town name should be changed.
 	 * @param townName The new town name.
 	 */
 	public static void changeTownName(String username, String townName) {
@@ -348,8 +401,8 @@ public class Library {
     }
 
 	/**
-	 * Changes the post code of the user.
-	 * @param username The username of the user for which the address should be changed.
+	 * Changes the phone number of the user.
+	 * @param username The username of the user for which the number should be changed.
 	 * @param phoneNumber The new phone number.
 	 */
 	public static void changePhoneNumber(String username, String phoneNumber) {
@@ -367,7 +420,7 @@ public class Library {
 
 	/**
 	 * Changes the profile img of the user.
-	 * @param username The username of the user for which the address should be changed.
+	 * @param username The username of the user for which the profile image should be changed.
 	 * @param path the new path of the profile image.
 	 */
 	public static void changeImage(String username, String path ) {
@@ -387,7 +440,7 @@ public class Library {
 
 	/**
 	 * Returns all requested books of the user currently logged in.
-	 * @return ArrayList<String>
+	 * @return ArrayList<String> of all requested resources by this user.
 	 */
 	public static ArrayList<String> getAllrequestedResource() {
 		return currentUser.getAllRequested();
@@ -395,12 +448,18 @@ public class Library {
 
 	/**
 	 * Returns all reserved items of the user currently logged in.
-	 * @return ArrayList<String>
+	 * @return ArrayList<String> of all reserved resources by this user.
 	 */
 	public static ArrayList<String> getAllReservedResources() {
 		return currentUser.getAllReserved();
 	}
 
+	/**
+	 * Checks if a copy of a resource is overdue.
+	 * @param id
+	 * The id of the copy of a resource.
+	 * @return True if overdue, False otherwise.
+	 */
 	public static Boolean chekcCopyOverdue(String id) {
 		return Library.getResource(id).checkIfOverdue(Integer.valueOf(id.split("-")[1]));
 	}
@@ -408,7 +467,7 @@ public class Library {
 	/**
 	 * Returns a list of all overdue resource of a user.
 	 * @param username String of the user
-	 * @return ArrayList
+	 * @return ArrayList of overdue resources a user is currently borrowing.
 	 */
 	public static ArrayList<String> checkForOverDue(String username) {
 		ArrayList<String> overDue = new ArrayList<>();
@@ -461,7 +520,7 @@ public class Library {
 
 	/**
 	 * Find's all overdue resources.
-	 * @return ArrayList.
+	 * @return ArrayList. of all overdue resources of a library.
 	 */
 	public static ArrayList<String> findAllOverdue() {
 		ArrayList<User> users = Library.getAllUsers();
@@ -485,7 +544,8 @@ public class Library {
 	 * @param languages the updated book available languages
 	 */
 	public static void editBook(String id, String title, String year, String author, String publisher, String genre,
-								String isbn, ArrayList<String> languages) {
+									String isbn, ArrayList<String> languages) {
+		
 		LibraryResources.getBook(id).setTitle(title);
 		LibraryResources.getBook(id).setYear(year);
 		LibraryResources.getBook(id).setAuthor(author);
@@ -505,8 +565,9 @@ public class Library {
 	 * @param language the updated DVD language
 	 * @param subs the updated DVD available subtitle languages
 	 */
-	public static void editDVD(String id, String title, String year, String director, String runtime, String language,
-							   ArrayList<String> subs) {
+	public static void editDVD(String id, String title, String year, String director, String runtime,
+									String language, ArrayList<String> subs) {
+		
 		LibraryResources.getDVD(id).setTitle(title);
 		LibraryResources.getDVD(id).setYear(year);
 		LibraryResources.getDVD(id).setDirector(director);
