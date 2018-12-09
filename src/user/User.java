@@ -333,7 +333,7 @@ public class User {
 	public void returnResource(String resourceID) {
 		int j = 0;
 		Boolean done = false;
-		while (j >= this.resourceCurrentlyBorrowed.size()-1 && !done) {
+		while (j <= this.resourceCurrentlyBorrowed.size()-1 && !done) {
 			if(this.resourceCurrentlyBorrowed.get(j).equals(resourceID)) {
 				this.resourceCurrentlyBorrowed.remove(j);
 				String[] resourceCopyID = resourceID.split("-");

@@ -402,7 +402,7 @@ public class Library {
 	}
 
 	public static Boolean chekcCopyOverdue(String id) {
-		return Library.getResource(id).checkIfOverdue(Integer.valueOf(id.split("-")[1]));
+		return Library.getResource(id.split("-")[0]).checkIfOverdue(Integer.valueOf(id.split("-")[1]));
 	}
 
 	/**
