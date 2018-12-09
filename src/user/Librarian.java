@@ -1,5 +1,10 @@
 package user;
 
+/**
+ * 
+ * @author someone else, Sam Jankinson
+ *
+ */
 public class Librarian extends User {
 	private static int numberOfEmploys;
 

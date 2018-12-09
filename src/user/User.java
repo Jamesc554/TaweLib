@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * <h1>User</h1>
  * <p>This class models a Library User.</p>
- * @author Dominik R Wojtasiewicz
+ * @author Dominik R Wojtasiewicz, Sam Jankinson
  * @since 18/11/2018
  */
 public class User {
