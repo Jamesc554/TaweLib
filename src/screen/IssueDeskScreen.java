@@ -1,5 +1,4 @@
 package screen;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -7,9 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-
 import javax.imageio.ImageIO;
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,13 +24,13 @@ import resources.CopyData;
 import resources.Resource;
 
 /**
- * This class represents the Issue Desk, a screen only available to Librarians to authorise payments and loans, as well
- * as create new users and resources.
- * @author Etienne Badoche, Ammar Alamri 
+ * <h1>IssueDeskScreen.</h1>
+ * <p>This class represents the Issue Desk, a screen only available to Librarians to authorise payments and loans, as well
+ * as create new users and resources.</p>
+ * @author Etienne Badoche, Ammar Alamri, Deyan Naydenov
  * @version 1.0
  */
 public class IssueDeskScreen extends Screen implements Initializable {
-
     @FXML
     private TextField loanUsername;
     @FXML
@@ -205,11 +202,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private ListView laptopOverdueList;
 
-
+    @Override
     /**
      * Sets IssueDesk as the current scene.
      */
-    @Override
     public void start() {
         Pane root;
         try {
@@ -220,14 +216,14 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
+    @Override
+    @SuppressWarnings("Duplicates")
     /**
      * Called to initialize a controller after its root element has been completely processed.
      * @param arg0 The location used to resolve relative paths for the root object,
      *            or null if the location is not known.
      * @param arg1 The resources used to localize the root object, or null if the root object was not localized.
      */
-    @Override
-    @SuppressWarnings("Duplicates")
     public void initialize(URL arg0, ResourceBundle arg1) {
         BufferedImage img = null;
         try {
@@ -265,10 +261,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
+
+    @FXML
     /**
      * Event handling to process payments.
      */
-    @FXML
     private void paymentButton() {
         String user = paymentUsername.getText();
 
@@ -297,10 +294,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
+
+    @FXML
     /**
      * Event handling to let a Librarian get a user's current balance.
      */
-    @FXML
     private void paymentSearchButton() {
         String user = paymentUsername.getText();
 
@@ -317,11 +315,12 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
+
+    @FXML
+    @SuppressWarnings("Duplicates")
     /**
      * Event handling to process loans.
      */
-    @FXML
-    @SuppressWarnings("Duplicates")
     private void loanButton() {
         String user = loanUsername.getText();
         String id = loanCopyID.getText();
@@ -353,8 +352,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
                                 if (copy.getReservedUser().equals(user)) {
                                     Library.loanResource(user, id);
                                     loanSuccess.setVisible(true);
-                                } else
+                                } else {
                                     loanUserError.setVisible(true);
+                                }
                             } else {
                                 unavailableCopyMsg.setVisible(true);
                             }
@@ -375,10 +375,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
+
+    @FXML
     /**
      * Event handling to return a searched user's currently borrowed items.
      */
-    @FXML
     private void returnSearchButton() {
         String user = returnUsername.getText();
 
@@ -410,10 +411,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
             returnSearchError.setVisible(true);
         }
     }
+    
+    @FXML
     /**
      * Event handling to process returns.
      */
-    @FXML
     private void returnButton() {
         String user = returnUsername.getText();
         int selectedIdx = userBorrowList.getSelectionModel().getSelectedIndex();
@@ -431,12 +433,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
-
+    @FXML
+    @SuppressWarnings("Duplicates")
     /**
      * Event handling to create a new User.
      */
-    @FXML
-    @SuppressWarnings("Duplicates")
     private void createUserButton() {
         String username = userUsername.getText();
         String firstName = userFirstName.getText();
@@ -474,10 +475,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
+    @FXML
     /**
      * Event handling to let a user choose their avatar.
      */
-    @FXML
     private void userAvatarButton() {
         try {
             File selectedFile = getImageFile("default");
@@ -487,12 +488,12 @@ public class IssueDeskScreen extends Screen implements Initializable {
             System.out.println("No book image file selected");
         }
     }
-
+    
+    @FXML
+    @SuppressWarnings("Duplicates")
     /**
      * Event handling to create a new Book.
      */
-    @FXML
-    @SuppressWarnings("Duplicates")
     private void createBookButton() {
         String title = bookTitle.getText();
         String author = bookAuthor.getText();
@@ -567,7 +568,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                         for (int i = 0; i < num1Day; i++) {
                             loanDuration.add("1");
                         }
-                        for (int i = 0; i < num1Week; i++){
+                        for (int i = 0; i < num1Week; i++) {
                             loanDuration.add("7");
                         }
                         for (int i = 0; i < num2Weeks; i++) {
@@ -592,11 +593,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
+    @FXML
+    @SuppressWarnings("Duplicates")
     /**
      * Event handling to create a new DVD.
      */
-    @FXML
-    @SuppressWarnings("Duplicates")
     private void createDVDButton() {
         String title = dvdTitle.getText();
         String director = dvdDirector.getText();
@@ -692,11 +693,11 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
+    @FXML
+    @SuppressWarnings("Duplicates")
     /**
      * Event handling to create a new Laptop.
      */
-    @FXML
-    @SuppressWarnings("Duplicates")
     private void createLaptopButton() {
         String title = laptopTitle.getText();
         String year = laptopYear.getText();
@@ -755,7 +756,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                         for (int i = 0; i < num1Day; i++) {
                             loanDuration.add("1");
                         }
-                        for (int i = 0; i < num1Week; i++){
+                        for (int i = 0; i < num1Week; i++) {
                             loanDuration.add("7");
                         }
                         for (int i = 0; i < num2Weeks; i++) {
@@ -780,10 +781,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
+    @FXML
     /**
      * Event handling to choose a book thumbnail image.
      */
-    @FXML
     private void bookImageButton() {
         try {
             File selectedFile = getImageFile("book");
@@ -794,10 +795,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
+    @FXML
     /**
      * Event handling to choose a dvd thumbnail image.
      */
-    @FXML
     private void dvdImageButton() {
          try {
              File selectedFile = getImageFile("dvd");
@@ -808,10 +809,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
          }
     }
 
+    @FXML
     /**
      * Event handling to choose a laptop thumbnail image.
      */
-    @FXML
     private void laptopImageButton() {
         try {
             File selectedFile = getImageFile("laptop");
@@ -824,8 +825,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Opens a FileChooser in the image directory of the selected type.
-     * @param type the type of resource for which to choose an image (i.e. book/dvd/laptop)
-     * @return a File object correspondng to the selected image (null if cancelled)
+     * @param type 
+     * The type of resource for which to choose an image (i.e. book/dvd/laptop).
+     * @return a File object correspondng to the selected image (null if cancelled).
      */
     private File getImageFile(String type) {
         FileChooser fileChooser = new FileChooser();
@@ -839,8 +841,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     /**
      * Sets an image to an ImageView object
-     * @param imv the ImageView object
-     * @param imgFile the image file object
+     * @param imv 
+     * The ImageView object.
+     * @param imgFile 
+     * The image file object.
      */
     private void setImage(ImageView imv, File imgFile) {
         BufferedImage img = null;
