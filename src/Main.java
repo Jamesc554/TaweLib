@@ -6,7 +6,7 @@ import screen.ScreenManager;
 /**
  * <h1>Main.</h1>
  * <p>The main class which starts upon load.</p>
- * @author Peter Daish  
+ * @author James Carter, Peter Daish, Deyan Naydenov   
  */
 public class Main extends Application {
 	
