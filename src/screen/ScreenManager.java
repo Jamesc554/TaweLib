@@ -9,7 +9,7 @@ import javafx.stage.Stage;
  * <h1>ScreenManager.</h1>
  * <p>ScreenManager is responsible for controlling what Screen is currently being drawn to the display, and how we
  * traverse between those screens</p>
- * @author James Carter
+ * @author James Carter, Etienne Badoche,
  * @version 0.1
  * @since 11/11/2018
  */

@@ -35,7 +35,7 @@ import utils.Queue;
 /**
  * <h1>DrawApp.</h1>
  * <p>This class models a drawing application for profile images.</p>
- * @author James Carter
+ * @author James Carter, Etienne Badoche,
  * @version 1.0
  */
 public class DrawApp extends Screen {
