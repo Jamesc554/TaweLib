@@ -414,6 +414,7 @@ public class Library {
 		ArrayList<String> overDue = new ArrayList<>();
 		ArrayList<String> list = Library.getUser(username).getCurrentlyBorrowedResources();
 		for (String s : list) {
+		    System.out.println(Integer.valueOf(s.split("-")[1]));
 			if (Library.getResource(s).checkIfOverdue(Integer.valueOf(s.split("-")[1]))) {
 				overDue.add(s);
 			}

@@ -1,8 +1,9 @@
 package user;
 
 /**
+ * This class models a Librarian and stores all of its information.
  * 
- * @author someone else, Sam Jankinson
+ * @author Dominik R Wojtasiewicz, Sam Jankinson
  *
  */
 public class Librarian extends User {
