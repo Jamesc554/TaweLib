@@ -33,7 +33,8 @@ import library.Library;
 import utils.Queue;
 
 /**
- * <h1>This class models a drawing application for profile images.</h1>
+ * <h1>DrawApp.</h1>
+ * <p>This class models a drawing application for profile images.</p>
  * @author James Carter
  * @version 1.0
  */
