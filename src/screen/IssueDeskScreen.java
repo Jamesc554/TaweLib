@@ -463,7 +463,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         if (!Library.checkForUser(username)) {
             //Check all required fields have inputs
             if (username.equals("") || firstName.equals("") || lastName.equals("") || mobileNum.equals("")
-                || address1.equals("") || address2.equals("") || postCode.equals("") || town.equals("")) {
+                || address1.equals("") || postCode.equals("") || town.equals("")) {
                 userError.setVisible(true);
             } else {
                 Library.addUser(username, firstName, lastName, mobileNum, address1, address2, postCode, town,
