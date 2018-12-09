@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * <h1>Screen</h1>
  * <p>Screen is an abstract outline of how a Screen functions so that the ScreenManager can use them.</p>
- * @author James Carter
+ * @author James Carter, Etienne Badoche,
  * @version 0.1
  * @since 11/11/2018
  */

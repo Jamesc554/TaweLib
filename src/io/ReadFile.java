@@ -22,7 +22,7 @@ import user.User;
 /**
  * <h1>ReadFile.</h1>
  * <p>This class reads data from files saved on disk.</p>
- * @author Samuel Jankinson
+ * @author Samuel Jankinson, , Etienne Badoche
  */
 public class ReadFile extends IO {
 	private static FileReader file = null;
