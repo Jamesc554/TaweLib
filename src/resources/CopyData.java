@@ -10,7 +10,7 @@ import library.Library;
 /**
  * <h1>CopyData</h1>
  * <p>This class models a copy of a resource.</p>
- * @author James Carter
+ * @author James Carter, , Etienne Badoche
  *
  */
 public class CopyData {

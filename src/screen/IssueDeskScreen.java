@@ -29,7 +29,7 @@ import resources.Resource;
 /**
  * This class represents the Issue Desk, a screen only available to Librarians to authorise payments and loans, as well
  * as create new users and resources.
- * @author Etienne Badoche
+ * @author Etienne Badoche, Ammar Alamri 
  * @version 1.0
  */
 public class IssueDeskScreen extends Screen implements Initializable {

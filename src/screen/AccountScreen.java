@@ -29,7 +29,7 @@ import resources.Resource;
  * <h1>AccountScreen.</h1>
  * <p>This class represents the Account screen. 
  * This screen shows the user their information and resources they have, borrowed, requested, etc.</p>
- * @author Samuel Jankinson
+ * @author Samuel Jankinson, Etienne Badoche,
  * @version 1.0
  */
 public class AccountScreen extends Screen implements Initializable {
