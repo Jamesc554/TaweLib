@@ -178,6 +178,7 @@ public abstract class Resource {
 	
 	/**
 	 * Returns the borrow history of this Resource.
+	 * @param copyID of the copy you want to add to borrow history.
 	 * @return BorrowHistoryData
 	 * The borrow history of a copy of this resource.
 	 */
@@ -230,6 +231,7 @@ public abstract class Resource {
 
 	/**
 	 * Removes a copy from the Resource
+	 * @param copyID the id of the copy to remove.
 	 */
 	public void removeCopy(String copyID) {
 		copiesList.remove(Integer.valueOf(copyID));

@@ -78,7 +78,7 @@ public class Librarian extends User {
 
 	/**
 	 * Sets the number of employs
-	 * @param numberOfEmploys
+	 * @param numberOfEmploys number of employees.
 	 */
 	public static void setNumberOfEmploys(int numberOfEmploys) {
 		Librarian.numberOfEmploys = numberOfEmploys;
@@ -86,7 +86,7 @@ public class Librarian extends User {
 
 	/**
 	 * Get's the day of employment of the user
-	 * @return Int
+	 * @return Int employment day.
 	 */
 	public int getEmploymentDay() {
 		return employmentDay;
@@ -94,7 +94,7 @@ public class Librarian extends User {
 
 	/**
 	 * Get's the month of employment of the user
-	 * @return Int
+	 * @return Int employment month.
 	 */
 	public int getEmploymentMonth() {
 		return employmentMonth;
@@ -102,7 +102,7 @@ public class Librarian extends User {
 
 	/**
 	 * Get's the year of employment of the user
-	 * @return Int
+	 * @return Int employment year.
 	 */
 	public int getEmploymentYear() {
 		return employmentYear;
@@ -110,7 +110,7 @@ public class Librarian extends User {
 
 	/**
 	 * Get the stuff number of the librarian as a String
-	 * @return
+	 * @return number of staff.
 	 */
 	public String getStaffNumber() {
 		return staffNumber;
@@ -126,7 +126,7 @@ public class Librarian extends User {
 
 	/**
 	 * Returns profile image path of profile image.
-	 * @return String
+	 * @return String profile image path.
 	 */
 	public String getProfImage() {
 		return this.profImage;
