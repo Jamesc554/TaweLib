@@ -308,7 +308,7 @@ public class Library {
 
 	/**
 	 * Returns all books in the library.
-	 * @return ArrayList<Book> of all books.
+	 * @return ArrayList of all books.
 	 */
 	public static ArrayList<Book> getAllBooks() {
 		return LibraryResources.getListOfBooks();
@@ -316,7 +316,7 @@ public class Library {
 	
 	/**
 	 * Returns all Laptops in the library.
-	 * @return ArrayList<Laptop> of all books.
+	 * @return ArrayList of all books.
 	 */
 	public static ArrayList<Laptop> getAllLaptops() {
 		return LibraryResources.getListOfLaptops();
@@ -324,7 +324,7 @@ public class Library {
 	
 	/**
 	 * Returns all DVD in the library.
-	 * @return ArrayList<DVD> of all books.
+	 * @return ArrayList of all books.
 	 */
 	public static ArrayList<DVD> getAllDVD() {
 		return LibraryResources.getListOfDVD();
@@ -385,7 +385,7 @@ public class Library {
 	/**
 	 * Changes the post code of the user.
 	 * @param username The username of the user for which the address should be changed.
-	 * @param postCode
+	 * @param postCode The new postcode
 	 */
 	public static void changePoctCode(String username, String postCode) {
 	    getUser(username).setPostCode(postCode);
@@ -440,7 +440,7 @@ public class Library {
 
 	/**
 	 * Returns all requested books of the user currently logged in.
-	 * @return ArrayList<String> of all requested resources by this user.
+	 * @return ArrayList of all requested resources by this user.
 	 */
 	public static ArrayList<String> getAllrequestedResource() {
 		return currentUser.getAllRequested();
@@ -448,7 +448,7 @@ public class Library {
 
 	/**
 	 * Returns all reserved items of the user currently logged in.
-	 * @return ArrayList<String> of all reserved resources by this user.
+	 * @return ArrayList of all reserved resources by this user.
 	 */
 	public static ArrayList<String> getAllReservedResources() {
 		return currentUser.getAllReserved();
@@ -456,8 +456,7 @@ public class Library {
 
 	/**
 	 * Checks if a copy of a resource is overdue.
-	 * @param id
-	 * The id of the copy of a resource.
+	 * @param id The id of the copy of a resource.
 	 * @return True if overdue, False otherwise.
 	 */
 	public static Boolean chekcCopyOverdue(String id) {
