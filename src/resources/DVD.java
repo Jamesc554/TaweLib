@@ -209,6 +209,7 @@ public class DVD extends Resource {
 	
 	/**
 	 * Adds a copy to this DVD's unique Array of copies.
+	 * @param loanDuration Length of a loan duration in days.
 	 */
 	public void addToCopies(String loanDuration) {
 		super.addCopy(loanDuration);

@@ -180,6 +180,7 @@ public abstract class Resource {
 	 * Returns the borrow history of this Resource.
 	 * @return BorrowHistoryData
 	 * The borrow history of a copy of this resource.
+	 * @param copyID String name of copy
 	 */
 	public List<BorrowHistoryData> getBorrowHistory(String copyID) {
 		return this.copiesList.get(Integer.parseInt(copyID)).getBorrowHistory();
@@ -210,8 +211,7 @@ public abstract class Resource {
 
 	/**
 	 * Returns the current loanee of a copy
-	 * @param copyID
-	 * The copy id
+	 * @param copyID The copy id
 	 * @return The username of the user currently loaning this copy.
 	 */
 	public String getCurrentLoanee(String copyID) {
@@ -220,7 +220,7 @@ public abstract class Resource {
 
 	/**
 	 * Adds a new copy to this Resource.
-	 * @param loanDuration
+	 * @param loanDuration String representation of loan duration in days
 	 * The length of the loan for this copy
 	 */
 	public void addCopy(String loanDuration) {
@@ -229,7 +229,8 @@ public abstract class Resource {
 	}
 
 	/**
-	 * Removes a copy from the Resource
+	 * Removes a copy from the Resource.
+	 * @param copyID the copyID of copy to be removed.
 	 */
 	public void removeCopy(String copyID) {
 		copiesList.remove(Integer.valueOf(copyID));
@@ -237,8 +238,7 @@ public abstract class Resource {
 	
 	/**
 	 * Adds a User to copy request queue.
-	 * @param userForQueue 
-	 * The user who requested a copy.
+	 * @param userForQueue The user who requested a copy.
 	 */
 	public void addUserToRequestQueue(User userForQueue) {
 		this.queueOfReservations.enqueue(userForQueue);
@@ -290,8 +290,7 @@ public abstract class Resource {
 
 	/**
 	 * Returns the loan duration of a resource.
-	 * @param copyID
-	 * The copy ID
+	 * @param copyID The copy ID
 	 * @return The loan duration of a copy of a resource.
 	 */
 	public String getLoanDuration(String copyID) {
@@ -300,10 +299,8 @@ public abstract class Resource {
 	
 	/**
 	 * Sets a user to loan a copy of a resource.
-	 * @param copyID
-	 * The copy id of the copy to be loaned.
-	 * @param username
-	 * The username of the user who is loaning the copy.
+	 * @param copyID The copy id of the copy to be loaned.
+	 * @param username The username of the user who is loaning the copy.
 	 */
 	public void loanResource(String copyID, String username) {
 		copiesList.get((Integer.valueOf(copyID))).loanCopy(username);

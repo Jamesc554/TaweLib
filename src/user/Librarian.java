@@ -78,7 +78,7 @@ public class Librarian extends User {
 
 	/**
 	 * Sets the number of employs
-	 * @param numberOfEmploys
+	 * @param numberOfEmploys the current number of employes.
 	 */
 	public static void setNumberOfEmploys(int numberOfEmploys) {
 		Librarian.numberOfEmploys = numberOfEmploys;
@@ -110,7 +110,7 @@ public class Librarian extends User {
 
 	/**
 	 * Get the stuff number of the librarian as a String
-	 * @return
+	 * @return the stuff number of the user as a String.
 	 */
 	public String getStaffNumber() {
 		return staffNumber;

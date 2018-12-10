@@ -318,6 +318,7 @@ public class User {
 
 	/**
 	 * Add's transaction to history of the user.
+	 * @param system The person that authorised payment
 	 * @param amount the balance of the user.
 	 */
 	public void addTransaction(String system, double amount) {
@@ -453,7 +454,7 @@ public class User {
 
 	/**
 	 * Sets a user currently borrowed
-	 * @param data ArrayList<String>
+	 * @param data ArrayList
 	 */
 	public void setResourceCurrentlyBorrowed(ArrayList<String> data) {
 		this.resourceCurrentlyBorrowed = data;
