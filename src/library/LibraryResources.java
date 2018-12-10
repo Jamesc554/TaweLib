@@ -151,7 +151,7 @@ public class LibraryResources {
 
 	/**
 	 * Returns all users
-	 * @return ArrayList<User> of users.
+	 * @return ArrayList of users.
 	 */
 	protected static ArrayList<User> getAllUsers() {
 		return listOfUsers;
@@ -159,7 +159,7 @@ public class LibraryResources {
 
 	/**
 	 * Return all librarians.
-	 * @return ArrayList<Librarian> of librarians.
+	 * @return ArrayList of librarians.
 	 */
 	protected static ArrayList<Librarian> getAllLibrarians() {
 		return listOfLibrarians;
@@ -167,7 +167,7 @@ public class LibraryResources {
 
 	/**
 	 * Returns all books.
-	 * @return ArrayList<Book> of books.
+	 * @return ArrayList of books.
 	 */
 	protected static ArrayList<Book> getListOfBooks() {
 		return listOfBooks;
@@ -175,7 +175,7 @@ public class LibraryResources {
 
 	/**
 	 * Returns all DVD.
-	 * @return ArrayList<DVD> of DVDs.
+	 * @return ArrayList of DVDs.
 	 */
 	protected static ArrayList<DVD> getListOfDVD() {
 		return listOfDVD;
@@ -183,7 +183,7 @@ public class LibraryResources {
 
 	/**
 	 * Returns all Laptops.
-	 * @return ArrayList<Laptop> of Laptops.
+	 * @return ArrayList of Laptops.
 	 */
 	protected static ArrayList<Laptop> getListOfLaptops() {
 		return listOfLaptops;
