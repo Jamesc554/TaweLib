@@ -110,6 +110,11 @@ public class HomeScreen extends Screen implements Initializable {
 		fineText.setText("£" + String.format("%.2f", loggedInUser.getAccountBalanceDouble()));
 		setCurrentlyBorrowed();
 		updateBorrowTable(loggedInUser);
+
+		System.out.println(loggedInUser.getUserName());
+		System.out.println(loggedInUser.getResourcesBorrowStats()[0].size());
+		System.out.println(loggedInUser.getResourcesBorrowStats()[1].size());
+		System.out.println(loggedInUser.getResourcesBorrowStats()[2].size());
 	}
 
 	/**

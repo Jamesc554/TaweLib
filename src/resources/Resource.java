@@ -26,7 +26,7 @@ public abstract class Resource {
 	protected String title; //The title of this resource
 	protected String thumbnailImageRef; //The filepath of this resource's avatar.
 	protected String uniqueID; //The unique id of this resource.
-	protected Queue<User> queueOfReservations; //The queue of current reservations for this resource.
+	protected Queue<String> queueOfReservations; //The queue of current reservations for this resource.
 	protected List<CopyData> copiesList; //The list of copies owned by this library for this resource.
 
 	/**
@@ -57,7 +57,7 @@ public abstract class Resource {
 		this.title = title;
 		this.thumbnailImageRef = thumbnailImageRef;
 		this.uniqueID = uniqueID;
-		this.queueOfReservations = new Queue<User>();
+		this.queueOfReservations = new Queue<String>();
 		this.copiesList = new ArrayList<>();
 		
 		for (int i = 0; i < noOfCopies; i++) {
@@ -242,13 +242,21 @@ public abstract class Resource {
 	 * @param userForQueue 
 	 * The user who requested a copy.
 	 */
-	public void addUserToRequestQueue(User userForQueue) {
+	public void addUserToRequestQueue(String userForQueue) {
 		this.queueOfReservations.enqueue(userForQueue);
+		User userAtFrontOfQueue = Library.getUser(this.queueOfReservations.peek());
+		if (userAtFrontOfQueue != null)
+			checkReservations();
+	}
+
+	public void checkReservations(){
+		User userAtFrontOfQueue = Library.getUser(this.queueOfReservations.peek());
 		if (checkIfAvailable()) {
 			for (CopyData copy : copiesList) {
 				if (copy.isAvailable()) {
-					copy.reserveCopy(queueOfReservations.peek().getUserName());
-					queueOfReservations.peek().moveToReserved(getUniqueID());
+					copy.reserveCopy(queueOfReservations.peek());
+					userAtFrontOfQueue.moveToReserved(getUniqueID());
+					return;
 				}
 			}
 		}
@@ -260,7 +268,7 @@ public abstract class Resource {
 	 * The user who first requested a copy
 	 */
 	public User removeUserFromRequestQueue() {
-		User userAtFrontOfQueue = this.queueOfReservations.peek();
+		User userAtFrontOfQueue = Library.getUser(this.queueOfReservations.peek());
 		this.queueOfReservations.dequeue();
 		return userAtFrontOfQueue;
 	}
@@ -270,7 +278,7 @@ public abstract class Resource {
 	 * @return The user who is head in queueOfReservations.
 	 */
 	public User peekQueueOfReservations() {
-		return this.queueOfReservations.peek();
+		return Library.getUser(this.queueOfReservations.peek());
 	}
 
 	/**
@@ -329,8 +337,9 @@ public abstract class Resource {
 		copiesList.get(copyId).returnCopy();
 
 		if (!queueOfReservations.isEmpty()) {
-			copiesList.get(copyId).reserveCopy(queueOfReservations.peek().getUserName());
-			queueOfReservations.peek().moveToReserved(getUniqueID());
+			copiesList.get(copyId).reserveCopy(queueOfReservations.peek());
+			User userAtFrontOfQueue = Library.getUser(this.queueOfReservations.peek());
+			userAtFrontOfQueue.moveToReserved(getUniqueID());
 		}
 	}
 	

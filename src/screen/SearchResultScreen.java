@@ -333,21 +333,16 @@ public class SearchResultScreen extends Screen implements Initializable {
 		}
 
 		copiesList.getItems().clear();
-		requestButton.setDisable(true);
+		requestButton.setDisable(false);
 
-		boolean isAvailable = false;
 		for (CopyData copy : r.getArrayListOfCopies()) {
 			copiesList.getItems().add("Copy: " + r.getUniqueID() + "-" + copy.getId() + "- Available: "
 					+ String.valueOf(copy.isAvailable()));
-			
-			if (copy.isAvailable()) {
-				isAvailable = true;
-			}
 		}
 		
-		if (!isAvailable) {
-			requestButton.setDisable(false);
-		}
+//		if (!isAvailable) {
+//			requestButton.setDisable(false);
+//		}
 
 		switch (resourceType) {
 			case "Book":

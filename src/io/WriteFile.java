@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -207,7 +208,7 @@ public class WriteFile extends IO {
 
 		Queue<User> bookQueue = book.getQueueOfReservations();
 		while (!bookQueue.isEmpty()) {
-			bookQueueArray.add(bookQueue.peek().getUserName());
+			bookQueueArray.add(bookQueue.peek());
 			bookQueue.dequeue();
 		}
 		object.put("bookQueue", bookQueueArray);
@@ -216,33 +217,11 @@ public class WriteFile extends IO {
 			listOfLoanDur.add(book.getLoanDuration(String.valueOf(i)));
 		}
 		object.put("listOfLoanDur", listOfLoanDur);
-		
-		for (CopyData copy : book.getArrayListOfCopies()) {
-			JSONArray copyBorrowHistoryArray = new JSONArray();
-			for (BorrowHistoryData borrowHistory : copy.getBorrowHistory()) {
-				JSONArray borrowHistoryArray = new JSONArray();
 
-				borrowHistoryArray.add(borrowHistory.getUserID());
-				borrowHistoryArray.add(borrowHistory.getDateBorrowed());
-				borrowHistoryArray.add(borrowHistory.getDateReturned());
-				borrowHistoryArray.add(borrowHistory.getDateRequestedReturn());
-				
-				copyBorrowHistoryArray.add(borrowHistoryArray);
-			}
-			bookBorrowHistoryArray.add(copyBorrowHistoryArray);
-		}
+		BorrowHistorySetter(bookBorrowHistoryArray, book.getArrayListOfCopies());
 		object.put("borrowHistory", bookBorrowHistoryArray);
-		
-		for (CopyData copy : book.getArrayListOfCopies()) {
-			JSONArray currentCopyBorrowData = new JSONArray();
 
-			currentCopyBorrowData.add(copy.getCurrentInfo().getUserID());
-			currentCopyBorrowData.add(copy.getCurrentInfo().getDateBorrowed());
-			currentCopyBorrowData.add(copy.getCurrentInfo().getDateReturned());
-			currentCopyBorrowData.add(copy.getCurrentInfo().getDateRequestedReturn());
-			
-			bookCurrentBorrowData.add(currentCopyBorrowData);
-		}
+		borrowDataSetter(bookCurrentBorrowData, book.getArrayListOfCopies());
 		object.put("currentData", bookCurrentBorrowData);
 
 		try {
@@ -254,6 +233,7 @@ public class WriteFile extends IO {
 			System.out.println("Error writing book to " + IO.getBookFilePath() + " " + book.getUniqueID());
 		}
 	}
+
 
 	/**
 	 * This method writes (saves) a DVD to the DVD json file.
@@ -293,33 +273,11 @@ public class WriteFile extends IO {
 			listOfLoanDur.add(dvd.getLoanDuration(String.valueOf(i)));
 		}
 		object.put("listOfLoanDur", listOfLoanDur);
-		
-		for (CopyData copy : dvd.getArrayListOfCopies()) {
-			JSONArray copyBorrowHistoryArray = new JSONArray();
-			for (BorrowHistoryData borrowHistory : copy.getBorrowHistory()) {
-				JSONArray borrowHistoryArray = new JSONArray();
 
-				borrowHistoryArray.add(borrowHistory.getUserID());
-				borrowHistoryArray.add(borrowHistory.getDateBorrowed());
-				borrowHistoryArray.add(borrowHistory.getDateReturned());
-				borrowHistoryArray.add(borrowHistory.getDateRequestedReturn());
-				
-				copyBorrowHistoryArray.add(borrowHistoryArray);
-			}
-			dvdBorrowHistoryArray.add(copyBorrowHistoryArray);
-		}
+		BorrowHistorySetter(dvdBorrowHistoryArray, dvd.getArrayListOfCopies());
 		object.put("borrowHistory", dvdBorrowHistoryArray);
-		
-		for (CopyData copy : dvd.getArrayListOfCopies()) {
-			JSONArray currentCopyBorrowData = new JSONArray();
 
-			currentCopyBorrowData.add(copy.getCurrentInfo().getUserID());
-			currentCopyBorrowData.add(copy.getCurrentInfo().getDateBorrowed());
-			currentCopyBorrowData.add(copy.getCurrentInfo().getDateReturned());
-			currentCopyBorrowData.add(copy.getCurrentInfo().getDateRequestedReturn());
-			
-			dvdCurrentBorrowData.add(currentCopyBorrowData);
-		}
+		borrowDataSetter(dvdCurrentBorrowData, dvd.getArrayListOfCopies());
 		object.put("currentData", dvdCurrentBorrowData);
 		
 		try {
@@ -329,6 +287,37 @@ public class WriteFile extends IO {
 			file.close();
 		} catch (IOException e) {
 			System.out.println("Error writing dvd to " + IO.getDvdFilePath() + " " + dvd.getUniqueID());
+		}
+	}
+
+	private static void BorrowHistorySetter(JSONArray resourceBorrowHistoryArray, List<CopyData> arrayListOfCopies) {
+		for (CopyData copy : arrayListOfCopies) {
+			JSONArray copyBorrowHistoryArray = new JSONArray();
+			for (BorrowHistoryData borrowHistory : copy.getBorrowHistory()) {
+				JSONArray borrowHistoryArray = new JSONArray();
+
+				borrowHistoryArray.add(borrowHistory.getUserID());
+				borrowHistoryArray.add(borrowHistory.getDateBorrowed());
+				borrowHistoryArray.add(borrowHistory.getDateReturned());
+				borrowHistoryArray.add(borrowHistory.getDateRequestedReturn());
+
+				copyBorrowHistoryArray.add(borrowHistoryArray);
+			}
+			resourceBorrowHistoryArray.add(copyBorrowHistoryArray);
+		}
+	}
+
+
+	private static void borrowDataSetter(JSONArray resourceCurrentBorrowData, List<CopyData> arrayListOfCopies) {
+		for (CopyData copy : arrayListOfCopies) {
+			JSONArray currentCopyBorrowData = new JSONArray();
+
+			currentCopyBorrowData.add(copy.getCurrentInfo().getUserID());
+			currentCopyBorrowData.add(copy.getCurrentInfo().getDateBorrowed());
+			currentCopyBorrowData.add(copy.getCurrentInfo().getDateReturned());
+			currentCopyBorrowData.add(copy.getCurrentInfo().getDateRequestedReturn());
+
+			resourceCurrentBorrowData.add(currentCopyBorrowData);
 		}
 	}
 
@@ -364,33 +353,11 @@ public class WriteFile extends IO {
 			listOfLoanDur.add(laptop.getLoanDuration(String.valueOf(i)));
 		}
 		object.put("listOfLoanDur", listOfLoanDur);
-		
-		for (CopyData copy : laptop.getArrayListOfCopies()) {
-			JSONArray copyBorrowHistoryArray = new JSONArray();
-			for (BorrowHistoryData borrowHistory : copy.getBorrowHistory()) {
-				JSONArray borrowHistoryArray = new JSONArray();
 
-				borrowHistoryArray.add(borrowHistory.getUserID());
-				borrowHistoryArray.add(borrowHistory.getDateBorrowed());
-				borrowHistoryArray.add(borrowHistory.getDateReturned());
-				borrowHistoryArray.add(borrowHistory.getDateRequestedReturn());
-				
-				copyBorrowHistoryArray.add(borrowHistoryArray);
-			}
-			laptopBorrowHistoryArray.add(copyBorrowHistoryArray);
-		}
+		BorrowHistorySetter(laptopBorrowHistoryArray, laptop.getArrayListOfCopies());
 		object.put("borrowHistory", laptopBorrowHistoryArray);
-		
-		for (CopyData copy : laptop.getArrayListOfCopies()) {
-			JSONArray currentCopyBorrowData = new JSONArray();
 
-			currentCopyBorrowData.add(copy.getCurrentInfo().getUserID());
-			currentCopyBorrowData.add(copy.getCurrentInfo().getDateBorrowed());
-			currentCopyBorrowData.add(copy.getCurrentInfo().getDateReturned());
-			currentCopyBorrowData.add(copy.getCurrentInfo().getDateRequestedReturn());
-			
-			laptopCurrentBorrowData.add(currentCopyBorrowData);
-		}
+		borrowDataSetter(laptopCurrentBorrowData, laptop.getArrayListOfCopies());
 		object.put("currentData", laptopCurrentBorrowData);
 		
 		try {
