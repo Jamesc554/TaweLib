@@ -294,6 +294,7 @@ public class User {
     public void loanResource(String id) {
     	this.resourceCurrentlyBorrowed.add(id);
     	addResourceToHistory(id);
+    	resourceCurrentlyReserved.remove(id);
     }
 
 	/**
@@ -483,7 +484,19 @@ public class User {
 		c.add(Calendar.DATE, numDays);
 		Date endDate = c.getTime();
 
-		return !(date.after(startDate) || date.before(endDate));
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		String endDateS = dateFormat.format(endDate);
+		try {
+			endDate = dateFormat.parse(endDateS);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(date.toString() + " - " + endDate.toString());
+
+		System.out.println((date.after(startDate) && date.before(endDate)));
+
+		return (date.after(startDate) && date.before(endDate));
 	}
 
     /**
