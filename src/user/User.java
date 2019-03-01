@@ -1,13 +1,12 @@
 package user;
 import library.Library;
 import resources.Resource;
-import java.lang.reflect.Array;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * <h1>User.</h1>
@@ -32,6 +31,7 @@ public class User {
     protected double accountBalance; //current account balance
     protected String profImage; //profile image address
 	protected String lastLogIn; //Date last log in.
+	protected int noOfBorrowed;
 	protected  ArrayList<String>[] resourcesBorrowStats = new ArrayList[3]; // [0] - Day, [1] - Week, [2] - Month. Value = Resource ID, NOT COPY ID
 
 	/**
@@ -48,7 +48,7 @@ public class User {
 	 * @param profImage path to the profile image of the user
 	 */
     public User(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
-                String secondLineAddress, String postCode, String townName, double accountBalance, String profImage) {
+                String secondLineAddress, String postCode, String townName, double accountBalance, String profImage, int noOfBorrowed) {
         setUserName(userName);
         setFirstName(firstName);
         setLastName(lastName);
@@ -59,6 +59,7 @@ public class User {
         setTownName(townName);
         setAccountBalance(accountBalance);
         setProfImage(profImage);
+        setNoOfBorrowed(noOfBorrowed);
 
 		resourcesBorrowStats[0] = new ArrayList<>();
 		resourcesBorrowStats[1] = new ArrayList<>();
@@ -137,6 +138,13 @@ public class User {
     	this.profImage = profImage;
     }
 
+	/**
+	 * Sets number of borrow items
+	 * @param i number of items currently owned.
+	 */
+	public void setNoOfBorrowed(int i){
+    	this.noOfBorrowed = i;
+	}
 	/**
 	 * This sets the account balance of the user.
 	 * @param amount the start amount in pence.
@@ -255,6 +263,14 @@ public class User {
     }
 
 	/**
+	 * Returns the number of currently borrowed resources
+	 * @return
+	 */
+	public int getNoOfBorrowed(){
+    	return this.noOfBorrowed;
+	}
+
+	/**
 	 * Returns full list of resources borrowed by the user.
 	 * @return ArrayList storing all Resource objects.
 	 */
@@ -295,6 +311,7 @@ public class User {
     	this.resourceCurrentlyBorrowed.add(id);
     	addResourceToHistory(id);
     	resourceCurrentlyReserved.remove(id);
+    	increaseBorrowNumber(id);
     }
 
 	/**
@@ -365,6 +382,7 @@ public class User {
 			}
 			i--;
 		}
+		decreaseBorrowNumber(resourceID);
 	}
 
 	/**
@@ -521,6 +539,24 @@ public class User {
 	 */
 	public void setResourceCurrentlyReserved(ArrayList<String> data) {
 		this.resourceCurrentlyReserved = data;
+	}
+
+	private void increaseBorrowNumber(String id){
+		char s = id.charAt(0);
+		if(s == 'l'){
+			this.noOfBorrowed += 3;
+		}else{
+			this.noOfBorrowed += 1;
+		}
+	}
+
+	private void decreaseBorrowNumber(String id){
+		char s = id.charAt(0);
+		if(s == 'l'){
+			this.noOfBorrowed -= 3;
+		}else{
+			this.noOfBorrowed -= 1;
+		}
 	}
 
 	/**
