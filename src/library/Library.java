@@ -17,6 +17,9 @@ import user.User;
  * @since 18/11/2018
  */
 public class Library {
+
+	private static int MAX_NUMBER_OF_BORROWED_RESOURCES = 5;
+
 	private static User currentUser; //Stores the currently logged-in user.
 	private static String searchScreenText = "";
 
@@ -143,10 +146,10 @@ public class Library {
 	 */
 	public static void addUser(String userName, String firstName, String lastName, String mobileNumber,
 									String firstLineAddress, String secondLineAddress, String postCode,
-									String townName, int accountBalance, String profImage) {
+									String townName, int accountBalance, String profImage, int noOfResources) {
 		
 		LibraryResources.addUser(new User(userName, firstName, lastName, mobileNumber, firstLineAddress,
-                secondLineAddress, postCode, townName, accountBalance, profImage));
+                secondLineAddress, postCode, townName, accountBalance, profImage, noOfResources));
 	}
 
 	/**
@@ -600,5 +603,9 @@ public class Library {
 		LibraryResources.getLaptop(id).setManufacturer(manufacturer);
 		LibraryResources.getLaptop(id).setModel(model);
 		LibraryResources.getLaptop(id).setOperatingSys(os);
+	}
+
+	public static int getMaxNumberOfResources(){
+		return MAX_NUMBER_OF_BORROWED_RESOURCES;
 	}
 }

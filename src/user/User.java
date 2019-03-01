@@ -559,6 +559,15 @@ public class User {
 		}
 	}
 
+	public boolean checkIfNotOverMaxLimit(String id){
+        char s = id.charAt(0);
+        if(s == 'l'){
+            return this.noOfBorrowed + 3 < Library.getMaxNumberOfResources();
+        }else{
+            return this.noOfBorrowed + 1 < Library.getMaxNumberOfResources();
+        }
+    }
+
 	/**
 	 * Sets a user currently requested
 	 * @param data The data about the user's currently requested resources.
