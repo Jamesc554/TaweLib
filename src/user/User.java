@@ -543,7 +543,7 @@ public class User {
 
 	private void increaseBorrowNumber(String id){
 		char s = id.charAt(0);
-		if(s == 'l'){
+		if(s == 'L'){
 			this.noOfBorrowed += 3;
 		}else{
 			this.noOfBorrowed += 1;
@@ -552,7 +552,7 @@ public class User {
 
 	private void decreaseBorrowNumber(String id){
 		char s = id.charAt(0);
-		if(s == 'l'){
+		if(s == 'L'){
 			this.noOfBorrowed -= 3;
 		}else{
 			this.noOfBorrowed -= 1;

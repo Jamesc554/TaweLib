@@ -173,11 +173,11 @@ public class Library {
 	public static void addLibrarian(String userName, String firstName, String lastName, String mobileNumber,
 										String firstLineAddress, String secondLineAddress, String postCode,
 										String townName, int accountBalance, String profImage, int empDay,
-										int empMonth, int empYear, String staffNumber, int noOfEmploys) {
+										int empMonth, int empYear, String staffNumber, int noOfEmploys, int numOfResource) {
 		
 		LibraryResources.addUser(new Librarian(userName, firstName, lastName, mobileNumber, firstLineAddress,
                 secondLineAddress, postCode, townName, accountBalance, profImage, empDay, empMonth, empYear, staffNumber,
-                noOfEmploys));
+                noOfEmploys, numOfResource));
 	}
 
 	/**

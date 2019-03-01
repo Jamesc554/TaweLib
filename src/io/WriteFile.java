@@ -54,6 +54,7 @@ public class WriteFile extends IO {
 		object.put("townName", user.getTownName());
 		object.put("imageAddress", user.getProfImage());
 		object.put("accountBalance", String.valueOf(user.getAccountBalanceDouble()));
+		object.put("noOfResources", String.valueOf(user.getNoOfBorrowed()));
 
 		for (String resource : user.getCurrentlyBorrowedResources()) {
 			resourceArray.add(resource);
@@ -130,6 +131,7 @@ public class WriteFile extends IO {
 		object.put("empYear", String.valueOf(librarian.getEmploymentYear()));
 		object.put("staffNumber", librarian.getStaffNumber());
 		object.put("noOfEmploys", String.valueOf(librarian.getNumberOfEmploys()));
+		object.put("noOfResources", String.valueOf(librarian.getNoOfBorrowed()));
 		
 		for (String resource : librarian.getCurrentlyBorrowedResources()) {
 			resourceArray.add(resource);

@@ -38,6 +38,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Label loanUserError;
     @FXML
+    private Label toManyResources;
+    @FXML
     private Label loanCopyError;
     @FXML
     private Label loanSuccess;
@@ -331,6 +333,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         loanSuccess.setVisible(false);
         outstandingFineMsg.setVisible(false);
         overdueCopyMsg.setVisible(false);
+        toManyResources.setVisible(false);
 
 
         //Check Library if user exists
@@ -341,26 +344,30 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 if (Library.getUser(user).getAccountBalanceDouble() == 0) {
                     //Check user has no overdue copies
                     if (Library.checkForOverDue(user).isEmpty()) {
-                        //Check if Resource ID is valid
-                        if (Library.getResource(id.split("-")[0]) != null) {
-                            Resource r = Library.getResource(id.split("-")[0]);
-                            CopyData copy = r.getArrayListOfCopies().get(Integer.parseInt(id.split("-")[1]));
-                            if (copy.isAvailable()) {
-                                Library.loanResource(user, id);
-                                loanSuccess.setVisible(true);
-                            } else if (copy.isReserved()) {
-                                if (copy.getReservedUser().equals(user)) {
-                                    Library.loanResource(user, id);
-                                    loanSuccess.setVisible(true);
+                            //Check if Resource ID is valid
+                            if (Library.getResource(id.split("-")[0]) != null) {
+                                Resource r = Library.getResource(id.split("-")[0]);
+                                CopyData copy = r.getArrayListOfCopies().get(Integer.parseInt(id.split("-")[1]));
+                                if (Library.getUser(user).checkIfNotOverMaxLimit(id)) {
+                                    if (copy.isAvailable()) {
+                                        Library.loanResource(user, id);
+                                        loanSuccess.setVisible(true);
+                                    } else if (copy.isReserved()) {
+                                        if (copy.getReservedUser().equals(user)) {
+                                            Library.loanResource(user, id);
+                                            loanSuccess.setVisible(true);
+                                        } else {
+                                            loanUserError.setVisible(true);
+                                        }
+                                    } else {
+                                        unavailableCopyMsg.setVisible(true);
+                                    }
                                 } else {
-                                    loanUserError.setVisible(true);
+                                    toManyResources.setVisible(true);
                                 }
-                            } else {
-                                unavailableCopyMsg.setVisible(true);
+                            }else {
+                                loanCopyError.setVisible(true);
                             }
-                        } else {
-                            loanCopyError.setVisible(true);
-                        }
                     } else {
                         overdueCopyMsg.setVisible(true);
                     }
@@ -467,7 +474,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 userError.setVisible(true);
             } else {
                 Library.addUser(username, firstName, lastName, mobileNum, address1, address2, postCode, town,
-                        0, "./data/images/default/" + avatar);
+                        0, "./data/images/default/" + avatar, 0);
                 userSuccess.setVisible(true);
             }
         } else {

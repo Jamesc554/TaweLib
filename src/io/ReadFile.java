@@ -50,7 +50,7 @@ public class ReadFile extends IO {
 						(String) object.get("lastName"), (String) object.get("mobileNumber"),
 						(String) object.get("firstLineAddress"), (String) object.get("secondLineAddress"),
 						(String) object.get("postCode"), (String) object.get("townName"),
-						Double.parseDouble((String) object.get("accountBalance")), (String) object.get("imageAddress"));
+						Double.parseDouble((String) object.get("accountBalance")), (String) object.get("imageAddress"), Integer.valueOf((String) object.get("noOfResources")));
 
 				resourceArray = (JSONArray) object.get("resourceBorrow");
 				ArrayList<String> borrowedResources = new ArrayList<String>();
@@ -148,7 +148,8 @@ public class ReadFile extends IO {
 						Integer.parseInt((String) object.get("empDay")),
 						Integer.parseInt((String) object.get("empMonth")),
 						Integer.parseInt((String) object.get("empYear")), (String) object.get("staffNumber"),
-						Integer.parseInt((String) object.get("noOfEmploys")));
+						Integer.parseInt((String) object.get("noOfEmploys")),
+						Integer.valueOf((String) object.get("noOfResources")));
 				
 				resourceArray = (JSONArray) object.get("resourceBorrow");
 				ArrayList<String> borrowedResources = new ArrayList<String>();
