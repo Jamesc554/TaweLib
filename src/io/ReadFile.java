@@ -305,7 +305,7 @@ public class ReadFile extends IO {
 				if (bookQueueArray != null) {
 					for (Object user : bookQueueArray) {
 						String username = (String) user;
-						bookToAdd.addUserToRequestQueue(Library.getUser(username));
+						bookToAdd.addUserToRequestQueue(username);
 					}
 				}
 				

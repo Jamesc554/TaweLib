@@ -434,8 +434,18 @@ public class Library {
 	public static void requestResource(String id) {
 		currentUser.requestResource(id); // Add it to the user
 		Resource requestedResource = getResource(id); // Get the resource
-		requestedResource.addUserToRequestQueue(currentUser);
-		requestedResource.requestReturn(requestedResource.getCopyWithEarlestReturn());
+		requestedResource.addUserToRequestQueue(currentUser.getUserName());
+
+		boolean isAvailable = false;
+		for (CopyData copy : requestedResource.getArrayListOfCopies()){
+			if (copy.isAvailable()){
+				isAvailable = true;
+			}
+		}
+
+		if (!isAvailable) {
+			requestedResource.requestReturn(requestedResource.getCopyWithEarlestReturn());
+		}
 	}
 
 	/**

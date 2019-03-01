@@ -2,9 +2,12 @@ package user;
 import library.Library;
 import resources.Resource;
 import java.lang.reflect.Array;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * <h1>User.</h1>
@@ -29,6 +32,7 @@ public class User {
     protected double accountBalance; //current account balance
     protected String profImage; //profile image address
 	protected String lastLogIn; //Date last log in.
+	protected  ArrayList<String>[] resourcesBorrowStats = new ArrayList[3]; // [0] - Day, [1] - Week, [2] - Month. Value = Resource ID, NOT COPY ID
 
 	/**
 	 * Generic constructor
@@ -55,6 +59,10 @@ public class User {
         setTownName(townName);
         setAccountBalance(accountBalance);
         setProfImage(profImage);
+
+		resourcesBorrowStats[0] = new ArrayList<>();
+		resourcesBorrowStats[1] = new ArrayList<>();
+		resourcesBorrowStats[2] = new ArrayList<>();
     }
 
 	/**
@@ -286,6 +294,7 @@ public class User {
     public void loanResource(String id) {
     	this.resourceCurrentlyBorrowed.add(id);
     	addResourceToHistory(id);
+    	resourceCurrentlyReserved.remove(id);
     }
 
 	/**
@@ -402,6 +411,10 @@ public class User {
 		return dataFormat.format(new Date());
 	}
 
+	public ArrayList<String>[] getResourcesBorrowStats(){
+    	return resourcesBorrowStats;
+	}
+
 	/**
 	 * Get's the date user was last logged in.
 	 * @return lastLogIn The date the user last logged in to the library.
@@ -433,7 +446,7 @@ public class User {
 	public void addToReserved(String id) {
 		resourceCurrentlyReserved.add(id);
 		Resource r = Library.getResource(id);
-		r.addUserToRequestQueue(this);
+		r.addUserToRequestQueue(this.getUserName());
 	}
 
     /**
@@ -442,7 +455,49 @@ public class User {
      */
 	public void addToBorrowHistory(String[] data) {
 	    borrowHistory.add(data);
-    }
+
+		Date borrowDate = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		try {
+			borrowDate = dateFormat.parse(data[1]);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		if (isWithinDate(new Date(), 1, borrowDate)){
+			resourcesBorrowStats[0].add(data[1]);
+		}
+
+		if (isWithinDate(new Date(), 7, borrowDate)){
+			resourcesBorrowStats[1].add(data[1]);
+		}
+
+		if (isWithinDate(new Date(), 30, borrowDate)){
+			resourcesBorrowStats[2].add(data[1]);
+		}
+
+	}
+
+    private boolean isWithinDate(Date startDate, int numDays, Date date){
+		Calendar c = Calendar.getInstance();
+		c.setTime(startDate);
+		c.add(Calendar.DATE, numDays);
+		Date endDate = c.getTime();
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		String endDateS = dateFormat.format(endDate);
+		try {
+			endDate = dateFormat.parse(endDateS);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(date.toString() + " - " + endDate.toString());
+
+		System.out.println((date.after(startDate) && date.before(endDate)));
+
+		return (date.after(startDate) && date.before(endDate));
+	}
 
     /**
      * Add's to transaction history on start up.

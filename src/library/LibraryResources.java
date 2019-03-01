@@ -15,16 +15,16 @@ public class LibraryResources {
 	private static ArrayList<Laptop> listOfLaptops = new ArrayList<>(); //List of laptops
     private static ArrayList<DVD> listOfDVD = new ArrayList<>(); //List of dvd's
     private static ArrayList<User> listOfUsers = new ArrayList<>(); //List of users
-	private static ArrayList<Librarian> listOfLibrarians = new ArrayList<>();
+	private static ArrayList<Librarian> listOfLibrarians = new ArrayList<>(); // List of librarians
 
 	/**
 	 * On start create all users, dvd, books, laptops.
 	 */
 	public static void start() {
-		listOfUsers = ReadFile.readUsers();
 		listOfDVD = ReadFile.readDvds();
 		listOfBooks = ReadFile.readBooks();
 		listOfLaptops = ReadFile.readLaptops();
+		listOfUsers = ReadFile.readUsers();
 		listOfLibrarians = ReadFile.readLibrarians();
 	}
 

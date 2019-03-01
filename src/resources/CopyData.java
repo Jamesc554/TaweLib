@@ -123,6 +123,7 @@ public class CopyData {
 		if (currentInfo.getDateBorrowed().equals("") && !isReserved()) {
 			return true;
 		}
+
 		return false;
 	}
 	
@@ -195,19 +196,24 @@ public class CopyData {
 	public Calendar getEstimatedReturnData() {
 		String date = currentInfo.getDateBorrowed().split(" ")[0];
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy" ); //Not Required
-		Date selectedDate=null;
+		Date selectedDate = null;
+		Calendar cal = Calendar.getInstance();
+
+		System.out.println("Date: " + date);
+
 		try {
 			selectedDate=dateFormat.parse(date);// replace it with selected date
+
+			cal.setTime(selectedDate);
+			cal.add(Calendar.DATE,Integer.valueOf(loanDuration));
+
+			//does a thing
+			if (cal.getTime().before(new Date())) {
+				cal.setTime(new Date());
+				cal.add(Calendar.DATE, 1);
+			}
 		} catch (ParseException e) {
 			System.out.println("date in wrong format");
-		}
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(selectedDate);
-		cal.add(Calendar.DATE,Integer.valueOf(loanDuration));
-		
-		if (cal.getTime().before(new Date())) {
-			cal.setTime(new Date());
-			cal.add(Calendar.DATE, 1);
 		}
 		
 		return cal;
