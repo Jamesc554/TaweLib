@@ -1,178 +1,147 @@
 package resources;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * <h1>Book.</h1>
- * <p>This class models the Library Resource: Book.</p>
- * @author Peter Daish, Deyan Naydenov, Dominik Wojtasiewicz 
+ * <p>
+ * This class models the Library Resource: Book.
+ * </p>
+ * 
+ * @author Peter Daish, Deyan Naydenov, Dominik Wojtasiewicz
  * @since 18/11/2018
  */
+
 public class VideoGame extends Resource {
-	private final double FINE = 2.00; //The fine amount of a book when overdue.
-	private final double MAX_FINE = 25.00; //The maximum fine value of any book.
-	
-	private static String highestBookID = "BookID:0"; //This is used to calculate a unique BookID.
-	
+	private final double FINE = 2.00; // The fine amount of a book when overdue.
+	private final double MAX_FINE = 25.00; // The maximum fine value of any book.
+
+	private static String highestGameID = "GameID:0"; // This is used to calculate a unique BookID.
+
 	private int highestCopyID = 0; // this is used to calculate a unique CopyID.
-	private String author; //Author of Book
-	private String publisher; //Publisher of Book
-	private String genre; //Genre of book (Optional)
-	private String isbn;//ISBN of book (Optional)
-	private ArrayList<String> languages; //The array of languages the book is currently available in (Optional).
+	private String publisher; // Publisher of Book
+	private String genre; // Genre of book (Optional)
+	private String certificateRating;// ISBN of book (Optional)
+	private String multiplayerSupport;
+	private ArrayList<String> languages; // The array of languages the book is currently available in (Optional).
 
 	/**
-	 * <h1>The constructor for a Book.</h1>
-	 * @param year
-	 * The year this book was published.
-	 * @param title
-	 * The title of this book.
-	 * @param thumbnailImg
-	 * The filepath of the avatar of this book.
-	 * @param uniqueID
-	 * The unique ID of this book.
-	 * @param author
-	 * The author of this book.
-	 * @param genre
-	 * The genre of this book.
-	 * @param isbn
-	 * The isbn of this book.
-	 * @param publisher
-	 * The publisher of this book.
-	 * @param lang
-	 * The languages this book is available in.
-	 * @param noOfCopies
-	 * The number of copies of this book currently owned by the library.
-	 * @param loanDuration
-	 * The loan duration of this book.
-	 * @param borrowHistory
-	 * The borrow history of a copy of this book.
-	 * @param currentBorrowData
-	 * The information for borrower and dates associated with a copy of a resource.
+	 * <h1>The constructor for a Video Game.</h1>
+	 * 
+	 * @param year              The year this game was published.
+	 * @param title             The title of this game.
+	 * @param thumbnailImg      The filepath of the avatar of this game.
+	 * @param uniqueID          The unique ID of this game.
+	 * @param genre             The genre of this game.
+	 * @param certRating        The certificate rating of this game.
+	 * @param publisher         The publisher of this book.
+	 * @param lang              The languages this book is available in.
+	 * @param noOfCopies        The number of copies of this book currently owned by
+	 *                          the library.
+	 * @param loanDuration      The loan duration of this book.
+	 * @param borrowHistory     The borrow history of a copy of this book.
+	 * @param currentBorrowData The information for borrower and dates associated
+	 *                          with a copy of a resource.
 	 */
-	public VideoGame(String year, String title, String thumbnailImg, String uniqueID, String author,
-			String genre, String isbn, String publisher, ArrayList<String> lang, Integer noOfCopies,
+	public VideoGame(String year, String title, String thumbnailImg, String uniqueID, String genre, String certRating,
+			String publisher, String multSupp, ArrayList<String> lang, Integer noOfCopies,
 			ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory,
 			List<BorrowHistoryData> currentBorrowData) {
-		//Set all the inherited values from Resource...
-		super(year, title, thumbnailImg, generateBookID(uniqueID), noOfCopies, loanDuration, borrowHistory, currentBorrowData);
-		
-		//Set all non-inherited values
-		this.author = author;
+		// Set all the inherited values from Resource...
+		super(year, title, thumbnailImg, generateGameID(uniqueID), noOfCopies, loanDuration, borrowHistory,
+				currentBorrowData);
+
+		// Set all non-inherited values
 		this.publisher = publisher;
 		this.genre = genre;
-		this.isbn = isbn;
-		
-		//If lang from file is null, create a new arraylist. otherwise set languages to lang from file.
+		this.certificateRating = certRating;
+		this.multiplayerSupport = multSupp;
+
+		// If lang from file is null, create a new arraylist. otherwise set languages to
+		// lang from file.
 		if (lang == null) {
 			this.languages = new ArrayList<String>();
 		} else {
 			this.languages = lang;
-		}	
-	}
-	
-	/**
-	 * Generates a uniqueID for a book.
-	 * @param id The stated ID of the book being created.
-	 * @return highestBookID the book ID of the latest created book
-	 */
-	private static String generateBookID(String id) {
-		//split book ID into two strings if ID == null.
-		//convert anything after ": " into Int
-		//append 1
-		// convert back to String
-		//assign uniqueID
-		//If id != null.
-		//we are loading a book from a file thus set highestBookID to id.
-		
-		if (id == null) {
-		String[] segmentsOfString = highestBookID.split(":");
-		String typeSegment = segmentsOfString[0];
-		String numberSegmentOfString = segmentsOfString[1];
-		int numberOfID = Integer.parseInt(numberSegmentOfString);
-		numberOfID++;
-		highestBookID = typeSegment + ":" + Integer.toString(numberOfID);
-		return highestBookID;
-		} else {
-			highestBookID = id;
-			return highestBookID;
 		}
 	}
-	/* This method returns the Book's attributes as a string (FOR TESTING PURPOSES ONLY)
-		public String toString() {
-			return "Year: " + this.year + "\nTitle: " + this.title +
-			   "\nThumbnailImageRef: " + this.thumbnailImageRef +
-			   "\nuniqueID: " + this.uniqueID +
-			   "\nAuthor; " + this.author +
-			   "\nPublisher: " + this.publisher +
-			   "\nGenre: " + this.genre +
-			   "\nISBN: " + this.isbn + 
-			   "\nLanguages: " + this.languages +
-			   "\nQueueOfReservations: " + this.queueOfReservations.isEmpty();
-		}*/
-	/* #############################################################
-	 * ########  BELOW ARE THE GETTERS AND SETTERS OF BOOK  ########
+
+	/**
+	 * Generates a uniqueID for a game.
+	 * 
+	 * @param id The stated ID of the game being created.
+	 * @return highestBookID the book ID of the latest created game
+	 */
+	private static String generateGameID(String id) {
+		// split Game ID into two strings if ID == null.
+		// convert anything after ": " into Int
+		// append 1
+		// convert back to String
+		// assign uniqueID
+		// If id != null.
+		// we are loading a Game from a file thus set highestGameID to id.
+
+		if (id == null) {
+			String[] segmentsOfString = highestGameID.split(":");
+			String typeSegment = segmentsOfString[0];
+			String numberSegmentOfString = segmentsOfString[1];
+			int numberOfID = Integer.parseInt(numberSegmentOfString);
+			numberOfID++;
+			highestGameID = typeSegment + ":" + Integer.toString(numberOfID);
+			return highestGameID;
+		} else {
+			highestGameID = id;
+			return highestGameID;
+		}
+	}
+
+	/*
+	 * ############################################################# ######## BELOW
+	 * ARE THE GETTERS AND SETTERS OF VideoGame ########
 	 * #############################################################
 	 */
-	
+
 	/**
-	 * Sets a value to calculate Book IDs from.
-	 * @param hBookID 
-	 * The highest current value of any Book's ID.
+	 * Sets a value to calculate Game IDs from.
+	 * 
+	 * @param hBookID The highest current value of any Game's ID.
 	 */
-	public void setHighestBookID(String hBookID) {
-		this.highestBookID = hBookID;
+	public void setHighestBookID(String hGameID) {
+		this.highestGameID = hGameID;
 	}
-	
+
 	/**
-	 * Returns the ID of the latest Book.
-	 * @return highestBookID 
-	 * The highest current id of any book.
+	 * Returns the ID of the latest Game.
+	 * 
+	 * @return highestBookID The highest current id of any game.
 	 */
 	public String getHighestBookID() {
-		return this.highestBookID;
+		return this.highestGameID;
 	}
-	
+
 	/**
 	 * Sets a value to calculate a new copy's id from.
-	 * @param hCopyID 
-	 * The latest ID of any copy.
+	 * 
+	 * @param hCopyID The latest ID of any copy.
 	 */
 	public void setHighestCopyID(int hCopyID) {
 		this.highestCopyID = hCopyID;
 	}
-	
+
 	/**
 	 * Returns the newest copy's ID
-	 * @return highestCopyID 
-	 * The newest copy's ID.
+	 * 
+	 * @return highestCopyID The newest copy's ID.
 	 */
 	public int getHighestCopyID() {
 		return this.highestCopyID;
 	}
-	
-	/**
-	 * Returns the author of the book
-	 * @return author
-	 * The author of this book.
-	 */
-	public String getAuthor() {
-		return author;
-	}
-	
-	/**
-	 * Sets the author of this book
-	 * @param author 
-	 * The new author of this book
-	 */
-	public void setAuthor(String author) {
-		this.author = author;
-	}
 
 	/**
 	 * Returns the publisher of this book
-	 * @return publisher
-	 * The publisher of this book
+	 * 
+	 * @return publisher The publisher of this book
 	 */
 	public String getPublisher() {
 		return this.publisher;
@@ -180,8 +149,8 @@ public class VideoGame extends Resource {
 
 	/**
 	 * Sets the publisher of this book
-	 * @param publisher
-	 * The new publisher of this book
+	 * 
+	 * @param publisher The new publisher of this book
 	 */
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
@@ -189,8 +158,8 @@ public class VideoGame extends Resource {
 
 	/**
 	 * Gets the genre of this book
-	 * @return genre
-	 * The genre of this book.
+	 * 
+	 * @return genre The genre of this book.
 	 */
 	public String getGenre() {
 		return this.genre;
@@ -198,79 +167,58 @@ public class VideoGame extends Resource {
 
 	/**
 	 * Sets the genre of this book
-	 * @param genre
-	 * The new genre of this book.
+	 * 
+	 * @param genre The new genre of this book.
 	 */
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
 
 	/**
-	 * Gets the ISBN of this book
-	 * @return isbn
-	 * The isbn of this book
-	 */
-	public String getIsbn() {
-		return this.isbn;
-	}
-
-	/**
-	 * Sets the ISBN of this book
-	 * @param isbn
-	 * The new ISBN of this book.
-	 */
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
-
-	/**
 	 * Gets the languages this book is available in
-	 * @return languages
-	 * The languages this book is available in.
-	 */
-	public ArrayList<String> getLanguages() {
-		return this.languages;
-	}
+	 * 
+	 * @return languages The languages this book is available in.
+	 *//*
+		 * public ArrayList<String> getLanguages() { return this.languages; }
+		 */
 
 	/**
 	 * Sets the languages this book is available in.
-	 * @param languages
-	 * The languages this book will become available in.
-	 */
-	public void setLanguages(ArrayList<String> languages) {
-		this.languages = languages;
-	}
-	
-	/* #############################################################
-	 * ########  BELOW ARE THE COMPLEX METHODS OF BOOK  	########
+	 * 
+	 * @param languages The languages this book will become available in.
+	 *//*
+		 * public void setLanguages(ArrayList<String> languages) { this.languages =
+		 * languages; }
+		 */
+
+	/*
+	 * ############################################################# ######## BELOW
+	 * ARE THE COMPLEX METHODS OF BOOK ########
 	 * #############################################################
 	 */
-	
+
 	/**
 	 * Adds a new language to this book
-	 * @param newLang
-	 * The new languages to be added.
+	 * 
+	 * @param newLang The new languages to be added.
 	 */
-	public void addLanguage(String newLang) {
-		this.languages.add(newLang);
-	}
-	
-	/**
-	 * Removes a specific languages from this book
-	 * @param langToRemove
-	 * The language to be removed.
-	 */
-	public void removeLanguage(String langToRemove) {
-		//search through arrayList and remove language selected.
-		for (int i = 0; i < this.languages.size(); i++) {
-			if (this.languages.get(i) == langToRemove) {
-				this.languages.remove(i);
-			}
-		}
-	}
+	/*
+	 * public void addLanguage(String newLang) { this.languages.add(newLang); }
+	 * 
+	 *//**
+		 * Removes a specific languages from this book
+		 * 
+		 * @param langToRemove The language to be removed.
+		 *//*
+			 * public void removeLanguage(String langToRemove) { //search through arrayList
+			 * and remove language selected. for (int i = 0; i < this.languages.size(); i++)
+			 * { if (this.languages.get(i) == langToRemove) { this.languages.remove(i); } }
+			 * }
+			 */
 
-	/** 
+	/**
 	 * Generates a copy ID based off of previous copyID.
+	 * 
 	 * @return hCpyID the current highest ID of a copy
 	 */
 	private String generateCopyID() {
@@ -279,19 +227,21 @@ public class VideoGame extends Resource {
 		String hCpyID = Integer.toString(this.highestCopyID);
 		return hCpyID;
 	}
-	
+
 	/**
-	 * Converts Book to single string
-	 * @return a String representation of this book.
-	 * Returns the details of this book.
+	 * Converts Game to single string
+	 * 
+	 * @return a String representation of this Game. Returns the details of this
+	 *         Game.
 	 */
 	public String toSingleString() {
-		return super.toSingleString() + this.author + this.publisher + this.genre + this.isbn;
+		return super.toSingleString() + this.publisher + this.genre + this.certificateRating + this.multiplayerSupport;
 	}
+
 	/**
 	 * Returns the daily fine rate of this resource.
-	 * @return FINE
-	 * The daily fine rate of this resource.
+	 * 
+	 * @return FINE The daily fine rate of this resource.
 	 */
 	public double getFineAmount() {
 		return this.FINE;
@@ -299,10 +249,43 @@ public class VideoGame extends Resource {
 
 	/**
 	 * Returns the maximum fine this resource can reach.
-	 * @return MAX_FINE
-	 * The maximum fine a resource can reach.
+	 * 
+	 * @return MAX_FINE The maximum fine a resource can reach.
 	 */
 	public double getMaxFine() {
-		return  this.MAX_FINE;
+		return this.MAX_FINE;
+	}
+
+	/**
+	 * Returns this video game's certificate rating.
+	 * @return certificateRating the age rating of this video game
+	 */
+	public String getCertificateRating() {
+		return certificateRating;
+	}
+
+	/**
+	 * Sets this video game's certificate rating.
+	 * @param certificateRating the certificateRating to set for this video game
+	 */
+	public void setCertificateRating(String certificateRating) {
+		this.certificateRating = certificateRating;
+	}
+
+	/**
+	 * Returns the multiplayer support status of this video game.
+	 * @return multiplayerSupport returns whether the game supports multiplayer
+	 */
+	public String getMultiplayerSupport() {
+		return multiplayerSupport;
+	}
+
+	/**
+	 * Sets whether this video game supports multiplayer.
+	 * 
+	 * @param multiplayerSupport whether the game is multiplayer.
+	 */
+	public void setMultiplayerSupport(String multiplayerSupport) {
+		this.multiplayerSupport = multiplayerSupport;
 	}
 }
