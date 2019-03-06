@@ -59,7 +59,34 @@ public class RatingScreen extends Screen implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(new File(Library.getCurrentLoggedInUser().getProfImage()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
+		if (Library.currentUserIsLibrarian()) {
+			
+		} else {
+			
+		}
+
+		userIcon.setImage(SwingFXUtils.toFXImage(img, null));
+		usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
+		searchBar.setText(Library.getSearchScreenText());
+
+		if (Library.currentUserIsLibrarian()) {
+			issueDeskBtn.setVisible(true);
+		}
+		
+		oneToFive.getItems().addAll(
+	            "1/5 Stars",
+	            "2/5 Stars",
+	            "3/5 Stars",
+	            "4/5 Stars",
+	            "5/5 Stars"
+	        );
 	}
 	
 //	@FXML
