@@ -178,6 +178,14 @@ public class SearchResultScreen extends Screen implements Initializable {
 	public void requestResource() {
 		Library.requestResource(uIDTf.getText());
 	}
+	
+	@FXML
+	/**
+	 * Opens rating screen for the resource highlighted on the search results screen.
+	 */
+	public void viewRatings() {
+		System.out.println(uIDTf.getText());
+	}
 
 	/**
 	 * Updates the borrow history associated with a copy of a resource.

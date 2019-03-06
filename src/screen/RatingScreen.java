@@ -26,7 +26,7 @@ public class RatingScreen extends Screen implements Initializable {
     public void start() {
         Pane root;
         try {
-            root = FXMLLoader.load(getClass().getResource("fxml/IssueDesk.fxml"));
+            root = FXMLLoader.load(getClass().getResource("fxml/RatingScreen.fxml"));
             ScreenManager.setCurrentScene(new Scene(root, 1280, 720));
         } catch (IOException e) {
             e.printStackTrace();
