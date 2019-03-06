@@ -100,6 +100,7 @@ public class ReadFile extends IO {
 						user.addToReserved(reservedResourceID);
 					}
 				}
+				System.out.println(user.getUserName() + " is added");
 				userList.add(user);
 			}
 

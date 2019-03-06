@@ -116,6 +116,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Label bookCopiesError;
     @FXML
+    private Label toManyResourcesError;
+    @FXML
     private Text bookImgName;
     @FXML
     private ImageView bookImg;
@@ -331,6 +333,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         loanSuccess.setVisible(false);
         outstandingFineMsg.setVisible(false);
         overdueCopyMsg.setVisible(false);
+        toManyResourcesError.setVisible(false);
 
 
         //Check Library if user exists
@@ -345,20 +348,24 @@ public class IssueDeskScreen extends Screen implements Initializable {
                         if (Library.getResource(id.split("-")[0]) != null) {
                             Resource r = Library.getResource(id.split("-")[0]);
                             CopyData copy = r.getArrayListOfCopies().get(Integer.parseInt(id.split("-")[1]));
-                            if (copy.isAvailable()) {
-                                Library.loanResource(user, id);
-                                loanSuccess.setVisible(true);
-                            } else if (copy.isReserved()) {
-                                if (copy.getReservedUser().equals(user)) {
+                            if (Library.getUser(user).canBorrow(id)){
+                                if (copy.isAvailable()) {
                                     Library.loanResource(user, id);
                                     loanSuccess.setVisible(true);
-                                } else {
+                                } else if (copy.isReserved()) {
+                                    if (copy.getReservedUser().equals(user)) {
+                                        Library.loanResource(user, id);
+                                        loanSuccess.setVisible(true);
+                                    } else {
                                     loanUserError.setVisible(true);
                                 }
                             } else {
-                                unavailableCopyMsg.setVisible(true);
+                                    unavailableCopyMsg.setVisible(true);
+                                }
+                            } else {
+                                toManyResourcesError.setVisible(true);
                             }
-                        } else {
+                            }else {
                             loanCopyError.setVisible(true);
                         }
                     } else {

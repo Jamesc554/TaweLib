@@ -1,13 +1,12 @@
 package user;
 import library.Library;
 import resources.Resource;
-import java.lang.reflect.Array;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * <h1>User.</h1>
@@ -529,5 +528,37 @@ public class User {
 	 */
 	public void setResourceCurrentlyRequested(ArrayList<String> data) {
 		this.resourceCurrentlyRequested = data;
+	}
+
+	/**
+	 * Method that determines if limit of resources has been reached.
+	 * @param id Id of resource to be borrowe
+	 */
+	public boolean canBorrow(String id){
+		String subString = id.substring(0,1).toLowerCase();
+		int afterBorrow = noOfResourcesBorrowed();
+
+		if(subString.equals("l")){
+			afterBorrow += 3;
+		}else{
+			afterBorrow += 1;
+		}
+
+		return afterBorrow <= Library.getMaxResources();
+	}
+
+
+	public int noOfResourcesBorrowed(){
+		int noOfResources = 0;
+		System.out.println(this.getUserName() + " 554 User " + this.resourceCurrentlyBorrowed.size());
+		for(String s : this.resourceCurrentlyBorrowed){
+			String sub = s.substring(0,1).toLowerCase();
+			if (sub.equals("l")){
+				noOfResources += 3;
+			}else{
+				noOfResources += 1;
+			}
+		}
+		return noOfResources;
 	}
 }
