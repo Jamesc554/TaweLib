@@ -79,6 +79,8 @@ public class SearchResultScreen extends Screen implements Initializable {
 	private Button editResourceButton;
 	@FXML
 	private Button requestButton;
+	@FXML
+	private Button ratingsButton;
 	// private TextField[] textFields = {titleTf, uIDTf, yearTf, rs1Tf, rs2Tf,
 	// rs3Tf, rs4Tf, rs5Tf};
 	@FXML
@@ -318,6 +320,7 @@ public class SearchResultScreen extends Screen implements Initializable {
 		rs4Tf.setVisible(true);
 		rs5Lbl.setVisible(true);
 		rs5Tf.setVisible(true);
+		ratingsButton.setVisible(true);
 
 		TextField[] textFields = {titleTf, yearTf, rs1Tf, rs2Tf, rs3Tf, rs4Tf, rs5Tf};
 

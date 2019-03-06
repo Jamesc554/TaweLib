@@ -88,6 +88,7 @@
                               <Label text="Resource Info" />
                               <HBox alignment="CENTER" prefHeight="200.0" prefWidth="782.0" style="-fx-background-color: #f4f5ff;">
                                  <children>
+                                    <Button fx:id="ratingsButton" alignment="TOP_LEFT" mnemonicParsing="false" text="Ratings" />
                                     <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="9.0">
                                        <children>
                                           <Label fx:id="titleLbl" text="Title:" />
@@ -134,4 +135,3 @@
       </VBox>
    </children>
 </HBox>
- 
