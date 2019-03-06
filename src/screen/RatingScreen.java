@@ -1,13 +1,25 @@
 package screen;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
+import library.Library;
 
 /**
  * <h1>RatingScreen.</h1>
@@ -19,6 +31,18 @@ import javafx.scene.layout.Pane;
  * TODO: THIS CLASS
  */
 public class RatingScreen extends Screen implements Initializable {
+	@FXML
+	private Label resourceTitle;
+	@FXML
+	private Label averageRating;
+	@FXML
+	private ScrollPane ratingScroll;
+	@FXML
+	private ComboBox oneToFive;
+	@FXML
+	private TextArea messageBox;
+	@FXML
+	private Button leaveRating;
 	@Override
     /**
      * Sets IssueDesk as the current scene.
@@ -35,7 +59,14 @@ public class RatingScreen extends Screen implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
 		
 	}
+	
+//	@FXML
+//	/**
+//	 * Submits the users rating.
+//	 */
+//	public void leaveRatingClick() {
+//		
+//	}
 }

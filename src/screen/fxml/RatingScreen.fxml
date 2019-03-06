@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.AccountScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.RatingScreen">
   <children>
     <SplitPane layoutY="68.0" prefHeight="658.0" prefWidth="1280.0">
       <items>
@@ -54,11 +54,7 @@
                                     <ListView fx:id="requestedField" layoutX="14.0" layoutY="125.0" prefHeight="131.0" prefWidth="417.0" style="-fx-background-color: #f4f5ff;" />
                                     <ListView fx:id="reservedField" layoutX="14.0" layoutY="301.0" prefHeight="163.0" prefWidth="417.0" style="-fx-background-color: #f4f5ff;" />
                                     <ListView fx:id="borrowedField" layoutX="14.0" layoutY="509.0" prefHeight="131.0" prefWidth="417.0" style="-fx-background-color: #f4f5ff;" />
-                                    <ScrollPane fx:id="ratingScroll" layoutX="23.0" layoutY="71.0" prefHeight="570.0" prefWidth="399.0">
-                                      <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-                                      </content>
-                                    </ScrollPane>
+                                    <ScrollPane fx:id="ratingScroll" layoutX="23.0" layoutY="71.0" prefHeight="570.0" prefWidth="399.0" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #f4f5ff;">
@@ -70,7 +66,7 @@
                                     </Label>
                                     <ListView fx:id="transactionHistoryField" layoutX="-3.0" layoutY="92.0" prefHeight="201.0" prefWidth="443.0" style="-fx-background-color: #f4f5ff;" />
                                     <ListView fx:id="borrowHistoryField" layoutX="-1.0" layoutY="398.0" prefHeight="231.0" prefWidth="443.0" style="-fx-background-color: #f4f5ff;" />
-                                    <Button fx:id="leaveRating" layoutX="198.0" layoutY="559.0" mnemonicParsing="false" onAction="#leaveRatingClick" style="-fx-background-color: #ef9d39;" text="Submit" textFill="#0e0056" />
+                                    <Button fx:id="leaveRating" layoutX="198.0" layoutY="559.0" mnemonicParsing="false" style="-fx-background-color: #ef9d39;" text="Submit" textFill="#0e0056" />
                                     <ComboBox fx:id="oneToFive" layoutX="166.0" layoutY="92.0" prefWidth="150.0" promptText="Please Select" />
                                     <TextArea fx:id="messageBox" layoutX="41.0" layoutY="152.0" prefHeight="224.0" prefWidth="361.0" promptText="(Optional) - Leave message." />
                                  </children>
