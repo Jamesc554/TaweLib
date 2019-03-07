@@ -302,8 +302,8 @@ public class User {
 	 */
 	protected void addResourceToHistory(String resourceID) {
     	String[] data = new String[3];
-    	data[0] = getCurrentDate();
-    	data[1] = resourceID;
+    	data[1] = getCurrentDate();
+    	data[0] = resourceID;
     	data[2] = "Currently Out ";
     	borrowHistory.add(data);
 	}
@@ -356,8 +356,8 @@ public class User {
 		int i = this.borrowHistory.size()-1;
 		while (!done && i >= 0) {
 			String[] data = borrowHistory.get(i);
-			if (data[1].equals(resourceID)) {
-				data[0] = getCurrentDate();
+			if (data[0].equals(resourceID)) {
+				data[1] = getCurrentDate();
 				borrowHistory.remove(i);
 				borrowHistory.add(i, data);
 				done = true;

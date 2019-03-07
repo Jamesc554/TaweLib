@@ -73,9 +73,10 @@ public class WriteFile extends IO {
 
 		ArrayList<String[]> borrowHistoryStrings = user.getBorrowHistory();
 		for (String[] borrowHistory : borrowHistoryStrings) {
-			borrowHistoryObject.put("ID", borrowHistory[0]);
-			borrowHistoryObject.put("Date", borrowHistory[1]);
-			borrowHistoryArray.add(borrowHistoryObject);
+			JSONObject borrowHistoryObj = new JSONObject();
+			borrowHistoryObj.put("ID", borrowHistory[0]);
+			borrowHistoryObj.put("Date", borrowHistory[1]);
+			borrowHistoryArray.add(borrowHistoryObj);
 		}
 		object.put("borrowHistory", borrowHistoryArray);
 
@@ -342,9 +343,9 @@ public class WriteFile extends IO {
 		object.put("thumbnailImg", laptop.getThumbnailImageRef());
 		object.put("noOfCopies", String.valueOf(laptop.getNoOfCopies()));
 		
-		Queue<User> laptopQueue = laptop.getQueueOfReservations();
+		Queue<String> laptopQueue = laptop.getQueueOfReservations();
 		while (!laptopQueue.isEmpty()) {
-			laptopQueueArray.add(laptopQueue.peek().getUserName());
+			laptopQueueArray.add(laptopQueue.peek());
 			laptopQueue.dequeue();
 		}
 		object.put("dvdQueue", laptopQueueArray);
