@@ -480,7 +480,7 @@ public class User {
     private boolean isWithinDate(Date startDate, int numDays, Date date){
 		Calendar c = Calendar.getInstance();
 		c.setTime(startDate);
-		c.add(Calendar.DATE, numDays);
+		c.add(Calendar.DATE, -numDays);
 		Date endDate = c.getTime();
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -491,11 +491,11 @@ public class User {
 			e.printStackTrace();
 		}
 
-		System.out.println(date.toString() + " - " + endDate.toString());
+		System.out.println(date.toString() + " - " + startDate.toString() + " - " + endDate.toString());
 
-		System.out.println((date.after(startDate) && date.before(endDate)));
+		System.out.println(date.before(startDate) && date.after(endDate));
 
-		return (date.after(startDate) && date.before(endDate));
+		return (date.before(startDate) && date.after(endDate));
 	}
 
     /**

@@ -42,6 +42,7 @@ public class WriteFile extends IO {
 		JSONArray resourceArray = new JSONArray();
 		JSONArray transactionArray = new JSONArray();
 		JSONArray borrowHistoryArray = new JSONArray();
+		JSONObject borrowHistoryObject = new JSONObject();
 		JSONArray jsonRequestedArray = new JSONArray();
 		JSONArray jsonReservedArray = new JSONArray();
 		object.put("username", user.getUserName());
@@ -72,10 +73,9 @@ public class WriteFile extends IO {
 
 		ArrayList<String[]> borrowHistoryStrings = user.getBorrowHistory();
 		for (String[] borrowHistory : borrowHistoryStrings) {
-			JSONArray borrowArray = new JSONArray();
-			borrowArray.add(borrowHistory[0]);
-			borrowArray.add(borrowHistory[1]);
-			borrowHistoryArray.add(borrowArray);
+			borrowHistoryObject.put("ID", borrowHistory[0]);
+			borrowHistoryObject.put("Date", borrowHistory[1]);
+			borrowHistoryArray.add(borrowHistoryObject);
 		}
 		object.put("borrowHistory", borrowHistoryArray);
 

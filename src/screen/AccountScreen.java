@@ -241,8 +241,8 @@ public class AccountScreen extends Screen implements Initializable {
 	private void setBorrowHistoryField() {
 		ArrayList<String[]> borrowHistory = Library.getCurrentLoggedInUser().getBorrowHistory();
 		for (String[] borrow : borrowHistory) {
-			String resourceID = borrow[1];
-			String date = borrow[0];
+			String resourceID = borrow[0];
+			String date = borrow[1];
 			borrowHistoryField.getItems().add("Resource ID: " + resourceID + " - Date: " + date);
 		}
 	}
