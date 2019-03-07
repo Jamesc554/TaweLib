@@ -3,10 +3,7 @@ package screen;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.layout.Pane;
 import library.Library;
 import user.User;
@@ -20,9 +17,11 @@ public class StatsScreen extends Screen implements Initializable {
     public BarChart statsChart;
     public CategoryAxis statsCataAxis;
     public NumberAxis statsNumAxis;
+    public PieChart typeChart;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Bar Chart
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
         User currentUser = Library.getCurrentLoggedInUser();
@@ -30,11 +29,16 @@ public class StatsScreen extends Screen implements Initializable {
         XYChart.Data weekData = new XYChart.Data<String, Number>("Past Week", currentUser.getResourcesBorrowStats()[1].size());
         XYChart.Data monthData = new XYChart.Data<String, Number>("Past Month", currentUser.getResourcesBorrowStats()[2].size());
 
-        series.getData().add(dayData);
-        series.getData().add(weekData);
-        series.getData().add(monthData);
-
+        series.getData().addAll(dayData, weekData, monthData);
         statsChart.getData().add(series);
+
+        // Pie Chart
+        PieChart.Data bookData = new PieChart.Data("Books", currentUser.getResourceTypeStats()[0]);
+        PieChart.Data dvdData = new PieChart.Data("DvDs", currentUser.getResourceTypeStats()[1]);
+        PieChart.Data laptopData = new PieChart.Data("Laptops", currentUser.getResourceTypeStats()[2]);
+        PieChart.Data videoGameData = new PieChart.Data("Video Games", currentUser.getResourceTypeStats()[3]);
+
+        typeChart.getData().addAll(bookData, dvdData, laptopData, videoGameData);
     }
 
     @Override

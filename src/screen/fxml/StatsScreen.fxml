@@ -4,12 +4,17 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -49,13 +54,48 @@
         </HBox>
       </items>
     </ToolBar>
-      <BarChart fx:id="statsChart" layoutX="390.0" layoutY="160.0">
-        <xAxis>
-          <CategoryAxis fx:id="statsCataAxis" label="Time" side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis fx:id="statsNumAxis" label="Amount" minorTickCount="0" side="LEFT" upperBound="10.0" />
-        </yAxis>
-      </BarChart>
+      <TabPane layoutY="68.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="652.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Basic View">
+               <content>
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <BarChart fx:id="statsChart" alternativeColumnFillVisible="true" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendSide="TOP" title="Borrow Statistics" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+                          <xAxis>
+                            <CategoryAxis fx:id="statsCataAxis" label="Time" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="statsNumAxis" cache="true" label="Amount" minorTickCount="0" side="LEFT" upperBound="10.0" />
+                          </yAxis>
+                        </BarChart>
+                        <PieChart fx:id="typeChart" title="Resource Type" />
+                     </children>
+                     <effect>
+                        <Blend mode="MULTIPLY" />
+                     </effect>
+                  </FlowPane>
+               </content>
+            </Tab>
+            <Tab text="Detailed View">
+               <content>
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <BarChart fx:id="statsChart1">
+                           <xAxis>
+                              <CategoryAxis fx:id="statsCataAxis1" label="Time" side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis fx:id="statsNumAxis1" label="Amount" minorTickCount="0" side="LEFT" upperBound="10.0" />
+                           </yAxis>
+                        </BarChart>
+                     </children>
+                     <effect>
+                        <Blend mode="MULTIPLY" />
+                     </effect>
+                  </FlowPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
   </children>
 </AnchorPane>
