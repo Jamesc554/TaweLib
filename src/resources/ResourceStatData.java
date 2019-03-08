@@ -11,8 +11,8 @@ public class ResourceStatData {
 
     public void addBorrowDate(String date){
         dateTimesBorrowed.putIfAbsent(date, 0);
-        int timesBorrowed = dateTimesBorrowed.getOrDefault(date, 0);
-        dateTimesBorrowed.replace(date, timesBorrowed++);
+        int timesBorrowed = dateTimesBorrowed.getOrDefault(date, 0) + 1;
+        dateTimesBorrowed.replace(date, timesBorrowed);
     }
 
     public int getTotalTimesBorrowed(){
@@ -22,5 +22,9 @@ public class ResourceStatData {
         }
 
         return total;
+    }
+
+    public int getTimesBorrowed(String date){
+        return dateTimesBorrowed.get(date);
     }
 }

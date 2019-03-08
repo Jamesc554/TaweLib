@@ -523,7 +523,25 @@ public class User {
         }
 
         Date borrowDate = new Date();
+        SimpleDateFormat dateFormatDMY = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+        if (Library.getResource(data[0].split("-")[0]) != null) {
+            System.out.println(data[0]);
+            Resource r = Library.getResource(data[0].split("-")[0]);
+
+            try {
+                borrowDate = dateFormat.parse(data[1]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            r.getResourceStatData().addBorrowDate(dateFormatDMY.format(borrowDate));
+        }
+
+
+
+        borrowDate = new Date();
         try {
             borrowDate = dateFormat.parse(data[1]);
         } catch (ParseException e) {

@@ -26,7 +26,7 @@ public abstract class Resource {
     protected String uniqueID; //The unique id of this resource.
     protected Queue<String> queueOfReservations; //The queue of current reservations for this resource.
     protected List<CopyData> copiesList; //The list of copies owned by this library for this resource.
-    protected int timesBorrowed; // The amount of times this resource has been borrowed.
+    protected ResourceStatData resourceStatData; // The amount of times this resource has been borrowed.
     private double FINE; //The daily fine for an overdue resource. CONSTANT
     private double MAX_FINE; //The maximum fine a single resource can reach. CONSTANT
 
@@ -53,6 +53,7 @@ public abstract class Resource {
         this.uniqueID = uniqueID;
         this.queueOfReservations = new Queue<String>();
         this.copiesList = new ArrayList<>();
+        this.resourceStatData = new ResourceStatData();
 
         for (int i = 0; i < noOfCopies; i++) {
             CopyData newCopy = null;
@@ -436,5 +437,9 @@ public abstract class Resource {
             }
         }
         return Integer.parseInt(currentEarlyCopy.getId());
+    }
+
+    public ResourceStatData getResourceStatData(){
+        return resourceStatData;
     }
 }

@@ -6,10 +6,13 @@ import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.layout.Pane;
 import library.Library;
+import resources.Resource;
 import user.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class StatsScreen extends Screen implements Initializable {
@@ -28,6 +31,16 @@ public class StatsScreen extends Screen implements Initializable {
         XYChart.Data dayData = new XYChart.Data<String, Number>("Past Day", currentUser.getResourcesBorrowStats()[0].size());
         XYChart.Data weekData = new XYChart.Data<String, Number>("Past Week", currentUser.getResourcesBorrowStats()[1].size());
         XYChart.Data monthData = new XYChart.Data<String, Number>("Past Month", currentUser.getResourcesBorrowStats()[2].size());
+
+        List<Resource> resourcesList = new ArrayList<>();
+        resourcesList.addAll(Library.getAllBooks());
+        resourcesList.addAll(Library.getAllDVD());
+        resourcesList.addAll(Library.getAllLaptops());
+
+        for (Resource r : resourcesList){
+            XYChart.Data data = new XYChart.Data<String, Number>(r.getUniqueID(), r.getResourceStatData().getTotalTimesBorrowed());
+            series.getData().add(data);
+        }
 
         series.getData().addAll(dayData, weekData, monthData);
         statsChart.getData().add(series);
