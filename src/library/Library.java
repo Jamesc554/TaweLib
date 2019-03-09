@@ -127,6 +127,31 @@ public class Library {
 	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys,
 				noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	}
+	
+	/**
+	 * This methods adds a laptop to the library.
+	 * @param year The year of release.
+	 * @param title The name of the laptop.
+	 * @param thumbnailImageRef Img of the laptop.
+	 * @param uniqueID The id of the laptop.
+	 * @param manufacturer The manufacture of the laptop.
+	 * @param model The model of the laptop.
+	 * @param operatingSys The operating system of the laptop.
+	 * @param noOfCopies The number of copies this library owns of this laptop
+	 * @param loanDuration The default loan duration of all copies of this laptop.
+	 * @param borrowHistory The borrow history associated with this laptop.
+	 * @param currentBorrowData The information about the current state of this laptop.
+	 */
+	public static void addVideoGame(String year, String title, String thumbnailImageRef, String uniqueID,
+							  		String publisher, String genre,  String multiplayerSupport,
+							  		String certificateRating, ArrayList<String> lang, Integer noOfCopies, 
+							  		ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory,
+							  		List<BorrowHistoryData> currentBorrowData) {
+		
+	    LibraryResources.addVideoGame(new VideoGame(year, title, thumbnailImageRef, uniqueID, genre, certificateRating, 
+	    		publisher, multiplayerSupport, lang,
+	    		noOfCopies, loanDuration, borrowHistory, currentBorrowData));
+	}
 
 	/**
 	 * This methods adds a user to the library.
@@ -190,6 +215,8 @@ public class Library {
 				return LibraryResources.getLaptop(id);
 			case "d":
 				return LibraryResources.getDVD(id);
+			case "v":
+				return LibraryResources.getVideoGame(id);
 			case "b":
 				return LibraryResources.getBook(id);
 			default:
@@ -330,6 +357,15 @@ public class Library {
 		return LibraryResources.getListOfDVD();
 	}
 
+	/**
+	 * Returns all DVD in the library.
+	 * @return ArrayList of all books.
+	 */
+	public static ArrayList<VideoGame> getAllVideoGames() {
+		return LibraryResources.getListOfVideoGames();
+	}
+	
+	
 	/**
 	 * Returns all users in the library.
 	 * @return ArrayList of all books.

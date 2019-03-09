@@ -4,6 +4,7 @@ import io.ReadFile;
 import resources.Book;
 import resources.DVD;
 import resources.Laptop;
+import resources.VideoGame;
 import user.Librarian;
 import user.User;
 
@@ -20,6 +21,7 @@ public class LibraryResources {
     private static ArrayList<Book> listOfBooks = new ArrayList<>(); //List of books
     private static ArrayList<Laptop> listOfLaptops = new ArrayList<>(); //List of laptops
     private static ArrayList<DVD> listOfDVD = new ArrayList<>(); //List of dvd's
+    private static ArrayList<VideoGame> listOfVideoGames = new ArrayList<>(); //List of books
     private static ArrayList<User> listOfUsers = new ArrayList<>(); //List of users
     private static ArrayList<Librarian> listOfLibrarians = new ArrayList<>(); // List of librarians
 
@@ -32,6 +34,7 @@ public class LibraryResources {
         listOfLaptops = ReadFile.readLaptops();
         listOfUsers = ReadFile.readUsers();
         listOfLibrarians = ReadFile.readLibrarians();
+        listOfVideoGames = ReadFile.readVideoGames();
     }
 
     /**
@@ -50,6 +53,15 @@ public class LibraryResources {
      */
     public static void addLaptop(Laptop laptop) {
         listOfLaptops.add(laptop);
+    }
+    
+    /**
+     * Adds a laptop to the libraryResource.
+     *
+     * @param laptop Laptop object.
+     */
+    public static void addVideoGame(VideoGame videoGame) {
+        listOfVideoGames.add(videoGame);
     }
 
     /**
@@ -133,6 +145,21 @@ public class LibraryResources {
         }
         return null;
     }
+    
+    /**
+     * Gets a book from list based on id.
+     *
+     * @param id of the book.
+     * @return Book object. Returns null if no such book.
+     */
+    protected static VideoGame getVideoGame(String id) {
+        for (VideoGame v : listOfVideoGames) {
+            if (v.getUniqueID().equals(id)) {
+                return v;
+            }
+        }
+        return null;
+    }
 
     /**
      * Gets a DVD from list based on id.
@@ -190,6 +217,15 @@ public class LibraryResources {
     protected static ArrayList<Book> getListOfBooks() {
         return listOfBooks;
     }
+    
+    /**
+     * Returns all books.
+     *
+     * @return ArrayList of books.
+     */
+    protected static ArrayList<VideoGame> getListOfVideoGames() {
+        return listOfVideoGames;
+    }
 
     /**
      * Returns all DVD.
@@ -230,6 +266,14 @@ public class LibraryResources {
                     if (listOfLaptops.get(index).getUniqueID().equals(id)) {
                         listOfLaptops.remove(index);
                         index = listOfLaptops.size();
+                    }
+                }
+                break;
+            case "v":
+                for (int index = 0; index < listOfVideoGames.size(); index++) {
+                    if (listOfVideoGames.get(index).getUniqueID().equals(id)) {
+                        listOfVideoGames.remove(index);
+                        index = listOfVideoGames.size();
                     }
                 }
                 break;
