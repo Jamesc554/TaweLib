@@ -9,22 +9,22 @@ import java.util.List;
  * This class models the VideoGame Resource.
  * </p>
  * 
- * @author Peter Daish, Deyan Naydenov, Dominik Wojtasiewicz
+ * @author Peter Daish, Ammar Alamri, Dominik Wojtasiewicz
  * @since 05/03/2019
  */
 
 public class VideoGame extends Resource {
-	private final double FINE = 2.00; // The fine amount of a book when overdue.
-	private final double MAX_FINE = 25.00; // The maximum fine value of any book.
+	private final double FINE = 2.00; // The fine amount of a video game when overdue.
+	private final double MAX_FINE = 25.00; // The maximum fine value of any video game.
 
-	private static String highestGameID = "GameID:0"; // This is used to calculate a unique BookID.
+	private static String highestGameID = "GameID:0"; // This is used to calculate a unique GameID.
 
 	private int highestCopyID = 0; // this is used to calculate a unique CopyID.
-	private String publisher; // Publisher of Book
-	private String genre; // Genre of book (Optional)
-	private String certificateRating;// ISBN of book (Optional)
+	private String publisher; // Publisher of game
+	private String genre; // Genre of game 
+	private String certificateRating;// certificate rating of game
 	private String multiplayerSupport;
-	private ArrayList<String> languages; // The array of languages the book is currently available in (Optional).
+	private ArrayList<String> languages; // The array of languages the game is currently available in .
 
 	/**
 	 * <h1>The constructor for a Video Game.</h1>
@@ -71,7 +71,7 @@ public class VideoGame extends Resource {
 	 * Generates a uniqueID for a game.
 	 * 
 	 * @param id The stated ID of the game being created.
-	 * @return highestBookID the book ID of the latest created game
+	 * @return highestGameID the game ID of the latest created game
 	 */
 	private static String generateGameID(String id) {
 		// split Game ID into two strings if ID == null.
@@ -105,7 +105,7 @@ public class VideoGame extends Resource {
 	/**
 	 * Sets a value to calculate Game IDs from.
 	 * 
-	 * @param hBookID The highest current value of any Game's ID.
+	 * @param hGameID The highest current value of any Game's ID.
 	 */
 	public void setHighestBookID(String hGameID) {
 		this.highestGameID = hGameID;
@@ -114,7 +114,7 @@ public class VideoGame extends Resource {
 	/**
 	 * Returns the ID of the latest Game.
 	 * 
-	 * @return highestBookID The highest current id of any game.
+	 * @return highestGameID The highest current id of any game.
 	 */
 	public String getHighestBookID() {
 		return this.highestGameID;
@@ -139,53 +139,53 @@ public class VideoGame extends Resource {
 	}
 
 	/**
-	 * Returns the publisher of this book
+	 * Returns the publisher of this game
 	 * 
-	 * @return publisher The publisher of this book
+	 * @return publisher The publisher of this game
 	 */
 	public String getPublisher() {
 		return this.publisher;
 	}
 
 	/**
-	 * Sets the publisher of this book
+	 * Sets the publisher of this game
 	 * 
-	 * @param publisher The new publisher of this book
+	 * @param publisher The new publisher of this game
 	 */
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
 
 	/**
-	 * Gets the genre of this book
+	 * Gets the genre of this game
 	 * 
-	 * @return genre The genre of this book.
+	 * @return genre The genre of this game.
 	 */
 	public String getGenre() {
 		return this.genre;
 	}
 
 	/**
-	 * Sets the genre of this book
+	 * Sets the genre of this game
 	 * 
-	 * @param genre The new genre of this book.
+	 * @param genre The new genre of this game.
 	 */
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
 
 	/**
-	 * Gets the languages this book is available in
+	 * Gets the languages this game is available in
 	 * 
-	 * @return languages The languages this book is available in.
+	 * @return languages The languages this game is available in.
 	 *//*
 		 * public ArrayList<String> getLanguages() { return this.languages; }
 		 */
 
 	/**
-	 * Sets the languages this book is available in.
+	 * Sets the languages this game is available in.
 	 * 
-	 * @param languages The languages this book will become available in.
+	 * @param languages The languages this game will become available in.
 	 *//*
 		 * public void setLanguages(ArrayList<String> languages) { this.languages =
 		 * languages; }
@@ -193,12 +193,12 @@ public class VideoGame extends Resource {
 
 	/*
 	 * ############################################################# ######## BELOW
-	 * ARE THE COMPLEX METHODS OF BOOK ########
+	 * ARE THE COMPLEX METHODS OF Game ########
 	 * #############################################################
 	 */
 
 	/**
-	 * Adds a new language to this book
+	 * Adds a new language to this game
 	 * 
 	 * @param newLang The new languages to be added.
 	 */
@@ -206,7 +206,7 @@ public class VideoGame extends Resource {
 	 * public void addLanguage(String newLang) { this.languages.add(newLang); }
 	 * 
 	 *//**
-		 * Removes a specific languages from this book
+		 * Removes a specific languages from this game
 		 * 
 		 * @param langToRemove The language to be removed.
 		 *//*
