@@ -77,10 +77,10 @@ public class ReadFile extends IO {
 				borrowHistoryArray = (JSONArray) object.get("borrowHistory");
 				if (borrowHistoryArray != null) {
 					for (Object borrowInformation : borrowHistoryArray) {
-						JSONArray borrowInformationArray = (JSONArray) borrowInformation;
+						JSONObject borrowInformationArray = (JSONObject) borrowInformation;
 						String[] data = new String[2];
-						data[1] = (String) borrowInformationArray.get(0);
-						data[0] = (String) borrowInformationArray.get(1);
+						data[0] = (String) borrowInformationArray.get("ID");
+						data[1] = (String) borrowInformationArray.get("Date");
 						user.addToBorrowHistory(data);
 					}
 				}
@@ -100,6 +100,7 @@ public class ReadFile extends IO {
 						user.addToReserved(reservedResourceID);
 					}
 				}
+				System.out.println(user.getUserName() + " is added");
 				userList.add(user);
 			}
 

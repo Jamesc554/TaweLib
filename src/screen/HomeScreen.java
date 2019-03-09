@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -41,6 +42,9 @@ public class HomeScreen extends Screen implements Initializable {
 	// SCENEBUILDER ARE OF THE SAME NAME AS THE VARIBLES HERE!!!!!
 	@FXML
 	private Text fineText;
+
+	@FXML
+	private Button statsBtn;
 
 	@FXML
 	private ListView borrowedItemsList;
@@ -169,5 +173,9 @@ public class HomeScreen extends Screen implements Initializable {
 	public void onEnter(ActionEvent actionEvent) {
 		Library.setSearchStringText(searchBar.getText());
 		ScreenManager.changeScreen(new SearchResultScreen());
+	}
+
+	public void statsButton(ActionEvent actionEvent) {
+		ScreenManager.changeScreen(new StatsScreen());
 	}
 }

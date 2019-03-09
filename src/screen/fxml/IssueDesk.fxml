@@ -99,6 +99,7 @@
                         <Label fx:id="loanCopyError" layoutX="359.0" layoutY="259.0" text="Invalid Copy ID!" textFill="RED" visible="false" />
                         <Label fx:id="loanSuccess" layoutX="359.0" layoutY="298.0" text="Loan succesful! " textFill="#34972b" visible="false" />
                         <Label fx:id="outstandingFineMsg" layoutX="359.0" layoutY="298.0" text="User has outstanding fines!" textFill="RED" visible="false" />
+                        <Label fx:id="toManyResourcesError" layoutX="359.0" layoutY="259.0" text="To many resources currently borrowed" textFill="RED" visible="false" />
                         <Button layoutX="737.0" layoutY="221.0" mnemonicParsing="false" onAction="#returnSearchButton" style="-fx-background-color: #ef9d39;" text="Search" textFill="#0e0056">
                            <font>
                               <Font size="14.0" />

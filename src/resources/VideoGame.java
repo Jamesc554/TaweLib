@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <h1>Book.</h1>
+ * <h1>VideoGame.</h1>
  * <p>
- * This class models the Library Resource: Book.
+ * This class models the VideoGame Resource.
  * </p>
  * 
  * @author Peter Daish, Deyan Naydenov, Dominik Wojtasiewicz
- * @since 18/11/2018
+ * @since 05/03/2019
  */
 
 public class VideoGame extends Resource {

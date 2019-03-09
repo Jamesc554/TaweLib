@@ -1,5 +1,4 @@
 package library;
-import java.awt.image.SampleModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ import user.User;
 public class Library {
 	private static User currentUser; //Stores the currently logged-in user.
 	private static String searchScreenText = "";
+	private static final int MAX_RESOURCES = 5;
 
 	/**
 	 * This methods starts the library. Library is static so we can only
@@ -600,5 +600,9 @@ public class Library {
 		LibraryResources.getLaptop(id).setManufacturer(manufacturer);
 		LibraryResources.getLaptop(id).setModel(model);
 		LibraryResources.getLaptop(id).setOperatingSys(os);
+	}
+
+	public static int getMaxResources(){
+		return MAX_RESOURCES;
 	}
 }
