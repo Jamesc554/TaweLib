@@ -17,7 +17,7 @@ public class VideoGame extends Resource {
 	private final double FINE = 2.00; // The fine amount of a video game when overdue.
 	private final double MAX_FINE = 25.00; // The maximum fine value of any video game.
 
-	private static String highestGameID = "GameID:0"; // This is used to calculate a unique GameID.
+	private static String highestGameID = "VideoGameID:0"; // This is used to calculate a unique GameID.
 
 	private int highestCopyID = 0; // this is used to calculate a unique CopyID.
 	private String publisher; // Publisher of game
