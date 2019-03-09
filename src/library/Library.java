@@ -620,6 +620,27 @@ public class Library {
 		LibraryResources.getDVD(id).setLanguage(language);
 		LibraryResources.getDVD(id).setSubLang(subs);
 	}
+	
+	/**
+	 * Updates a DVD's properties
+	 * @param id the DVD resource unique ID
+	 * @param title the updated DVD title
+	 * @param year the updated DVD year
+	 * @param director the updated DVD director
+	 * @param runtime the updated DVD runtime
+	 * @param language the updated DVD language
+	 * @param subs the updated DVD available subtitle languages
+	 */
+	public static void editVideoGame(String id, String title, String year, String publisher, String genre,
+									String multiplayerSupport, String certificateRating, ArrayList<String> lang) {
+		
+		LibraryResources.getVideoGame(id).setTitle(title);
+		LibraryResources.getVideoGame(id).setYear(year);
+		LibraryResources.getVideoGame(id).setPublisher(publisher);
+		LibraryResources.getVideoGame(id).setGenre(genre);
+		LibraryResources.getVideoGame(id).setCertificateRating(certificateRating);
+		LibraryResources.getVideoGame(id).setLanguages(lang);
+	}
 
 	/**
 	 * Updates a Laptop's properties
