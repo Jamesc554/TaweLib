@@ -178,18 +178,20 @@ public class VideoGame extends Resource {
 	 * Gets the languages this game is available in
 	 * 
 	 * @return languages The languages this game is available in.
-	 *//*
-		 * public ArrayList<String> getLanguages() { return this.languages; }
-		 */
+	 */
+	 public ArrayList<String> getLanguages() {
+	  return this.languages; 
+	  }
 
 	/**
 	 * Sets the languages this game is available in.
 	 * 
 	 * @param languages The languages this game will become available in.
-	 *//*
-		 * public void setLanguages(ArrayList<String> languages) { this.languages =
-		 * languages; }
-		 */
+	 */
+	public void setLanguages(ArrayList<String> languages) { 
+		this.languages = languages;
+		}
+		 
 
 	/*
 	 * ############################################################# ######## BELOW
@@ -202,19 +204,23 @@ public class VideoGame extends Resource {
 	 * 
 	 * @param newLang The new languages to be added.
 	 */
-	/*
-	 * public void addLanguage(String newLang) { this.languages.add(newLang); }
-	 * 
-	 *//**
+	
+	  public void addLanguage(String newLang) { 
+		  this.languages.add(newLang);
+		  }
+	  
+	 /**
 		 * Removes a specific languages from this game
 		 * 
 		 * @param langToRemove The language to be removed.
-		 *//*
-			 * public void removeLanguage(String langToRemove) { //search through arrayList
-			 * and remove language selected. for (int i = 0; i < this.languages.size(); i++)
-			 * { if (this.languages.get(i) == langToRemove) { this.languages.remove(i); } }
-			 * }
-			 */
+		 */
+	  public void removeLanguage(String langToRemove) { //search through arrayList and remove language selected. 
+		  for (int i = 0; i < this.languages.size(); i++) { 
+			  if (this.languages.get(i) == langToRemove) { this.languages.remove(i); 
+			  } 
+		  }
+	  }
+			 
 
 	/**
 	 * Generates a copy ID based off of previous copyID.
