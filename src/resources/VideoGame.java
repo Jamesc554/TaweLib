@@ -216,7 +216,8 @@ public class VideoGame extends Resource {
 		 */
 	  public void removeLanguage(String langToRemove) { //search through arrayList and remove language selected. 
 		  for (int i = 0; i < this.languages.size(); i++) { 
-			  if (this.languages.get(i) == langToRemove) { this.languages.remove(i); 
+			  if (this.languages.get(i) == langToRemove) { 
+				  this.languages.remove(i); 
 			  } 
 		  }
 	  }
