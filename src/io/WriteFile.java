@@ -59,10 +59,10 @@ public class WriteFile extends IO {
 
         ArrayList<String[]> transactions = user.getTransactions();
         for (String[] transaction : transactions) {
-            JSONArray singleTransaction = new JSONArray();
-            singleTransaction.add(transaction[0]);
-            singleTransaction.add(transaction[1]);
-            singleTransaction.add(transaction[2]);
+            JSONObject singleTransaction = new JSONObject();
+            singleTransaction.put("System", transaction[0]);
+            singleTransaction.put("Date", transaction[1]);
+            singleTransaction.put("Amount", transaction[2]);
             transactionArray.add(singleTransaction);
         }
         object.put("transactionHistory", transactionArray);
@@ -88,6 +88,15 @@ public class WriteFile extends IO {
             jsonReservedArray.add(reserved);
         }
         object.put("reserved", jsonReservedArray);
+
+//        ArrayList<Integer> fineArray = user.getFineHistory();
+//        JSONArray fineHistoryObject = new JSONArray();
+//        for (int amount : fineArray){
+//            JSONObject fineData = new JSONObject();
+//            fineData.put("Amount", amount);
+//            fineHistoryObject.add(fineData);
+//        }
+//        object.put("fineHistory", fineHistoryObject);
 
         try {
             FileWriter file = new FileWriter(IO.getUsersFilePath(), true);
@@ -542,6 +551,9 @@ public class WriteFile extends IO {
         
         currentFile = new File(IO.getLibrarianFilePath());
         currentFile.renameTo(new File("./data/backup/" + newFilePath + "/librarians.json"));
+        
+        currentFile = new File(IO.getRatingsFilePath());
+        currentFile.renameTo(new File("./data/backup/" + newFilePath + "/ratings.json"));
 
         fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), Library.getAllLaptops(), Library.getAllVideoGames(), Library.getAllLibrarians());
     }
@@ -559,5 +571,25 @@ public class WriteFile extends IO {
             e.printStackTrace();
         }
 
+    }
+    
+    /**
+     * This method writes a new rating to the file.
+     */
+    public static void writeRatingToFile(String id, String message, int rating) {
+    	JSONObject object = new JSONObject();
+    	object.put("id", id);
+    	object.put("message", message);
+    	object.put("rating", rating);
+    	object.put("username", Library.getCurrentLoggedInUser());
+    	
+    	try {
+            FileWriter file = new FileWriter(IO.getRatingsFilePath(), true);
+            file.write(object.toJSONString() + "\n");
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            System.out.println("Error writing ratings to " + IO.getRatingsFilePath());
+        }
     }
 }

@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <h1>User.</h1>
@@ -35,6 +36,7 @@ public class User {
     protected String lastLogIn; //Date last log in.
     protected ArrayList<String>[] resourcesBorrowStats = new ArrayList[3]; // [0] - Day, [1] - Week, [2] - Month. Value = Resource ID, NOT COPY ID
     protected int[] resourceTypeStats = new int[4]; // [0] - Book, [1] - DVD, [2] - Laptop, [3] - Video Game
+    protected ArrayList<Integer> fineHistory = new ArrayList<>(); // History on Fines this user has had
 
     /**
      * Generic constructor
@@ -347,6 +349,7 @@ public class User {
      */
     public void addAccountBalance(int amount) {
         this.accountBalance = this.accountBalance + amount;
+        fineHistory.add(amount);
     }
 
     /**
@@ -650,5 +653,9 @@ public class User {
             }
         }
         return noOfResources;
+    }
+
+    public ArrayList<Integer> getFineHistory(){
+        return fineHistory;
     }
 }

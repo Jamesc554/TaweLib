@@ -203,6 +203,51 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private ImageView laptopImg;
     @FXML
     private ListView laptopOverdueList;
+    
+    
+    //videogames
+    @FXML
+    private TextField videoGameTitle;
+    @FXML
+    private TextField videoGameCertificateRating;
+    @FXML
+    private TextField videoGameYear;
+    @FXML
+    private TextField videoGamePublisher;
+    @FXML
+    private TextField videoGameGenre;
+    @FXML
+    private TextField videoGameMultiplayerSupport;
+    @FXML
+    private TextField videoGameLanguage;
+    @FXML
+    private TextField videoGameNumCopies;
+    @FXML
+    private Label videoGameSuccess;
+    @FXML
+    private Label videoGameError;
+    @FXML
+    private Label videoGameCopiesError;
+    @FXML
+    private Text videoGameImgName;
+    @FXML
+    private ImageView videoGameImg;
+    @FXML
+    private TextField videoGame1Day;
+    @FXML
+    private TextField videoGame1Week;
+    @FXML
+    private TextField videoGame2Weeks;
+    @FXML
+    private TextField videoGame4Weeks;
+    @FXML
+    private Label videoGameDurationError;
+    @FXML
+    private ListView videoGameOverdueList;
+    
+    
+    
+    
 
     @Override
     /**
@@ -253,6 +298,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
                     break;
                 case "DVD":
                     dvdOverdueList.getItems().add(copy + " - " + user);
+                    break;
+                case "VideoGame":
+                    videoGameOverdueList.getItems().add(copy + " - " + user);
                     break;
                 case "Laptop":
                     laptopOverdueList.getItems().add(copy + " - " + user);
@@ -603,6 +651,97 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     @SuppressWarnings("Duplicates")
     /**
+     * Event handling to create a new Book.
+     */
+    private void createVideoGameButton() {
+        String title = videoGameTitle.getText();
+        String certificateRating = videoGameCertificateRating.getText();
+        String year = videoGameYear.getText();
+        String publisher = videoGamePublisher.getText();
+        String genre = videoGameGenre.getText();
+        String multiplayerSupport = videoGameMultiplayerSupport.getText();
+        String languageString = videoGameLanguage.getText();
+        ArrayList<String> languages = null;
+        String imageName = videoGameImgName.getText();
+
+        //Reset error/success labels
+        videoGameSuccess.setVisible(false);
+        videoGameError.setVisible(false);
+        videoGameCopiesError.setVisible(false);
+        videoGameDurationError.setVisible(false);
+
+        //Check if required fields have input
+        if (title.equals("") || certificateRating.equals("") || year.equals("") || publisher.equals("") 
+        		|| imageName.equals("") || genre.equals("") || multiplayerSupport.equals("")) {
+            videoGameError.setVisible(true);
+        } else {
+            int numCopies;
+            int num1Day;
+            int num1Week;
+            int num2Weeks;
+            int num4Weeks;
+            try {
+                //Add the book to the Library
+                String image = "./data/images/videogame/" + imageName;
+                if (videoGameNumCopies.getText().equals("")) {
+                    numCopies = 0;
+                } else {
+                    numCopies = Integer.parseInt(videoGameNumCopies.getText());
+                }
+                if (videoGame1Day.getText().equals("")) {
+                    num1Day = 0;
+                } else {
+                    num1Day = Integer.parseInt(videoGame1Day.getText());
+                }
+                if (videoGame1Week.getText().equals("")) {
+                    num1Week = 0;
+                } else {
+                    num1Week = Integer.parseInt(videoGame1Week.getText());
+                }
+                if (videoGame2Weeks.getText().equals("")) {
+                    num2Weeks = 0;
+                } else {
+                    num2Weeks = Integer.parseInt(videoGame2Weeks.getText());
+                }
+                if (videoGame4Weeks.getText().equals("")) {
+                    num4Weeks = 0;
+                } else {
+                    num4Weeks = Integer.parseInt(videoGame4Weeks.getText());
+                }
+                if (numCopies >= 0 && num1Day >= 0 && num1Week >= 0 && num2Weeks >= 0 && num4Weeks >= 0) {
+                    if (num1Day + num1Week + num2Weeks + num4Weeks == numCopies) {
+                        ArrayList<String> loanDuration = new ArrayList<>();
+                        for (int i = 0; i < num1Day; i++) {
+                            loanDuration.add("1");
+                        }
+                        for (int i = 0; i < num1Week; i++) {
+                            loanDuration.add("7");
+                        }
+                        for (int i = 0; i < num2Weeks; i++) {
+                            loanDuration.add("14");
+                        }
+                        for (int i = 0; i < num4Weeks; i++) {
+                            loanDuration.add("28");
+                        }
+                        Library.addVideoGame(year, title, image, null, publisher, genre, multiplayerSupport, certificateRating, languages,
+                                numCopies, loanDuration, new ArrayList<>(), new ArrayList<>());
+                        videoGameSuccess.setVisible(true);
+                        videoGameImgName.setText("");
+                    } else {
+                        videoGameDurationError.setVisible(true);
+                    }
+                } else {
+                    videoGameCopiesError.setVisible(true);
+                }
+            } catch (NumberFormatException ex) {
+                videoGameCopiesError.setVisible(true);
+            }
+        }
+    }
+    
+    @FXML
+    @SuppressWarnings("Duplicates")
+    /**
      * Event handling to create a new DVD.
      */
     private void createDVDButton() {
@@ -813,6 +952,20 @@ public class IssueDeskScreen extends Screen implements Initializable {
              setImage(dvdImg, selectedFile);
          } catch (NullPointerException ex) {
              System.out.println("No dvd image file selected");
+         }
+    }
+    
+    @FXML
+    /**
+     * Event handling to choose a video game thumbnail image.
+     */
+    private void videoGameImageButton() {
+         try {
+             File selectedFile = getImageFile("videogame");
+             videoGameImgName.setText(selectedFile.getName());
+             setImage(videoGameImg, selectedFile);
+         } catch (NullPointerException ex) {
+             System.out.println("No video game image file selected");
          }
     }
 

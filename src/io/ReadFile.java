@@ -66,11 +66,11 @@ public class ReadFile extends IO {
 				transactionArray = (JSONArray) object.get("transactionHistory");
 				if (transactionArray != null) {
 					for (Object transactionInformation : transactionArray) {
-						JSONArray transactionInformationArray = (JSONArray) transactionInformation;
+						JSONObject transactionInformationArray = (JSONObject) transactionInformation;
 						String[] data = new String[3];
-						data[0] = (String) transactionInformationArray.get(0);
-						data[1] = (String) transactionInformationArray.get(1);
-						data[2] = (String) transactionInformationArray.get(2);
+						data[0] = (String) transactionInformationArray.get("System");
+						data[1] = (String) transactionInformationArray.get("Date");
+						data[2] = (String) transactionInformationArray.get("Amount");
 						user.addToTransactionHistory(data);
 					}
 				}
@@ -669,5 +669,43 @@ public class ReadFile extends IO {
 			e.printStackTrace();
 		}
 		return laptops;
+	}
+	
+	public static ArrayList<String[]> readRatings() {
+		JSONParser parser = new JSONParser();
+		ArrayList<String[]> ratingList = new ArrayList<>();
+		
+		try {
+			file = new FileReader(IO.getLaptopFilePath());
+			reader = new BufferedReader(file);
+
+			while ((currentLine = reader.readLine()) != null) {
+				JSONObject object = (JSONObject) parser.parse(currentLine);
+				String[] newRating = new String[4];
+				String id = ((String) object.get("id"));
+				String message = ((String) object.get("message"));
+				String rating = ((String) object.get("rating"));
+				String username = ((String) object.get("username"));
+				newRating[0] = id;
+				newRating[1] = message;
+				newRating[2] = rating;
+				newRating[3] = username;
+				ratingList.add(newRating);
+			}
+			
+			reader.close();
+			file.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot find " + IO.getRatingsFilePath());
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("ERROR reading file " + IO.getRatingsFilePath());
+			e.printStackTrace();
+		} catch (ParseException e) {
+			System.out.println("ERROR parsing ratings JSON");
+			e.printStackTrace();
+		}
+		
+		return ratingList;
 	}
 }

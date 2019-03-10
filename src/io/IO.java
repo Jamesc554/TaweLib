@@ -14,6 +14,7 @@ public abstract class IO {
 	private static final String DVD_FILEPATH = "./data/dvd.json";
 	private static final String LAPTOP_FILEPATH = "./data/laptop.json";
 	private static final String VIDEOGAME_FILEPATH = "./data/videogame.json";
+	private static final String RATINGS_FILEPATH = "./data/ratings.json";
 
 	/**
 	 * This method returns the file path of the data file that holds the users information.
@@ -61,5 +62,13 @@ public abstract class IO {
 	 */
 	public static String getVideoGameFilePath() {
 		return VIDEOGAME_FILEPATH;
+	}
+	
+	/**
+	 * This method returns the file path of the data file that holds the ratings information.
+	 * @return a String which contains the file path of the ratings.
+	 */
+	public static String getRatingsFilePath() {
+		return RATINGS_FILEPATH;
 	}
 }

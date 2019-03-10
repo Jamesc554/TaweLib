@@ -31,6 +31,8 @@ import library.Library;
  * TODO: THIS CLASS
  */
 public class RatingScreen extends Screen implements Initializable {
+	private static String rTitle;
+	private static String rId;
 	@FXML
 	private Label resourceTitle;
 	@FXML
@@ -43,6 +45,7 @@ public class RatingScreen extends Screen implements Initializable {
 	private TextArea messageBox;
 	@FXML
 	private Button leaveRating;
+
 	@Override
     /**
      * Sets IssueDesk as the current scene.
@@ -75,6 +78,8 @@ public class RatingScreen extends Screen implements Initializable {
 		userIcon.setImage(SwingFXUtils.toFXImage(img, null));
 		usernameText.setText(Library.getCurrentLoggedInUser().getUserName());
 		searchBar.setText(Library.getSearchScreenText());
+		System.out.println(rTitle);
+		resourceTitle.setText(rTitle);
 
 		if (Library.currentUserIsLibrarian()) {
 			issueDeskBtn.setVisible(true);
@@ -89,11 +94,16 @@ public class RatingScreen extends Screen implements Initializable {
 	        );
 	}
 	
-//	@FXML
-//	/**
-//	 * Submits the users rating.
-//	 */
-//	public void leaveRatingClick() {
-//		
-//	}
+	public static void setResource(String id, String title) {
+		rId = id;
+		rTitle = title;
+	}
+	
+	@FXML
+	/**
+     * Submits the users rating.
+	 */
+	public void leaveRatingClick() {
+		System.out.println("POOP");
+	}
 }
