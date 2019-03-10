@@ -182,6 +182,7 @@ public class SearchResultScreen extends Screen implements Initializable {
      * Opens rating screen for the resource highlighted on the search results screen.
      */
     public void viewRatings() {
+    	RatingScreen.setResource(uIDTf.getText(), titleTf.getText());
         ScreenManager.changeScreen(new RatingScreen());
         System.out.println(uIDTf.getText());
     }
