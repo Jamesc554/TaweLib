@@ -25,7 +25,7 @@
           <items>
             <AnchorPane fx:id="changeProfileImageBtn" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #f4f5ff;">
               <children>
-                <Label fx:id="resourceTitle" layoutX="140.0" layoutY="35.0" text="Resource Title">
+                <Label fx:id="resourceTitle" contentDisplay="CENTER" layoutY="35.0" text="Resource Title" textAlignment="CENTER">
                   <font>
                     <Font name="System Bold" size="18.0" />
                   </font>
