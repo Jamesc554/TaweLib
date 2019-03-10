@@ -59,10 +59,10 @@ public class WriteFile extends IO {
 
         ArrayList<String[]> transactions = user.getTransactions();
         for (String[] transaction : transactions) {
-            JSONArray singleTransaction = new JSONArray();
-            singleTransaction.add(transaction[0]);
-            singleTransaction.add(transaction[1]);
-            singleTransaction.add(transaction[2]);
+            JSONObject singleTransaction = new JSONObject();
+            singleTransaction.put("System", transaction[0]);
+            singleTransaction.put("Date", transaction[1]);
+            singleTransaction.put("Amount", transaction[2]);
             transactionArray.add(singleTransaction);
         }
         object.put("transactionHistory", transactionArray);
@@ -88,6 +88,15 @@ public class WriteFile extends IO {
             jsonReservedArray.add(reserved);
         }
         object.put("reserved", jsonReservedArray);
+
+//        ArrayList<Integer> fineArray = user.getFineHistory();
+//        JSONArray fineHistoryObject = new JSONArray();
+//        for (int amount : fineArray){
+//            JSONObject fineData = new JSONObject();
+//            fineData.put("Amount", amount);
+//            fineHistoryObject.add(fineData);
+//        }
+//        object.put("fineHistory", fineHistoryObject);
 
         try {
             FileWriter file = new FileWriter(IO.getUsersFilePath(), true);

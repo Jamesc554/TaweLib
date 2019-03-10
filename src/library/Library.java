@@ -254,7 +254,7 @@ public class Library {
 			throw new IllegalArgumentException("Amount superior to account balance");
 		}
 		getUser(username).subtractAccountBalance(amount);
-		getUser(username).addTransaction(currentUser.getUserName(), amount);
+		getUser(username).addTransaction(currentUser.getUserName(), -amount);
 	}
 
 	/**
