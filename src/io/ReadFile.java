@@ -681,13 +681,15 @@ public class ReadFile extends IO {
 
 			while ((currentLine = reader.readLine()) != null) {
 				JSONObject object = (JSONObject) parser.parse(currentLine);
-				String[] newRating = new String[3];
+				String[] newRating = new String[4];
 				String id = ((String) object.get("id"));
 				String message = ((String) object.get("message"));
 				String rating = ((String) object.get("rating"));
+				String username = ((String) object.get("username"));
 				newRating[0] = id;
 				newRating[1] = message;
 				newRating[2] = rating;
+				newRating[3] = username;
 				ratingList.add(newRating);
 			}
 			

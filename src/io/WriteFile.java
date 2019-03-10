@@ -581,6 +581,7 @@ public class WriteFile extends IO {
     	object.put("id", id);
     	object.put("message", message);
     	object.put("rating", rating);
+    	object.put("username", Library.getCurrentLoggedInUser());
     	
     	try {
             FileWriter file = new FileWriter(IO.getRatingsFilePath(), true);
