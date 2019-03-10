@@ -670,4 +670,40 @@ public class ReadFile extends IO {
 		}
 		return laptops;
 	}
+	
+	public static ArrayList<String[]> readRatings() {
+		JSONParser parser = new JSONParser();
+		ArrayList<String[]> ratingList = new ArrayList<>();
+		
+		try {
+			file = new FileReader(IO.getLaptopFilePath());
+			reader = new BufferedReader(file);
+
+			while ((currentLine = reader.readLine()) != null) {
+				JSONObject object = (JSONObject) parser.parse(currentLine);
+				String[] newRating = new String[3];
+				String id = ((String) object.get("id"));
+				String message = ((String) object.get("message"));
+				String rating = ((String) object.get("rating"));
+				newRating[0] = id;
+				newRating[1] = message;
+				newRating[2] = rating;
+				ratingList.add(newRating);
+			}
+			
+			reader.close();
+			file.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot find " + IO.getRatingsFilePath());
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("ERROR reading file " + IO.getRatingsFilePath());
+			e.printStackTrace();
+		} catch (ParseException e) {
+			System.out.println("ERROR parsing ratings JSON");
+			e.printStackTrace();
+		}
+		
+		return ratingList;
+	}
 }
