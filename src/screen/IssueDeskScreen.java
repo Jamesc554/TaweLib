@@ -203,6 +203,51 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private ImageView laptopImg;
     @FXML
     private ListView laptopOverdueList;
+    
+    
+    //videogames
+    @FXML
+    private TextField videoGameTitle;
+    @FXML
+    private TextField videoGameAuthor;
+    @FXML
+    private TextField videoGameYear;
+    @FXML
+    private TextField videoGamePublisher;
+    @FXML
+    private TextField videoGameGenre;
+    @FXML
+    private TextField videoGameISBN;
+    @FXML
+    private TextField videoGameLanguage;
+    @FXML
+    private TextField videoGameNumCopies;
+    @FXML
+    private Label videoGameSuccess;
+    @FXML
+    private Label videoGameError;
+    @FXML
+    private Label videoGameCopiesError;
+    @FXML
+    private Text videoGameImgName;
+    @FXML
+    private ImageView videoGameImg;
+    @FXML
+    private TextField videoGame1Day;
+    @FXML
+    private TextField videoGame1Week;
+    @FXML
+    private TextField videoGame2Weeks;
+    @FXML
+    private TextField videoGame4Weeks;
+    @FXML
+    private Label videoGameDurationError;
+    @FXML
+    private ListView videoGameOverdueList;
+    
+    
+    
+    
 
     @Override
     /**
