@@ -660,7 +660,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         String publisher = videoGamePublisher.getText();
         String genre = videoGameGenre.getText();
         String multiplayerSupport = videoGameMultiplayerSupport.getText();
-        String languageString = videoGameLanguage.getText();
+        //String languageString = videoGameLanguage.getText();
         ArrayList<String> languages = null;
         String imageName = videoGameImgName.getText();
 
