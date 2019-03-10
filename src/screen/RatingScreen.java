@@ -99,11 +99,11 @@ public class RatingScreen extends Screen implements Initializable {
 		rTitle = title;
 	}
 	
-//	@FXML
-//	/**
-//	 * Submits the users rating.
-//	 */
-//	public void leaveRatingClick() {
-//		
-//	}
+	@FXML
+	/**
+     * Submits the users rating.
+	 */
+	public void leaveRatingClick() {
+		System.out.println("POOP");
+	}
 }

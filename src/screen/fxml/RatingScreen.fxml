@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.RatingScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.RatingScreen">
   <children>
     <SplitPane layoutY="68.0" prefHeight="658.0" prefWidth="1280.0">
       <items>
@@ -66,7 +66,7 @@
                                     </Label>
                                     <ListView fx:id="transactionHistoryField" layoutX="-3.0" layoutY="92.0" prefHeight="201.0" prefWidth="443.0" style="-fx-background-color: #f4f5ff;" />
                                     <ListView fx:id="borrowHistoryField" layoutX="-1.0" layoutY="398.0" prefHeight="231.0" prefWidth="443.0" style="-fx-background-color: #f4f5ff;" />
-                                    <Button fx:id="leaveRating" layoutX="198.0" layoutY="559.0" mnemonicParsing="false" style="-fx-background-color: #ef9d39;" text="Submit" textFill="#0e0056" />
+                                    <Button fx:id="leaveRating" layoutX="198.0" layoutY="559.0" mnemonicParsing="false" onAction="#leaveRatingClick" style="-fx-background-color: #ef9d39;" text="Submit" textFill="#0e0056" />
                                     <ComboBox fx:id="oneToFive" layoutX="166.0" layoutY="92.0" prefWidth="150.0" promptText="Please Select" />
                                     <TextArea fx:id="messageBox" layoutX="41.0" layoutY="152.0" prefHeight="224.0" prefWidth="361.0" promptText="(Optional) - Leave message." />
                                  </children>
@@ -103,6 +103,7 @@
             <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#homeButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Home" textFill="#fff1f1" underline="true" />
             <Button fx:id="accountBtn" mnemonicParsing="false" onAction="#accountDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Account" textFill="#fff1f1" underline="true" />
             <Button fx:id="drawAppBtn" mnemonicParsing="false" onAction="#drawAppButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Draw App" textFill="#fff1f1" underline="true" />
+                  <Button fx:id="statsBtn" mnemonicParsing="false" onAction="#statsButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Stats" textFill="#fff1f1" underline="true" />
             <Button fx:id="issueDeskBtn" mnemonicParsing="false" onAction="#issueDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Issue Desk" textFill="#fff1f1" underline="true" visible="false" />
           </children>
           <padding>

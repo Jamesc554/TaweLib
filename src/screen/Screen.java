@@ -1,4 +1,5 @@
 package screen;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -36,6 +37,8 @@ public abstract class Screen {
 	protected Button issueDeskBtn;
 	@FXML
 	protected Button drawAppBtn;
+	@FXML
+	private Button statsBtn;
 	
     public abstract void start();
 
@@ -132,4 +135,9 @@ public abstract class Screen {
     protected void homeButton(Event event) {
         ScreenManager.changeScreen(new HomeScreen());
     }
+
+    @FXML
+	protected void statsButton(Event actionEvent) {
+		ScreenManager.changeScreen(new StatsScreen());
+	}
 }
