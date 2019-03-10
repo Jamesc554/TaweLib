@@ -489,4 +489,4 @@ public class SearchResultScreen extends Screen implements Initializable {
         }
         return null;
     }
-}
+} 
