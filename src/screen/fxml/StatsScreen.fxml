@@ -46,6 +46,7 @@
             <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#homeButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Home" textFill="#fff1f1" underline="true" />
             <Button fx:id="accountBtn" mnemonicParsing="false" onAction="#accountDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Account" textFill="#fff1f1" underline="true" />
             <Button fx:id="drawAppBtn" mnemonicParsing="false" onAction="#drawAppButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Draw App" textFill="#fff1f1" underline="true" />
+                  <Button fx:id="statsBtn" mnemonicParsing="false" onAction="#statsButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Stats" textFill="#fff1f1" underline="true" />
             <Button fx:id="issueDeskBtn" mnemonicParsing="false" onAction="#issueDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Issue Desk" textFill="#fff1f1" underline="true" visible="false" />
           </children>
           <padding>
@@ -76,7 +77,7 @@
                   </FlowPane>
                </content>
             </Tab>
-            <Tab text="Detailed View">
+            <Tab fx:id="detailedTab" text="Detailed View">
                <content>
                   <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0">
                      <children>

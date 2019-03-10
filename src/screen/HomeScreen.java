@@ -44,9 +44,6 @@ public class HomeScreen extends Screen implements Initializable {
 	private Text fineText;
 
 	@FXML
-	private Button statsBtn;
-
-	@FXML
 	private ListView borrowedItemsList;
 
 	@FXML
@@ -173,9 +170,5 @@ public class HomeScreen extends Screen implements Initializable {
 	public void onEnter(ActionEvent actionEvent) {
 		Library.setSearchStringText(searchBar.getText());
 		ScreenManager.changeScreen(new SearchResultScreen());
-	}
-
-	public void statsButton(ActionEvent actionEvent) {
-		ScreenManager.changeScreen(new StatsScreen());
 	}
 }
