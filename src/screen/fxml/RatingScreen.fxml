@@ -25,7 +25,7 @@
           <items>
             <AnchorPane fx:id="changeProfileImageBtn" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #f4f5ff;">
               <children>
-                <Label fx:id="resourceTitle" layoutX="140.0" layoutY="35.0" text="Resource Title">
+                <Label fx:id="resourceTitle" contentDisplay="CENTER" layoutY="35.0" text="Resource Title" textAlignment="CENTER">
                   <font>
                     <Font name="System Bold" size="18.0" />
                   </font>
@@ -66,7 +66,7 @@
                                     </Label>
                                     <ListView fx:id="transactionHistoryField" layoutX="-3.0" layoutY="92.0" prefHeight="201.0" prefWidth="443.0" style="-fx-background-color: #f4f5ff;" />
                                     <ListView fx:id="borrowHistoryField" layoutX="-1.0" layoutY="398.0" prefHeight="231.0" prefWidth="443.0" style="-fx-background-color: #f4f5ff;" />
-                                    <Button fx:id="leaveRating" layoutX="198.0" layoutY="559.0" mnemonicParsing="false" style="-fx-background-color: #ef9d39;" text="Submit" textFill="#0e0056" />
+                                    <Button fx:id="leaveRating" layoutX="198.0" layoutY="559.0" mnemonicParsing="false" onAction="#leaveRatingClick" style="-fx-background-color: #ef9d39;" text="Submit" textFill="#0e0056" />
                                     <ComboBox fx:id="oneToFive" layoutX="166.0" layoutY="92.0" prefWidth="150.0" promptText="Please Select" />
                                     <TextArea fx:id="messageBox" layoutX="41.0" layoutY="152.0" prefHeight="224.0" prefWidth="361.0" promptText="(Optional) - Leave message." />
                                  </children>
