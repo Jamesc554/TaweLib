@@ -80,14 +80,15 @@
                <content>
                   <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <BarChart fx:id="statsChart1">
+                        <BarChart fx:id="finesChat">
                            <xAxis>
-                              <CategoryAxis fx:id="statsCataAxis1" label="Time" side="BOTTOM" />
+                              <CategoryAxis label="User" side="BOTTOM" />
                            </xAxis>
                            <yAxis>
-                              <NumberAxis fx:id="statsNumAxis1" label="Amount" minorTickCount="0" side="LEFT" upperBound="10.0" />
+                              <NumberAxis label="Amount" minorTickCount="0" side="LEFT" upperBound="10.0" />
                            </yAxis>
                         </BarChart>
+                        <PieChart fx:id="adminChart" />
                      </children>
                      <effect>
                         <Blend mode="MULTIPLY" />
