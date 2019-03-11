@@ -79,6 +79,8 @@ public class SearchResultScreen extends Screen implements Initializable {
     private Button requestButton;
     @FXML
     private Button ratingsButton;
+    @FXML
+    private Button trailerButton;
     // private TextField[] textFields = {titleTf, uIDTf, yearTf, rs1Tf, rs2Tf,
     // rs3Tf, rs4Tf, rs5Tf};
     @FXML
@@ -222,15 +224,19 @@ public class SearchResultScreen extends Screen implements Initializable {
         switch (resourceType) {
             case "Book":
                 resources = Library.getAllBooks();
+                trailerButton.setVisible(false);
                 break;
             case "DVD":
                 resources = Library.getAllDVD();
+                trailerButton.setVisible(true);
                 break;
             case "Laptop":
                 resources = Library.getAllLaptops();
+                trailerButton.setVisible(false);
                 break;
             case "Video Game":
             	resources = Library.getAllVideoGames();
+            	trailerButton.setVisible(true);
             default:
                 break;
         }
@@ -489,4 +495,11 @@ public class SearchResultScreen extends Screen implements Initializable {
         }
         return null;
     }
-} 
+
+    @FXML
+    private void watchTrailer() {
+        Resource r = Library.getResource(uIDTf.getText());
+        TrailerScreen ts = new TrailerScreen();
+        ts.getTrailer(r);
+    }
+}
