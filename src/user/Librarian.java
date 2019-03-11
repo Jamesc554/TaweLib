@@ -32,10 +32,10 @@ public class Librarian extends User {
 	 */
 	public Librarian(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
 					 String secondLineAddress, String postCode, String townName, double accountBalance, String profImage,
-					 int empDay, int empMonth, int empYear, String staffNumber, int noOfEmploys, int noOfResources) {
+					 int empDay, int empMonth, int empYear, String staffNumber, int noOfEmploys) {
 
 		super(userName, firstName, lastName, mobileNumber, firstLineAddress, secondLineAddress, postCode, townName,
-				accountBalance, profImage, noOfResources);
+				accountBalance, profImage);
 
 		setEmploymentDay(empDay);
 		setEmploymentMonth(empMonth);
