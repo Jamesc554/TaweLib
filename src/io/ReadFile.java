@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -472,7 +473,7 @@ public class ReadFile extends IO {
 		ArrayList<String[]> ratingList = new ArrayList<>();
 		
 		try {
-			file = new FileReader(IO.getLaptopFilePath());
+			file = new FileReader(IO.getRatingsFilePath());
 			reader = new BufferedReader(file);
 
 			while ((currentLine = reader.readLine()) != null) {

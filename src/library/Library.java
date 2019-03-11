@@ -99,7 +99,7 @@ public class Library {
 						 		List<List<BorrowHistoryData>> borrowHistory,
 						 		List<BorrowHistoryData> currentBorrowData) {
 		
-	    LibraryResources.addDVD(new DVD(year, title, thumbnailImg, subLang, director, runtime, language, uniqueID,
+	    LibraryResources.addDVD(new DVD(director, runtime, language, subLang, year, title, thumbnailImg, uniqueID,
 				noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	    
 	}

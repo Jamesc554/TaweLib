@@ -198,7 +198,7 @@ public class Laptop extends Resource {
 	
 	/**
 	 * Adds a copy to this Laptops unique list of copies.
-	 * @param loanDuration loan duration to add to copy.
+	 * @param loanDuration Length of a loan duration in days.
 	 */
 	public void addToCopies(String loanDuration) {
 		super.addCopy(loanDuration);

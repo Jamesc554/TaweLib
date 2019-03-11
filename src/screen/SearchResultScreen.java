@@ -133,7 +133,7 @@ public class SearchResultScreen extends Screen implements Initializable {
             copyHistoryList.setVisible(false);
         }
 
-        resourceTypeCB.getItems().setAll("Book", "DVD", "Laptop");
+        resourceTypeCB.getItems().setAll("Book", "DVD", "Laptop","Video Game");
         resourceTypeCB.setValue("Book");
 
         userIcon.setImage(SwingFXUtils.toFXImage(img, null));
@@ -229,6 +229,8 @@ public class SearchResultScreen extends Screen implements Initializable {
             case "Laptop":
                 resources = Library.getAllLaptops();
                 break;
+            case "Video Game":
+            	resources = Library.getAllVideoGames();
             default:
                 break;
         }
@@ -280,6 +282,18 @@ public class SearchResultScreen extends Screen implements Initializable {
                 Library.editLaptop(uIDTf.getText(), titleTf.getText(), yearTf.getText(), rs1Tf.getText(),
                         rs2Tf.getText(), rs3Tf.getText());
                 break;
+            case "Video Game":
+                ArrayList<String> languages1;
+                String languageString1 = rs5Tf.getText();
+                if (languageString1.equals("")) {
+                    languages1 = null;
+                } else {
+                    //Split languages input into ArratList
+                    String[] languageArray = languageString1.split(", ");
+                    languages1 = new ArrayList<>(Arrays.asList(languageArray));
+                }
+                Library.editBook(uIDTf.getText(), titleTf.getText(), yearTf.getText(), rs1Tf.getText(),
+                        rs2Tf.getText(), rs3Tf.getText(), rs4Tf.getText(), languages1);
             default:
                 break;
         }
@@ -417,6 +431,27 @@ public class SearchResultScreen extends Screen implements Initializable {
                 rs5Lbl.setVisible(false);
                 rs5Tf.setVisible(false);
                 break;
+            case "Video Game":
+                VideoGame g = (VideoGame) r;
+                rs1Lbl.setText("Publisher: ");
+                rs1Tf.setText(g.getPublisher());
+                rs2Lbl.setText("Genre: ");
+                rs2Tf.setText(g.getGenre());
+                rs3Lbl.setText("Certificate Rating: ");
+                rs3Tf.setText(g.getCertificateRating());
+                rs4Lbl.setText("Multiplayer Support: ");
+                rs4Tf.setText(g.getMultiplayerSupport());
+
+                rs5Lbl.setText("Languages: ");
+
+//                rs5Tf.setText(g.getLanguages().get(0));
+//                ArrayList<String> languages1 = g.getLanguages();
+//                // languages.remove(0);
+//                for (int i = 1; i < languages1.size(); i++) {
+//                    rs5Tf.setText(rs5Tf.getText() + ", " + languages1.get(i));
+//                }
+
+                break;
             default:
                 break;
         }
@@ -454,4 +489,4 @@ public class SearchResultScreen extends Screen implements Initializable {
         }
         return null;
     }
-}
+} 
