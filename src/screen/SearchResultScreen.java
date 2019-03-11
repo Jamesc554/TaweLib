@@ -444,12 +444,12 @@ public class SearchResultScreen extends Screen implements Initializable {
 
                 rs5Lbl.setText("Languages: ");
 
-                rs5Tf.setText(g.getLanguages().get(0));
-                ArrayList<String> languages1 = g.getLanguages();
-                // languages.remove(0);
-                for (int i = 1; i < languages1.size(); i++) {
-                    rs5Tf.setText(rs5Tf.getText() + ", " + languages1.get(i));
-                }
+//                rs5Tf.setText(g.getLanguages().get(0));
+//                ArrayList<String> languages1 = g.getLanguages();
+//                // languages.remove(0);
+//                for (int i = 1; i < languages1.size(); i++) {
+//                    rs5Tf.setText(rs5Tf.getText() + ", " + languages1.get(i));
+//                }
 
                 break;
             default:
