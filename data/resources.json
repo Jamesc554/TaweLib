@@ -1,0 +1,327 @@
+{
+  "DvDs": [
+    {
+      "ReservedQueue": [],
+      "CurrentBorrowData": [
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        },
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        },
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        },
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        },
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        }
+      ],
+      "Director": "Who cares",
+      "Title": "120",
+      "Sub-languages": [],
+      "Runtime": "Good Will Hunting",
+      "Year": "IDK",
+      "CopyAmount": "5",
+      "Language": "English",
+      "LoanDurations": [
+        "1",
+        "7",
+        "7",
+        "14",
+        "28"
+      ],
+      "BorrowHistory": [
+        [
+          {
+            "UserID": "ben22",
+            "Requested Date": "",
+            "Return Date": "07-03-2019 11:35:27",
+            "Borrow Date": "07-03-2019 11:32:27"
+          },
+          {
+            "UserID": "ben22",
+            "Requested Date": "",
+            "Return Date": "08-03-2019 23:13:35",
+            "Borrow Date": "07-03-2019 11:35:35"
+          }
+        ],
+        [],
+        [],
+        [],
+        []
+      ],
+      "ThumbnailImage": ".\/data\/images\/dvd\/Good Will Hunting.jpg",
+      "ID": "DVDID:1"
+    }
+  ],
+  "Laptops": [
+    {
+      "Year": "2018",
+      "CopyAmount": "2",
+      "LoanDurations": [
+        "28",
+        "28"
+      ],
+      "BorrowHistory": [
+        [
+          {
+            "UserID": "Ben22",
+            "Requested Date": "",
+            "Return Date": "06-03-2019 10:26:53",
+            "Borrow Date": "06-03-2019 10:26:11"
+          },
+          {
+            "UserID": "Ben22",
+            "Requested Date": "",
+            "Return Date": "06-03-2019 10:29:45",
+            "Borrow Date": "06-03-2019 10:28:52"
+          },
+          {
+            "UserID": "Ben22",
+            "Requested Date": "",
+            "Return Date": "06-03-2019 10:32:02",
+            "Borrow Date": "06-03-2019 10:31:52"
+          },
+          {
+            "UserID": "Ben22",
+            "Requested Date": "",
+            "Return Date": "06-03-2019 10:35:37",
+            "Borrow Date": "06-03-2019 10:33:05"
+          },
+          {
+            "UserID": "Ben22",
+            "Requested Date": "",
+            "Return Date": "06-03-2019 10:37:31",
+            "Borrow Date": "06-03-2019 10:36:27"
+          },
+          {
+            "UserID": "Ben22",
+            "Requested Date": "",
+            "Return Date": "06-03-2019 10:38:26",
+            "Borrow Date": "06-03-2019 10:38:09"
+          },
+          {
+            "UserID": "Ben22",
+            "Requested Date": "",
+            "Return Date": "07-03-2019 11:16:09",
+            "Borrow Date": "06-03-2019 10:59:15"
+          },
+          {
+            "UserID": "",
+            "Requested Date": "",
+            "Return Date": "07-03-2019 11:32:16",
+            "Borrow Date": ""
+          },
+          {
+            "UserID": "ben22",
+            "Requested Date": "10-03-2019 12:49:19",
+            "Return Date": "10-03-2019 12:49:58",
+            "Borrow Date": "10-03-2019 12:49:52"
+          }
+        ],
+        [
+          {
+            "UserID": "Ben22",
+            "Requested Date": "",
+            "Return Date": "06-03-2019 10:26:51",
+            "Borrow Date": "06-03-2019 10:21:03"
+          },
+          {
+            "UserID": "Ben22",
+            "Requested Date": "",
+            "Return Date": "06-03-2019 10:29:47",
+            "Borrow Date": "06-03-2019 10:29:36"
+          },
+          {
+            "UserID": "Ben22",
+            "Requested Date": "",
+            "Return Date": "06-03-2019 10:32:04",
+            "Borrow Date": "06-03-2019 10:31:30"
+          },
+          {
+            "UserID": "Ben22",
+            "Requested Date": "",
+            "Return Date": "06-03-2019 10:35:36",
+            "Borrow Date": "06-03-2019 10:35:25"
+          },
+          {
+            "UserID": "Ben22",
+            "Requested Date": "",
+            "Return Date": "06-03-2019 10:37:41",
+            "Borrow Date": "06-03-2019 10:37:17"
+          },
+          {
+            "UserID": "Ben22",
+            "Requested Date": "",
+            "Return Date": "06-03-2019 10:38:28",
+            "Borrow Date": "06-03-2019 10:38:21"
+          }
+        ]
+      ],
+      "ThumbnailImage": ".\/data\/images\/laptop\/ACERAspire3.jpg",
+      "ReservedQueue": [
+        "ben22",
+        "ben22",
+        "ben22",
+        "ben22",
+        "ben22",
+        "ben22"
+      ],
+      "CurrentBorrowData": [
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        },
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        }
+      ],
+      "Manufacturer": "Acer",
+      "Model": "Aspire",
+      "Title": "Acer Aspire 3",
+      "ID": "LaptopID:1",
+      "OperatingSys": "Windows"
+    }
+  ],
+  "Books": [
+    {
+      "ReservedQueue": [],
+      "CurrentBorrowData": [
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        },
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        },
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        },
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        },
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        },
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        },
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        },
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        },
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        },
+        {
+          "DateRequestedReturn": "",
+          "DateBorrowed": "",
+          "DateReturned": "",
+          "UserID": ""
+        }
+      ],
+      "Title": "Harry Potter and the Half-Blood Prince",
+      "Languages": [
+        "English"
+      ],
+      "Publisher": "IDK",
+      "Year": "2014",
+      "CopyAmount": "10",
+      "ISBN": "0938393-847392",
+      "LoanDurations": [
+        "1",
+        "1",
+        "7",
+        "7",
+        "14",
+        "14",
+        "14",
+        "28",
+        "28",
+        "28"
+      ],
+      "BorrowHistory": [
+        [
+          {
+            "UserID": "ben22",
+            "Requested Date": "",
+            "Return Date": "07-03-2019 11:32:15",
+            "Borrow Date": "07-03-2019 11:21:53"
+          }
+        ],
+        [
+          {
+            "UserID": "ben22",
+            "Requested Date": "",
+            "Return Date": "07-03-2019 11:35:27",
+            "Borrow Date": "07-03-2019 11:32:22"
+          }
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "ThumbnailImage": ".\/data\/images\/book\/Harry Potter And The Half Blood Prince.png",
+      "Author": "J.K. Rowling",
+      "ID": "BookID:1",
+      "Genre": "Fantasy"
+    }
+  ],
+  "VideoGames": []
+}

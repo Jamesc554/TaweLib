@@ -15,6 +15,7 @@ public abstract class IO {
 	private static final String LAPTOP_FILEPATH = "./data/laptop.json";
 	private static final String VIDEOGAME_FILEPATH = "./data/videogame.json";
 	private static final String RATINGS_FILEPATH = "./data/ratings.json";
+	private static final String RESOURCE_FILEPATH = "./data/resources.json";
 
 	/**
 	 * This method returns the file path of the data file that holds the users information.
@@ -71,4 +72,6 @@ public abstract class IO {
 	public static String getRatingsFilePath() {
 		return RATINGS_FILEPATH;
 	}
+
+	public static String getResourceFilePath() { return RESOURCE_FILEPATH; }
 }
