@@ -58,7 +58,7 @@ public class LibraryResources {
     /**
      * Adds a video game to the libraryResource.
      *
-     * @param videogame VideoGame object.
+     * @param videoGame VideoGame object.
      */
     public static void addVideoGame(VideoGame videoGame) {
         listOfVideoGames.add(videoGame);

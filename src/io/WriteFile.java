@@ -398,15 +398,14 @@ public class WriteFile extends IO {
      * @param laptops an ArrayList of laptops from the library.
      */
     public static void overwriteResources(ArrayList<Book> books, ArrayList<DVD> dvds, ArrayList<Laptop> laptops, ArrayList<VideoGame> videoGames) {
-        File[] resourceFiles = {new File(IO.getBookFilePath()), new File(IO.getDvdFilePath()),
-                new File(IO.getLaptopFilePath()), new File(IO.getVideoGameFilePath()), new File(IO.getResourceFilePath())};
+        File[] resourceFiles = {new File(IO.getResourceFilePath())};
 
-//        for (File resourceFile : resourceFiles) {
-//            if (resourceFile.exists()) {
-//                resourceFile.delete();
-//            }
-//
-//        }
+        for (File resourceFile : resourceFiles) {
+            if (resourceFile.exists()) {
+                resourceFile.delete();
+            }
+        }
+
         writeResources(books, dvds, laptops, videoGames);
     }
 
