@@ -21,11 +21,11 @@ public class TrailerScreen extends Screen {
     public void start() {
         WebView webView = new WebView();
         webView.getEngine().load(url);
-
         System.out.println(url);
 
         Stage stage = new Stage();
-        stage.setScene(new Scene(webView));
+        stage.setResizable(false);
+        stage.setScene(new Scene(webView, 1280, 720));
         stage.show();
 
         stage.setOnCloseRequest(new EventHandler<WindowEvent>(){
