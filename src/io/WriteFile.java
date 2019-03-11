@@ -551,9 +551,6 @@ public class WriteFile extends IO {
         
         currentFile = new File(IO.getLibrarianFilePath());
         currentFile.renameTo(new File("./data/backup/" + newFilePath + "/librarians.json"));
-        
-        currentFile = new File(IO.getRatingsFilePath());
-        currentFile.renameTo(new File("./data/backup/" + newFilePath + "/ratings.json"));
 
         fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), Library.getAllLaptops(), Library.getAllVideoGames(), Library.getAllLibrarians());
     }
@@ -581,7 +578,7 @@ public class WriteFile extends IO {
     	object.put("id", id);
     	object.put("message", message);
     	object.put("rating", rating);
-    	object.put("username", Library.getCurrentLoggedInUser());
+    	object.put("username", Library.getCurrentLoggedInUser().getUserName());
     	
     	try {
             FileWriter file = new FileWriter(IO.getRatingsFilePath(), true);
