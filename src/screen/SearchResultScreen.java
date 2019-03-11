@@ -496,6 +496,9 @@ public class SearchResultScreen extends Screen implements Initializable {
         return null;
     }
 
+    /**
+     * Event handler to watch a DVD/Video Game trailer.
+     */
     @FXML
     private void watchTrailer() {
         Resource r = Library.getResource(uIDTf.getText());
