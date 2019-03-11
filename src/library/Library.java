@@ -1,5 +1,4 @@
 package library;
-import java.awt.image.SampleModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,11 +16,9 @@ import user.User;
  * @since 18/11/2018
  */
 public class Library {
-
-	private static int MAX_NUMBER_OF_BORROWED_RESOURCES = 5;
-
 	private static User currentUser; //Stores the currently logged-in user.
 	private static String searchScreenText = "";
+	private static final int MAX_RESOURCES = 5;
 
 	/**
 	 * This methods starts the library. Library is static so we can only
@@ -130,6 +127,31 @@ public class Library {
 	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys,
 				noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	}
+	
+	/**
+	 * This methods adds a laptop to the library.
+	 * @param year The year of release.
+	 * @param title The name of the laptop.
+	 * @param thumbnailImageRef Img of the laptop.
+	 * @param uniqueID The id of the laptop.
+	 * @param manufacturer The manufacture of the laptop.
+	 * @param model The model of the laptop.
+	 * @param operatingSys The operating system of the laptop.
+	 * @param noOfCopies The number of copies this library owns of this laptop
+	 * @param loanDuration The default loan duration of all copies of this laptop.
+	 * @param borrowHistory The borrow history associated with this laptop.
+	 * @param currentBorrowData The information about the current state of this laptop.
+	 */
+	public static void addVideoGame(String year, String title, String thumbnailImageRef, String uniqueID,
+							  		String publisher, String genre,  String multiplayerSupport,
+							  		String certificateRating, ArrayList<String> lang, Integer noOfCopies, 
+							  		ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory,
+							  		List<BorrowHistoryData> currentBorrowData) {
+		
+	    LibraryResources.addVideoGame(new VideoGame(year, title, thumbnailImageRef, uniqueID, genre, certificateRating, 
+	    		publisher, multiplayerSupport, lang,
+	    		noOfCopies, loanDuration, borrowHistory, currentBorrowData));
+	}
 
 	/**
 	 * This methods adds a user to the library.
@@ -146,10 +168,10 @@ public class Library {
 	 */
 	public static void addUser(String userName, String firstName, String lastName, String mobileNumber,
 									String firstLineAddress, String secondLineAddress, String postCode,
-									String townName, int accountBalance, String profImage, int noOfResources) {
+									String townName, int accountBalance, String profImage) {
 		
 		LibraryResources.addUser(new User(userName, firstName, lastName, mobileNumber, firstLineAddress,
-                secondLineAddress, postCode, townName, accountBalance, profImage, noOfResources));
+                secondLineAddress, postCode, townName, accountBalance, profImage));
 	}
 
 	/**
@@ -173,11 +195,11 @@ public class Library {
 	public static void addLibrarian(String userName, String firstName, String lastName, String mobileNumber,
 										String firstLineAddress, String secondLineAddress, String postCode,
 										String townName, int accountBalance, String profImage, int empDay,
-										int empMonth, int empYear, String staffNumber, int noOfEmploys, int numOfResource) {
+										int empMonth, int empYear, String staffNumber, int noOfEmploys) {
 		
 		LibraryResources.addUser(new Librarian(userName, firstName, lastName, mobileNumber, firstLineAddress,
                 secondLineAddress, postCode, townName, accountBalance, profImage, empDay, empMonth, empYear, staffNumber,
-                noOfEmploys, numOfResource));
+                noOfEmploys));
 	}
 
 	/**
@@ -193,6 +215,8 @@ public class Library {
 				return LibraryResources.getLaptop(id);
 			case "d":
 				return LibraryResources.getDVD(id);
+			case "v":
+				return LibraryResources.getVideoGame(id);
 			case "b":
 				return LibraryResources.getBook(id);
 			default:
@@ -230,7 +254,7 @@ public class Library {
 			throw new IllegalArgumentException("Amount superior to account balance");
 		}
 		getUser(username).subtractAccountBalance(amount);
-		getUser(username).addTransaction(currentUser.getUserName(), amount);
+		getUser(username).addTransaction(currentUser.getUserName(), -amount);
 	}
 
 	/**
@@ -333,6 +357,15 @@ public class Library {
 		return LibraryResources.getListOfDVD();
 	}
 
+	/**
+	 * Returns all DVD in the library.
+	 * @return ArrayList of all books.
+	 */
+	public static ArrayList<VideoGame> getAllVideoGames() {
+		return LibraryResources.getListOfVideoGames();
+	}
+	
+	
 	/**
 	 * Returns all users in the library.
 	 * @return ArrayList of all books.
@@ -587,6 +620,27 @@ public class Library {
 		LibraryResources.getDVD(id).setLanguage(language);
 		LibraryResources.getDVD(id).setSubLang(subs);
 	}
+	
+	/**
+	 * Updates a DVD's properties
+	 * @param id the DVD resource unique ID
+	 * @param title the updated DVD title
+	 * @param year the updated DVD year
+	 * @param director the updated DVD director
+	 * @param runtime the updated DVD runtime
+	 * @param language the updated DVD language
+	 * @param subs the updated DVD available subtitle languages
+	 */
+	public static void editVideoGame(String id, String title, String year, String publisher, String genre,
+									String multiplayerSupport, String certificateRating, ArrayList<String> lang) {
+		
+		LibraryResources.getVideoGame(id).setTitle(title);
+		LibraryResources.getVideoGame(id).setYear(year);
+		LibraryResources.getVideoGame(id).setPublisher(publisher);
+		LibraryResources.getVideoGame(id).setGenre(genre);
+		LibraryResources.getVideoGame(id).setCertificateRating(certificateRating);
+		LibraryResources.getVideoGame(id).setLanguages(lang);
+	}
 
 	/**
 	 * Updates a Laptop's properties
@@ -605,7 +659,7 @@ public class Library {
 		LibraryResources.getLaptop(id).setOperatingSys(os);
 	}
 
-	public static int getMaxNumberOfResources(){
-		return MAX_NUMBER_OF_BORROWED_RESOURCES;
+	public static int getMaxResources(){
+		return MAX_RESOURCES;
 	}
 }

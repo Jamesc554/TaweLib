@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -14,6 +15,7 @@ import resources.Book;
 import resources.BorrowHistoryData;
 import resources.DVD;
 import resources.Laptop;
+import resources.VideoGame;
 import user.Librarian;
 import user.User;
 
@@ -65,11 +67,11 @@ public class ReadFile extends IO {
 				transactionArray = (JSONArray) object.get("transactionHistory");
 				if (transactionArray != null) {
 					for (Object transactionInformation : transactionArray) {
-						JSONArray transactionInformationArray = (JSONArray) transactionInformation;
+						JSONObject transactionInformationArray = (JSONObject) transactionInformation;
 						String[] data = new String[3];
-						data[0] = (String) transactionInformationArray.get(0);
-						data[1] = (String) transactionInformationArray.get(1);
-						data[2] = (String) transactionInformationArray.get(2);
+						data[0] = (String) transactionInformationArray.get("System");
+						data[1] = (String) transactionInformationArray.get("Date");
+						data[2] = (String) transactionInformationArray.get("Amount");
 						user.addToTransactionHistory(data);
 					}
 				}
@@ -77,10 +79,10 @@ public class ReadFile extends IO {
 				borrowHistoryArray = (JSONArray) object.get("borrowHistory");
 				if (borrowHistoryArray != null) {
 					for (Object borrowInformation : borrowHistoryArray) {
-						JSONArray borrowInformationArray = (JSONArray) borrowInformation;
+						JSONObject borrowInformationArray = (JSONObject) borrowInformation;
 						String[] data = new String[2];
-						data[1] = (String) borrowInformationArray.get(0);
-						data[0] = (String) borrowInformationArray.get(1);
+						data[0] = (String) borrowInformationArray.get("ID");
+						data[1] = (String) borrowInformationArray.get("Date");
 						user.addToBorrowHistory(data);
 					}
 				}
@@ -100,6 +102,7 @@ public class ReadFile extends IO {
 						user.addToReserved(reservedResourceID);
 					}
 				}
+				System.out.println(user.getUserName() + " is added");
 				userList.add(user);
 			}
 
@@ -446,6 +449,130 @@ public class ReadFile extends IO {
 		return dvds;
 	}
 
+	
+	/**
+	 * Returns a list of DVDs owned by this library.
+	 * @return dvds
+	 * The list of dvds owned by this library.
+	 */
+	public static ArrayList<VideoGame> readVideoGames() {
+		JSONParser parser = new JSONParser();
+		JSONArray languageArray = new JSONArray();
+		JSONArray videoGameQueueArray = new JSONArray();
+		JSONArray listOfLoanDur = new JSONArray();
+		JSONArray videoGameBorrowHistoryArray = new JSONArray();
+		JSONArray videoGameCurrentBorrowData = new JSONArray();
+		ArrayList<VideoGame> videoGames = new ArrayList<VideoGame>();
+
+		try {
+			file = new FileReader(IO.getVideoGameFilePath());
+			reader = new BufferedReader(file);
+
+			while ((currentLine = reader.readLine()) != null) {
+				JSONObject object = (JSONObject) parser.parse(currentLine);
+
+				String year = ((String) object.get("year"));
+				String title = ((String) object.get("title"));
+				String thumbnailImageRef = ((String) object.get("thumbnailImg"));
+				String uniqueID = ((String) object.get("uniqueID"));
+				String publisher = ((String) object.get("publisher"));
+				String genre = ((String) object.get("genre"));
+				String multiplayerSupport = ((String) object.get("multiplayerSupport"));
+				String certificateRating = ((String) object.get("certificateRating"));
+				int noOfCopies = Integer.parseInt((String) object.get("noOfCopies"));
+				List<List<BorrowHistoryData>> borrowHistory = new ArrayList<>();
+				List<BorrowHistoryData> currentData = new ArrayList<>();
+				
+				System.out.println("Loading Resource: " + uniqueID);
+
+//				languageArray = (JSONArray) object.get("sub-languages");
+//				ArrayList<String> subLang = new ArrayList<>();
+//				if (languageArray != null) {
+//					for (Object lang : languageArray) {
+//						String stringLanguage = (String) language;
+//						subLang.add(stringLanguage);
+//					}
+//				}
+
+				videoGameQueueArray = (JSONArray) object.get("videoGameQueue");
+				String videoGameQueues = "";
+				if (videoGameQueueArray != null) {
+					for (Object bookQueue : videoGameQueueArray) {
+						String stringBookQueue = (String) bookQueue;
+						videoGameQueues += stringBookQueue + ",";
+					}
+				}
+
+				ArrayList<String> loanDurs = new ArrayList<String>();
+
+				listOfLoanDur = (JSONArray) object.get("listOfLoanDur");
+				if (listOfLoanDur != null) {
+					for (Object loanDur : listOfLoanDur) {
+						String loanDurString = (String) loanDur;
+						loanDurs.add(loanDurString);
+					}
+				}
+				
+				videoGameBorrowHistoryArray = (JSONArray) object.get("borrowHistory");
+				if (videoGameBorrowHistoryArray != null) {
+					int i = 0;
+					for (Object copyBorrowHistoryObject : videoGameBorrowHistoryArray) {
+						JSONArray copyBorrowHistoryArray = (JSONArray) copyBorrowHistoryObject;
+						List<BorrowHistoryData> copyBorrowHistoryData = new ArrayList<>();
+
+						System.out.println("Loading Copy History for: " + uniqueID + ":" + i++);
+						for (Object borrowHistoryObject : copyBorrowHistoryArray) {
+							JSONArray borrowHistoryArray = (JSONArray) borrowHistoryObject;
+							BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
+							borrowHistoryData.setUserID((String) borrowHistoryArray.get(0));
+							borrowHistoryData.setDateBorrowed((String) borrowHistoryArray.get(1));
+							borrowHistoryData.setDateReturned((String) borrowHistoryArray.get(2));
+							borrowHistoryData.setDateRequestedReturn((String) borrowHistoryArray.get(3));
+							copyBorrowHistoryData.add(borrowHistoryData);
+						}
+						borrowHistory.add(copyBorrowHistoryData);
+					}
+				}
+				
+				videoGameCurrentBorrowData = (JSONArray) object.get("currentData");
+				if (videoGameCurrentBorrowData != null) {
+					for (Object copyCurrentBorrowDataObject : videoGameCurrentBorrowData) {
+						JSONArray copyCurrentBorrowDataArray = (JSONArray) copyCurrentBorrowDataObject;
+						
+						BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
+						borrowHistoryData.setUserID((String) copyCurrentBorrowDataArray.get(0));
+						borrowHistoryData.setDateBorrowed((String) copyCurrentBorrowDataArray.get(1));
+						borrowHistoryData.setDateReturned((String) copyCurrentBorrowDataArray.get(2));
+						borrowHistoryData.setDateRequestedReturn((String) copyCurrentBorrowDataArray.get(3));
+
+						currentData.add(borrowHistoryData);
+					}
+				}
+				
+				//#################### CHANGE FOR LANGUAGES###########
+				ArrayList<String> lang = new ArrayList<>();
+				//~##########~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				
+				videoGames.add(new VideoGame(year, title, thumbnailImageRef, uniqueID, genre, certificateRating, publisher, multiplayerSupport, lang,
+						noOfCopies, loanDurs, borrowHistory, currentData));
+			}
+
+			reader.close();
+			file.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot find " + IO.getVideoGameFilePath());
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("ERROR reading file " + IO.getVideoGameFilePath());
+			e.printStackTrace();
+		} catch (ParseException e) {
+			System.out.println("ERROR parsing users JSON");
+			e.printStackTrace();
+		}
+		return videoGames;
+	}
+
+	
 	/**
 	 * Returns a list of laptops owned by the library.
 	 * @return laptops
@@ -544,5 +671,43 @@ public class ReadFile extends IO {
 			e.printStackTrace();
 		}
 		return laptops;
+	}
+	
+	public static ArrayList<String[]> readRatings() {
+		JSONParser parser = new JSONParser();
+		ArrayList<String[]> ratingList = new ArrayList<>();
+		
+		try {
+			file = new FileReader(IO.getRatingsFilePath());
+			reader = new BufferedReader(file);
+
+			while ((currentLine = reader.readLine()) != null) {
+				JSONObject object = (JSONObject) parser.parse(currentLine);
+				String[] newRating = new String[4];
+				String id = ((String) object.get("id"));
+				String message = ((String) object.get("message"));
+				String rating = ((String) object.get("rating"));
+				String username = ((String) object.get("username"));
+				newRating[0] = id;
+				newRating[1] = message;
+				newRating[2] = rating;
+				newRating[3] = username;
+				ratingList.add(newRating);
+			}
+			
+			reader.close();
+			file.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot find " + IO.getRatingsFilePath());
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("ERROR reading file " + IO.getRatingsFilePath());
+			e.printStackTrace();
+		} catch (ParseException e) {
+			System.out.println("ERROR parsing ratings JSON");
+			e.printStackTrace();
+		}
+		
+		return ratingList;
 	}
 }

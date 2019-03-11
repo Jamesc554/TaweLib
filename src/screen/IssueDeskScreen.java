@@ -38,8 +38,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private Label loanUserError;
     @FXML
-    private Label toManyResources;
-    @FXML
     private Label loanCopyError;
     @FXML
     private Label loanSuccess;
@@ -117,6 +115,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Label bookError;
     @FXML
     private Label bookCopiesError;
+    @FXML
+    private Label toManyResourcesError;
     @FXML
     private Text bookImgName;
     @FXML
@@ -203,6 +203,51 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private ImageView laptopImg;
     @FXML
     private ListView laptopOverdueList;
+    
+    
+    //videogames
+    @FXML
+    private TextField videoGameTitle;
+    @FXML
+    private TextField videoGameCertificateRating;
+    @FXML
+    private TextField videoGameYear;
+    @FXML
+    private TextField videoGamePublisher;
+    @FXML
+    private TextField videoGameGenre;
+    @FXML
+    private TextField videoGameMultiplayerSupport;
+    @FXML
+    private TextField videoGameLanguage;
+    @FXML
+    private TextField videoGameNumCopies;
+    @FXML
+    private Label videoGameSuccess;
+    @FXML
+    private Label videoGameError;
+    @FXML
+    private Label videoGameCopiesError;
+    @FXML
+    private Text videoGameImgName;
+    @FXML
+    private ImageView videoGameImg;
+    @FXML
+    private TextField videoGame1Day;
+    @FXML
+    private TextField videoGame1Week;
+    @FXML
+    private TextField videoGame2Weeks;
+    @FXML
+    private TextField videoGame4Weeks;
+    @FXML
+    private Label videoGameDurationError;
+    @FXML
+    private ListView videoGameOverdueList;
+    
+    
+    
+    
 
     @Override
     /**
@@ -253,6 +298,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
                     break;
                 case "DVD":
                     dvdOverdueList.getItems().add(copy + " - " + user);
+                    break;
+                case "VideoGame":
+                    videoGameOverdueList.getItems().add(copy + " - " + user);
                     break;
                 case "Laptop":
                     laptopOverdueList.getItems().add(copy + " - " + user);
@@ -333,7 +381,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         loanSuccess.setVisible(false);
         outstandingFineMsg.setVisible(false);
         overdueCopyMsg.setVisible(false);
-        toManyResources.setVisible(false);
+        toManyResourcesError.setVisible(false);
 
 
         //Check Library if user exists
@@ -344,30 +392,30 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 if (Library.getUser(user).getAccountBalanceDouble() == 0) {
                     //Check user has no overdue copies
                     if (Library.checkForOverDue(user).isEmpty()) {
-                            //Check if Resource ID is valid
-                            if (Library.getResource(id.split("-")[0]) != null) {
-                                Resource r = Library.getResource(id.split("-")[0]);
-                                CopyData copy = r.getArrayListOfCopies().get(Integer.parseInt(id.split("-")[1]));
-                                if (Library.getUser(user).checkIfNotOverMaxLimit(id)) {
-                                    if (copy.isAvailable()) {
+                        //Check if Resource ID is valid
+                        if (Library.getResource(id.split("-")[0]) != null) {
+                            Resource r = Library.getResource(id.split("-")[0]);
+                            CopyData copy = r.getArrayListOfCopies().get(Integer.parseInt(id.split("-")[1]));
+                            if (Library.getUser(user).canBorrow(id)){
+                                if (copy.isAvailable()) {
+                                    Library.loanResource(user, id);
+                                    loanSuccess.setVisible(true);
+                                } else if (copy.isReserved()) {
+                                    if (copy.getReservedUser().equals(user)) {
                                         Library.loanResource(user, id);
                                         loanSuccess.setVisible(true);
-                                    } else if (copy.isReserved()) {
-                                        if (copy.getReservedUser().equals(user)) {
-                                            Library.loanResource(user, id);
-                                            loanSuccess.setVisible(true);
-                                        } else {
-                                            loanUserError.setVisible(true);
-                                        }
                                     } else {
-                                        unavailableCopyMsg.setVisible(true);
-                                    }
-                                } else {
-                                    toManyResources.setVisible(true);
+                                    loanUserError.setVisible(true);
                                 }
-                            }else {
-                                loanCopyError.setVisible(true);
+                            } else {
+                                    unavailableCopyMsg.setVisible(true);
+                                }
+                            } else {
+                                toManyResourcesError.setVisible(true);
                             }
+                            }else {
+                            loanCopyError.setVisible(true);
+                        }
                     } else {
                         overdueCopyMsg.setVisible(true);
                     }
@@ -474,7 +522,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                 userError.setVisible(true);
             } else {
                 Library.addUser(username, firstName, lastName, mobileNum, address1, address2, postCode, town,
-                        0, "./data/images/default/" + avatar, 0);
+                        0, "./data/images/default/" + avatar);
                 userSuccess.setVisible(true);
             }
         } else {
@@ -600,6 +648,97 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
     }
 
+    @FXML
+    @SuppressWarnings("Duplicates")
+    /**
+     * Event handling to create a new Book.
+     */
+    private void createVideoGameButton() {
+        String title = videoGameTitle.getText();
+        String certificateRating = videoGameCertificateRating.getText();
+        String year = videoGameYear.getText();
+        String publisher = videoGamePublisher.getText();
+        String genre = videoGameGenre.getText();
+        String multiplayerSupport = videoGameMultiplayerSupport.getText();
+        //String languageString = videoGameLanguage.getText();
+        ArrayList<String> languages = null;
+        String imageName = videoGameImgName.getText();
+
+        //Reset error/success labels
+        videoGameSuccess.setVisible(false);
+        videoGameError.setVisible(false);
+        videoGameCopiesError.setVisible(false);
+        videoGameDurationError.setVisible(false);
+
+        //Check if required fields have input
+        if (title.equals("") || certificateRating.equals("") || year.equals("") || publisher.equals("") 
+        		|| imageName.equals("") || genre.equals("") || multiplayerSupport.equals("")) {
+            videoGameError.setVisible(true);
+        } else {
+            int numCopies;
+            int num1Day;
+            int num1Week;
+            int num2Weeks;
+            int num4Weeks;
+            try {
+                //Add the book to the Library
+                String image = "./data/images/videogame/" + imageName;
+                if (videoGameNumCopies.getText().equals("")) {
+                    numCopies = 0;
+                } else {
+                    numCopies = Integer.parseInt(videoGameNumCopies.getText());
+                }
+                if (videoGame1Day.getText().equals("")) {
+                    num1Day = 0;
+                } else {
+                    num1Day = Integer.parseInt(videoGame1Day.getText());
+                }
+                if (videoGame1Week.getText().equals("")) {
+                    num1Week = 0;
+                } else {
+                    num1Week = Integer.parseInt(videoGame1Week.getText());
+                }
+                if (videoGame2Weeks.getText().equals("")) {
+                    num2Weeks = 0;
+                } else {
+                    num2Weeks = Integer.parseInt(videoGame2Weeks.getText());
+                }
+                if (videoGame4Weeks.getText().equals("")) {
+                    num4Weeks = 0;
+                } else {
+                    num4Weeks = Integer.parseInt(videoGame4Weeks.getText());
+                }
+                if (numCopies >= 0 && num1Day >= 0 && num1Week >= 0 && num2Weeks >= 0 && num4Weeks >= 0) {
+                    if (num1Day + num1Week + num2Weeks + num4Weeks == numCopies) {
+                        ArrayList<String> loanDuration = new ArrayList<>();
+                        for (int i = 0; i < num1Day; i++) {
+                            loanDuration.add("1");
+                        }
+                        for (int i = 0; i < num1Week; i++) {
+                            loanDuration.add("7");
+                        }
+                        for (int i = 0; i < num2Weeks; i++) {
+                            loanDuration.add("14");
+                        }
+                        for (int i = 0; i < num4Weeks; i++) {
+                            loanDuration.add("28");
+                        }
+                        Library.addVideoGame(year, title, image, null, publisher, genre, multiplayerSupport, certificateRating, languages,
+                                numCopies, loanDuration, new ArrayList<>(), new ArrayList<>());
+                        videoGameSuccess.setVisible(true);
+                        videoGameImgName.setText("");
+                    } else {
+                        videoGameDurationError.setVisible(true);
+                    }
+                } else {
+                    videoGameCopiesError.setVisible(true);
+                }
+            } catch (NumberFormatException ex) {
+                videoGameCopiesError.setVisible(true);
+            }
+        }
+    }
+    
     @FXML
     @SuppressWarnings("Duplicates")
     /**
@@ -813,6 +952,20 @@ public class IssueDeskScreen extends Screen implements Initializable {
              setImage(dvdImg, selectedFile);
          } catch (NullPointerException ex) {
              System.out.println("No dvd image file selected");
+         }
+    }
+    
+    @FXML
+    /**
+     * Event handling to choose a video game thumbnail image.
+     */
+    private void videoGameImageButton() {
+         try {
+             File selectedFile = getImageFile("videogame");
+             videoGameImgName.setText(selectedFile.getName());
+             setImage(videoGameImg, selectedFile);
+         } catch (NullPointerException ex) {
+             System.out.println("No video game image file selected");
          }
     }
 
