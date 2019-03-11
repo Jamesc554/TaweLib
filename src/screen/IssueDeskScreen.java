@@ -651,7 +651,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     @SuppressWarnings("Duplicates")
     /**
-     * Event handling to create a new Book.
+     * Event handling to create a new VideoGame.
      */
     private void createVideoGameButton() {
         String title = videoGameTitle.getText();
