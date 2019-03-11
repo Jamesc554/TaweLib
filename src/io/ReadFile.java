@@ -11,11 +11,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import library.Library;
-import resources.Book;
-import resources.BorrowHistoryData;
-import resources.DVD;
-import resources.Laptop;
-import resources.VideoGame;
+import resources.*;
 import user.Librarian;
 import user.User;
 
@@ -218,460 +214,260 @@ public class ReadFile extends IO {
 		return librarianList;
 	}
 
-	/**
-	 * Returns a list of books owned by this library.
-	 * @return bookList
-	 * The list of books currently owned by this library.
-	 */
-	public static ArrayList<Book> readBooks() {
-		JSONParser parser = new JSONParser();
-		JSONArray languageArray = new JSONArray();
-		JSONArray bookQueueArray = new JSONArray();
-		JSONArray listOfLoanDur = new JSONArray();
-		JSONArray bookBorrowHistoryArray = new JSONArray();
-		JSONArray bookCurrentBorrowData = new JSONArray();
-		ArrayList<Book> bookList = new ArrayList<Book>();
-		try {
-			file = new FileReader(IO.getBookFilePath());
-			reader = new BufferedReader(file);
-			while ((currentLine = reader.readLine()) != null) {
-				JSONObject object = (JSONObject) parser.parse(currentLine);
-				String year = ((String) object.get("year"));
-				String title = ((String) object.get("title"));
-				String thumbnailImg = ((String) object.get("thumbnailImg"));
-				String uniqueID = ((String) object.get("uniqueID"));
-				String author = ((String) object.get("author"));
-				String genre = ((String) object.get("genre"));
-				String isbn = ((String) object.get("isbn"));
-				String publisher = ((String) object.get("publisher"));
-				ArrayList<String> languages = new ArrayList<>();
-				int noOfCopies = Integer.parseInt((String) object.get("noOfCopies"));
-				List<List<BorrowHistoryData>> borrowHistory = new ArrayList<>();
-				List<BorrowHistoryData> currentData = new ArrayList<>();
-				ArrayList<String> loanDurs = new ArrayList<String>();
-				System.out.println("Loading Resource: " + uniqueID);
-				listOfLoanDur = (JSONArray) object.get("listOfLoanDur");
-				if (listOfLoanDur != null) {
-					for (Object loanDur : listOfLoanDur) {
-						String loanDurString = (String) loanDur;
-						loanDurs.add(loanDurString);
-					}
-				}
-				
-				bookBorrowHistoryArray = (JSONArray) object.get("borrowHistory");
-				if (bookBorrowHistoryArray != null) {
-					int i = 0;
-					for (Object copyBorrowHistoryObject : bookBorrowHistoryArray) {
-						JSONArray copyBorrowHistoryArray = (JSONArray) copyBorrowHistoryObject;
-						List<BorrowHistoryData> copyBorrowHistoryData = new ArrayList<>();
-						System.out.println("Loading Copy History for: " + uniqueID + ":" + i++);
-						for (Object borrowHistoryObject : copyBorrowHistoryArray) {
-							JSONArray borrowHistoryArray = (JSONArray) borrowHistoryObject;
-							BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
-							borrowHistoryData.setUserID((String) borrowHistoryArray.get(0));
-							borrowHistoryData.setDateBorrowed((String) borrowHistoryArray.get(1));
-							borrowHistoryData.setDateReturned((String) borrowHistoryArray.get(2));
-							borrowHistoryData.setDateRequestedReturn((String) borrowHistoryArray.get(3));
-							copyBorrowHistoryData.add(borrowHistoryData);
-						}
-						borrowHistory.add(copyBorrowHistoryData);
-					}
-				}
-				
-				bookCurrentBorrowData = (JSONArray) object.get("currentData");
-				if (bookCurrentBorrowData != null) {
-					for (Object copyCurrentBorrowDataObject : bookCurrentBorrowData) {
-						JSONArray copyCurrentBorrowDataArray = (JSONArray) copyCurrentBorrowDataObject;
-						
-						BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
-						borrowHistoryData.setUserID((String) copyCurrentBorrowDataArray.get(0));
-						borrowHistoryData.setDateBorrowed((String) copyCurrentBorrowDataArray.get(1));
-						borrowHistoryData.setDateReturned((String) copyCurrentBorrowDataArray.get(2));
-						borrowHistoryData.setDateRequestedReturn((String) copyCurrentBorrowDataArray.get(3));
-						
-						currentData.add(borrowHistoryData);
-					}
-				}
+	public static Resource readResourceFromJSON(JSONObject resourceJson){
+	    Resource resource;
 
-				languageArray = (JSONArray) object.get("languages");
-				if (languageArray != null) {
-					for (Object language : languageArray) {
-						String stringLanguage = (String) language;
-						languages.add(stringLanguage);
-					}
-				}
+	    String title = resourceJson.get("Title").toString();
+	    String year = resourceJson.get("Year").toString();
+        String thumbnailImg = resourceJson.get("ThumbnailImage").toString();
+        String uniqueID = resourceJson.get("ID").toString();
 
-				Book bookToAdd = new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher, languages,
-						noOfCopies, loanDurs, borrowHistory, currentData);
+        int noOfCopies = Integer.parseInt(resourceJson.get("CopyAmount").toString());
+        List<List<BorrowHistoryData>> borrowHistory = new ArrayList<>();
+        List<BorrowHistoryData> currentData = new ArrayList<>();
+        ArrayList<String> loanDurs = new ArrayList<>();
 
-				bookQueueArray = (JSONArray) object.get("bookQueue");
-				if (bookQueueArray != null) {
-					for (Object user : bookQueueArray) {
-						String username = (String) user;
-						bookToAdd.addUserToRequestQueue(username);
-					}
-				}
-				
+        JSONArray listOfLoanDur;
+        listOfLoanDur = (JSONArray) resourceJson.get("LoanDurations");
+        if (listOfLoanDur != null) {
+            for (Object loanDur : listOfLoanDur) {
+                String loanDurString = (String) loanDur;
+                loanDurs.add(loanDurString);
+            }
+        }
 
-				bookList.add(bookToAdd);
-			}
+        JSONArray bookBorrowHistoryArray;
+        bookBorrowHistoryArray = (JSONArray) resourceJson.get("BorrowHistory");
+        if (bookBorrowHistoryArray != null) {
+            int i = 0;
+            for (Object copyBorrowHistoryObject : bookBorrowHistoryArray) {
+                JSONArray copyBorrowHistoryArray = (JSONArray) copyBorrowHistoryObject;
+                List<BorrowHistoryData> copyBorrowHistoryData = new ArrayList<>();
+                System.out.println("Loading Copy History for: " + uniqueID + ":" + i++);
+                for (Object copyBorrowHistory : copyBorrowHistoryArray) {
+                    JSONObject borrowHistoryObject = (JSONObject) copyBorrowHistory;
+                    BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
+                    borrowHistoryData.setUserID(borrowHistoryObject.get("UserID").toString());
+                    borrowHistoryData.setDateBorrowed(borrowHistoryObject.get("BorrowDate").toString());
+                    borrowHistoryData.setDateReturned(borrowHistoryObject.get("ReturnDate").toString());
+                    borrowHistoryData.setDateRequestedReturn(borrowHistoryObject.get("RequestedDate").toString());
+                    copyBorrowHistoryData.add(borrowHistoryData);
+                }
+                borrowHistory.add(copyBorrowHistoryData);
+            }
+        }
 
-			reader.close();
-			file.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("Cannot find " + IO.getBookFilePath());
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println("ERROR reading file " + IO.getBookFilePath());
-			e.printStackTrace();
-		} catch (ParseException e) {
-			System.out.println("ERROR parsing users JSON");
-			e.printStackTrace();
-		}
-		return bookList;
-	}
+        JSONArray currentBorrowData;
+        currentBorrowData = (JSONArray) resourceJson.get("CurrentBorrowData");
+        if (currentBorrowData != null) {
+            for (Object copyCurrentBorrowDataObject : currentBorrowData) {
+                JSONObject copyCurrentBorrowDataArray = (JSONObject) copyCurrentBorrowDataObject;
 
-	/**
-	 * Returns a list of DVDs owned by this library.
-	 * @return dvds
-	 * The list of dvds owned by this library.
-	 */
-	public static ArrayList<DVD> readDvds() {
-		JSONParser parser = new JSONParser();
-		JSONArray languageArray = new JSONArray();
-		JSONArray dvdQueueArray = new JSONArray();
-		JSONArray listOfLoanDur = new JSONArray();
-		JSONArray dvdBorrowHistoryArray = new JSONArray();
-		JSONArray dvdCurrentBorrowData = new JSONArray();
-		ArrayList<DVD> dvds = new ArrayList<DVD>();
+                BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
+                borrowHistoryData.setUserID(copyCurrentBorrowDataArray.get("UserID").toString());
+                borrowHistoryData.setDateBorrowed(copyCurrentBorrowDataArray.get("DateBorrowed").toString());
+                borrowHistoryData.setDateReturned(copyCurrentBorrowDataArray.get("DateReturned").toString());
+                borrowHistoryData.setDateRequestedReturn(copyCurrentBorrowDataArray.get("DateRequestedReturn").toString());
 
-		try {
-			file = new FileReader(IO.getDvdFilePath());
-			reader = new BufferedReader(file);
+                currentData.add(borrowHistoryData);
+            }
+        }
 
-			while ((currentLine = reader.readLine()) != null) {
-				JSONObject object = (JSONObject) parser.parse(currentLine);
+        resource = new Resource(year, title, thumbnailImg, uniqueID, noOfCopies, loanDurs, borrowHistory, currentData);
 
-				String year = ((String) object.get("year"));
-				String title = ((String) object.get("title"));
-				String thumbnailImageRef = ((String) object.get("thumbnailImg"));
-				String uniqueID = ((String) object.get("uniqueID"));
-				String director = ((String) object.get("director"));
-				String runtime = ((String) object.get("runtime"));
-				String language = ((String) object.get("language"));
-				int noOfCopies = Integer.parseInt((String) object.get("noOfCopies"));
-				List<List<BorrowHistoryData>> borrowHistory = new ArrayList<>();
-				List<BorrowHistoryData> currentData = new ArrayList<>();
-				
-				System.out.println("Loading Resource: " + uniqueID);
+        JSONArray queueArray;
+        queueArray = (JSONArray) resourceJson.get("ReservedQueue");
+        if (queueArray != null) {
+            for (Object user : queueArray) {
+                String username = (String) user;
+                resource.addUserToRequestQueue(username);
+            }
+        }
 
-				languageArray = (JSONArray) object.get("sub-languages");
-				ArrayList<String> subLang = new ArrayList<>();
-				if (languageArray != null) {
-					for (Object lang : languageArray) {
-						String stringLanguage = (String) language;
-						subLang.add(stringLanguage);
-					}
-				}
+	    return resource;
+    }
 
-				dvdQueueArray = (JSONArray) object.get("bookQueue");
-				String dvdQueues = "";
-				if (dvdQueueArray != null) {
-					for (Object bookQueue : dvdQueueArray) {
-						String stringBookQueue = (String) bookQueue;
-						dvdQueues += stringBookQueue + ",";
-					}
-				}
+    /**
+     * Returns a list of books owned by this library.
+     * @return bookList
+     * The list of books currently owned by this library.
+     */
+	public static ArrayList<Book> readBooksJSON(){
+	    ArrayList<Book> bookList = new ArrayList<>();
 
-				ArrayList<String> loanDurs = new ArrayList<String>();
+        JSONParser parser = new JSONParser();
 
-				listOfLoanDur = (JSONArray) object.get("listOfLoanDur");
-				if (listOfLoanDur != null) {
-					for (Object loanDur : listOfLoanDur) {
-						String loanDurString = (String) loanDur;
-						loanDurs.add(loanDurString);
-					}
-				}
-				
-				dvdBorrowHistoryArray = (JSONArray) object.get("borrowHistory");
-				if (dvdBorrowHistoryArray != null) {
-					int i = 0;
-					for (Object copyBorrowHistoryObject : dvdBorrowHistoryArray) {
-						JSONArray copyBorrowHistoryArray = (JSONArray) copyBorrowHistoryObject;
-						List<BorrowHistoryData> copyBorrowHistoryData = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(IO.getResourceFilePath());
+            JSONObject resourcesObject = (JSONObject) parser.parse(fileReader);
+            JSONArray books;
+            books = (JSONArray) resourcesObject.get("Books");
 
-						System.out.println("Loading Copy History for: " + uniqueID + ":" + i++);
-						for (Object borrowHistoryObject : copyBorrowHistoryArray) {
-							JSONArray borrowHistoryArray = (JSONArray) borrowHistoryObject;
-							BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
-							borrowHistoryData.setUserID((String) borrowHistoryArray.get(0));
-							borrowHistoryData.setDateBorrowed((String) borrowHistoryArray.get(1));
-							borrowHistoryData.setDateReturned((String) borrowHistoryArray.get(2));
-							borrowHistoryData.setDateRequestedReturn((String) borrowHistoryArray.get(3));
-							copyBorrowHistoryData.add(borrowHistoryData);
-						}
-						borrowHistory.add(copyBorrowHistoryData);
-					}
-				}
-				
-				dvdCurrentBorrowData = (JSONArray) object.get("currentData");
-				if (dvdCurrentBorrowData != null) {
-					for (Object copyCurrentBorrowDataObject : dvdCurrentBorrowData) {
-						JSONArray copyCurrentBorrowDataArray = (JSONArray) copyCurrentBorrowDataObject;
-						
-						BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
-						borrowHistoryData.setUserID((String) copyCurrentBorrowDataArray.get(0));
-						borrowHistoryData.setDateBorrowed((String) copyCurrentBorrowDataArray.get(1));
-						borrowHistoryData.setDateReturned((String) copyCurrentBorrowDataArray.get(2));
-						borrowHistoryData.setDateRequestedReturn((String) copyCurrentBorrowDataArray.get(3));
+            for (Object book : books){
+                JSONObject bookJson = (JSONObject) book;
 
-						currentData.add(borrowHistoryData);
-					}
-				}
+                Resource resource = readResourceFromJSON(bookJson);
 
-				dvds.add(new DVD(director, runtime, language, subLang, year, title, thumbnailImageRef, uniqueID,
-						noOfCopies, loanDurs, borrowHistory, currentData));
-			}
+                String author = bookJson.get("Author").toString();
+                String genre = bookJson.get("Genre").toString();
+                String isbn = bookJson.get("ISBN").toString();
+                String publisher = bookJson.get("Publisher").toString();
 
-			reader.close();
-			file.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("Cannot find " + IO.getDvdFilePath());
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println("ERROR reading file " + IO.getDvdFilePath());
-			e.printStackTrace();
-		} catch (ParseException e) {
-			System.out.println("ERROR parsing users JSON");
-			e.printStackTrace();
-		}
-		return dvds;
-	}
+                ArrayList<String> languages = new ArrayList<>();
+                JSONArray languageArray = (JSONArray) bookJson.get("Languages");
+                if (languageArray != null) {
+                    for (Object language : languageArray) {
+                        String stringLanguage = (String) language;
+                        languages.add(stringLanguage);
+                    }
+                }
 
-	
-	/**
-	 * Returns a list of video games owned by this library.
-	 * @return video games
-	 * The list of video games owned by this library.
-	 */
-	public static ArrayList<VideoGame> readVideoGames() {
-		JSONParser parser = new JSONParser();
-		JSONArray languageArray = new JSONArray();
-		JSONArray videoGameQueueArray = new JSONArray();
-		JSONArray listOfLoanDur = new JSONArray();
-		JSONArray videoGameBorrowHistoryArray = new JSONArray();
-		JSONArray videoGameCurrentBorrowData = new JSONArray();
-		ArrayList<VideoGame> videoGames = new ArrayList<VideoGame>();
+                Book b = new Book(resource, author, genre, isbn, publisher, languages);
+                bookList.add(b);
+            }
 
-		try {
-			file = new FileReader(IO.getVideoGameFilePath());
-			reader = new BufferedReader(file);
 
-			while ((currentLine = reader.readLine()) != null) {
-				JSONObject object = (JSONObject) parser.parse(currentLine);
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
 
-				String year = ((String) object.get("year"));
-				String title = ((String) object.get("title"));
-				String thumbnailImageRef = ((String) object.get("thumbnailImg"));
-				String uniqueID = ((String) object.get("uniqueID"));
-				String publisher = ((String) object.get("publisher"));
-				String genre = ((String) object.get("genre"));
-				String multiplayerSupport = ((String) object.get("multiplayerSupport"));
-				String certificateRating = ((String) object.get("certificateRating"));
-				int noOfCopies = Integer.parseInt((String) object.get("noOfCopies"));
-				List<List<BorrowHistoryData>> borrowHistory = new ArrayList<>();
-				List<BorrowHistoryData> currentData = new ArrayList<>();
-				
-				System.out.println("Loading Resource: " + uniqueID);
 
-//				languageArray = (JSONArray) object.get("sub-languages");
-//				ArrayList<String> subLang = new ArrayList<>();
-//				if (languageArray != null) {
-//					for (Object lang : languageArray) {
-//						String stringLanguage = (String) language;
-//						subLang.add(stringLanguage);
-//					}
-//				}
+        return bookList;
+    }
 
-				videoGameQueueArray = (JSONArray) object.get("videoGameQueue");
-				String videoGameQueues = "";
-				if (videoGameQueueArray != null) {
-					for (Object bookQueue : videoGameQueueArray) {
-						String stringBookQueue = (String) bookQueue;
-						videoGameQueues += stringBookQueue + ",";
-					}
-				}
+    /**
+     * Returns a list of DVDs owned by this library.
+     * @return dvds
+     * The list of dvds owned by this library.
+     */
+    public static ArrayList<DVD> readDvdsJSON(){
+        ArrayList<DVD> dvdList = new ArrayList<>();
 
-				ArrayList<String> loanDurs = new ArrayList<String>();
+        JSONParser parser = new JSONParser();
 
-				listOfLoanDur = (JSONArray) object.get("listOfLoanDur");
-				if (listOfLoanDur != null) {
-					for (Object loanDur : listOfLoanDur) {
-						String loanDurString = (String) loanDur;
-						loanDurs.add(loanDurString);
-					}
-				}
-				
-				videoGameBorrowHistoryArray = (JSONArray) object.get("borrowHistory");
-				if (videoGameBorrowHistoryArray != null) {
-					int i = 0;
-					for (Object copyBorrowHistoryObject : videoGameBorrowHistoryArray) {
-						JSONArray copyBorrowHistoryArray = (JSONArray) copyBorrowHistoryObject;
-						List<BorrowHistoryData> copyBorrowHistoryData = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(IO.getResourceFilePath());
+            JSONObject resourcesObject = (JSONObject) parser.parse(fileReader);
+            JSONArray dvds;
+            dvds = (JSONArray) resourcesObject.get("DvDs");
 
-						System.out.println("Loading Copy History for: " + uniqueID + ":" + i++);
-						for (Object borrowHistoryObject : copyBorrowHistoryArray) {
-							JSONArray borrowHistoryArray = (JSONArray) borrowHistoryObject;
-							BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
-							borrowHistoryData.setUserID((String) borrowHistoryArray.get(0));
-							borrowHistoryData.setDateBorrowed((String) borrowHistoryArray.get(1));
-							borrowHistoryData.setDateReturned((String) borrowHistoryArray.get(2));
-							borrowHistoryData.setDateRequestedReturn((String) borrowHistoryArray.get(3));
-							copyBorrowHistoryData.add(borrowHistoryData);
-						}
-						borrowHistory.add(copyBorrowHistoryData);
-					}
-				}
-				
-				videoGameCurrentBorrowData = (JSONArray) object.get("currentData");
-				if (videoGameCurrentBorrowData != null) {
-					for (Object copyCurrentBorrowDataObject : videoGameCurrentBorrowData) {
-						JSONArray copyCurrentBorrowDataArray = (JSONArray) copyCurrentBorrowDataObject;
-						
-						BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
-						borrowHistoryData.setUserID((String) copyCurrentBorrowDataArray.get(0));
-						borrowHistoryData.setDateBorrowed((String) copyCurrentBorrowDataArray.get(1));
-						borrowHistoryData.setDateReturned((String) copyCurrentBorrowDataArray.get(2));
-						borrowHistoryData.setDateRequestedReturn((String) copyCurrentBorrowDataArray.get(3));
+            for (Object dvd : dvds){
+                JSONObject dvdJson = (JSONObject) dvd;
 
-						currentData.add(borrowHistoryData);
-					}
-				}
-				
-				//#################### CHANGE FOR LANGUAGES###########
-				ArrayList<String> lang = new ArrayList<>();
-				//~##########~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				
-				videoGames.add(new VideoGame(year, title, thumbnailImageRef, uniqueID, genre, certificateRating, publisher, multiplayerSupport, lang,
-						noOfCopies, loanDurs, borrowHistory, currentData));
-			}
+                Resource resource = readResourceFromJSON(dvdJson);
 
-			reader.close();
-			file.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("Cannot find " + IO.getVideoGameFilePath());
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println("ERROR reading file " + IO.getVideoGameFilePath());
-			e.printStackTrace();
-		} catch (ParseException e) {
-			System.out.println("ERROR parsing users JSON");
-			e.printStackTrace();
-		}
-		return videoGames;
-	}
+                String director = dvdJson.get("Director").toString();
+                String runtime = dvdJson.get("Runtime").toString();
+                String language = dvdJson.get("Language").toString();
 
-	
-	/**
-	 * Returns a list of laptops owned by the library.
-	 * @return laptops
-	 * The list of laptops currently owned by the library.
-	 */
-	public static ArrayList<Laptop> readLaptops() {
-		JSONParser parser = new JSONParser();
-		JSONArray laptopQueueArray = new JSONArray();
-		JSONArray listOfLoanDur = new JSONArray();
-		JSONArray laptopBorrowHistoryArray = new JSONArray();
-		JSONArray laptopCurrentBorrowData = new JSONArray();
+                ArrayList<String> languages = new ArrayList<>();
+                JSONArray languageArray = (JSONArray) dvdJson.get("Sub-languages");
+                if (languageArray != null) {
+                    for (Object lang : languageArray) {
+                        String stringLanguage = (String) lang;
+                        languages.add(stringLanguage);
+                    }
+                }
 
-		ArrayList<Laptop> laptops = new ArrayList<Laptop>();
+                DVD d = new DVD(resource, director, runtime, language, languages);
+                dvdList.add(d);
+            }
 
-		try {
-			file = new FileReader(IO.getLaptopFilePath());
-			reader = new BufferedReader(file);
 
-			while ((currentLine = reader.readLine()) != null) {
-				JSONObject object = (JSONObject) parser.parse(currentLine);
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
 
-				String uniqueID = ((String) object.get("uniqueID"));
-				String manufacturer = ((String) object.get("manufacturer"));
-				String model = ((String) object.get("model"));
-				String operatingSys = ((String) object.get("operatingSys"));
-				String year = ((String) object.get("year"));
-				String title = ((String) object.get("title"));
-				String thumbnailImg = ((String) object.get("thumbnailImg"));
-				int noOfCopies = Integer.parseInt((String) object.get("noOfCopies"));
-				
-				System.out.println("Loading Resource: " + uniqueID);
 
-				ArrayList<String> loanDurs = new ArrayList<String>();
-				List<List<BorrowHistoryData>> borrowHistory = new ArrayList<>();
-				List<BorrowHistoryData> currentData = new ArrayList<>();
+        return dvdList;
+    }
 
-				listOfLoanDur = (JSONArray) object.get("listOfLoanDur");
-				if (listOfLoanDur != null) {
-					for (Object loanDur : listOfLoanDur) {
-						String loanDurString = (String) loanDur;
-						loanDurs.add(loanDurString);
-					}
-				}
-				
-				laptopBorrowHistoryArray = (JSONArray) object.get("borrowHistory");
-				if (laptopBorrowHistoryArray != null) {
-					int i = 0;
-					for (Object copyBorrowHistoryObject : laptopBorrowHistoryArray) {
-						JSONArray copyBorrowHistoryArray = (JSONArray) copyBorrowHistoryObject;
-						List<BorrowHistoryData> copyBorrowHistoryData = new ArrayList<>();
-						System.out.println("Loading Copy History for: " + uniqueID + ":" + i++);
-						for (Object borrowHistoryObject : copyBorrowHistoryArray) {
-							JSONArray borrowHistoryArray = (JSONArray) borrowHistoryObject;
-							BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
-							borrowHistoryData.setUserID((String) borrowHistoryArray.get(0));
-							borrowHistoryData.setDateBorrowed((String) borrowHistoryArray.get(1));
-							borrowHistoryData.setDateReturned((String) borrowHistoryArray.get(2));
-							borrowHistoryData.setDateRequestedReturn((String) borrowHistoryArray.get(3));
-							copyBorrowHistoryData.add(borrowHistoryData);
-						}
-						borrowHistory.add(copyBorrowHistoryData);
-					}
-				}
-				
-				laptopCurrentBorrowData = (JSONArray) object.get("currentData");
-				if (laptopCurrentBorrowData != null) {
-					for (Object copyCurrentBorrowDataObject : laptopCurrentBorrowData) {
-						JSONArray copyCurrentBorrowDataArray = (JSONArray) copyCurrentBorrowDataObject;
-						
-						BorrowHistoryData borrowHistoryData = new BorrowHistoryData();
-						borrowHistoryData.setUserID((String) copyCurrentBorrowDataArray.get(0));
-						borrowHistoryData.setDateBorrowed((String) copyCurrentBorrowDataArray.get(1));
-						borrowHistoryData.setDateReturned((String) copyCurrentBorrowDataArray.get(2));
-						borrowHistoryData.setDateRequestedReturn((String) copyCurrentBorrowDataArray.get(3));
-						
-						currentData.add(borrowHistoryData);
-					}
-				}
+    /**
+     * Returns a list of laptops owned by the library.
+     * @return laptops
+     * The list of laptops currently owned by the library.
+     */
+    public static  ArrayList<Laptop> readLaptopsJSON(){
+        ArrayList<Laptop> laptopList = new ArrayList<>();
 
-				Laptop laptopToAdd = new Laptop(year, title, thumbnailImg, uniqueID, manufacturer, model, operatingSys,
-						noOfCopies, loanDurs, borrowHistory, currentData);
+        JSONParser parser = new JSONParser();
 
-				laptops.add(laptopToAdd);
-			}
+        try {
+            FileReader fileReader = new FileReader(IO.getResourceFilePath());
+            JSONObject resourcesObject = (JSONObject) parser.parse(fileReader);
+            JSONArray laptops;
+            laptops = (JSONArray) resourcesObject.get("Laptops");
 
-			reader.close();
-			file.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("Cannot find " + IO.getLaptopFilePath());
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println("ERROR reading file " + IO.getLaptopFilePath());
-			e.printStackTrace();
-		} catch (ParseException e) {
-			System.out.println("ERROR parsing users JSON");
-			e.printStackTrace();
-		}
-		return laptops;
-	}
-	
+            for (Object laptop : laptops){
+                JSONObject laptopJson = (JSONObject) laptop;
+
+                Resource resource = readResourceFromJSON(laptopJson);
+
+                String manufacturer = laptopJson.get("Manufacturer").toString();
+                String model = laptopJson.get("Model").toString();
+                String operatingSys = laptopJson.get("OperatingSys").toString();
+
+                Laptop l = new Laptop(resource, manufacturer, model, operatingSys);
+                laptopList.add(l);
+            }
+
+
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return laptopList;
+    }
+
+    /**
+     * Returns a list of DVDs owned by this library.
+     * @return dvds
+     * The list of dvds owned by this library.
+     */
+    public static ArrayList<VideoGame> readVideoGamesJSON(){
+        ArrayList<VideoGame> videoGamesList = new ArrayList<>();
+
+        JSONParser parser = new JSONParser();
+
+        try {
+            FileReader fileReader = new FileReader(IO.getResourceFilePath());
+            JSONObject resourcesObject = (JSONObject) parser.parse(fileReader);
+            JSONArray videoGames;
+            videoGames = (JSONArray) resourcesObject.get("VideoGames");
+
+            for (Object videoGame : videoGames){
+                JSONObject videoGameJson = (JSONObject) videoGame;
+
+                Resource resource = readResourceFromJSON(videoGameJson);
+
+                String publisher = videoGameJson.get("Publisher").toString();
+                String genre = videoGameJson.get("Genre").toString();
+                String multiplayerSupport = videoGameJson.get("MultiplayerSupport").toString();
+                String certificateRating = videoGameJson.get("CertificateRating").toString();
+
+                ArrayList<String> languages = new ArrayList<>();
+                JSONArray languageArray = (JSONArray) videoGameJson.get("Languages");
+                if (languageArray != null) {
+                    for (Object language : languageArray) {
+                        String stringLanguage = (String) language;
+                        languages.add(stringLanguage);
+                    }
+                }
+
+                VideoGame b = new VideoGame(resource, genre, certificateRating, publisher, multiplayerSupport, languages);
+                videoGamesList.add(b);
+            }
+
+
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return videoGamesList;
+    }
+
 	public static ArrayList<String[]> readRatings() {
 		JSONParser parser = new JSONParser();
 		ArrayList<String[]> ratingList = new ArrayList<>();

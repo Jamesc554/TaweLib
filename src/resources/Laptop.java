@@ -56,6 +56,16 @@ public class Laptop extends Resource {
 		this.model = model;
 		this.operatingSys = os;
 	}
+
+    public Laptop(Resource baseResource, String manufacturer, String model, String os){
+        super(baseResource);
+
+        this.uniqueID = generateLaptopID(baseResource.uniqueID);
+
+        this.manufacturer = manufacturer;
+        this.model = model;
+        this.operatingSys = os;
+    }
 	
 	/**
 	 * Generates a unique id for this laptop if none present.

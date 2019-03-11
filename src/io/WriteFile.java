@@ -185,257 +185,175 @@ public class WriteFile extends IO {
         }
     }
 
-    /**
-     * This method saves a book to the book json file. It saves everything to do with the book.
-     *
-     * @param book a book of the library.
-     */
-    @SuppressWarnings("unchecked")
-    public static void writeBook(Book book) {
-        JSONObject object = new JSONObject();
-        JSONArray languageArray = new JSONArray();
-        JSONArray bookQueueArray = new JSONArray();
-        JSONArray listOfLoanDur = new JSONArray();
-        JSONArray bookBorrowHistoryArray = new JSONArray();
-        JSONArray bookCurrentBorrowData = new JSONArray();
+    public static void writeResources(List<Book> books, List<DVD> dvds, List<Laptop> laptops, List<VideoGame> games){
+        // Create the JSONObject Holding All Resources
+        JSONObject resourcesObject = new JSONObject();
 
-        object.put("year", book.getYear());
-        object.put("title", book.getTitle());
-        object.put("thumbnailImg", book.getThumbnailImageRef());
-        object.put("uniqueID", book.getUniqueID());
-        object.put("author", book.getAuthor());
-        object.put("genre", book.getGenre());
-        object.put("isbn", book.getIsbn());
-        object.put("publisher", book.getPublisher());
-        object.put("noOfCopies", String.valueOf(book.getNoOfCopies()));
-
-        for (String language : book.getLanguages()) {
-            languageArray.add(language);
+        // Every Book
+        JSONArray bookArray = new JSONArray();
+        for (Book b : books){
+            JSONObject bookObject = writeBookToObject(b);
+            bookArray.add(bookObject);
         }
-        object.put("languages", languageArray);
 
-        Queue<User> bookQueue = book.getQueueOfReservations();
-        while (!bookQueue.isEmpty()) {
-            bookQueueArray.add(bookQueue.peek());
-            bookQueue.dequeue();
+        // Every DVD
+        JSONArray dvdArray = new JSONArray();
+        for (DVD d : dvds){
+            JSONObject dvdObject = writeDVDToObject(d);
+            dvdArray.add(dvdObject);
         }
-        object.put("bookQueue", bookQueueArray);
 
-        for (int i = 0; i < book.getNoOfCopies(); i++) {
-            listOfLoanDur.add(book.getLoanDuration(String.valueOf(i)));
+        // Every Laptop
+        JSONArray laptopArray = new JSONArray();
+        for (Laptop l : laptops){
+            JSONObject laptopObject = writeLaptopToObject(l);
+            laptopArray.add(laptopObject);
         }
-        object.put("listOfLoanDur", listOfLoanDur);
 
-        BorrowHistorySetter(bookBorrowHistoryArray, book.getArrayListOfCopies());
-        object.put("borrowHistory", bookBorrowHistoryArray);
+        // Every Video Game
+        JSONArray gameArray = new JSONArray();
+        for (VideoGame g : games){
+            JSONObject gameObject = writeVideoGameToObject(g);
+            gameArray.add(gameObject);
+        }
 
-        borrowDataSetter(bookCurrentBorrowData, book.getArrayListOfCopies());
-        object.put("currentData", bookCurrentBorrowData);
+
+        resourcesObject.put("Books", bookArray);
+        resourcesObject.put("DvDs", dvdArray);
+        resourcesObject.put("Laptops", laptopArray);
+        resourcesObject.put("VideoGames", gameArray);
 
         try {
-            FileWriter file = new FileWriter(IO.getBookFilePath(), true);
-            file.write(object.toJSONString() + "\n");
+            FileWriter file = new FileWriter(IO.getResourceFilePath());
+            file.write(resourcesObject.toJSONString());
             file.flush();
             file.close();
         } catch (IOException e) {
-            System.out.println("Error writing book to " + IO.getBookFilePath() + " " + book.getUniqueID());
+            System.out.println("Error writing to " + IO.getResourceFilePath());
         }
+
+        System.out.println(resourcesObject.toJSONString());
     }
 
+    private static JSONObject writeResourceToObject(Resource resource){
+        JSONObject resourceObject = new JSONObject();
 
-    /**
-     * This method writes (saves) a DVD to the DVD json file.
-     *
-     * @param dvd a DVD from the library.
-     */
-    @SuppressWarnings("unchecked")
-    public static void writeDvd(DVD dvd) {
-        JSONObject object = new JSONObject();
-        JSONArray languageArray = new JSONArray();
-        JSONArray dvdQueueArray = new JSONArray();
-        JSONArray listOfLoanDur = new JSONArray();
-        JSONArray dvdBorrowHistoryArray = new JSONArray();
-        JSONArray dvdCurrentBorrowData = new JSONArray();
+        // Resource Properties
+        resourceObject.put("ID", resource.getUniqueID());
+        resourceObject.put("Title", resource.getTitle());
+        resourceObject.put("Year", resource.getYear());
+        resourceObject.put("CopyAmount", String.valueOf(resource.getNoOfCopies()));
+        resourceObject.put("ThumbnailImage", resource.getThumbnailImageRef());
 
-        object.put("year", dvd.getYear());
-        object.put("title", dvd.getTitle());
-        object.put("thumbnailImg", dvd.getThumbnailImageRef());
-        object.put("uniqueID", dvd.getUniqueID());
-        object.put("director", dvd.getDirector());
-        object.put("runtime", dvd.getRuntime());
-        object.put("language", dvd.getLanguage());
-        object.put("noOfCopies", String.valueOf(dvd.getNoOfCopies()));
-
-        for (String language : dvd.getSubLang()) {
-            languageArray.add(language);
+        Queue<User> reservedQueue = resource.getQueueOfReservations();
+        JSONArray reservedArray = new JSONArray();
+        while (!reservedQueue.isEmpty()) {
+            reservedArray.add(reservedQueue.peek());
+            reservedQueue.dequeue();
         }
-        object.put("sub-languages", languageArray);
+        resourceObject.put("ReservedQueue", reservedArray);
 
-        Queue<User> dvdQueue = dvd.getQueueOfReservations();
-        while (!dvdQueue.isEmpty()) {
-            dvdQueueArray.add(dvdQueue.peek().getUserName());
-            dvdQueue.dequeue();
+        JSONArray loanDurations = new JSONArray();
+        for (int i = 0; i < resource.getNoOfCopies(); i++) {
+            loanDurations.add(resource.getLoanDuration(String.valueOf(i)));
         }
-        object.put("dvdQueue", dvdQueueArray);
+        resourceObject.put("LoanDurations", loanDurations);
 
-        for (int i = 0; i < dvd.getNoOfCopies(); i++) {
-            listOfLoanDur.add(dvd.getLoanDuration(String.valueOf(i)));
+        // Current Data
+        JSONArray currentBorrowData = new JSONArray();
+        List<CopyData> copies = resource.getArrayListOfCopies();
+        for (CopyData copy : copies) {
+            JSONObject copyBorrowData = new JSONObject();
+
+            copyBorrowData.put("UserID", copy.getCurrentInfo().getUserID());
+            copyBorrowData.put("DateBorrowed", copy.getCurrentInfo().getDateBorrowed());
+            copyBorrowData.put("DateReturned", copy.getCurrentInfo().getDateReturned());
+            copyBorrowData.put("DateRequestedReturn", copy.getCurrentInfo().getDateRequestedReturn());
+
+            currentBorrowData.add(copyBorrowData);
         }
-        object.put("listOfLoanDur", listOfLoanDur);
+        resourceObject.put("CurrentBorrowData", currentBorrowData);
 
-        BorrowHistorySetter(dvdBorrowHistoryArray, dvd.getArrayListOfCopies());
-        object.put("borrowHistory", dvdBorrowHistoryArray);
-
-        borrowDataSetter(dvdCurrentBorrowData, dvd.getArrayListOfCopies());
-        object.put("currentData", dvdCurrentBorrowData);
-
-        try {
-            FileWriter file = new FileWriter(IO.getDvdFilePath(), true);
-            file.write(object.toJSONString() + "\n");
-            file.flush();
-            file.close();
-        } catch (IOException e) {
-            System.out.println("Error writing dvd to " + IO.getDvdFilePath() + " " + dvd.getUniqueID());
-        }
-    }
-    
-    /**
-     * This method saves a video games to the book json file. It saves everything to do with the video game.
-     *
-     * @param video game a video gmae of the library.
-     */
-    @SuppressWarnings("unchecked")
-    public static void writeVideoGame(VideoGame videoGame) {
-        JSONObject object = new JSONObject();
-        JSONArray languageArray = new JSONArray();
-        JSONArray videoGameQueueArray = new JSONArray();
-        JSONArray listOfLoanDur = new JSONArray();
-        JSONArray videoGameBorrowHistoryArray = new JSONArray();
-        JSONArray videoGameCurrentBorrowData = new JSONArray();
-
-        object.put("year", videoGame.getYear());
-        object.put("title", videoGame.getTitle());
-        object.put("thumbnailImg", videoGame.getThumbnailImageRef());
-        object.put("uniqueID", videoGame.getUniqueID());
-        object.put("publisher", videoGame.getPublisher());
-        object.put("genre", videoGame.getGenre());
-        object.put("multiplayerSupport", videoGame.getMultiplayerSupport());
-        object.put("certificateRating", videoGame.getCertificateRating());
-        object.put("noOfCopies", String.valueOf(videoGame.getNoOfCopies()));
-        
-        for (String language : videoGame.getLanguages()) {
-            languageArray.add(language);
-        }
-        object.put("languages", languageArray);
-
-        Queue<User> videoGameQueue = videoGame.getQueueOfReservations();
-        while (!videoGameQueue.isEmpty()) {
-            videoGameQueueArray.add(videoGameQueue.peek());
-            videoGameQueue.dequeue();
-        }
-        object.put("videoGameQueue", videoGameQueueArray);
-
-        for (int i = 0; i < videoGame.getNoOfCopies(); i++) {
-            listOfLoanDur.add(videoGame.getLoanDuration(String.valueOf(i)));
-        }
-        object.put("listOfLoanDur", listOfLoanDur);
-
-        BorrowHistorySetter(videoGameBorrowHistoryArray, videoGame.getArrayListOfCopies());
-        object.put("borrowHistory", videoGameBorrowHistoryArray);
-
-        borrowDataSetter(videoGameCurrentBorrowData, videoGame.getArrayListOfCopies());
-        object.put("currentData", videoGameCurrentBorrowData);
-
-        try {
-            FileWriter file = new FileWriter(IO.getVideoGameFilePath(), true);
-            file.write(object.toJSONString() + "\n");
-            file.flush();
-            file.close();
-        } catch (IOException e) {
-            System.out.println("Error writing video game to " + IO.getVideoGameFilePath() + " " + videoGame.getUniqueID());
-        }
-    }
-    
-
-    private static void BorrowHistorySetter(JSONArray resourceBorrowHistoryArray, List<CopyData> arrayListOfCopies) {
-        for (CopyData copy : arrayListOfCopies) {
+        // History Data
+        JSONArray borrowHistoryArray = new JSONArray();
+        for (CopyData copy : copies) {
             JSONArray copyBorrowHistoryArray = new JSONArray();
             for (BorrowHistoryData borrowHistory : copy.getBorrowHistory()) {
-                JSONArray borrowHistoryArray = new JSONArray();
+                JSONObject borrowHistoryObject = new JSONObject();
 
-                borrowHistoryArray.add(borrowHistory.getUserID());
-                borrowHistoryArray.add(borrowHistory.getDateBorrowed());
-                borrowHistoryArray.add(borrowHistory.getDateReturned());
-                borrowHistoryArray.add(borrowHistory.getDateRequestedReturn());
+                borrowHistoryObject.put("UserID", borrowHistory.getUserID());
+                borrowHistoryObject.put("BorrowDate", borrowHistory.getDateBorrowed());
+                borrowHistoryObject.put("ReturnDate", borrowHistory.getDateReturned());
+                borrowHistoryObject.put("RequestedDate", borrowHistory.getDateRequestedReturn());
 
-                copyBorrowHistoryArray.add(borrowHistoryArray);
+                copyBorrowHistoryArray.add(borrowHistoryObject);
             }
-            resourceBorrowHistoryArray.add(copyBorrowHistoryArray);
+            borrowHistoryArray.add(copyBorrowHistoryArray);
         }
+        resourceObject.put("BorrowHistory", borrowHistoryArray);
+
+        return resourceObject;
     }
 
+    private static JSONObject writeBookToObject(Book book){
+        JSONObject bookObject = writeResourceToObject(book);
 
-    private static void borrowDataSetter(JSONArray resourceCurrentBorrowData, List<CopyData> arrayListOfCopies) {
-        for (CopyData copy : arrayListOfCopies) {
-            JSONArray currentCopyBorrowData = new JSONArray();
+        bookObject.put("Author", book.getAuthor());
+        bookObject.put("Genre", book.getGenre());
+        bookObject.put("ISBN", book.getIsbn());
+        bookObject.put("Publisher", book.getPublisher());
 
-            currentCopyBorrowData.add(copy.getCurrentInfo().getUserID());
-            currentCopyBorrowData.add(copy.getCurrentInfo().getDateBorrowed());
-            currentCopyBorrowData.add(copy.getCurrentInfo().getDateReturned());
-            currentCopyBorrowData.add(copy.getCurrentInfo().getDateRequestedReturn());
-
-            resourceCurrentBorrowData.add(currentCopyBorrowData);
+        JSONArray languagesArray = new JSONArray();
+        for (String language : book.getLanguages()) {
+            languagesArray.add(language);
         }
+        bookObject.put("Languages", languagesArray);
+
+        return bookObject;
     }
 
-    /**
-     * This method writes (saves) a laptop to the laptop json file.
-     *
-     * @param laptop a laptop from the library.
-     */
-    @SuppressWarnings("unchecked")
-    public static void writeLaptop(Laptop laptop) {
-        JSONObject object = new JSONObject();
-        JSONArray laptopQueueArray = new JSONArray();
-        JSONArray listOfLoanDur = new JSONArray();
-        JSONArray laptopBorrowHistoryArray = new JSONArray();
-        JSONArray laptopCurrentBorrowData = new JSONArray();
+    private static JSONObject writeDVDToObject(DVD dvd){
+        JSONObject dvdObject = writeResourceToObject(dvd);
 
-        object.put("uniqueID", laptop.getUniqueID());
-        object.put("manufacturer", laptop.getManufacturer());
-        object.put("model", laptop.getModel());
-        object.put("operatingSys", laptop.getOperatingSys());
-        object.put("year", laptop.getYear());
-        object.put("title", laptop.getTitle());
-        object.put("thumbnailImg", laptop.getThumbnailImageRef());
-        object.put("noOfCopies", String.valueOf(laptop.getNoOfCopies()));
+        dvdObject.put("Director", dvd.getDirector());
+        dvdObject.put("Runtime", dvd.getRuntime());
+        dvdObject.put("Language", dvd.getLanguage());
 
-        Queue<String> laptopQueue = laptop.getQueueOfReservations();
-        while (!laptopQueue.isEmpty()) {
-            laptopQueueArray.add(laptopQueue.peek());
-            laptopQueue.dequeue();
+        JSONArray languagesArray = new JSONArray();
+        for (String language : dvd.getSubLang()) {
+            languagesArray.add(language);
         }
-        object.put("dvdQueue", laptopQueueArray);
+        dvdObject.put("Sub-languages", languagesArray);
 
-        for (int i = 0; i < laptop.getNoOfCopies(); i++) {
-            listOfLoanDur.add(laptop.getLoanDuration(String.valueOf(i)));
+        return dvdObject;
+
+    }
+
+    private static JSONObject writeLaptopToObject(Laptop laptop){
+        JSONObject laptopObject = writeResourceToObject(laptop);
+
+        laptopObject.put("Manufacturer", laptop.getManufacturer());
+        laptopObject.put("Model", laptop.getModel());
+        laptopObject.put("OperatingSys", laptop.getOperatingSys());
+
+        return laptopObject;
+    }
+
+    private static JSONObject writeVideoGameToObject(VideoGame videoGame){
+        JSONObject videoGameObject = writeResourceToObject(videoGame);
+
+        videoGameObject.put("Publisher", videoGame.getPublisher());
+        videoGameObject.put("Genre", videoGame.getGenre());
+        videoGameObject.put("MultiplayerSupport", videoGame.getMultiplayerSupport());
+        videoGameObject.put("CertificateRating", videoGame.getCertificateRating());
+
+        JSONArray languagesArray = new JSONArray();
+        for (String language : videoGame.getLanguages()) {
+            languagesArray.add(language);
         }
-        object.put("listOfLoanDur", listOfLoanDur);
+        videoGameObject.put("Languages", languagesArray);
 
-        BorrowHistorySetter(laptopBorrowHistoryArray, laptop.getArrayListOfCopies());
-        object.put("borrowHistory", laptopBorrowHistoryArray);
-
-        borrowDataSetter(laptopCurrentBorrowData, laptop.getArrayListOfCopies());
-        object.put("currentData", laptopCurrentBorrowData);
-
-        try {
-            FileWriter file = new FileWriter(IO.getLaptopFilePath(), true);
-            file.write(object.toJSONString() + "\n");
-            file.flush();
-            file.close();
-        } catch (IOException e) {
-            System.out.println("Error writing laptop to " + IO.getLaptopFilePath() + " " + laptop.getUniqueID());
-        }
+        return videoGameObject;
     }
 
     /**
@@ -481,30 +399,15 @@ public class WriteFile extends IO {
      */
     public static void overwriteResources(ArrayList<Book> books, ArrayList<DVD> dvds, ArrayList<Laptop> laptops, ArrayList<VideoGame> videoGames) {
         File[] resourceFiles = {new File(IO.getBookFilePath()), new File(IO.getDvdFilePath()),
-                new File(IO.getLaptopFilePath()), new File(IO.getVideoGameFilePath())};
+                new File(IO.getLaptopFilePath()), new File(IO.getVideoGameFilePath()), new File(IO.getResourceFilePath())};
 
-        for (File resourceFile : resourceFiles) {
-            if (resourceFile.exists()) {
-                resourceFile.delete();
-            }
-
-        }
-
-        for (Book book : books) {
-            writeBook(book);
-        }
-
-        for (DVD dvd : dvds) {
-            writeDvd(dvd);
-        }
-
-        for (Laptop laptop : laptops) {
-            writeLaptop(laptop);
-        }
-        
-        for (VideoGame videogame : videoGames) {
-            writeVideoGame(videogame);
-        }
+//        for (File resourceFile : resourceFiles) {
+//            if (resourceFile.exists()) {
+//                resourceFile.delete();
+//            }
+//
+//        }
+        writeResources(books, dvds, laptops, videoGames);
     }
 
     /**
@@ -536,21 +439,12 @@ public class WriteFile extends IO {
 
         currentFile = new File(IO.getUsersFilePath());
         currentFile.renameTo(new File("./data/backup/" + newFilePath + "/users.json"));
-
-        currentFile = new File(IO.getBookFilePath());
-        currentFile.renameTo(new File("./data/backup/" + newFilePath + "/book.json"));
-
-        currentFile = new File(IO.getDvdFilePath());
-        currentFile.renameTo(new File("./data/backup/" + newFilePath + "/dvd.json"));
-
-        currentFile = new File(IO.getLaptopFilePath());
-        currentFile.renameTo(new File("./data/backup/" + newFilePath + "/laptop.json"));
-
-        currentFile = new File(IO.getVideoGameFilePath());
-        currentFile.renameTo(new File("./data/backup/" + newFilePath + "/videogame.json"));
         
         currentFile = new File(IO.getLibrarianFilePath());
         currentFile.renameTo(new File("./data/backup/" + newFilePath + "/librarians.json"));
+
+        currentFile = new File(IO.getResourceFilePath());
+        currentFile.renameTo(new File("./data/backup/" + newFilePath + "/resources.json"));
 
         fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), Library.getAllLaptops(), Library.getAllVideoGames(), Library.getAllLibrarians());
     }

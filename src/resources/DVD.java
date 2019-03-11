@@ -57,6 +57,17 @@ public class DVD extends Resource {
 		this.language = language;
 		this.subLang = subLang;
 	}
+
+    public DVD(Resource baseResource, String director, String runtime, String language, ArrayList<String> subLang){
+        super(baseResource);
+
+        this.uniqueID = generateDVDID(baseResource.uniqueID);
+
+        this.director = director;
+        this.runtime = runtime;
+        this.language = language;
+        this.subLang = subLang;
+    }
 	
 	/**
 	 * Generates a unique DVD ID if not already set.
