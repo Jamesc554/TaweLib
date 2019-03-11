@@ -571,8 +571,8 @@
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Text>
-                                          <Label fx:id="videoGameError" layoutX="314.0" layoutY="368.0" text="Please fill all required fields" textFill="RED" visible="false" />
-                                          <Label fx:id="videoGameSuccess" layoutX="314.0" layoutY="368.0" text="Laptop added!" textFill="#34972b" visible="false" />
+                                          <Label fx:id="videoGameError" layoutX="350.0" layoutY="420.0" text="Please fill all required fields" textFill="RED" visible="false" />
+                                          <Label fx:id="videoGameSuccess" layoutX="350.0" layoutY="420.0" text="Video game added!" textFill="#34972b" visible="false" />
                                           <Text fx:id="videoGameImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
                                           <TextField fx:id="videoGameMultiplayerSupport" layoutX="204.0" layoutY="321.0" />
                                           <Text layoutX="58.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Multiplayer Support">
