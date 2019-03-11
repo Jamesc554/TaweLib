@@ -29,12 +29,12 @@ public class LibraryResources {
      * On start create all users, dvd, books, laptops.
      */
     public static void start() {
-        listOfDVD = ReadFile.readDvds();
-        listOfBooks = ReadFile.readBooks();
-        listOfLaptops = ReadFile.readLaptops();
+        listOfDVD = ReadFile.readDvdsJSON();
+        listOfBooks = ReadFile.readBooksJSON();
+        listOfLaptops = ReadFile.readLaptopsJSON();
         listOfUsers = ReadFile.readUsers();
         listOfLibrarians = ReadFile.readLibrarians();
-        listOfVideoGames = ReadFile.readVideoGames();
+        listOfVideoGames = ReadFile.readVideoGamesJSON();
     }
 
     /**
