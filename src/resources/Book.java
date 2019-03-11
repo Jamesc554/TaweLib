@@ -1,4 +1,5 @@
 package resources;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +71,23 @@ public class Book extends Resource {
 			this.languages = lang;
 		}	
 	}
+
+	public Book(Resource baseResource, String author, String genre, String isbn, String publisher, ArrayList<String> languages){
+	    super(baseResource);
+
+	    this.uniqueID = generateBookID(baseResource.uniqueID);
+
+	    this.author = author;
+	    this.publisher = publisher;
+	    this.genre = genre;
+	    this.isbn = isbn;
+
+	    if (languages == null){
+	        this.languages = new ArrayList<>();
+        } else {
+	        this.languages = languages;
+        }
+    }
 	
 	/**
 	 * Generates a uniqueID for a book.

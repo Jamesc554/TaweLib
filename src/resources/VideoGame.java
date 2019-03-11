@@ -67,6 +67,26 @@ public class VideoGame extends Resource {
 		}
 	}
 
+    public VideoGame(Resource baseResource, String genre, String certRating, String publisher, String multSupp, ArrayList<String> languages){
+        super(baseResource);
+
+        this.uniqueID = generateGameID(baseResource.uniqueID);
+
+        // Set all non-inherited values
+        this.publisher = publisher;
+        this.genre = genre;
+        this.certificateRating = certRating;
+        this.multiplayerSupport = multSupp;
+
+        // If lang from file is null, create a new arraylist. otherwise set languages to
+        // lang from file.
+        if (languages == null) {
+            this.languages = new ArrayList<String>();
+        } else {
+            this.languages = languages;
+        }
+    }
+
 	/**
 	 * Generates a uniqueID for a game.
 	 * 

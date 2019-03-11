@@ -282,9 +282,9 @@ public class WriteFile extends IO {
                 JSONObject borrowHistoryObject = new JSONObject();
 
                 borrowHistoryObject.put("UserID", borrowHistory.getUserID());
-                borrowHistoryObject.put("Borrow Date", borrowHistory.getDateBorrowed());
-                borrowHistoryObject.put("Return Date", borrowHistory.getDateReturned());
-                borrowHistoryObject.put("Requested Date", borrowHistory.getDateRequestedReturn());
+                borrowHistoryObject.put("BorrowDate", borrowHistory.getDateBorrowed());
+                borrowHistoryObject.put("ReturnDate", borrowHistory.getDateReturned());
+                borrowHistoryObject.put("RequestedDate", borrowHistory.getDateRequestedReturn());
 
                 copyBorrowHistoryArray.add(borrowHistoryObject);
             }

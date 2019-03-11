@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  * @since 07/12/2018
  */
-public abstract class Resource {
+public class Resource {
     protected String year; //The year this resource was published/released.
     protected String title; //The title of this resource
     protected String thumbnailImageRef; //The filepath of this resource's avatar.
@@ -29,6 +29,10 @@ public abstract class Resource {
     protected ResourceStatData resourceStatData; // The amount of times this resource has been borrowed.
     private double FINE; //The daily fine for an overdue resource. CONSTANT
     private double MAX_FINE; //The maximum fine a single resource can reach. CONSTANT
+
+    private List<List<BorrowHistoryData>> copyBorrowHistory; // All of the borrow history for this resource
+    private List<BorrowHistoryData> currentBorrowData; // The current borrow data for this resource
+    private List<String> loanDurations; // All of the loan durations for this resource
 
     /**
      * The constructor for a Resource
@@ -54,6 +58,9 @@ public abstract class Resource {
         this.queueOfReservations = new Queue<String>();
         this.copiesList = new ArrayList<>();
         this.resourceStatData = new ResourceStatData();
+        this.copyBorrowHistory = copyBorrowHistory;
+        this.currentBorrowData = currentBorrowData;
+        this.loanDurations = loanDuration;
 
         for (int i = 0; i < noOfCopies; i++) {
             CopyData newCopy = null;
@@ -65,6 +72,13 @@ public abstract class Resource {
             copiesList.add(newCopy);
         }
     }
+
+    public Resource(Resource r){
+        this(r.getYear(), r.getTitle(), r.getThumbnailImageRef(),
+                r.getUniqueID(), r.getNoOfCopies(), r.getLoanDurations(),
+                r.getAllBorrowHistory(), r.getCurrentBorrowData());
+    }
+
     /* #############################################################
      * ########BELOW ARE THE GETTERS AND SETTERS OF Resource########
      * #############################################################
@@ -186,6 +200,14 @@ public abstract class Resource {
      */
     public List<BorrowHistoryData> getBorrowHistory(String copyID) {
         return this.copiesList.get(Integer.parseInt(copyID)).getBorrowHistory();
+    }
+
+    public List<List<BorrowHistoryData>> getAllBorrowHistory(){
+        return this.copyBorrowHistory;
+    }
+
+    public List<BorrowHistoryData> getCurrentBorrowData(){
+        return this.currentBorrowData;
     }
 
     /**
@@ -441,5 +463,9 @@ public abstract class Resource {
 
     public ResourceStatData getResourceStatData(){
         return resourceStatData;
+    }
+
+    public List<String> getLoanDurations(){
+        return this.loanDurations;
     }
 }
