@@ -75,7 +75,6 @@ public class RatingScreen extends Screen implements Initializable {
 		for (String[] borrow : borrowHistory) {
 			String resourceID = borrow[0];
 			if(resourceID.contains(rId)) {
-				System.out.println("SUCCESS");
 				leaveRating.setDisable(false);
 			}
 		}
@@ -113,6 +112,8 @@ public class RatingScreen extends Screen implements Initializable {
 	            "4/5 Stars",
 	            "5/5 Stars"
 	        );
+		
+		calculateAverageRating();
 	}
 	
 	public static void setResource(String id, String title) {
@@ -128,34 +129,54 @@ public class RatingScreen extends Screen implements Initializable {
 		String tempId = rId;
 		String tempMessage = messageBox.getText();
 		String stringRating = (String) oneToFive.getValue();
-		int tempRating;
+		String tempRating;
 		if(stringRating.equals("1/5 Stars")) {
-			tempRating = 1;
+			tempRating = "1";
 			WriteFile.writeRatingToFile(tempId, tempMessage, tempRating);
 			messageBox.setText("Review Submitted");
 			leaveRating.setDisable(true);
 		} else if(stringRating.equals("2/5 Stars")) {
-			tempRating = 2;
+			tempRating = "2";
 			WriteFile.writeRatingToFile(tempId, tempMessage, tempRating);
 			messageBox.setText("Review Submitted");
 			leaveRating.setDisable(true);
 		} else if(stringRating.equals("3/5 Stars")) {
-			tempRating = 3;
+			tempRating = "3";
 			WriteFile.writeRatingToFile(tempId, tempMessage, tempRating);
 			messageBox.setText("Review Submitted");
 			leaveRating.setDisable(true);
 		} else if(stringRating.equals("4/5 Stars")) {
-			tempRating = 4;
+			tempRating = "4";
 			WriteFile.writeRatingToFile(tempId, tempMessage, tempRating);
 			messageBox.setText("Review Submitted");
 			leaveRating.setDisable(true);
 		} else if(stringRating.equals("5/5 Stars")) {
-			tempRating = 5;
+			tempRating = "5";
 			WriteFile.writeRatingToFile(tempId, tempMessage, tempRating);
 			messageBox.setText("Review Submitted");
 			leaveRating.setDisable(true);
 		} else {
 			messageBox.setText("ERROR - Please select a rating");
+		}
+	}
+	
+	private void calculateAverageRating() {
+		int counter = 0;
+		int ratings = 0;
+		try {
+			for(String[] temp : rRatings) {
+				if(temp[0].equals(rId)) {
+					counter++;
+					ratings += Integer.parseInt(temp[2]);
+				}
+			}
+			
+			ratings = ratings / counter;
+			
+			averageRating.setText(Integer.toString(ratings));
+		} catch (NullPointerException e) {
+			e.getCause();
+			System.out.println("no ratings loaded");
 		}
 	}
 }

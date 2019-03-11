@@ -573,7 +573,7 @@ public class WriteFile extends IO {
     /**
      * This method writes a new rating to the file.
      */
-    public static void writeRatingToFile(String id, String message, int rating) {
+    public static void writeRatingToFile(String id, String message, String rating) {
     	JSONObject object = new JSONObject();
     	object.put("id", id);
     	object.put("message", message);
