@@ -300,9 +300,9 @@ public class WriteFile extends IO {
     }
     
     /**
-     * This method saves a book to the book json file. It saves everything to do with the book.
+     * This method saves a video games to the book json file. It saves everything to do with the video game.
      *
-     * @param book a book of the library.
+     * @param video game a video gmae of the library.
      */
     @SuppressWarnings("unchecked")
     public static void writeVideoGame(VideoGame videoGame) {

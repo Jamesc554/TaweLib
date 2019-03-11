@@ -450,9 +450,9 @@ public class ReadFile extends IO {
 
 	
 	/**
-	 * Returns a list of DVDs owned by this library.
-	 * @return dvds
-	 * The list of dvds owned by this library.
+	 * Returns a list of video games owned by this library.
+	 * @return video games
+	 * The list of video games owned by this library.
 	 */
 	public static ArrayList<VideoGame> readVideoGames() {
 		JSONParser parser = new JSONParser();

@@ -26,7 +26,7 @@ public class LibraryResources {
     private static ArrayList<Librarian> listOfLibrarians = new ArrayList<>(); // List of librarians
 
     /**
-     * On start create all users, dvd, books, laptops.
+     * On start create all users, dvd, books, laptops and video games.
      */
     public static void start() {
         listOfDVD = ReadFile.readDvds();
@@ -56,9 +56,9 @@ public class LibraryResources {
     }
     
     /**
-     * Adds a laptop to the libraryResource.
+     * Adds a video game to the libraryResource.
      *
-     * @param laptop Laptop object.
+     * @param videogame VideoGame object.
      */
     public static void addVideoGame(VideoGame videoGame) {
         listOfVideoGames.add(videoGame);
@@ -147,10 +147,10 @@ public class LibraryResources {
     }
     
     /**
-     * Gets a book from list based on id.
+     * Gets a video game from list based on id.
      *
-     * @param id of the book.
-     * @return Book object. Returns null if no such book.
+     * @param id of the video game.
+     * @return VideoGame object. Returns null if no such video game.
      */
     protected static VideoGame getVideoGame(String id) {
         for (VideoGame v : listOfVideoGames) {
@@ -219,9 +219,9 @@ public class LibraryResources {
     }
     
     /**
-     * Returns all books.
+     * Returns all video games.
      *
-     * @return ArrayList of books.
+     * @return ArrayList of video games.
      */
     protected static ArrayList<VideoGame> getListOfVideoGames() {
         return listOfVideoGames;
