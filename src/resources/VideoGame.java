@@ -67,6 +67,16 @@ public class VideoGame extends Resource {
 		}
 	}
 
+    /**
+     * <h1>The constructor for a Video Game.</h1>
+     *
+     * @param baseResource      The resource with all the base properties
+     * @param genre             The genre of this game.
+     * @param certRating        The certificate rating of this game.
+     * @param publisher         The publisher of this video game.
+     * @param multSupp          If this video game has multiplayer support
+     * @param languages         The languages this video game supports
+     */
     public VideoGame(Resource baseResource, String genre, String certRating, String publisher, String multSupp, ArrayList<String> languages){
         super(baseResource);
 

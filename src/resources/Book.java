@@ -72,6 +72,15 @@ public class Book extends Resource {
 		}	
 	}
 
+    /**
+     * <h1>The constructor for a Book.</h1>
+     * @param baseResource  The resource with all the base properties
+     * @param author        The Author of the book
+     * @param genre         The Genre of the book
+     * @param isbn          The ISBN of the book
+     * @param publisher     The publisher of the book
+     * @param languages     The Languages of the book
+     */
 	public Book(Resource baseResource, String author, String genre, String isbn, String publisher, ArrayList<String> languages){
 	    super(baseResource);
 

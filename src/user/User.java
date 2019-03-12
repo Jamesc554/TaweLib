@@ -454,10 +454,20 @@ public class User {
         return dataFormat.format(new Date());
     }
 
+    /**
+     * Gets the borrow stats object for the user
+     *
+     * @return The Resource Borrow Stats Object
+     */
     public ArrayList<String>[] getResourcesBorrowStats() {
         return resourcesBorrowStats;
     }
 
+    /**
+     * Gets the resource type stats for this user
+     *
+     * @return The Resource Type stats
+     */
     public int[] getResourceTypeStats(){
         return resourceTypeStats;
     }
@@ -542,8 +552,6 @@ public class User {
             r.getResourceStatData().addBorrowDate(dateFormatDMY.format(borrowDate));
         }
 
-
-
         borrowDate = new Date();
         try {
             borrowDate = dateFormat.parse(data[1]);
@@ -565,6 +573,13 @@ public class User {
 
     }
 
+    /**
+     * Check if a date is within a given date and number of days
+     * @param startDate The start Date
+     * @param numDays How many days to check between
+     * @param date The Date being checked
+     * @return If the date is between startDate + numDays
+     */
     private boolean isWithinDate(Date startDate, int numDays, Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(startDate);
