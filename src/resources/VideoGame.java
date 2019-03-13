@@ -33,6 +33,7 @@ public class VideoGame extends Resource {
 	 * @param title             The title of this game.
 	 * @param thumbnailImg      The filepath of the avatar of this game.
 	 * @param uniqueID          The unique ID of this game.
+	 * @param dateAdded			The six digit integer specifying when the video game was added.
 	 * @param genre             The genre of this game.
 	 * @param certRating        The certificate rating of this game.
 	 * @param publisher         The publisher of this book.
@@ -44,12 +45,12 @@ public class VideoGame extends Resource {
 	 * @param currentBorrowData The information for borrower and dates associated
 	 *                          with a copy of a resource.
 	 */
-	public VideoGame(String year, String title, String thumbnailImg, String uniqueID, String genre, String certRating,
+	public VideoGame(String dateAdded, String year, String title, String thumbnailImg, String uniqueID, String genre, String certRating,
 			String publisher, String multSupp, ArrayList<String> lang, Integer noOfCopies,
 			ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory,
 			List<BorrowHistoryData> currentBorrowData) {
 		// Set all the inherited values from Resource...
-		super(year, title, thumbnailImg, generateGameID(uniqueID), noOfCopies, loanDuration, borrowHistory,
+		super(year, title, thumbnailImg, generateGameID(uniqueID), dateAdded, noOfCopies, loanDuration, borrowHistory,
 				currentBorrowData);
 
 		// Set all non-inherited values

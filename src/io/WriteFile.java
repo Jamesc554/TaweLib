@@ -14,8 +14,10 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -51,6 +53,10 @@ public class WriteFile extends IO {
         object.put("townName", user.getTownName());
         object.put("imageAddress", user.getProfImage());
         object.put("accountBalance", String.valueOf(user.getAccountBalanceDouble()));
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String strDate = dateFormat.format(date);
+        object.put("lastLogin", strDate);
 
         for (String resource : user.getCurrentlyBorrowedResources()) {
             resourceArray.add(resource);
@@ -137,6 +143,10 @@ public class WriteFile extends IO {
         object.put("empYear", String.valueOf(librarian.getEmploymentYear()));
         object.put("staffNumber", librarian.getStaffNumber());
         object.put("noOfEmploys", String.valueOf(librarian.getNumberOfEmploys()));
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String strDate = dateFormat.format(date);
+        object.put("lastLogin", strDate);
 
         for (String resource : librarian.getCurrentlyBorrowedResources()) {
             resourceArray.add(resource);
@@ -239,6 +249,7 @@ public class WriteFile extends IO {
         JSONObject resourceObject = new JSONObject();
 
         // Resource Properties
+        resourceObject.put("DateAdded", resource.getDateAdded());
         resourceObject.put("ID", resource.getUniqueID());
         resourceObject.put("Title", resource.getTitle());
         resourceObject.put("Year", resource.getYear());

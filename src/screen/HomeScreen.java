@@ -4,7 +4,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -23,8 +26,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import library.Library;
+import resources.Book;
 import resources.CopyData;
+import resources.DVD;
+import resources.Laptop;
 import resources.Resource;
+import resources.VideoGame;
 import user.User;
 
 /**
@@ -45,6 +52,9 @@ public class HomeScreen extends Screen implements Initializable {
 
 	@FXML
 	private ListView borrowedItemsList;
+	
+	@FXML
+	private ListView recentlyAddedList;
 
 	@FXML
 	private TableView<BorrowTableData> borrowTable;
@@ -110,6 +120,7 @@ public class HomeScreen extends Screen implements Initializable {
 		usernameText.setText(loggedInUser.getUserName());
 		fineText.setText("£" + String.format("%.2f", loggedInUser.getAccountBalanceDouble()));
 		setCurrentlyBorrowed();
+		setRecentlyAdded();
 		updateBorrowTable(loggedInUser);
 
 		System.out.println(loggedInUser.getUserName());
@@ -127,6 +138,71 @@ public class HomeScreen extends Screen implements Initializable {
 			Resource r = Library.getResource(resource);
 			borrowedItemsList.getItems().add("Resource ID: " + r.getUniqueID() + " - " + r.getTitle());
 		}
+	}
+	
+	private void setRecentlyAdded() {
+		ArrayList<Book> recentlyAddedBook = Library.getAllBooks();
+		ArrayList<Laptop> recentlyAddedLaptop = Library.getAllLaptops();
+		ArrayList<DVD> recentlyAddedDVD = Library.getAllDVD();
+		ArrayList<VideoGame> recentlyAddedVideoGame = Library.getAllVideoGames();
+		
+		for (Book b : recentlyAddedBook) {
+			Date bookDate = null;
+			try {
+				bookDate = new SimpleDateFormat("dd/MM/yyyy").parse(b.getDateAdded());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(bookDate.compareTo(Library.getCurrentLoggedInUser().getLastLogin()) > 0) {
+				recentlyAddedList.getItems().add("Book:" + " " + b.getTitle());
+				System.out.println("It worked");
+			}
+		}
+		
+		for (Laptop l : recentlyAddedLaptop) {
+			Date laptopDate = null;
+			try {
+				laptopDate = new SimpleDateFormat("dd/MM/yyyy").parse(l.getDateAdded());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(laptopDate.compareTo(Library.getCurrentLoggedInUser().getLastLogin()) > 0) {
+				recentlyAddedList.getItems().add("Laptop:" + " " + l.getTitle());
+				System.out.println("It worked");
+			}
+		}
+		
+		for (DVD d : recentlyAddedDVD) {
+			Date dvdDate = null;
+			try {
+				dvdDate = new SimpleDateFormat("dd/MM/yyyy").parse(d.getDateAdded());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(dvdDate.compareTo(Library.getCurrentLoggedInUser().getLastLogin()) > 0) {
+				recentlyAddedList.getItems().add("DVD:" + " " + d.getTitle());
+				System.out.println("It worked");
+			}
+		}
+		
+		for (VideoGame v : recentlyAddedVideoGame) {
+			Date videoGameDate = null;
+			try {
+				videoGameDate = new SimpleDateFormat("dd/MM/yyyy").parse(v.getDateAdded());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(videoGameDate.compareTo(Library.getCurrentLoggedInUser().getLastLogin()) > 0) {
+				recentlyAddedList.getItems().add("Book:" + " " + v.getTitle());
+				System.out.println("It worked");
+			}
+		}
+		
+		
 	}
 
 	private void updateBorrowTable(User user) {

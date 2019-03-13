@@ -1,5 +1,7 @@
 package user;
 
+import java.util.Date;
+
 /**
  * <h1>Librarian.</h1>
  * <p>This class models a Librarian and stores all of its information.</p>
@@ -11,6 +13,7 @@ public class Librarian extends User {
 	private int employmentYear;
 	private String staffNumber;
 	private int employmentDay;
+	private Date lastLogin; //Date last log in.
 
 	/**
 	 * Librarian constructor
@@ -130,5 +133,13 @@ public class Librarian extends User {
 	 */
 	public String getProfImage() {
 		return this.profImage;
+	}
+	
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 }

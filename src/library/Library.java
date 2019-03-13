@@ -65,20 +65,21 @@ public class Library {
 	 * @param borrowHistory The borrow history associated with this book.
 	 * @param currentBorrowData The information about the current state of this book.
 	 */
-	public static void addBook(String year,String title, String thumbnailImg, String uniqueID,
+	public static void addBook(String dateAdded, String year,String title, String thumbnailImg, String uniqueID,
 						   		String author, String genre, String isbn,
 						   		String publisher, ArrayList<String> lang,
 						   		Integer noOfCopies, ArrayList<String> loanDuration,
 						   		List<List<BorrowHistoryData>> borrowHistory,
 						   		List<BorrowHistoryData> currentBorrowData) {
 		
-		LibraryResources.addBook(new Book(year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher,
+		LibraryResources.addBook(new Book(dateAdded, year, title, thumbnailImg, uniqueID, author, genre, isbn, publisher,
 				lang, noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 		
 	}
 
 	/**
 	 * This methods adds a new DVD to the library.
+	 * @param dateAdded the six digit integer specifying when the dvd was added.
 	 * @param year	Year released .
 	 * @param title Book title.
 	 * @param thumbnailImg Path to the image of the DVD.
@@ -92,20 +93,21 @@ public class Library {
 	 * @param borrowHistory The borrow history associated with this DVD.
 	 * @param currentBorrowData The information about the current state of this DVD.
 	 */
-	public static void addDVD(String year, String title, String thumbnailImg, String uniqueID,
+	public static void addDVD(String dateAdded, String year, String title, String thumbnailImg, String uniqueID,
 						 		String director, String runtime, String language,
 						 		ArrayList<String> subLang, Integer noOfCopies,
 						 		ArrayList<String> loanDuration,
 						 		List<List<BorrowHistoryData>> borrowHistory,
 						 		List<BorrowHistoryData> currentBorrowData) {
 		
-	    LibraryResources.addDVD(new DVD(director, runtime, language, subLang, year, title, thumbnailImg, uniqueID,
+	    LibraryResources.addDVD(new DVD(dateAdded, director, runtime, language, subLang, year, title, thumbnailImg, uniqueID,
 				noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	    
 	}
 
 	/**
 	 * This methods adds a laptop to the library.
+	 * @param dateAdded the six digit integer specifying when the laptop was added.
 	 * @param year The year of release.
 	 * @param title The name of the laptop.
 	 * @param thumbnailImageRef Img of the laptop.
@@ -118,18 +120,19 @@ public class Library {
 	 * @param borrowHistory The borrow history associated with this laptop.
 	 * @param currentBorrowData The information about the current state of this laptop.
 	 */
-	public static void addLaptop(String year, String title, String thumbnailImageRef, String uniqueID,
+	public static void addLaptop(String dateAdded, String year, String title, String thumbnailImageRef, String uniqueID,
 							  		String manufacturer, String model,  String operatingSys, 
 							  		Integer noOfCopies, ArrayList<String> loanDuration, 
 							  		List<List<BorrowHistoryData>> borrowHistory,
 							  		List<BorrowHistoryData> currentBorrowData) {
 		
-	    LibraryResources.addLaptop(new Laptop(year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys,
+	    LibraryResources.addLaptop(new Laptop(dateAdded, year, title, thumbnailImageRef, uniqueID, manufacturer, model, operatingSys,
 				noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	}
 	
 	/**
-	 * This methods adds a laptop to the library.
+	 * This methods adds a video game to the library.
+	 * @param dateAdded the six digit integer specifying when the video game was added.
 	 * @param year The year of release.
 	 * @param title The name of the laptop.
 	 * @param thumbnailImageRef Img of the laptop.
@@ -142,13 +145,13 @@ public class Library {
 	 * @param borrowHistory The borrow history associated with this laptop.
 	 * @param currentBorrowData The information about the current state of this laptop.
 	 */
-	public static void addVideoGame(String year, String title, String thumbnailImageRef, String uniqueID,
+	public static void addVideoGame(String dateAdded, String year, String title, String thumbnailImageRef, String uniqueID,
 							  		String publisher, String genre,  String multiplayerSupport,
 							  		String certificateRating, ArrayList<String> lang, Integer noOfCopies, 
 							  		ArrayList<String> loanDuration, List<List<BorrowHistoryData>> borrowHistory,
 							  		List<BorrowHistoryData> currentBorrowData) {
 		
-	    LibraryResources.addVideoGame(new VideoGame(year, title, thumbnailImageRef, uniqueID, genre, certificateRating, 
+	    LibraryResources.addVideoGame(new VideoGame(dateAdded, year, title, thumbnailImageRef, uniqueID, genre, certificateRating, 
 	    		publisher, multiplayerSupport, lang,
 	    		noOfCopies, loanDuration, borrowHistory, currentBorrowData));
 	}

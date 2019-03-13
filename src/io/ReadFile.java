@@ -3,7 +3,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import org.json.simple.JSONArray;
@@ -49,6 +51,14 @@ public class ReadFile extends IO {
 						(String) object.get("firstLineAddress"), (String) object.get("secondLineAddress"),
 						(String) object.get("postCode"), (String) object.get("townName"),
 						Double.parseDouble((String) object.get("accountBalance")), (String) object.get("imageAddress"));
+				Date login = null;
+				try {
+					login = new SimpleDateFormat("dd/mm/yyyy").parse((String) object.get("lastLogin"));
+				} catch (java.text.ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				user.setLastLogin(login);
 
 				resourceArray = (JSONArray) object.get("resourceBorrow");
 				ArrayList<String> borrowedResources = new ArrayList<String>();
@@ -148,6 +158,14 @@ public class ReadFile extends IO {
 						Integer.parseInt((String) object.get("empMonth")),
 						Integer.parseInt((String) object.get("empYear")), (String) object.get("staffNumber"),
 						Integer.parseInt((String) object.get("noOfEmploys")));
+				Date login = null;
+				try {
+					login = new SimpleDateFormat("dd/mm/yyyy").parse((String) object.get("lastLogin"));
+				} catch (java.text.ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				librarian.setLastLogin(login);
 				
 				resourceArray = (JSONArray) object.get("resourceBorrow");
 				ArrayList<String> borrowedResources = new ArrayList<String>();
@@ -216,7 +234,8 @@ public class ReadFile extends IO {
 
 	public static Resource readResourceFromJSON(JSONObject resourceJson){
 	    Resource resource;
-
+	    
+	    String dateAdded = resourceJson.get("DateAdded").toString();
 	    String title = resourceJson.get("Title").toString();
 	    String year = resourceJson.get("Year").toString();
         String thumbnailImg = resourceJson.get("ThumbnailImage").toString();
@@ -273,7 +292,7 @@ public class ReadFile extends IO {
             }
         }
 
-        resource = new Resource(year, title, thumbnailImg, uniqueID, noOfCopies, loanDurs, borrowHistory, currentData);
+        resource = new Resource(year, title, thumbnailImg, uniqueID, dateAdded, noOfCopies, loanDurs, borrowHistory, currentData);
 
         JSONArray queueArray;
         queueArray = (JSONArray) resourceJson.get("ReservedQueue");
