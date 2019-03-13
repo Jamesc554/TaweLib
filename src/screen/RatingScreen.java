@@ -171,9 +171,15 @@ public class RatingScreen extends Screen implements Initializable {
 				}
 			}
 			
-			ratings = ratings / counter;
+			if(counter == 0) { //incase no ratings.
+				ratings = 0;
+				averageRating.setText("N/A");
+			} else {
+				ratings = ratings / counter;
+				averageRating.setText(Integer.toString(ratings));
+			}
 			
-			averageRating.setText(Integer.toString(ratings));
+			
 		} catch (NullPointerException e) {
 			e.getCause();
 			System.out.println("no ratings loaded");
