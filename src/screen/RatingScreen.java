@@ -21,8 +21,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import library.Library;
+import resources.Resource;
 
 /**
  * <h1>RatingScreen.</h1>
@@ -49,6 +54,8 @@ public class RatingScreen extends Screen implements Initializable {
 	private TextArea messageBox;
 	@FXML
 	private Button leaveRating;
+	@FXML
+	private VBox ratingsVBox;
 
 	@Override
     /**
@@ -114,6 +121,12 @@ public class RatingScreen extends Screen implements Initializable {
 	        );
 		
 		calculateAverageRating();
+		
+		for(String[] rating : rRatings) {
+			if(rating[0].equals(rId)) {
+				ratingsVBox.getChildren().add(createResourceContainer(rating));
+			}
+		}
 	}
 	
 	public static void setResource(String id, String title) {
@@ -185,4 +198,20 @@ public class RatingScreen extends Screen implements Initializable {
 			System.out.println("no ratings loaded");
 		}
 	}
+	
+	private HBox createResourceContainer(String[] rating) {
+        Text username = new Text("Username: " + rating[3]);
+        Text ratingText = new Text("Rating: " + rating[2]);
+        TextArea message = new TextArea("Review: " + rating[1]);
+        message.autosize();
+        message.setEditable(false);
+        VBox details = new VBox(username, ratingText, message);
+
+        HBox container = new HBox(details);
+
+        username.setWrappingWidth(container.getWidth());
+        ratingText.setWrappingWidth(container.getWidth());
+        message.setMaxHeight(40);
+        return container;
+    }
 }
