@@ -30,6 +30,8 @@ public class Laptop extends Resource {
 	 * The filepath of the avatar of the laptop.
 	 * @param uniqueID
 	 * The unique id of this laptop.
+	 * @param dateAdded
+	 * the six digit integer specifying when the laptop was added.
 	 * @param manufacturer
 	 * The manufacturer of this laptop.
 	 * @param model
@@ -45,12 +47,12 @@ public class Laptop extends Resource {
 	 * @param currentBorrowData
 	 * The information stored about who currently is loaning this laptop and dates of loan and return etc.
 	 */
-	public Laptop(String year, String title,  String thumbnailImg,String uniqueID,
+	public Laptop(String dateAdded, String year, String title,  String thumbnailImg,String uniqueID,
 			String manufacturer, String model, String os, Integer noOfCopies,
 			ArrayList<String> loanDuration, List<List<BorrowHistoryData>> copyBorrowHistory,
 			List<BorrowHistoryData> currentBorrowData) {
 		
-		super(year, title, thumbnailImg, generateLaptopID(uniqueID), noOfCopies,loanDuration, copyBorrowHistory, currentBorrowData);
+		super(year, title, thumbnailImg, generateLaptopID(uniqueID), dateAdded, noOfCopies,loanDuration, copyBorrowHistory, currentBorrowData);
 		
 		this.manufacturer = manufacturer;
 		this.model = model;

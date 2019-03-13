@@ -24,6 +24,7 @@ public class Resource {
     protected String title; //The title of this resource
     protected String thumbnailImageRef; //The filepath of this resource's avatar.
     protected String uniqueID; //The unique id of this resource.
+    protected final String dateAdded; // Date resources was added, final because the date is set once.
     protected Queue<String> queueOfReservations; //The queue of current reservations for this resource.
     protected List<CopyData> copiesList; //The list of copies owned by this library for this resource.
     protected ResourceStatData resourceStatData; // The amount of times this resource has been borrowed.
@@ -41,13 +42,14 @@ public class Resource {
      * @param title             The title of this resource.
      * @param thumbnailImageRef The filepath of the avatar for this resource.
      * @param uniqueID          The unique id of this resource.
+     * @param dateAdded			The date the resource was added.
      * @param noOfCopies        The number of copies of this resource currently owned by the library.
      * @param loanDuration      The loan duration of this resource.
      * @param copyBorrowHistory The borrow history of a resource.
      * @param currentBorrowData The information for borrower and dates associated with a copy of a resource.
      */
     public Resource(String year, String title, String thumbnailImageRef,
-                    String uniqueID, Integer noOfCopies, List<String> loanDuration,
+                    String uniqueID, String dateAdded, Integer noOfCopies, List<String> loanDuration,
                     List<List<BorrowHistoryData>> copyBorrowHistory,
                     List<BorrowHistoryData> currentBorrowData) {
 
@@ -55,6 +57,7 @@ public class Resource {
         this.title = title;
         this.thumbnailImageRef = thumbnailImageRef;
         this.uniqueID = uniqueID;
+        this.dateAdded = dateAdded;
         this.queueOfReservations = new Queue<String>();
         this.copiesList = new ArrayList<>();
         this.resourceStatData = new ResourceStatData();
@@ -75,7 +78,7 @@ public class Resource {
 
     public Resource(Resource r){
         this(r.getYear(), r.getTitle(), r.getThumbnailImageRef(),
-                r.getUniqueID(), r.getNoOfCopies(), r.getLoanDurations(),
+                r.getUniqueID(), r.getDateAdded(), r.getNoOfCopies(), r.getLoanDurations(),
                 r.getAllBorrowHistory(), r.getCurrentBorrowData());
     }
 
@@ -83,8 +86,17 @@ public class Resource {
      * ########BELOW ARE THE GETTERS AND SETTERS OF Resource########
      * #############################################################
      */
-
+    
     /**
+     * Find the six digit string date on which the 
+     * resource was added and returns it.
+     * @return dateAdded
+     */
+    public String getDateAdded() {
+		return dateAdded;
+	}
+
+	/**
      * Finds the year the resource was published
      *
      * @return year

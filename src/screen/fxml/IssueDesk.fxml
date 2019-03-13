@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -15,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.IssueDeskScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.IssueDeskScreen">
    <children>
       <ToolBar prefHeight="33.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;">
          <items>
@@ -245,49 +251,49 @@
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Text>
-                                          <TextField fx:id="bookTitle" layoutX="188.0" layoutY="149.0" />
-                                          <TextField fx:id="bookAuthor" layoutX="188.0" layoutY="183.0" />
-                                          <TextField fx:id="bookYear" layoutX="188.0" layoutY="217.0" />
-                                          <TextField fx:id="bookPublisher" layoutX="188.0" layoutY="251.0" />
-                                          <TextField fx:id="bookGenre" layoutX="188.0" layoutY="285.0" />
-                                          <TextField fx:id="bookISBN" layoutX="188.0" layoutY="318.0" />
-                                          <TextField fx:id="bookLanguage" layoutX="188.0" layoutY="352.0" promptText="English, French, ..." />
-                                          <Text layoutX="85.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Title:">
+                                          <TextField fx:id="bookTitle" layoutX="182.0" layoutY="149.0" />
+                                          <TextField fx:id="bookAuthor" layoutX="182.0" layoutY="183.0" />
+                                          <TextField fx:id="bookYear" layoutX="182.0" layoutY="220.0" />
+                                          <TextField fx:id="bookPublisher" layoutX="182.0" layoutY="258.0" />
+                                          <TextField fx:id="bookGenre" layoutX="182.0" layoutY="294.0" />
+                                          <TextField fx:id="bookISBN" layoutX="182.0" layoutY="333.0" />
+                                          <TextField fx:id="bookLanguage" layoutX="182.0" layoutY="368.0" promptText="English, French, ..." />
+                                          <Text layoutX="78.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Title:">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Text layoutX="85.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Author:">
+                                          <Text layoutX="77.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Author:">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Text layoutX="85.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Year:">
+                                          <Text layoutX="78.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Year:">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Text layoutX="85.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Publisher:">
+                                          <Text layoutX="78.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Publisher:">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Text layoutX="85.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre:">
+                                          <Text layoutX="82.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre:">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Text layoutX="85.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN:">
+                                          <Text layoutX="84.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN:">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Text layoutX="85.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Language(s):">
+                                          <Text layoutX="83.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Language(s):">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Button layoutX="188.0" layoutY="434.0" mnemonicParsing="false" onAction="#createBookButton" style="-fx-background-color: #ef9d39;" text="Create Book" textFill="#0e0056">
+                                          <Button layoutX="182.0" layoutY="489.0" mnemonicParsing="false" onAction="#createBookButton" style="-fx-background-color: #ef9d39;" text="Create Book" textFill="#0e0056">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -297,8 +303,8 @@
                                           <Label fx:id="bookSuccess" layoutX="297.0" layoutY="441.0" text="Book added!" textFill="#34972b" visible="false" />
                                           <Text fx:id="bookImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
                                           <ImageView fx:id="bookImg" fitHeight="200.0" fitWidth="200.0" layoutX="629.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" />
-                                          <TextField fx:id="bookNumCopies" layoutX="188.0" layoutY="389.0" />
-                                          <Text layoutX="85.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
+                                          <TextField fx:id="bookNumCopies" layoutX="182.0" layoutY="406.0" />
+                                          <Text layoutX="82.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -335,6 +341,12 @@
                                              </font>
                                           </Text>
                                           <ListView fx:id="bookOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" style="-fx-background-color: #f4f5ff;" />
+                                          <Text layoutX="79.0" layoutY="460.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Date Added:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="bookDateAdded" layoutX="181.0" layoutY="443.0" />
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -379,7 +391,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Button layoutX="188.0" layoutY="394.0" mnemonicParsing="false" onAction="#createDVDButton" style="-fx-background-color: #ef9d39;" text="Create DVD" textFill="#0e0056">
+                                          <Button layoutX="188.0" layoutY="429.0" mnemonicParsing="false" onAction="#createDVDButton" style="-fx-background-color: #ef9d39;" text="Create DVD" textFill="#0e0056">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -432,6 +444,12 @@
                                              </font>
                                           </Text>
                                           <ListView fx:id="dvdOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" style="-fx-background-color: #f4f5ff;" />
+                                          <TextField fx:id="dvdDateAdded" layoutX="187.0" layoutY="390.0" />
+                                          <Text layoutX="85.0" layoutY="408.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Date Added:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -470,7 +488,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Button layoutX="188.0" layoutY="361.0" mnemonicParsing="false" onAction="#createLaptopButton" style="-fx-background-color: #ef9d39;" text="Create Laptop" textFill="#0e0056">
+                                          <Button layoutX="188.0" layoutY="397.0" mnemonicParsing="false" onAction="#createLaptopButton" style="-fx-background-color: #ef9d39;" text="Create Laptop" textFill="#0e0056">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -523,6 +541,12 @@
                                              </font>
                                           </Text>
                                           <ListView fx:id="laptopOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" style="-fx-background-color: #f4f5ff;" />
+                                          <TextField fx:id="laptopDateAdded" layoutX="188.0" layoutY="356.0" />
+                                          <Text layoutX="83.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Date Added:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
                                        </children>
                                     </AnchorPane>
                                  </content>
@@ -561,7 +585,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Button layoutX="208.0" layoutY="415.0" mnemonicParsing="false" onAction="#createVideoGameButton" style="-fx-background-color: #ef9d39;" text="Create Video Game" textFill="#0e0056">
+                                          <Button layoutX="205.0" layoutY="447.0" mnemonicParsing="false" onAction="#createVideoGameButton" style="-fx-background-color: #ef9d39;" text="Create Video Game" textFill="#0e0056">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -620,6 +644,12 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
+                                          <TextField fx:id="videoGameDateAdded" layoutX="204.0" layoutY="404.0" />
+                                          <Text layoutX="74.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Date Added:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
                                        </children>
                                     </AnchorPane>
                                  </content>
@@ -633,4 +663,4 @@
         </tabs>
       </TabPane>
    </children>
-</AnchorPane> 
+</AnchorPane>

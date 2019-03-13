@@ -39,6 +39,8 @@ public class DVD extends Resource {
 	 * The filepath for the avatar of this DVD.
 	 * @param uniqueID
 	 * The unique id of this DVD.
+	 * @param dateAdded
+	 * the six digit integer specifying when the DVD was added.
 	 * @param noOfCopies
 	 * The number of copies the library currently owns of this DVD.
 	 * @param loanDuration
@@ -48,10 +50,10 @@ public class DVD extends Resource {
 	 * @param currentBorrowData
 	 * The information for borrower and dates associated with a copy of a resource.
 	 */
-	public DVD (String director, String runtime, String language, ArrayList<String> subLang, String year, String title, 
+	public DVD (String dateAdded, String director, String runtime, String language, ArrayList<String> subLang, String year, String title, 
 			String thumbnailImg, String uniqueID, Integer noOfCopies, ArrayList<String> loanDuration,
 			List<List<BorrowHistoryData>> borrowHistory, List<BorrowHistoryData> currentBorrowData) {
-		super(year, title, thumbnailImg, generateDVDID(uniqueID), noOfCopies, loanDuration, borrowHistory, currentBorrowData);
+		super(year, title, thumbnailImg, generateDVDID(uniqueID), dateAdded, noOfCopies, loanDuration, borrowHistory, currentBorrowData);
 		this.director = director;
 		this.runtime = runtime;
 		this.language = language;

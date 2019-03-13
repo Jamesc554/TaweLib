@@ -33,7 +33,7 @@ public class User {
     protected ArrayList<String[]> borrowHistory = new ArrayList<>(); // Borrow history
     protected double accountBalance; //current account balance
     protected String profImage; //profile image address
-    protected String lastLogIn; //Date last log in.
+    protected Date lastLogin; //Date last log in.
     protected ArrayList<String>[] resourcesBorrowStats = new ArrayList[3]; // [0] - Day, [1] - Week, [2] - Month. Value = Resource ID, NOT COPY ID
     protected int[] resourceTypeStats = new int[4]; // [0] - Book, [1] - DVD, [2] - Laptop, [3] - Video Game
     protected ArrayList<Integer> fineHistory = new ArrayList<>(); // History on Fines this user has had
@@ -477,15 +477,15 @@ public class User {
      *
      * @return lastLogIn The date the user last logged in to the library.
      */
-    public String getLastLogIn() {
-        return lastLogIn;
+    public Date getLastLogin() {
+        return lastLogin;
     }
 
     /**
      * Sets the user last login to current date.
      */
-    public void setLastLogIn() {
-        this.lastLogIn = getCurrentDate();
+    public void setLastLogin(Date login) {
+        this.lastLogin = login;
     }
 
     /**

@@ -100,6 +100,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField bookYear;
     @FXML
+    private TextField bookDateAdded;
+    @FXML
     private TextField bookPublisher;
     @FXML
     private TextField bookGenre;
@@ -140,6 +142,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField dvdYear;
     @FXML
+    private TextField dvdDateAdded;
+    @FXML
     private TextField dvdRuntime;
     @FXML
     private TextField dvdLanguage;
@@ -173,6 +177,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private TextField laptopTitle;
     @FXML
     private TextField laptopYear;
+    @FXML
+    private TextField laptopDateAdded;
     @FXML
     private TextField laptopManuf;
     @FXML
@@ -212,6 +218,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private TextField videoGameCertificateRating;
     @FXML
     private TextField videoGameYear;
+    @FXML
+    private TextField videoGameDateAdded;
     @FXML
     private TextField videoGamePublisher;
     @FXML
@@ -550,6 +558,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
      * Event handling to create a new Book.
      */
     private void createBookButton() {
+    	String dateAdded = bookDateAdded.getText();
         String title = bookTitle.getText();
         String author = bookAuthor.getText();
         String year = bookYear.getText();
@@ -567,7 +576,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         bookDurationError.setVisible(false);
 
         //Check if required fields have input
-        if (title.equals("") || author.equals("") || year.equals("") || publisher.equals("") || imageName.equals("")) {
+        if (dateAdded.equals("") || title.equals("") || author.equals("") || year.equals("") || publisher.equals("") || imageName.equals("")) {
             bookError.setVisible(true);
         } else {
             //Set optional fields to null if empty
@@ -632,7 +641,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                         for (int i = 0; i < num4Weeks; i++) {
                             loanDuration.add("28");
                         }
-                        Library.addBook(year, title, image, null, author, genre, isbn, publisher, languages,
+                        Library.addBook(dateAdded, year, title, image, null, author, genre, isbn, publisher, languages,
                                 numCopies, loanDuration, new ArrayList<>(), new ArrayList<>());
                         bookSuccess.setVisible(true);
                         bookImgName.setText("");
@@ -654,6 +663,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
      * Event handling to create a new VideoGame.
      */
     private void createVideoGameButton() {
+    	String dateAdded = videoGameDateAdded.getText();
         String title = videoGameTitle.getText();
         String certificateRating = videoGameCertificateRating.getText();
         String year = videoGameYear.getText();
@@ -671,7 +681,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         videoGameDurationError.setVisible(false);
 
         //Check if required fields have input
-        if (title.equals("") || certificateRating.equals("") || year.equals("") || publisher.equals("") 
+        if (dateAdded.equals("") || title.equals("") || certificateRating.equals("") || year.equals("") || publisher.equals("") 
         		|| imageName.equals("") || genre.equals("") || multiplayerSupport.equals("")) {
             videoGameError.setVisible(true);
         } else {
@@ -723,7 +733,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                         for (int i = 0; i < num4Weeks; i++) {
                             loanDuration.add("28");
                         }
-                        Library.addVideoGame(year, title, image, null, publisher, genre, multiplayerSupport, certificateRating, languages,
+                        Library.addVideoGame(dateAdded, year, title, image, null, publisher, genre, multiplayerSupport, certificateRating, languages,
                                 numCopies, loanDuration, new ArrayList<>(), new ArrayList<>());
                         videoGameSuccess.setVisible(true);
                         videoGameImgName.setText("");
@@ -745,6 +755,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
      * Event handling to create a new DVD.
      */
     private void createDVDButton() {
+    	String dateAdded = dvdDateAdded.getText();
         String title = dvdTitle.getText();
         String director = dvdDirector.getText();
         String year = dvdYear.getText();
@@ -761,7 +772,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         dvdDurationError.setVisible(false);
 
         //Check if required fields have input
-        if (title.equals("") || director.equals("") || year.equals("") || runtime.equals("") || imageName.equals("")) {
+        if (dateAdded.equals("") || title.equals("") || director.equals("") || year.equals("") || runtime.equals("") || imageName.equals("")) {
             dvdError.setVisible(true);
         } else {
             //Set optional fields to null if empty
@@ -823,7 +834,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                         for (int i = 0; i < num4Weeks; i++) {
                             loanDuration.add("28");
                         }
-                        Library.addDVD(year, title, image, null, director, runtime, language, subs, numCopies,
+                        Library.addDVD(dateAdded, year, title, image, null, director, runtime, language, subs, numCopies,
                                 loanDuration, new ArrayList<>(), new ArrayList<>());
                         dvdSuccess.setVisible(true);
                         dvdImgName.setText("");
@@ -845,6 +856,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
      * Event handling to create a new Laptop.
      */
     private void createLaptopButton() {
+    	String dateAdded = laptopDateAdded.getText();
         String title = laptopTitle.getText();
         String year = laptopYear.getText();
         String manufacturer = laptopManuf.getText();
@@ -859,7 +871,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         laptopDurationError.setVisible(false);
 
         //Check if require fields have input
-        if (title.equals("") || year.equals("") || manufacturer.equals("") || model.equals("") || os.equals("")
+        if (dateAdded.equals("") || title.equals("") || year.equals("") || manufacturer.equals("") || model.equals("") || os.equals("")
                 || imageName.equals("")) {
             laptopError.setVisible(true);
         } else {
@@ -911,7 +923,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
                         for (int i = 0; i < num4Weeks; i++) {
                             loanDuration.add("28");
                         }
-                        Library.addLaptop(year, title, image, null, manufacturer, model, os, numCopies,
+                        Library.addLaptop(dateAdded, year, title, image, null, manufacturer, model, os, numCopies,
                                 loanDuration, new ArrayList<>(), new ArrayList<>());
                         laptopSuccess.setVisible(true);
                         laptopImgName.setText("");
