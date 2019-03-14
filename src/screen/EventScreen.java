@@ -90,7 +90,7 @@ public class EventScreen extends Screen implements Initializable {
 	}
 
 	
-	 */
+	 
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		BufferedImage img = null;
 		try {
