@@ -195,6 +195,13 @@ public class WriteFile extends IO {
         }
     }
 
+    /**
+     * Writes all currently owned resources to a file.
+     * @param books a list of all currently owned books.
+     * @param dvds a list of all currently owned dvds
+     * @param laptops a list of all currently owned laptops.
+     * @param games a list of all currently owned videogames.
+     */
     public static void writeResources(List<Book> books, List<DVD> dvds, List<Laptop> laptops, List<VideoGame> games){
         // Create the JSONObject Holding All Resources
         JSONObject resourcesObject = new JSONObject();
@@ -245,6 +252,11 @@ public class WriteFile extends IO {
         System.out.println(resourcesObject.toJSONString());
     }
 
+    /**
+     * converts a Resource object to a writeable JSON object.
+     * @param resource the resource to be converted.
+     * @return resourceObject the converted, writeable resource.
+     */
     private static JSONObject writeResourceToObject(Resource resource){
         JSONObject resourceObject = new JSONObject();
 
@@ -306,6 +318,11 @@ public class WriteFile extends IO {
         return resourceObject;
     }
 
+    /**
+     * Converts a Book resource to a writeable JSON object.
+     * @param book the resource to be converted.
+     * @return bookObject the JSON object of the converted Resource
+     */
     private static JSONObject writeBookToObject(Book book){
         JSONObject bookObject = writeResourceToObject(book);
 
@@ -323,6 +340,11 @@ public class WriteFile extends IO {
         return bookObject;
     }
 
+    /**
+     * Converts a DVD resource to a writeable JSON object.
+     * @param DVD the resource to be converted.
+     * @return dvdObject the JSON object of the converted Resource
+     */
     private static JSONObject writeDVDToObject(DVD dvd){
         JSONObject dvdObject = writeResourceToObject(dvd);
 
@@ -340,6 +362,11 @@ public class WriteFile extends IO {
 
     }
 
+    /**
+     * Converts a laptop resource to a writeable JSON object.
+     * @param laptop the resource to be converted.
+     * @return laptopObject the JSON object of the converted Resource
+     */
     private static JSONObject writeLaptopToObject(Laptop laptop){
         JSONObject laptopObject = writeResourceToObject(laptop);
 
@@ -350,6 +377,11 @@ public class WriteFile extends IO {
         return laptopObject;
     }
 
+    /**
+     * Converts a videogame object to a writeable JSON object
+     * @param videoGame the resource to be converted.
+     * @return videoGameObject the converted resource.
+     */
     private static JSONObject writeVideoGameToObject(VideoGame videoGame){
         JSONObject videoGameObject = writeResourceToObject(videoGame);
 
