@@ -268,7 +268,7 @@ public class Library {
 	 * @return String.
 	 */
 	public static String getCurrentDateTime() {
-		SimpleDateFormat dataFormat = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		return dataFormat.format(new Date());
 	}
 
