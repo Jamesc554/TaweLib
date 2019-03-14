@@ -3,8 +3,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
@@ -558,7 +562,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
      * Event handling to create a new Book.
      */
     private void createBookButton() {
-    	String dateAdded = bookDateAdded.getText();
+    	String dateAdded = Library.getCurrentDateTime();
         String title = bookTitle.getText();
         String author = bookAuthor.getText();
         String year = bookYear.getText();

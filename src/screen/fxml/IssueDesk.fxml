@@ -341,12 +341,6 @@
                                              </font>
                                           </Text>
                                           <ListView fx:id="bookOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" style="-fx-background-color: #f4f5ff;" />
-                                          <Text layoutX="79.0" layoutY="460.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Date Added:">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Text>
-                                          <TextField fx:id="bookDateAdded" layoutX="181.0" layoutY="443.0" />
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -444,12 +438,6 @@
                                              </font>
                                           </Text>
                                           <ListView fx:id="dvdOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" style="-fx-background-color: #f4f5ff;" />
-                                          <TextField fx:id="dvdDateAdded" layoutX="187.0" layoutY="390.0" />
-                                          <Text layoutX="85.0" layoutY="408.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Date Added:">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Text>
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -541,12 +529,6 @@
                                              </font>
                                           </Text>
                                           <ListView fx:id="laptopOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" style="-fx-background-color: #f4f5ff;" />
-                                          <TextField fx:id="laptopDateAdded" layoutX="188.0" layoutY="356.0" />
-                                          <Text layoutX="83.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Date Added:">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Text>
                                        </children>
                                     </AnchorPane>
                                  </content>
@@ -640,12 +622,6 @@
                                           <ListView fx:id="videoGameOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" style="-fx-background-color: #f4f5ff;" />
                                           <TextField fx:id="videoGameNumCopies" layoutX="204.0" layoutY="364.0" />
                                           <Text layoutX="77.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Text>
-                                          <TextField fx:id="videoGameDateAdded" layoutX="204.0" layoutY="404.0" />
-                                          <Text layoutX="74.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Date Added:">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>

@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -26,6 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import library.Library;
+import library.LibraryResources;
 import resources.Book;
 import resources.CopyData;
 import resources.DVD;
@@ -141,67 +143,28 @@ public class HomeScreen extends Screen implements Initializable {
 	}
 	
 	private void setRecentlyAdded() {
-		ArrayList<Book> recentlyAddedBook = Library.getAllBooks();
-		ArrayList<Laptop> recentlyAddedLaptop = Library.getAllLaptops();
-		ArrayList<DVD> recentlyAddedDVD = Library.getAllDVD();
-		ArrayList<VideoGame> recentlyAddedVideoGame = Library.getAllVideoGames();
+		List<Resource> resources = LibraryResources.getAllResources();
 		
-		for (Book b : recentlyAddedBook) {
+		for (Resource r : resources) {
 			Date bookDate = null;
 			try {
-				bookDate = new SimpleDateFormat("dd/MM/yyyy").parse(b.getDateAdded());
+				bookDate = new SimpleDateFormat("dd/MM/yyyy").parse(r.getDateAdded());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			if(bookDate.compareTo(Library.getCurrentLoggedInUser().getLastLogin()) > 0) {
-				recentlyAddedList.getItems().add("Book:" + " " + b.getTitle());
-				System.out.println("It worked");
+				if(r instanceof Book) {
+					recentlyAddedList.getItems().add("Book:" + " " + r.getTitle());
+				} else if (r instanceof Laptop) {
+					recentlyAddedList.getItems().add("Laptop:" + " " + r.getTitle());
+				} else if (r instanceof DVD) {
+					recentlyAddedList.getItems().add("DVD:" + " " + r.getTitle());
+				} else {
+					recentlyAddedList.getItems().add("Videogame:" + " " + r.getTitle());
+				}
 			}
 		}
-		
-		for (Laptop l : recentlyAddedLaptop) {
-			Date laptopDate = null;
-			try {
-				laptopDate = new SimpleDateFormat("dd/MM/yyyy").parse(l.getDateAdded());
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(laptopDate.compareTo(Library.getCurrentLoggedInUser().getLastLogin()) > 0) {
-				recentlyAddedList.getItems().add("Laptop:" + " " + l.getTitle());
-				System.out.println("It worked");
-			}
-		}
-		
-		for (DVD d : recentlyAddedDVD) {
-			Date dvdDate = null;
-			try {
-				dvdDate = new SimpleDateFormat("dd/MM/yyyy").parse(d.getDateAdded());
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(dvdDate.compareTo(Library.getCurrentLoggedInUser().getLastLogin()) > 0) {
-				recentlyAddedList.getItems().add("DVD:" + " " + d.getTitle());
-				System.out.println("It worked");
-			}
-		}
-		
-		for (VideoGame v : recentlyAddedVideoGame) {
-			Date videoGameDate = null;
-			try {
-				videoGameDate = new SimpleDateFormat("dd/MM/yyyy").parse(v.getDateAdded());
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(videoGameDate.compareTo(Library.getCurrentLoggedInUser().getLastLogin()) > 0) {
-				recentlyAddedList.getItems().add("Book:" + " " + v.getTitle());
-				System.out.println("It worked");
-			}
-		}
-		
 		
 	}
 
