@@ -1,10 +1,12 @@
 package screen;
 
+import javafx.collections.ObservableMap;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -247,6 +249,16 @@ public class SearchResultScreen extends Screen implements Initializable {
                 resourcesVBox.getChildren().add(createResourceContainer(rs));
             }
         }
+
+        // Fetch JavaFX Vbox container to get Resource id of first resource in the list
+        HBox firstResource = (HBox) resourcesVBox.getChildren().get(0);
+        VBox resourceDetails = (VBox) firstResource.getChildren().get(1);
+        Text textId = (Text) resourceDetails.getChildren().get(1);
+        String id = textId.getText();
+        id = id.replace("Unique ID: ", "");
+        // Set resource details to first resource in the list
+        Resource r = Library.getResource(id);
+        updateResourceDetails(r);
     }
 
     @FXML
@@ -331,7 +343,7 @@ public class SearchResultScreen extends Screen implements Initializable {
     }
 
     /**
-     * Updates the resources details if the user is a librarian.
+     * Updates the resources details.
      *
      * @param r The current resource which needs updating selected by the user.
      */
