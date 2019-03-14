@@ -1,6 +1,7 @@
 package library;
 
 import event.Event;
+import io.ReadFile;
 
 import java.util.ArrayList;
 
@@ -9,7 +10,7 @@ public class LibraryEvents {
     private static ArrayList<Event> listOfEvents = new ArrayList<>();
 
     public static void start(){
-        //TODO listOfEvents = ReadFile.readEvents();
+        listOfEvents = ReadFile.readEvents();
     }
 
     public static void addEvent(Event event){

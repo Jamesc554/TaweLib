@@ -13,6 +13,8 @@ public abstract class IO {
 	private static final String RATINGS_FILEPATH = "./data/ratings.json";
 	private static final String RESOURCE_FILEPATH = "./data/resources.json";
 
+	private static final String EVENT_FILEPATH = "./data/events.json";
+
 	/**
 	 * This method returns the file path of the data file that holds the users information.
 	 * @return a String which contains the file path of the users data file.
@@ -39,4 +41,9 @@ public abstract class IO {
 	}
 
 	public static String getResourceFilePath() { return RESOURCE_FILEPATH; }
+
+	public static String getEventFilepath() {
+		return EVENT_FILEPATH;
+	}
+
 }

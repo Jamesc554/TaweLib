@@ -1,5 +1,6 @@
 package io;
 
+import event.Event;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.WritableImage;
 import library.Library;
@@ -475,11 +476,12 @@ public class WriteFile extends IO {
      * @param librarians an ArrayList of librarians from the library.
      */
     public static void fullWrite(ArrayList<User> users, ArrayList<Book> books, ArrayList<DVD> dvds,
-                                 ArrayList<Laptop> laptops,ArrayList<VideoGame> videoGames, ArrayList<Librarian> librarians) {
+                                 ArrayList<Laptop> laptops,ArrayList<VideoGame> videoGames, ArrayList<Librarian> librarians, ArrayList<Event> events) {
 
         overwriteUsers(users);
         overwriteResources(books, dvds, laptops, videoGames);
         overwriteLibrarians(librarians);
+        overwriteEvents(events);
     }
 
     /**
@@ -501,7 +503,10 @@ public class WriteFile extends IO {
         currentFile = new File(IO.getResourceFilePath());
         currentFile.renameTo(new File("./data/backup/" + newFilePath + "/resources.json"));
 
-        fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), Library.getAllLaptops(), Library.getAllVideoGames(), Library.getAllLibrarians());
+        currentFile = new File(IO.getEventFilepath());
+        currentFile.renameTo(new File("./data/backup/" + newFilePath + "/events.json"));
+
+        fullWrite(Library.getAllUsers(), Library.getAllBooks(), Library.getAllDVD(), Library.getAllLaptops(), Library.getAllVideoGames(), Library.getAllLibrarians(), Library.getAllEvents());
     }
 
     /**
@@ -537,5 +542,42 @@ public class WriteFile extends IO {
         } catch (IOException e) {
             System.out.println("Error writing ratings to " + IO.getRatingsFilePath());
         }
+    }
+
+    public static void overwriteEvents(ArrayList<Event> events) {
+
+        File eventFile = new File(IO.getEventFilepath());
+        JSONObject object;
+        FileWriter file;
+
+        if (eventFile.exists()) {
+            eventFile.delete();
+        }
+
+
+        try {
+            file = new FileWriter(IO.getUsersFilePath(), true);
+            for (Event event : events) {
+                object = writeEventToObject(event);
+                file.write(object.toJSONString() + "\n");
+            }
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            System.out.println("Error writing user to " + IO.getUsersFilePath());
+        }
+    }
+
+        public static JSONObject writeEventToObject(Event event){
+        JSONObject eventObject =  new JSONObject();
+
+        eventObject.put("title", event.getTitle());
+        eventObject.put("date", event.getDate());
+        eventObject.put("time", event.getTime());
+        eventObject.put("maxNumberOfAttending", event.getMaxNumberOfAttending());
+        eventObject.put("currentNumberOfAttending", event.getCurrentNumberOfAttending());
+        eventObject.put("description", event.getDescription());
+
+        return eventObject;
     }
 }

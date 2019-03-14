@@ -687,4 +687,8 @@ public class Library {
 
 
 	}
+
+	public static ArrayList<Event> getAllEvents(){
+		return LibraryEvents.getAllEvents();
+	}
 }

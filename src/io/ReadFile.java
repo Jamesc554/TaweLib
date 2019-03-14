@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import event.Event;
+import library.LibraryEvents;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -532,5 +533,36 @@ public class ReadFile extends IO {
 		}
 		
 		return ratingList;
+	}
+	public static ArrayList<Event> readEvents(){
+		JSONParser parser = new JSONParser();
+		ArrayList<Event> eventsList = new ArrayList<>();
+
+		try{
+			file = new FileReader(IO.getEventFilepath());
+			reader = new BufferedReader(file);
+
+			while((currentLine = reader.readLine()) != null){
+				JSONObject object = (JSONObject) parser.parse(currentLine);
+				String title = (String) object.get("title");
+				String date = (String) object.get("date");
+				String time = (String) object.get("time");
+				int maxNumber = (int) object.get("maxNumberOfAttending");
+				int current = (int) object.get("currentNumberOfAttending");
+				String description = (String) object.get("description");
+
+				eventsList.add(new Event(title, date, time, maxNumber, current, description));
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot find " + IO.getRatingsFilePath());
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("ERROR reading file " + IO.getRatingsFilePath());
+			e.printStackTrace();
+		} catch (ParseException e) {
+			System.out.println("ERROR parsing ratings JSON");
+			e.printStackTrace();
+		}
+		return eventsList;
 	}
 }
