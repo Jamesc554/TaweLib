@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.HomeScreen">
+  <children>
+    <SplitPane dividerPositions="0.6588419405320813" layoutY="68.0" prefHeight="658.0" prefWidth="1280.0">
+      <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #f4f5ff;">
+               <children>
+                  <TableView layoutX="14.0" layoutY="52.0" prefHeight="593.0" prefWidth="811.0">
+                    <columns>
+                      <TableColumn fx:id="eventID" editable="false" maxWidth="213.0" prefWidth="168.0" text="Event ID" />
+                      <TableColumn fx:id="name" editable="false" maxWidth="346.0" minWidth="0.0" prefWidth="64.0" text="Name" />
+                      <TableColumn fx:id="date" editable="false" maxWidth="388.0" minWidth="0.0" prefWidth="84.0" text="Date" />
+                      <TableColumn fx:id="time" editable="false" maxWidth="698.0" minWidth="0.0" prefWidth="58.0" text="Time" />
+                        <TableColumn fx:id="attendees" editable="false" maxWidth="698.0" minWidth="0.0" prefWidth="72.0" text="Attendees" />
+                      <TableColumn fx:id="description" editable="false" maxWidth="780.0" prefWidth="422.0" text="Description" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="25.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Create Event" />
+               </children></AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <children>
+            <SplitPane orientation="VERTICAL" prefHeight="656.0" prefWidth="433.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <items>
+                        <AnchorPane prefHeight="578.0" prefWidth="418.0">
+                           <children>
+                              <Text layoutX="15.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Previously Attended Events">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </Text>
+                              <TableView layoutX="6.0" layoutY="83.0" prefHeight="571.0" prefWidth="404.0">
+                                 <columns>
+                                    <TableColumn fx:id="eventID" editable="false" prefWidth="132.0" text="Event-ID" />
+                                    <TableColumn fx:id="name" editable="false" minWidth="0.0" prefWidth="110.0" text="Event Name" />
+                                    <TableColumn fx:id="date" editable="false" maxWidth="161.0" prefWidth="161.0" text="Date" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+              </items>
+            </SplitPane>
+          </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+    <ToolBar layoutX="1.0" layoutY="-3.0" prefHeight="35.0" prefWidth="1096.0" style="-fx-background-color: #0e0056;">
+      <items>
+        <TextField fx:id="searchBar" onAction="#onEnter" prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." />
+        <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchButton" style="-fx-background-color: #ef9d39;" text="Search" textFill="#0e0056" />
+            <Text fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Tawe Library">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Text>
+      </items>
+    </ToolBar>
+    <ToolBar layoutX="1.0" layoutY="33.0" prefHeight="35.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;">
+      <items>
+        <HBox prefHeight="25.0" prefWidth="1268.0" spacing="20.0" style="-fx-background-color: #0e0056;">
+          <children>
+            <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Home" textFill="#fff1f1" underline="true" />
+            <Button fx:id="accountBtn" mnemonicParsing="false" onAction="#accountDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Account" textFill="#fff1f1" underline="true" />
+            <Button fx:id="drawAppBtn" mnemonicParsing="false" onAction="#drawAppButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Draw App" textFill="#fff1f1" underline="true" />
+            <Button fx:id="statsBtn" layoutX="290.0" layoutY="15.0" mnemonicParsing="false" onAction="#statsButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Stats" textFill="#fff1f1" underline="true" />
+                  <Button layoutX="30.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Events" textFill="#fff1f1" underline="true" />
+            <Button fx:id="issueDeskBtn" mnemonicParsing="false" onAction="#issueDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Issue Desk" textFill="#fff1f1" underline="true" visible="false" />
+          </children>
+          <padding>
+            <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+          </padding>
+        </HBox>
+      </items>
+    </ToolBar>
+  <Button fx:id="logoutBtn" layoutX="1220.0" layoutY="1.0" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: #0e0056;" text="Logout" textFill="#fff1f1" underline="true" />
+  <Text fx:id="usernameText" fill="#fff1f1" layoutX="1166.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" translateX="-40.0" />
+  <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" layoutX="1129.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" translateX="-40.0">
+    <image>
+      <Image url="@SEGroup2-master/data/images/james/testImg442.png" />
+    </image>
+  </ImageView>
+  </children>
+</AnchorPane>
