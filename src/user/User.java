@@ -37,6 +37,9 @@ public class User {
     protected ArrayList<String>[] resourcesBorrowStats = new ArrayList[3]; // [0] - Day, [1] - Week, [2] - Month. Value = Resource ID, NOT COPY ID
     protected int[] resourceTypeStats = new int[4]; // [0] - Book, [1] - DVD, [2] - Laptop, [3] - Video Game
     protected ArrayList<Integer> fineHistory = new ArrayList<>(); // History on Fines this user has had
+    protected ArrayList<String> eventsAttanded = new ArrayList<>();
+
+    //TODO eventsAttended
 
     /**
      * Generic constructor
@@ -672,5 +675,17 @@ public class User {
 
     public ArrayList<Integer> getFineHistory(){
         return fineHistory;
+    }
+
+    public void addEvent(String title){
+        this.eventsAttanded.add(title);
+    }
+    
+    public ArrayList<String> getAllEventsAttended(){
+        return this.eventsAttanded;
+    }
+    
+    public void setEventsAttanded(ArrayList<String> eventsAttanded){
+        this.eventsAttanded = eventsAttanded;
     }
 }

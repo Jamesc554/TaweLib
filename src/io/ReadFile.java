@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import event.Event;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -40,6 +42,7 @@ public class ReadFile extends IO {
 		JSONArray borrowHistoryArray = new JSONArray();
 		JSONArray requestedArray = new JSONArray();
 		JSONArray reservedArray = new JSONArray();
+        JSONArray eventsArray = new JSONArray();
 		ArrayList<User> userList = new ArrayList<>();
 		try {
 			file = new FileReader(IO.getUsersFilePath());
@@ -108,6 +111,12 @@ public class ReadFile extends IO {
 						user.addToReserved(reservedResourceID);
 					}
 				}
+                eventsArray = (JSONArray) object.get("events");
+				if(eventsArray != null){
+				    for(Object event : eventsArray){
+				        user.addEvent((String) event);
+                    }
+                }
 				System.out.println(user.getUserName() + " is added");
 				userList.add(user);
 			}

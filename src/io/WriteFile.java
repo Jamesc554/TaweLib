@@ -43,6 +43,7 @@ public class WriteFile extends IO {
         JSONObject borrowHistoryObject = new JSONObject();
         JSONArray jsonRequestedArray = new JSONArray();
         JSONArray jsonReservedArray = new JSONArray();
+        JSONArray jsonEventsAttended = new JSONArray();
         object.put("username", user.getUserName());
         object.put("firstName", user.getFirstName());
         object.put("lastName", user.getLastName());
@@ -95,6 +96,12 @@ public class WriteFile extends IO {
         }
         object.put("reserved", jsonReservedArray);
 
+        ArrayList<String> eventsAttended = user.getAllEventsAttended();
+        for (String eventTitle : eventsAttended){
+            jsonEventsAttended.add(eventTitle);
+        }
+        object.put("events", jsonEventsAttended);
+
 //        ArrayList<Integer> fineArray = user.getFineHistory();
 //        JSONArray fineHistoryObject = new JSONArray();
 //        for (int amount : fineArray){
@@ -127,6 +134,7 @@ public class WriteFile extends IO {
         JSONArray borrowHistoryArray = new JSONArray();
         JSONArray jsonRequestedArray = new JSONArray();
         JSONArray jsonReservedArray = new JSONArray();
+        JSONArray jsonEventsAttended = new JSONArray();
 
         object.put("username", librarian.getUserName());
         object.put("firstName", librarian.getFirstName());
@@ -184,6 +192,12 @@ public class WriteFile extends IO {
             jsonReservedArray.add(reserved);
         }
         object.put("reserved", jsonReservedArray);
+
+        ArrayList<String> eventsAttended = librarian.getAllEventsAttended();
+        for (String eventTitle : eventsAttended){
+            jsonEventsAttended.add(eventTitle);
+        }
+        object.put("events", jsonEventsAttended);
 
         try {
             FileWriter file = new FileWriter(IO.getLibrarianFilePath(), true);
@@ -336,13 +350,12 @@ public class WriteFile extends IO {
             languagesArray.add(language);
         }
         bookObject.put("Languages", languagesArray);
-
         return bookObject;
     }
 
     /**
      * Converts a DVD resource to a writeable JSON object.
-     * @param DVD the resource to be converted.
+     * @param dvd the resource to be converted.
      * @return dvdObject the JSON object of the converted Resource
      */
     private static JSONObject writeDVDToObject(DVD dvd){

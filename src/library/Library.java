@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import event.Event;
 import resources.*;
 import user.Librarian;
 import user.User;
@@ -26,6 +28,7 @@ public class Library {
 	 */
 	public static void start() {
 		LibraryResources.start();
+		LibraryEvents.start();
 	}
 
 	/**
@@ -666,5 +669,22 @@ public class Library {
 
 	public static int getMaxResources(){
 		return MAX_RESOURCES;
+	}
+
+	public static void addNewEvent(String title, String date, String time, int maxNumberOfAttending, int currentNumberOfAttending,
+								   String description){
+		LibraryEvents.addEvent(new Event(title,date,time,maxNumberOfAttending,currentNumberOfAttending,description));
+	}
+
+	public static void editEvent(String title, String date, String time, int maxNumberOfAttending, int currentNumberOfAttending,
+								 String description){
+		LibraryEvents.getEvent(title).setTitle(title);
+		LibraryEvents.getEvent(title).setDate(date);
+		LibraryEvents.getEvent(title).setTime(time);
+		LibraryEvents.getEvent(title).setMaxNumberOfAttending(maxNumberOfAttending);
+		LibraryEvents.getEvent(title).setCurrentNumberOfAttending(currentNumberOfAttending);
+		LibraryEvents.getEvent(title).setDescription(description);
+
+
 	}
 }
