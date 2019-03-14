@@ -243,7 +243,10 @@ public class LibraryResources {
         return listOfLaptops;
     }
 
-
+    /**
+     * Gets a list of all the resources in the library
+     * @return List of all Resources
+     */
     public static List<Resource> getAllResources(){
         List<Resource> resources = new ArrayList<>();
 
