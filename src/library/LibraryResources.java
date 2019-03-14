@@ -1,14 +1,12 @@
 package library;
 
 import io.ReadFile;
-import resources.Book;
-import resources.DVD;
-import resources.Laptop;
-import resources.VideoGame;
+import resources.*;
 import user.Librarian;
 import user.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <h1>LibraryResources.</h1>
@@ -245,6 +243,17 @@ public class LibraryResources {
         return listOfLaptops;
     }
 
+
+    public static List<Resource> getAllResources(){
+        List<Resource> resources = new ArrayList<>();
+
+        resources.addAll(listOfBooks);
+        resources.addAll(listOfDVD);
+        resources.addAll(listOfLaptops);
+        resources.addAll(listOfVideoGames);
+
+        return resources;
+    }
     /**
      * Removes a resource from LibraryResources.
      *
