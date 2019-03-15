@@ -41,9 +41,9 @@ public class LibraryEvents {
      * @param name the name of the specific event.
      * @return The event - if present - which is specified by the name/title
      */
-    public static Event getEvent(String name){
+    public static Event getEvent(String eventID){
         for(Event event : listOfEvents){
-            if(event.getTitle().equals(name)){
+            if(event.getEventID().equals(eventID)){
                 return event;
             }
         }

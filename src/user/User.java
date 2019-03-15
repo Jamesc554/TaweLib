@@ -1,6 +1,7 @@
 package user;
 
 import library.Library;
+import library.LibraryEvents;
 import resources.Resource;
 
 import java.text.ParseException;
@@ -685,11 +686,39 @@ public class User {
     }
 
     /**
+     * Sets this user to attend a new event.
+     * @param title the title of the event to attend.
+     */
+    public void addNewEvent(String eventID) {
+    	if (!checkAttended(eventID)) {
+    		this.eventsAttended.add(eventID);
+    		LibraryEvents.getEvent(eventID).RSVP();
+    	} else {
+    		System.out.println("Already attending");
+    	}
+        
+    }
+    
+    /**
+     * Checks whether this user has already attended this event.
+     * @param eventID
+     * @return true or false whether the user has already attended.
+     */
+    private boolean checkAttended(String eventID) {
+    	for (String elem : this.eventsAttended) {
+    		if (elem.equals(eventID)) {
+    			return true;
+    		}
+    	}
+    	return false;
+	}
+
+	/**
      * Sets this user to attend an event.
      * @param title the title of the event to attend.
      */
-    public void addEvent(String title){
-        this.eventsAttended.add(title);
+    public void addEvent(String eventID){
+        this.eventsAttended.add(eventID);
     }
     
     /**

@@ -26,6 +26,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import library.Library;
@@ -120,7 +121,7 @@ public class EventScreen extends Screen implements Initializable {
 
 		User loggedInUser = Library.getCurrentLoggedInUser();
 		try {
-			updateEventTableData(loggedInUser);
+			updateEventTableData();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -136,16 +137,36 @@ public class EventScreen extends Screen implements Initializable {
 		}
 		userIcon.setImage(SwingFXUtils.toFXImage(img, null));
 		usernameText.setText(loggedInUser.getUserName());
+		
+		eventTable.setOnMouseClicked((MouseEvent event) -> {
+			//if user double clicked
+			if (event.getClickCount() == 2 && eventTable.getSelectionModel().getSelectedItems().get(0) != null) {
+				
+				String eventID = eventTable.getSelectionModel().getSelectedItems().get(0).getEventID();
+				System.out.println(eventID);
+				
+				//add user to event...
+				loggedInUser.addNewEvent(eventID);
+				//update table
+				try {
+					updateEventTableData();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}});
 		}
+	
+	
 
 	/**
 	 * Updates the event table with information regarding all events.
 	 */
-	private void updateEventTableData(User user) throws ParseException {
+	private void updateEventTableData() throws ParseException {
 		ArrayList<Event> listOfEvents = LibraryEvents.getAllEvents();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
+		eventTable.getItems().clear();
 		Date currentDate = sdf.parse(Library.getCurrentDate());
 		Date eventDate;
 		for (Event event : listOfEvents) {
