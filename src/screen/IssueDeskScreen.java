@@ -108,8 +108,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField bookYear;
     @FXML
-    private TextField bookDateAdded;
-    @FXML
     private TextField bookPublisher;
     @FXML
     private TextField bookGenre;
@@ -150,8 +148,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
     @FXML
     private TextField dvdYear;
     @FXML
-    private TextField dvdDateAdded;
-    @FXML
     private TextField dvdRuntime;
     @FXML
     private TextField dvdLanguage;
@@ -185,8 +181,6 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private TextField laptopTitle;
     @FXML
     private TextField laptopYear;
-    @FXML
-    private TextField laptopDateAdded;
     @FXML
     private TextField laptopManuf;
     @FXML
@@ -579,7 +573,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
      * Event handling to create a new Book.
      */
     private void createBookButton() {
-    	String dateAdded = Library.getCurrentDateTime();
+    	Date date = Calendar.getInstance().getTime();
+    	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    	String dateAdded = dateFormat.format(date);
         String title = bookTitle.getText();
         String author = bookAuthor.getText();
         String year = bookYear.getText();
@@ -684,7 +680,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
      * Event handling to create a new VideoGame.
      */
     private void createVideoGameButton() {
-    	String dateAdded = videoGameDateAdded.getText();
+    	Date date = Calendar.getInstance().getTime();
+    	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    	String dateAdded = dateFormat.format(date);
         String title = videoGameTitle.getText();
         String certificateRating = videoGameCertificateRating.getText();
         String year = videoGameYear.getText();
@@ -776,7 +774,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
      * Event handling to create a new DVD.
      */
     private void createDVDButton() {
-    	String dateAdded = dvdDateAdded.getText();
+    	Date date = Calendar.getInstance().getTime();
+    	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    	String dateAdded = dateFormat.format(date);
         String title = dvdTitle.getText();
         String director = dvdDirector.getText();
         String year = dvdYear.getText();
@@ -877,7 +877,9 @@ public class IssueDeskScreen extends Screen implements Initializable {
      * Event handling to create a new Laptop.
      */
     private void createLaptopButton() {
-    	String dateAdded = laptopDateAdded.getText();
+    	Date date = Calendar.getInstance().getTime();
+    	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    	String dateAdded = dateFormat.format(date);
         String title = laptopTitle.getText();
         String year = laptopYear.getText();
         String manufacturer = laptopManuf.getText();
