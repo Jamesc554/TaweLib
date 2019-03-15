@@ -1048,8 +1048,12 @@ public class IssueDeskScreen extends Screen implements Initializable {
         }
         imv.setImage(SwingFXUtils.toFXImage(img, null));
     }
+    
+    /**
+     * Creates an event which users can attend.
+     */
     @FXML
-    private void createEventButton(){
+    private void createEventButton() {
         eventError.setVisible(false);
         eventSuccess.setVisible(false);
 
@@ -1060,17 +1064,20 @@ public class IssueDeskScreen extends Screen implements Initializable {
         int maxNum = Integer.valueOf(maxNumberOfSpaces.getText());
 
 
-        if(!event.equals("") && !d.equals("") && !timeOfEvent.equals("") && !desc.equals("") && maxNum != 0){
+        if(!event.equals("") && !d.equals("") && !timeOfEvent.equals("")
+        		&& !desc.equals("") && maxNum != 0) {
+        	
             LibraryEvents.addEvent(new Event(event, d, timeOfEvent, maxNum, desc));
             eventSuccess.setVisible(true);
-        }else{
+            
+        } else {
             eventError.setVisible(true);
         }
 
     }
 
-    @FXML
-    private void checkDate(){
-
-    }
+//    @FXML
+//    private void checkDate(){
+//
+//    }
 }
