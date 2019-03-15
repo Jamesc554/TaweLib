@@ -37,7 +37,7 @@ public class User {
     protected ArrayList<String>[] resourcesBorrowStats = new ArrayList[3]; // [0] - Day, [1] - Week, [2] - Month. Value = Resource ID, NOT COPY ID
     protected int[] resourceTypeStats = new int[4]; // [0] - Book, [1] - DVD, [2] - Laptop, [3] - Video Game
     protected ArrayList<Integer> fineHistory = new ArrayList<>(); // History on Fines this user has had
-    protected ArrayList<String> eventsAttanded = new ArrayList<>();
+    protected ArrayList<String> eventsAttended = new ArrayList<>();
 
     //TODO eventsAttended
 
@@ -689,7 +689,7 @@ public class User {
      * @param title the title of the event to attend.
      */
     public void addEvent(String title){
-        this.eventsAttanded.add(title);
+        this.eventsAttended.add(title);
     }
     
     /**
@@ -697,14 +697,14 @@ public class User {
      * @return eventsAttanded the list of events this user attended.
      */
     public ArrayList<String> getAllEventsAttended(){
-        return this.eventsAttanded;
+        return this.eventsAttended;
     }
     
     /**
      * Sets a list of events this user has attended.
      * @param eventsAttanded the list of events this user has attended.
      */
-    public void setEventsAttanded(ArrayList<String> eventsAttanded){
-        this.eventsAttanded = eventsAttanded;
+    public void setEventsAttanded(ArrayList<String> eventsAttended){
+        this.eventsAttended = eventsAttended;
     }
 }
