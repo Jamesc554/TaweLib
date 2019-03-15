@@ -534,15 +534,19 @@ public class ReadFile extends IO {
 		
 		return ratingList;
 	}
-	public static ArrayList<Event> readEvents(){
+	/**
+	 * Returns a list of events which have been read from a file.
+	 * @return eventsList the list of events read from file.
+	 */
+	public static ArrayList<Event> readEvents() {
 		JSONParser parser = new JSONParser();
 		ArrayList<Event> eventsList = new ArrayList<>();
 
-		try{
+		try {
 			file = new FileReader(IO.getEventFilepath());
 			reader = new BufferedReader(file);
 
-			while((currentLine = reader.readLine()) != null){
+			while((currentLine = reader.readLine()) != null) {
 				JSONObject object = (JSONObject) parser.parse(currentLine);
 				String eventID = (String) object.get("eventID");
 				String title = (String) object.get("title");
@@ -556,7 +560,7 @@ public class ReadFile extends IO {
 			}
 			reader.close();
 			file.close();
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) { 
 			System.out.println("Cannot find " + IO.getRatingsFilePath());
 			e.printStackTrace();
 		} catch (IOException e) {
