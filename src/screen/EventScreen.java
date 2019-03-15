@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
+import event.Event;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +29,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import library.Library;
+import library.LibraryEvents;
 import library.LibraryResources;
 import resources.Book;
 import resources.CopyData;
@@ -44,7 +46,7 @@ import user.User;
  * pressing the events button.
  * </p>
  * 
- * @author Deyan Naydenov
+ * @author Deyan Naydenov, Peter Daish, Dominik R Wojtasiewicz.
  * @version 1.0
  */
 @SuppressWarnings("Duplicates")
@@ -59,6 +61,9 @@ public class EventScreen extends Screen implements Initializable {
 	
 	@FXML
 	private ListView pastEvents;
+	
+	@FXML
+	TableView<EventTableData> eventTable;
 	
 	@FXML
 	private TableColumn<EventTableData, String> eventID;
@@ -101,24 +106,47 @@ public class EventScreen extends Screen implements Initializable {
 		} catch (IOException e) {
 			System.out.println("IOException"+e.getStackTrace());
 		}
-
-		/*
+		
+		//populate tables
 		eventID.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventID"));
-		title.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventName"));
-		date.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventDate"));
-		time.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventEnd"));
+		title.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("title"));
+		date.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("date"));
+		time.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("time"));
 		eventAttendees.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventAttendees"));
-		*/
+		description.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("description"));
 
+		User loggedInUser = Library.getCurrentLoggedInUser();
+		updateEventTableData(loggedInUser);
+		
+//		eventID.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventID"));
+//		title.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventName"));
+//		date.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventDate"));
+//		time.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventEnd"));
+//		eventAttendees.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventAttendees"));
+//		
 		if (Library.currentUserIsLibrarian()) {
 			issueDeskBtn.setVisible(true);
 		}
-		User loggedInUser = Library.getCurrentLoggedInUser();
-
 		userIcon.setImage(SwingFXUtils.toFXImage(img, null));
 		usernameText.setText(loggedInUser.getUserName());
 		}
 
+	private void updateEventTableData(User user) {
+		ArrayList<Event> listOfEvents = LibraryEvents.getAllEvents();
+		for (Event event : listOfEvents) {
+
+			String id = event.getEventID();
+			String title = event.getTitle();
+			String date = event.getDate();
+			String time = event.getTime();
+			String eventAttendees = Integer.toString(event.getCurrentNumberOfAttending());
+			String description = event.getDescription();
+			EventTableData etd = new EventTableData(id, title, date, time, eventAttendees, description);
+
+			eventTable.getItems().add(etd);
+		}
+	}
+	
 	public void onEnter(ActionEvent actionEvent) {
 		Library.setSearchStringText(searchBar.getText());
 		ScreenManager.changeScreen(new SearchResultScreen());
