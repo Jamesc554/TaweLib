@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  */
 public class Event {
-	
+	 
 	private String eventID;
     private String title;
     private String date;

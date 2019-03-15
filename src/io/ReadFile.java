@@ -556,7 +556,8 @@ public class ReadFile extends IO {
 				int current = Integer.valueOf((String) object.get("currentNumberOfAttending"));
 				String description = (String) object.get("description");
 
-				eventsList.add(new Event(eventID, title, date, time, maxNumber, current, description));
+				eventsList.add(new Event(eventID, title, date, time, 
+						maxNumber, current, description));
 			}
 			reader.close();
 			file.close();
