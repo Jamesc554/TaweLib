@@ -99,6 +99,9 @@ public class EventScreen extends Screen implements Initializable {
 	}
 
 	@Override
+	/**
+	 * Initialises the scene (populates tables etc).
+	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		BufferedImage img = null;
 		try {
@@ -116,14 +119,8 @@ public class EventScreen extends Screen implements Initializable {
 		description.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("description"));
 
 		User loggedInUser = Library.getCurrentLoggedInUser();
-		updateEventTableData(loggedInUser);
+		updateEventTableData();
 		
-//		eventID.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventID"));
-//		title.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventName"));
-//		date.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventDate"));
-//		time.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventEnd"));
-//		eventAttendees.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventAttendees"));
-//		
 		if (Library.currentUserIsLibrarian()) {
 			issueDeskBtn.setVisible(true);
 		}
@@ -131,7 +128,10 @@ public class EventScreen extends Screen implements Initializable {
 		usernameText.setText(loggedInUser.getUserName());
 		}
 
-	private void updateEventTableData(User user) {
+	/**
+	 * Updates the event table with information regarding all events.
+	 */
+	private void updateEventTableData() {
 		ArrayList<Event> listOfEvents = LibraryEvents.getAllEvents();
 		for (Event event : listOfEvents) {
 
