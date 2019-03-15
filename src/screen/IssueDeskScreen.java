@@ -1076,8 +1076,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
 
     }
 
-//    @FXML
-//    private void checkDate(){
-//
-//    }
+    @FXML
+    private void checkDate(){
+
+    }
 }
