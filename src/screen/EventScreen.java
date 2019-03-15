@@ -99,6 +99,9 @@ public class EventScreen extends Screen implements Initializable {
 	}
 
 	@Override
+	/**
+	 * Initialises the scene (populates tables etc).
+	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		BufferedImage img = null;
 		try {
@@ -135,6 +138,9 @@ public class EventScreen extends Screen implements Initializable {
 		usernameText.setText(loggedInUser.getUserName());
 		}
 
+	/**
+	 * Updates the event table with information regarding all events.
+	 */
 	private void updateEventTableData(User user) throws ParseException {
 		ArrayList<Event> listOfEvents = LibraryEvents.getAllEvents();
 
