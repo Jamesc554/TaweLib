@@ -44,12 +44,12 @@
                               </Text>
                               <TableView layoutX="6.0" layoutY="83.0" prefHeight="571.0" prefWidth="404.0">
                                  <columns>
-                                    <TableColumn fx:id="eventID" editable="false" prefWidth="87.0" text="Event-ID" />
-                                    <TableColumn fx:id="name" editable="false" minWidth="0.0" prefWidth="155.0" text="Event Name" />
-                                    <TableColumn fx:id="date" editable="false" maxWidth="161.0" prefWidth="161.0" text="Date" />
-									<TableColumn fx:id="time" editable="false" maxWidth="161.0" prefWidth="161.0" text="Time" />
-									<TableColumn fx:id="attendees" editable="false" maxWidth="161.0" prefWidth="161.0" text="Event Attendees" />
-									<TableColumn fx:id="description" editable="false" maxWidth="161.0" prefWidth="161.0" text="Description" />
+                                    <TableColumn fx:id="eventID1" editable="false" prefWidth="87.0" text="Event-ID" />
+                                    <TableColumn fx:id="name1" editable="false" minWidth="0.0" prefWidth="155.0" text="Event Name" />
+                                    <TableColumn fx:id="date1" editable="false" maxWidth="161.0" prefWidth="161.0" text="Date" />
+									<TableColumn fx:id="time1" editable="false" maxWidth="161.0" prefWidth="161.0" text="Time" />
+									<TableColumn fx:id="attendees1" editable="false" maxWidth="161.0" prefWidth="161.0" text="Event Attendees" />
+									<TableColumn fx:id="descriptions1" editable="false" maxWidth="161.0" prefWidth="161.0" text="Description" />
                                  </columns>
                               </TableView>
                            </children>

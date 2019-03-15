@@ -63,10 +63,15 @@ public class EventTableData {
 	 * @return overdue
 	 * Whether the copy is overdue (returned after the returnDate).
 	 */
-	public String description() {
+	public String getdescription() {
 		return description.get();
 	}
-	public String eventAttendees() {
+	
+	/**
+	 * Gets the current list of event attendees.
+	 * @return eventAttendees the list of event attendees (String)
+	 */
+	public String getEventAttendees() {
 		return eventAttendees.get();
 	}
 }
