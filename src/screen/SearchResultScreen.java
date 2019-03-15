@@ -19,6 +19,9 @@ import library.Library;
 import resources.*;
 
 import javax.imageio.ImageIO;
+
+import io.ReadFile;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +40,9 @@ import java.util.ResourceBundle;
  * @version 1.0
  */
 public class SearchResultScreen extends Screen implements Initializable {
+	@FXML
+	private VBox ratingViewBox;
+	private static ArrayList<String[]> rRatings = new ArrayList<>();
     @FXML
     private ComboBox<String> resourceTypeCB;
     @FXML
@@ -156,6 +162,8 @@ public class SearchResultScreen extends Screen implements Initializable {
         if (Library.currentUserIsLibrarian()) {
             issueDeskBtn.setVisible(true);
         }
+        
+        rRatings = ReadFile.readRatings();
 
     }
 
@@ -215,7 +223,7 @@ public class SearchResultScreen extends Screen implements Initializable {
      * Updates the search results when queried.
      */
     private void updateSearchResults() {
-        // Empty the current search results
+        // Empty the current search results & ratings
         resourcesVBox.getChildren().clear();
 
         // Check the search bar
@@ -477,6 +485,13 @@ public class SearchResultScreen extends Screen implements Initializable {
             default:
                 break;
         }
+        //Update ratings when new resource selected.
+        ratingViewBox.getChildren().clear();
+        for(String[] rating : rRatings) {
+			if(rating[0].equals(uIDTf.getText())) {
+				ratingViewBox.getChildren().add(createRatingContainer(rating));
+			}
+		}
     }
 
     /**
@@ -520,5 +535,21 @@ public class SearchResultScreen extends Screen implements Initializable {
         Resource r = Library.getResource(uIDTf.getText());
         TrailerScreen ts = new TrailerScreen();
         ts.getTrailer(r);
+    }
+    
+    private HBox createRatingContainer(String[] rating) {
+        Text username = new Text("Username: " + rating[3]);
+        Text ratingText = new Text("Rating: " + rating[2]);
+        TextArea message = new TextArea("Review: " + rating[1]);
+        message.autosize();
+        message.setEditable(false);
+        VBox details = new VBox(username, ratingText, message);
+
+        HBox container = new HBox(details);
+
+        username.setWrappingWidth(container.getWidth());
+        ratingText.setWrappingWidth(container.getWidth());
+        message.setMaxHeight(40);
+        return container;
     }
 }
