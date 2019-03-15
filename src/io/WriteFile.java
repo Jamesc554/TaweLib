@@ -552,7 +552,11 @@ public class WriteFile extends IO {
         FileWriter file;
 
         if (eventFile.exists()) {
-            eventFile.delete();
+            if(eventFile.delete()){
+                System.out.println("File deleted");
+            }else{
+                System.out.println("File not deleted");
+            }
         }
 
 

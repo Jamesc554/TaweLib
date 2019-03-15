@@ -11,11 +11,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
+
+import event.Event;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -24,6 +27,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import library.Library;
+import library.LibraryEvents;
 import resources.CopyData;
 import resources.Resource;
 
@@ -256,8 +260,24 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private Label videoGameDurationError;
     @FXML
     private ListView videoGameOverdueList;
-    
-    
+
+
+    //Events
+    @FXML
+    private TextField eventName;
+    @FXML
+    private DatePicker date;
+    @FXML
+    private TextField time;
+    @FXML
+    private TextField description;
+    @FXML
+    private TextField maxNumberOfSpaces;
+
+    @FXML
+    private Label eventError;
+    @FXML
+    private Label eventSuccess;
     
     
 
@@ -1030,5 +1050,30 @@ public class IssueDeskScreen extends Screen implements Initializable {
             e.printStackTrace();
         }
         imv.setImage(SwingFXUtils.toFXImage(img, null));
+    }
+    @FXML
+    private void createEventButton(){
+        eventError.setVisible(false);
+        eventSuccess.setVisible(false);
+
+        String event = eventName.getText();
+        String d = date.getValue().toString();
+        String timeOfEvent = time.getText();
+        String desc = description.getText();
+        int maxNum = Integer.valueOf(maxNumberOfSpaces.getText());
+
+
+        if(!event.equals("") && !d.equals("") && !timeOfEvent.equals("") && !desc.equals("") && maxNum != 0){
+            LibraryEvents.addEvent(new Event(event, d, timeOfEvent, maxNum, desc));
+            eventSuccess.setVisible(true);
+        }else{
+            eventError.setVisible(true);
+        }
+
+    }
+
+    @FXML
+    private void checkDate(){
+
     }
 }

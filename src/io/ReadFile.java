@@ -554,6 +554,8 @@ public class ReadFile extends IO {
 
 				eventsList.add(new Event(eventID, title, date, time, maxNumber, current, description));
 			}
+			reader.close();
+			file.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot find " + IO.getRatingsFilePath());
 			e.printStackTrace();

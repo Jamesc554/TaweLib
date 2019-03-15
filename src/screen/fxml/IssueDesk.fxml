@@ -641,8 +641,8 @@
                            </font>
                         </Text>
                         <TextField fx:id="eventName" layoutX="258.0" layoutY="131.0" />
-                        <TextField fx:id="date" layoutX="258.0" layoutY="198.0" promptText="hh-mm-ss" />
-                        <TextField fx:id="time" layoutX="258.0" layoutY="231.0" promptText="Only numbers" />
+                        <TextField fx:id="time" layoutX="258.0" layoutY="198.0" promptText="hh-mm-ss" />
+                        <TextField fx:id="maxNumberOfSpaces" layoutX="258.0" layoutY="231.0" promptText="Only numbers" />
                         <TextField fx:id="description" layoutX="258.0" layoutY="265.0" prefHeight="101.0" prefWidth="278.0" />
                         <Text layoutX="126.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Event Name:" wrappingWidth="85.71582317352295">
                            <font>
@@ -669,14 +669,14 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Button layoutX="315.0" layoutY="370.0" mnemonicParsing="false" onAction="#createUserButton" style="-fx-background-color: #ef9d39;" text="Creat Event" textFill="#0e0056">
+                        <Button layoutX="315.0" layoutY="370.0" mnemonicParsing="false" onAction="#createEventButton" style="-fx-background-color: #ef9d39;" text="Creat Event" textFill="#0e0056">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
                         <Label fx:id="eventError" layoutX="425.0" layoutY="377.0" text="Please fill all required fields" textFill="RED" visible="false" />
-                        <Label fx:id="eventSuccess" layoutX="425.0" layoutY="377.0" text="User added!" textFill="#34972b" visible="false" />
-                        <DatePicker layoutX="258.0" layoutY="165.0" prefHeight="25.0" prefWidth="149.0" />
+                        <Label fx:id="eventSuccess" layoutX="425.0" layoutY="377.0" text="Event Created!" textFill="#34972b" visible="false" />
+                        <DatePicker fx:id="date" layoutX="258.0" layoutY="165.0" onInputMethodTextChanged="#checkDate" prefHeight="25.0" prefWidth="149.0" promptText="15/03/2019" />
                      </children>
                   </AnchorPane>
                </content>
