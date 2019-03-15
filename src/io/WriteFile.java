@@ -545,6 +545,10 @@ public class WriteFile extends IO {
         }
     }
 
+    /**
+     * Overwrites all currently stored events.
+     * @param events the list of events to overwrite the original file with.
+     */
     public static void overwriteEvents(ArrayList<Event> events) {
 
         File eventFile = new File(IO.getEventFilepath());
@@ -552,9 +556,9 @@ public class WriteFile extends IO {
         FileWriter file;
 
         if (eventFile.exists()) {
-            if(eventFile.delete()){
+            if(eventFile.delete()) {
                 System.out.println("File deleted");
-            }else{
+            } else {  
                 System.out.println("File not deleted");
             }
         }
@@ -573,8 +577,13 @@ public class WriteFile extends IO {
         }
     }
 
-        public static JSONObject writeEventToObject(Event event){
-        JSONObject eventObject =  new JSONObject();
+    /**
+     * Returns an object of an event which has been formatted to be writeable.
+     * @param event the event to convert to a writeable format.
+     * @return eventObject the writeable object.
+     */
+    public static JSONObject writeEventToObject(Event event) {
+    	JSONObject eventObject =  new JSONObject();
 
         eventObject.put("eventID", event.getEventID());
         eventObject.put("title", event.getTitle());
