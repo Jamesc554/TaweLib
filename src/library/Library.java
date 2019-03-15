@@ -671,9 +671,8 @@ public class Library {
 		return MAX_RESOURCES;
 	}
 
-	public static void addNewEvent(String title, String date, String time, int maxNumberOfAttending, int currentNumberOfAttending,
-								   String description){
-		LibraryEvents.addEvent(new Event(title,date,time,maxNumberOfAttending,currentNumberOfAttending,description));
+	public static void addNewEvent(String title, String date, String time, int maxNumberOfAttending, String description){
+		LibraryEvents.addEvent(new Event(title,date,time,maxNumberOfAttending,description));
 	}
 
 	public static void editEvent(String title, String date, String time, int maxNumberOfAttending, int currentNumberOfAttending,

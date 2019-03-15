@@ -544,14 +544,15 @@ public class ReadFile extends IO {
 
 			while((currentLine = reader.readLine()) != null){
 				JSONObject object = (JSONObject) parser.parse(currentLine);
+				String eventID = (String) object.get("eventID");
 				String title = (String) object.get("title");
 				String date = (String) object.get("date");
 				String time = (String) object.get("time");
-				int maxNumber = (int) object.get("maxNumberOfAttending");
-				int current = (int) object.get("currentNumberOfAttending");
+				int maxNumber = Integer.valueOf((String) object.get("maxNumberOfAttending"));
+				int current = Integer.valueOf((String) object.get("currentNumberOfAttending"));
 				String description = (String) object.get("description");
 
-				eventsList.add(new Event(title, date, time, maxNumber, current, description));
+				eventsList.add(new Event(eventID, title, date, time, maxNumber, current, description));
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot find " + IO.getRatingsFilePath());

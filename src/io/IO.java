@@ -12,7 +12,6 @@ public abstract class IO {
 	private static final String LIBRARIAN_FILEPATH = "./data/librarians.json";
 	private static final String RATINGS_FILEPATH = "./data/ratings.json";
 	private static final String RESOURCE_FILEPATH = "./data/resources.json";
-
 	private static final String EVENT_FILEPATH = "./data/events.json";
 
 	/**

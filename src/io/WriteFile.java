@@ -29,6 +29,7 @@ import java.util.List;
  *
  * @author Samuel Jankinson, James Carter, Etienne Badoche
  */
+@SuppressWarnings("Duplicates")
 public class WriteFile extends IO {
     /**
      * This method saves a user object to the user json file.
@@ -496,7 +497,7 @@ public class WriteFile extends IO {
 
         currentFile = new File(IO.getUsersFilePath());
         currentFile.renameTo(new File("./data/backup/" + newFilePath + "/users.json"));
-        
+
         currentFile = new File(IO.getLibrarianFilePath());
         currentFile.renameTo(new File("./data/backup/" + newFilePath + "/librarians.json"));
 
@@ -556,12 +557,12 @@ public class WriteFile extends IO {
 
 
         try {
-            file = new FileWriter(IO.getUsersFilePath(), true);
+            file = new FileWriter(IO.getEventFilepath(), true);
             for (Event event : events) {
                 object = writeEventToObject(event);
                 file.write(object.toJSONString() + "\n");
+                file.flush();
             }
-            file.flush();
             file.close();
         } catch (IOException e) {
             System.out.println("Error writing user to " + IO.getUsersFilePath());
@@ -571,11 +572,12 @@ public class WriteFile extends IO {
         public static JSONObject writeEventToObject(Event event){
         JSONObject eventObject =  new JSONObject();
 
+        eventObject.put("eventID", event.getEventID());
         eventObject.put("title", event.getTitle());
         eventObject.put("date", event.getDate());
         eventObject.put("time", event.getTime());
-        eventObject.put("maxNumberOfAttending", event.getMaxNumberOfAttending());
-        eventObject.put("currentNumberOfAttending", event.getCurrentNumberOfAttending());
+        eventObject.put("maxNumberOfAttending", String.valueOf(event.getMaxNumberOfAttending()));
+        eventObject.put("currentNumberOfAttending", String.valueOf(event.getCurrentNumberOfAttending()));
         eventObject.put("description", event.getDescription());
 
         return eventObject;

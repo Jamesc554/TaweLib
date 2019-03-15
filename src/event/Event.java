@@ -1,5 +1,7 @@
 package event;
 
+import library.LibraryEvents;
+
 import java.util.ArrayList;
 
 public class Event {
@@ -8,28 +10,36 @@ public class Event {
     private String title;
     private String date;
     private String time;
-    private int eventAttendees;
+    private int maxNumberOfAttending;
+    private int currentNumberOfAttending;
     private String description;
 
-    public Event(String title, String date, String time, int maxNumberOfAttending, int currentNumberOfAttending,
+    public Event(String title, String date, String time, int maxNumberOfAttending,
                  String description){
+        this.eventID = generateEventID();
         this.title = title;
         this.date = date;
         this.time = time;
-        /*
+        this.maxNumberOfAttending = maxNumberOfAttending;
+        this.currentNumberOfAttending = 0;
+        this.description = description;
+        System.out.print("New event created");
+    }
+
+    public Event(String eventID, String title, String date, String time, int maxNumberOfAttending, int currentNumberOfAttending,
+                 String description){
+        this.eventID = eventID;
+        this.title = title;
+        this.date = date;
+        this.time = time;
         this.maxNumberOfAttending = maxNumberOfAttending;
         this.currentNumberOfAttending = currentNumberOfAttending;
-        */
         this.description = description;
-        this.eventAttendees = eventAttendees;
+        System.out.print("New event created");
     }
-   //Placeholder
+
     public String getEventID() {
-    	return eventID;
-    }
-    //Placeholder
-    public void setEventID(String eventID) {
-    	this.eventID = eventID;
+    	return this.eventID;
     }
 
     public String getDate() {
@@ -55,7 +65,7 @@ public class Event {
     public void setTime(String time) {
         this.time = time;
     }
-    /*
+
     public int getMaxNumberOfAttending() {
         return maxNumberOfAttending;
     }
@@ -71,14 +81,7 @@ public class Event {
     public void setCurrentNumberOfAttending(int currentNumberOfAttending) {
         this.currentNumberOfAttending = currentNumberOfAttending;
     }
-	*/
-    public int getEventAttendees() {
-        return eventAttendees;
-    }
 
-    public void setEventAttendees(int eventAttendees) {
-        this.eventAttendees = eventAttendees;
-    }
     public String getDescription() {
         return description;
     }
@@ -87,4 +90,16 @@ public class Event {
         this.description = description;
     }
 
+    public void RSVP(){
+        this.currentNumberOfAttending += 1;
+    }
+
+    public String generateEventID(){
+        ArrayList<Event> list = LibraryEvents.getAllEvents();
+        if(list.size() == 0){
+            return "EventID:0";
+        }
+        int eventID = Integer.valueOf(list.get(list.size()-1).getEventID().split(":")[1]) + 1;
+        return "EventID:" + String.valueOf(eventID);
+    }
 }

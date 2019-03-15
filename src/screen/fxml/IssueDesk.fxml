@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
@@ -21,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.IssueDeskScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.IssueDeskScreen">
    <children>
       <ToolBar prefHeight="33.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;">
          <items>
@@ -632,6 +627,56 @@
                               </Tab>
                           </tabs>
                         </TabPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Events">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;">
+                     <children>
+                        <Text layoutX="294.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Event">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="eventName" layoutX="258.0" layoutY="131.0" />
+                        <TextField fx:id="date" layoutX="258.0" layoutY="198.0" promptText="hh-mm-ss" />
+                        <TextField fx:id="time" layoutX="258.0" layoutY="231.0" promptText="Only numbers" />
+                        <TextField fx:id="description" layoutX="258.0" layoutY="265.0" prefHeight="101.0" prefWidth="278.0" />
+                        <Text layoutX="126.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Event Name:" wrappingWidth="85.71582317352295">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="127.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Date:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="127.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Time:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="126.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Maximum number of attendes:" textAlignment="CENTER" wrappingWidth="128.1982421875">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="129.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Description">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Button layoutX="315.0" layoutY="370.0" mnemonicParsing="false" onAction="#createUserButton" style="-fx-background-color: #ef9d39;" text="Creat Event" textFill="#0e0056">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="eventError" layoutX="425.0" layoutY="377.0" text="Please fill all required fields" textFill="RED" visible="false" />
+                        <Label fx:id="eventSuccess" layoutX="425.0" layoutY="377.0" text="User added!" textFill="#34972b" visible="false" />
+                        <DatePicker layoutX="258.0" layoutY="165.0" prefHeight="25.0" prefWidth="149.0" />
                      </children>
                   </AnchorPane>
                </content>
