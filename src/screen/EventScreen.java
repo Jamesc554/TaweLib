@@ -47,6 +47,7 @@ import user.User;
  * @author Deyan Naydenov
  * @version 1.0
  */
+@SuppressWarnings("Duplicates")
 public class EventScreen extends Screen implements Initializable {
 	// TOP TOOL BAR - COMMON BETWEEN SCREENS - COPY FROM HERE - MAKE SURE THE IDs IN
 	// SCENEBUILDER ARE OF THE SAME NAME AS THE VARIBLES HERE!!!!!
@@ -70,18 +71,21 @@ public class EventScreen extends Screen implements Initializable {
 
 	@FXML
 	private TableColumn<EventTableData, String> time;
+
 	@FXML
 	private TableColumn<EventTableData, String> description;
-	
-	
-	
+
 	@FXML
 	private TableColumn<EventTableData, String> eventAttendees;
 
+	@Override
+	/**
+	 * This method changes the screen manager to the HomeScreen.
+	 */
 	public void start() {
 		Pane root;
 		try {
-			root = FXMLLoader.load(getClass().getResource("fxml/home.fxml"));
+			root = FXMLLoader.load(getClass().getResource("fxml/EventScreen.fxml"));
 			ScreenManager.setCurrentScene(new Scene(root, 1280, 720));
 			// setupEvents();
 		} catch (IOException e) {
@@ -89,35 +93,31 @@ public class EventScreen extends Screen implements Initializable {
 		}
 	}
 
-	
-	 
+	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		BufferedImage img = null;
 		try {
 			img = ImageIO.read(new File(Library.getCurrentLoggedInUser().getProfImage()));
 		} catch (IOException e) {
-
+			System.out.println("IOException"+e.getStackTrace());
 		}
 
+		/*
 		eventID.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventID"));
 		title.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventName"));
 		date.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventDate"));
 		time.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventEnd"));
 		eventAttendees.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventAttendees"));
+		*/
 
 		if (Library.currentUserIsLibrarian()) {
 			issueDeskBtn.setVisible(true);
 		}
-		
-
 		User loggedInUser = Library.getCurrentLoggedInUser();
 
 		userIcon.setImage(SwingFXUtils.toFXImage(img, null));
+		usernameText.setText(loggedInUser.getUserName());
 		}
-
-		
-	
-
 
 	public void onEnter(ActionEvent actionEvent) {
 		Library.setSearchStringText(searchBar.getText());

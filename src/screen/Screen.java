@@ -39,6 +39,8 @@ public abstract class Screen {
 	protected Button drawAppBtn;
 	@FXML
 	private Button statsBtn;
+	@FXML
+	private Button eventsButton;
 	
     public abstract void start();
 
@@ -139,5 +141,10 @@ public abstract class Screen {
     @FXML
 	protected void statsButton(Event actionEvent) {
 		ScreenManager.changeScreen(new StatsScreen());
+	}
+
+	@FXML
+	protected void goToEventsButton(Event event){
+    	ScreenManager.changeScreen(new EventScreen());
 	}
 }

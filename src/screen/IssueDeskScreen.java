@@ -273,13 +273,10 @@ public class IssueDeskScreen extends Screen implements Initializable {
     private TextField description;
     @FXML
     private TextField maxNumberOfSpaces;
-
     @FXML
     private Label eventError;
     @FXML
     private Label eventSuccess;
-    
-    
 
     @Override
     /**

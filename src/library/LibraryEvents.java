@@ -23,7 +23,7 @@ public class LibraryEvents {
 
     public static Event getEvent(String name){
         for(Event event : listOfEvents){
-            if(event.getTime().equals(name)){
+            if(event.getTitle().equals(name)){
                 return event;
             }
         }
