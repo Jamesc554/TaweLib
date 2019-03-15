@@ -116,8 +116,12 @@ public class EventScreen extends Screen implements Initializable {
 		description.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("description"));
 
 		User loggedInUser = Library.getCurrentLoggedInUser();
-		updateEventTableData(loggedInUser);
-		
+		try {
+			updateEventTableData(loggedInUser);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
 //		eventID.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventID"));
 //		title.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventName"));
 //		date.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventDate"));
@@ -131,19 +135,28 @@ public class EventScreen extends Screen implements Initializable {
 		usernameText.setText(loggedInUser.getUserName());
 		}
 
-	private void updateEventTableData(User user) {
+	private void updateEventTableData(User user) throws ParseException {
 		ArrayList<Event> listOfEvents = LibraryEvents.getAllEvents();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date currentDate = sdf.parse(Library.getCurrentDate());
+		Date eventDate;
 		for (Event event : listOfEvents) {
 
-			String id = event.getEventID();
-			String title = event.getTitle();
-			String date = event.getDate();
-			String time = event.getTime();
-			String eventAttendees = Integer.toString(event.getCurrentNumberOfAttending());
-			String description = event.getDescription();
-			EventTableData etd = new EventTableData(id, title, date, time, eventAttendees, description);
+			eventDate = sdf.parse(event.getDate());
 
-			eventTable.getItems().add(etd);
+			if(eventDate.after(currentDate)){
+				String id = event.getEventID();
+				String title = event.getTitle();
+				String date = event.getDate();
+				String time = event.getTime();
+				String eventAttendees = Integer.toString(event.getCurrentNumberOfAttending());
+				String description = event.getDescription();
+				EventTableData etd = new EventTableData(id, title, date, time, eventAttendees, description);
+
+				eventTable.getItems().add(etd);
+			}
 		}
 	}
 	

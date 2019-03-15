@@ -272,6 +272,11 @@ public class Library {
 		return dataFormat.format(new Date());
 	}
 
+	public static String getCurrentDate() {
+		SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
+		return dataFormat.format(new Date());
+	}
+
 	/**
 	 * Sets text entered into the search bar.
 	 * @param s
