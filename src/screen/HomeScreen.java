@@ -149,6 +149,8 @@ public class HomeScreen extends Screen implements Initializable {
 			Date bookDate = null;
 			try {
 				bookDate = new SimpleDateFormat("dd/MM/yyyy").parse(r.getDateAdded());
+				System.out.println(r.getTitle()  + " " + r.getDateAdded());
+				System.out.println(Library.getCurrentLoggedInUser().getLastLogin());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

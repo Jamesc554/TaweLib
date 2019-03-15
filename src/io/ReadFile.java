@@ -57,7 +57,7 @@ public class ReadFile extends IO {
 						Double.parseDouble((String) object.get("accountBalance")), (String) object.get("imageAddress"));
 				Date login = null;
 				try {
-					login = new SimpleDateFormat("dd/mm/yyyy").parse((String) object.get("lastLogin"));
+					login = new SimpleDateFormat("dd/MM/yyyy").parse((String) object.get("lastLogin"));
 				} catch (java.text.ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
