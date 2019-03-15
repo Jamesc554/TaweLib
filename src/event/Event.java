@@ -5,7 +5,7 @@ import library.LibraryEvents;
 import java.util.ArrayList;
 
 /**
- * This class provides the framework for creating an event provided by the library which users can attend.
+ * This class provides the framework for creating an event - provided by the library -  which users can attend.
  * @author Dominik R Wojtasiewicz, Deyan Naydenov, Peter Daish.
  *
  */
