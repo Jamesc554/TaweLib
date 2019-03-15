@@ -658,7 +658,10 @@ public class User {
         return afterBorrow <= Library.getMaxResources();
     }
 
-
+    /**
+     * Returns the number of resources borrowed with weightings - i.e. laptop has a weighting of 3
+     * @return noOfResources the number of resources currently borrowed by this user.
+     */
     public int noOfResourcesBorrowed() {
         int noOfResources = 0;
         System.out.println(this.getUserName() + " 554 User " + this.resourceCurrentlyBorrowed.size());
@@ -673,18 +676,34 @@ public class User {
         return noOfResources;
     }
 
+    /**
+     * Returns a list of fine history of this user
+     * @return fineHistory a list of all the fines this user has accumulated.
+     */
     public ArrayList<Integer> getFineHistory(){
         return fineHistory;
     }
 
+    /**
+     * Sets this user to attend an event.
+     * @param title the title of the event to attend.
+     */
     public void addEvent(String title){
         this.eventsAttanded.add(title);
     }
     
+    /**
+     * Returns a list of all the events this user attended.
+     * @return eventsAttanded the list of events this user attended.
+     */
     public ArrayList<String> getAllEventsAttended(){
         return this.eventsAttanded;
     }
     
+    /**
+     * Sets a list of events this user has attended.
+     * @param eventsAttanded the list of events this user has attended.
+     */
     public void setEventsAttanded(ArrayList<String> eventsAttanded){
         this.eventsAttanded = eventsAttanded;
     }
