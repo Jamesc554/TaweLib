@@ -368,6 +368,9 @@ public class Resource {
      */
     public void loanResource(String copyID, String username) {
         copiesList.get((Integer.valueOf(copyID))).loanCopy(username);
+
+        SimpleDateFormat dateFormatDMY = new SimpleDateFormat("dd-MM-yyyy");
+        resourceStatData.addBorrowDate(dateFormatDMY.format(new Date()));
     }
 
     /**
