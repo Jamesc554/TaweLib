@@ -94,7 +94,7 @@ public class User {
     /**
      * This sets the user name of the user. Can only be done once.
      *
-     * @param userName username of the user.
+     * @param userName the username of the user.
      */
     protected void setUserName(String userName) {
         this.userName = userName;
@@ -103,7 +103,7 @@ public class User {
     /**
      * Returns the first name of the user.
      *
-     * @return first name as String.
+     * @return firstName the first name of the user as String.
      */
     public String getFirstName() {
         return this.firstName;
@@ -377,7 +377,7 @@ public class User {
     }
 
     /**
-     * Returns resource.
+     * Returns resource from a user to the library.
      *
      * @param resourceID ID of resource to return
      */
@@ -471,7 +471,7 @@ public class User {
      *
      * @return The Resource Type stats
      */
-    public int[] getResourceTypeStats(){
+    public int[] getResourceTypeStats() {
         return resourceTypeStats;
     }
 
@@ -513,7 +513,7 @@ public class User {
     }
 
     /**
-     * Add's to borrow history on start up.
+     * Adds to borrow history on start up.
      *
      * @param data Information about the user's borrow history
      */
@@ -680,7 +680,7 @@ public class User {
      * Returns a list of fine history of this user
      * @return fineHistory a list of all the fines this user has accumulated.
      */
-    public ArrayList<Integer> getFineHistory(){
+    public ArrayList<Integer> getFineHistory() {
         return fineHistory;
     }
 
