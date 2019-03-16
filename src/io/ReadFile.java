@@ -172,7 +172,7 @@ public class ReadFile extends IO {
 						Integer.parseInt((String) object.get("noOfEmploys")));
 				Date login = null;
 				try {
-					login = new SimpleDateFormat("dd/mm/yyyy").parse((String) object.get("lastLogin"));
+					login = new SimpleDateFormat("dd/MM/yyyy").parse((String) object.get("lastLogin"));
 				} catch (java.text.ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
