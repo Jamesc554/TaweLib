@@ -59,11 +59,18 @@ public class Laptop extends Resource {
 		this.operatingSys = os;
 	}
 
+	/**
+	 * Set laptop information
+	 * @param baseResource Resource
+	 * @param manufacturer malefactors
+	 * @param model model
+	 * @param os operating system
+	 */
+
     public Laptop(Resource baseResource, String manufacturer, String model, String os){
         super(baseResource);
 
         this.uniqueID = generateLaptopID(baseResource.uniqueID);
-
         this.manufacturer = manufacturer;
         this.model = model;
         this.operatingSys = os;

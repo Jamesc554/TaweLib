@@ -71,6 +71,12 @@ public class RatingScreen extends Screen implements Initializable {
         }
     }
 
+	/**
+	 * Called to initialize a controller after its root element has been completely processed.
+	 * @param arg0 The location used to resolve relative paths for the root object,
+	 *            or null if the location is not known.
+	 * @param arg1 The resources used to localize the root object, or null if the root object was not localized.
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//Read in the ratings
@@ -128,6 +134,12 @@ public class RatingScreen extends Screen implements Initializable {
 			}
 		}
 	}
+
+	/**
+	 * Sets resource
+	 * @param id id of resource
+	 * @param title title of resource
+	 */
 	
 	public static void setResource(String id, String title) {
 		rId = id;
@@ -172,7 +184,10 @@ public class RatingScreen extends Screen implements Initializable {
 			messageBox.setText("ERROR - Please select a rating");
 		}
 	}
-	
+
+	/**
+	 * Calculates average rating
+	 */
 	private void calculateAverageRating() {
 		int counter = 0;
 		int ratings = 0;
@@ -198,7 +213,12 @@ public class RatingScreen extends Screen implements Initializable {
 			System.out.println("no ratings loaded");
 		}
 	}
-	
+
+	/**
+	 * Crates resource container
+	 * @param rating String[] or ratings
+	 * @return Hbox
+	 */
 	private HBox createResourceContainer(String[] rating) {
         Text username = new Text("Username: " + rating[3]);
         Text ratingText = new Text("Rating: " + rating[2]);

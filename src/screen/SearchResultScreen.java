@@ -536,7 +536,12 @@ public class SearchResultScreen extends Screen implements Initializable {
         TrailerScreen ts = new TrailerScreen();
         ts.getTrailer(r);
     }
-    
+
+    /**
+     * Crates rating container
+     * @param rating String[] of ratings
+     * @return HBox
+     */
     private HBox createRatingContainer(String[] rating) {
         Text username = new Text("Username: " + rating[3]);
         Text ratingText = new Text("Rating: " + rating[2]);

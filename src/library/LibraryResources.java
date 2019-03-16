@@ -37,7 +37,6 @@ public class LibraryResources {
 
     /**
      * Adds a book to the libraryResource.
-     *
      * @param book Book object.
      */
     public static void addBook(Book book) {
@@ -46,7 +45,6 @@ public class LibraryResources {
 
     /**
      * Adds a laptop to the libraryResource.
-     *
      * @param laptop Laptop object.
      */
     public static void addLaptop(Laptop laptop) {
@@ -55,7 +53,6 @@ public class LibraryResources {
     
     /**
      * Adds a video game to the libraryResource.
-     *
      * @param videoGame VideoGame object.
      */
     public static void addVideoGame(VideoGame videoGame) {
@@ -64,7 +61,6 @@ public class LibraryResources {
 
     /**
      * Adds a dvd to the libraryResources.
-     *
      * @param dvd DVD object.
      */
     public static void addDVD(DVD dvd) {
@@ -73,7 +69,6 @@ public class LibraryResources {
 
     /**
      * Adds a user to the libraryResources.
-     *
      * @param user a User object.
      */
     public static void addUser(User user) {
@@ -82,7 +77,6 @@ public class LibraryResources {
 
     /**
      * Get's a user form the database
-     *
      * @param username the username.
      * @return a User object.
      */
@@ -103,7 +97,6 @@ public class LibraryResources {
 
     /**
      * Checks if a user is valid.
-     *
      * @param username Username of person to be checked
      * @return Boolean True if exists, False.
      */
@@ -131,7 +124,6 @@ public class LibraryResources {
 
     /**
      * Gets a book from list based on id.
-     *
      * @param id of the book.
      * @return Book object. Returns null if no such book.
      */
@@ -146,7 +138,6 @@ public class LibraryResources {
     
     /**
      * Gets a video game from list based on id.
-     *
      * @param id of the video game.
      * @return VideoGame object. Returns null if no such video game.
      */
@@ -161,7 +152,6 @@ public class LibraryResources {
 
     /**
      * Gets a DVD from list based on id.
-     *
      * @param id of the DVD.
      * @return DVD object. Null if no such object.
      */
@@ -176,7 +166,6 @@ public class LibraryResources {
 
     /**
      * Gets a Laptop from list based on id.
-     *
      * @param id of the Laptop.
      * @return Laptop object. Null if no such object.
      */
@@ -191,7 +180,6 @@ public class LibraryResources {
 
     /**
      * Returns all users
-     *
      * @return ArrayList of users.
      */
     protected static ArrayList<User> getAllUsers() {
@@ -200,7 +188,6 @@ public class LibraryResources {
 
     /**
      * Return all librarians.
-     *
      * @return ArrayList of librarians.
      */
     protected static ArrayList<Librarian> getAllLibrarians() {
@@ -209,7 +196,6 @@ public class LibraryResources {
 
     /**
      * Returns all books.
-     *
      * @return ArrayList of books.
      */
     protected static ArrayList<Book> getListOfBooks() {
@@ -218,7 +204,6 @@ public class LibraryResources {
     
     /**
      * Returns all video games.
-     *
      * @return ArrayList of video games.
      */
     protected static ArrayList<VideoGame> getListOfVideoGames() {
@@ -227,7 +212,6 @@ public class LibraryResources {
 
     /**
      * Returns all DVD.
-     *
      * @return ArrayList of DVDs.
      */
     protected static ArrayList<DVD> getListOfDVD() {
@@ -236,7 +220,6 @@ public class LibraryResources {
 
     /**
      * Returns all Laptops.
-     *
      * @return ArrayList of Laptops.
      */
     protected static ArrayList<Laptop> getListOfLaptops() {
@@ -259,7 +242,6 @@ public class LibraryResources {
     }
     /**
      * Removes a resource from LibraryResources.
-     *
      * @param id of the resource to be removed.
      */
     protected static void removeResource(String id) {
@@ -305,7 +287,6 @@ public class LibraryResources {
 
     /**
      * Removes the user from LibraryResources.
-     *
      * @param username of the user to be removed.
      */
     protected static void removeUser(String username) {

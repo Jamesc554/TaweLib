@@ -139,10 +139,17 @@ public abstract class Screen {
     }
 
     @FXML
+	/**
+	 * Changes current screen to stats screen
+	 */
 	protected void statsButton(Event actionEvent) {
 		ScreenManager.changeScreen(new StatsScreen());
 	}
 
+	/**
+	 * Changes current screen to events screen
+	 * @param event the event of pressing event button
+	 */
 	@FXML
 	protected void goToEventsButton(Event event){
     	ScreenManager.changeScreen(new EventScreen());

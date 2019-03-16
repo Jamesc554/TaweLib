@@ -170,6 +170,10 @@ public class HomeScreen extends Screen implements Initializable {
 		
 	}
 
+	/**
+	 * Updates the borrow table date
+	 * @param user user object
+	 */
 	private void updateBorrowTable(User user) {
 		ArrayList<String> borrowedResources = user.getCurrentlyBorrowedResources();
 		for (String resource : borrowedResources) {

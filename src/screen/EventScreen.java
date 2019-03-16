@@ -192,8 +192,6 @@ public class EventScreen extends Screen implements Initializable {
 			}
 		});
 	}
-	
-	
 
 	/**
 	 * Updates the event table with information regarding all events.
@@ -238,6 +236,10 @@ public class EventScreen extends Screen implements Initializable {
 		}
 	}
 
+	/**
+	 * Updates past data table
+	 * @throws ParseException if date is json is not in correct format dd/MM/yyyy
+	 */
 	private void updateEventTablePastData() throws ParseException {
 		eventTable1.getItems().clear();
 
@@ -263,7 +265,11 @@ public class EventScreen extends Screen implements Initializable {
 		}
 
 	}
-	
+
+	/**
+	 * On enter search
+	 * @param actionEvent event enter
+	 */
 	public void onEnter(ActionEvent actionEvent) {
 		Library.setSearchStringText(searchBar.getText());
 		ScreenManager.changeScreen(new SearchResultScreen());

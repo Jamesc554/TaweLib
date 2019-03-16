@@ -214,10 +214,18 @@ public class Resource {
         return this.copiesList.get(Integer.parseInt(copyID)).getBorrowHistory();
     }
 
+    /**
+     * Returns a list of list of borrow history objects for borrow history.
+     * @return list of list of borrow history objects
+     */
     public List<List<BorrowHistoryData>> getAllBorrowHistory(){
         return this.copyBorrowHistory;
     }
 
+    /**
+     * returns a list of borrow history data
+     * @return
+     */
     public List<BorrowHistoryData> getCurrentBorrowData(){
         return this.currentBorrowData;
     }
@@ -286,6 +294,9 @@ public class Resource {
             checkReservations();
     }
 
+    /**
+     * Check if user has reserved a copy
+     */
     public void checkReservations() {
         User userAtFrontOfQueue = Library.getUser(this.queueOfReservations.peek());
         if (checkIfAvailable()) {
