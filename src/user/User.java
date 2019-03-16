@@ -520,7 +520,7 @@ public class User {
     public void addToBorrowHistory(String[] data) {
         borrowHistory.add(data);
 
-        switch (data[0].split(":")[0]){
+        switch (data[0].split(":")[0]) {
             case "BookID":
                 resourceTypeStats[0]++;
                 break;
@@ -597,7 +597,8 @@ public class User {
             e.printStackTrace();
         }
 
-        System.out.println(date.toString() + " - " + startDate.toString() + " - " + endDate.toString());
+        System.out.println(date.toString() + " - " + startDate.toString() 
+        + " - " + endDate.toString());
 
         System.out.println(date.before(startDate) && date.after(endDate));
 
