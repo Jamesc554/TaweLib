@@ -137,16 +137,18 @@ public class Library {
 	 * This methods adds a video game to the library.
 	 * @param dateAdded the six digit integer specifying when the video game was added.
 	 * @param year The year of release.
-	 * @param title The name of the laptop.
-	 * @param thumbnailImageRef Img of the laptop.
-	 * @param uniqueID The id of the laptop.
-	 * @param manufacturer The manufacture of the laptop.
-	 * @param model The model of the laptop.
-	 * @param operatingSys The operating system of the laptop.
-	 * @param noOfCopies The number of copies this library owns of this laptop
-	 * @param loanDuration The default loan duration of all copies of this laptop.
-	 * @param borrowHistory The borrow history associated with this laptop.
-	 * @param currentBorrowData The information about the current state of this laptop.
+	 * @param title The name of the video game.
+	 * @param thumbnailImageRef Img of the video game.
+	 * @param uniqueID The id of the video game.
+	 * @param publisher The publisher of the video game.
+	 * @param genre The genre of the video game.
+	 * @param multiplayerSupport The multiplayer support of the video game.
+	 * @param certificateRating the rating of the video game
+	 * @param lang a list of languages
+	 * @param noOfCopies The number of copies this library owns of this video game
+	 * @param loanDuration The default loan duration of all copies of this video game.
+	 * @param borrowHistory The borrow history associated with this video game.
+	 * @param currentBorrowData The information about the current state of this video game.
 	 */
 	public static void addVideoGame(String dateAdded, String year, String title, String thumbnailImageRef, String uniqueID,
 							  		String publisher, String genre,  String multiplayerSupport,
@@ -273,7 +275,7 @@ public class Library {
 	}
 
 	public static String getCurrentDate() {
-		SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dataFormat = new SimpleDateFormat("dd/MM/yyyy");
 		return dataFormat.format(new Date());
 	}
 
@@ -672,14 +674,35 @@ public class Library {
 		LibraryResources.getLaptop(id).setOperatingSys(os);
 	}
 
+	/**
+	 * Returns maximum number of resources a user can borrow
+	 * @return int
+	 */
 	public static int getMaxResources(){
 		return MAX_RESOURCES;
 	}
 
+	/**
+	 * Add's new event
+	 * @param title title of event
+	 * @param date a date format yyyy-mm-dd
+	 * @param time a time in format hh-mm-ss
+	 * @param maxNumberOfAttending int of maximum number of events
+	 * @param description a String description
+	 */
 	public static void addNewEvent(String title, String date, String time, int maxNumberOfAttending, String description){
 		LibraryEvents.addEvent(new Event(title,date,time,maxNumberOfAttending,description));
 	}
 
+	/**
+	 * Edits a event event
+	 * @param title title of event
+	 * @param date a date format yyyy-mm-dd
+	 * @param time a time in format hh-mm-ss
+	 * @param maxNumberOfAttending int of maximum number of events
+	 * @param currentNumberOfAttending number of people attending
+	 * @param description a String description
+	 */
 	public static void editEvent(String title, String date, String time, int maxNumberOfAttending, int currentNumberOfAttending,
 								 String description){
 		LibraryEvents.getEvent(title).setTitle(title);
@@ -692,6 +715,10 @@ public class Library {
 
 	}
 
+	/**
+	 * Returns all events
+	 * @return ArrayList of events
+	 */
 	public static ArrayList<Event> getAllEvents(){
 		return LibraryEvents.getAllEvents();
 	}

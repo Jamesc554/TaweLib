@@ -9,10 +9,11 @@ public class EventTableData {
 	private final SimpleStringProperty time;
 	private final SimpleStringProperty eventAttendees;
 	private final SimpleStringProperty description;
+	private final SimpleStringProperty attending;
 	
 
 	public EventTableData(String eventID, String title, String date,
-			String time, String eventAttendees, String description) {
+			String time, String eventAttendees, String description, String attending) {
 		
 		this.eventID = new SimpleStringProperty(eventID);
 		this.title = new SimpleStringProperty(title);
@@ -20,6 +21,7 @@ public class EventTableData {
 		this.time = new SimpleStringProperty(time);
 		this.eventAttendees = new SimpleStringProperty(eventAttendees);
 		this.description = new SimpleStringProperty(description);
+		this.attending = new SimpleStringProperty(attending);
 	}
 
 	/**
@@ -73,5 +75,13 @@ public class EventTableData {
 	 */
 	public String getEventAttendees() {
 		return eventAttendees.get();
+	}
+
+	/**
+	 * Gets the current attending information.
+	 * @returns attending (String)
+	 */
+	public String getAttending(){
+		return attending.get();
 	}
 }

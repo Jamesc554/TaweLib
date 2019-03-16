@@ -473,10 +473,18 @@ public class Resource {
         return Integer.parseInt(currentEarlyCopy.getId());
     }
 
+    /**
+     * Returns ResourceStatData data object
+     * @return ResourceStatData
+     */
     public ResourceStatData getResourceStatData(){
         return resourceStatData;
     }
 
+    /**
+     * Returns loan duration
+     * @return List<String>
+     */
     public List<String> getLoanDurations(){
         return this.loanDurations;
     }

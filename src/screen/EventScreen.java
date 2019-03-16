@@ -88,6 +88,9 @@ public class EventScreen extends Screen implements Initializable {
 	private TableColumn<EventTableData, String> eventAttendees;
 
 	@FXML
+	private TableColumn<EventTableData, String> attending;
+
+	@FXML
 	private TableColumn<EventAttendedTableData, String> eventID1;
 
 	@FXML
@@ -139,6 +142,7 @@ public class EventScreen extends Screen implements Initializable {
 		time.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("time"));
 		eventAttendees.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventAttendees"));
 		description.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("description"));
+		attending.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("attending"));
 
 		eventID1.setCellValueFactory(new PropertyValueFactory<EventAttendedTableData, String>("eventID1"));
 		name1.setCellValueFactory(new PropertyValueFactory<EventAttendedTableData, String>("title1"));
@@ -197,7 +201,9 @@ public class EventScreen extends Screen implements Initializable {
 	private void updateEventTableData() throws ParseException {
 		ArrayList<Event> listOfEvents = LibraryEvents.getAllEvents();
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		ArrayList<String> userEvents = Library.getCurrentLoggedInUser().getAllEventsAttended();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		eventTable.getItems().clear();
 		Date currentDate = sdf.parse(Library.getCurrentDate());
 		Date eventDate;
@@ -212,7 +218,20 @@ public class EventScreen extends Screen implements Initializable {
 				String time = event.getTime();
 				String eventAttendees = Integer.toString(event.getCurrentNumberOfAttending());
 				String description = event.getDescription();
-				EventTableData etd = new EventTableData(id, title, date, time, eventAttendees, description);
+				String attending = "No";
+
+
+				if(event.getCurrentNumberOfAttending() == event.getMaxNumberOfAttending()){
+					attending = "Full";
+				}else{
+					for(String s : userEvents){
+						if(s.equals(event.getEventID())){
+							attending = "Yes";
+						}
+					}
+				}
+
+				EventTableData etd = new EventTableData(id, title, date, time, eventAttendees, description, attending);
 
 				eventTable.getItems().add(etd);
 			}
@@ -225,7 +244,7 @@ public class EventScreen extends Screen implements Initializable {
 		ArrayList<String> userEvents = Library.getCurrentLoggedInUser().getAllEventsAttended();
 		System.out.println("Current user is: " + Library.getCurrentLoggedInUser().getUserName());
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 		Date currentDate = sdf.parse(Library.getCurrentDate());
 		Date eventDate;

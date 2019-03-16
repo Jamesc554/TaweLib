@@ -38,7 +38,7 @@ public class LibraryEvents {
 
     /**
      * Returns a specific event.
-     * @param name the name of the specific event.
+     * @param eventID the id of the event
      * @return The event - if present - which is specified by the name/title
      */
     public static Event getEvent(String eventID){

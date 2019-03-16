@@ -1069,7 +1069,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         if(!event.equals("") && !d.equals("") && !timeOfEvent.equals("")
         		&& !desc.equals("") && maxNum != 0) {
         	
-            LibraryEvents.addEvent(new Event(event, d, timeOfEvent, maxNum, desc));
+            Library.addNewEvent(event, d, timeOfEvent, maxNum, desc);
             eventSuccess.setVisible(true);
             
         } else {

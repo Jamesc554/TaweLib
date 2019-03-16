@@ -251,6 +251,11 @@ public class ReadFile extends IO {
 		return librarianList;
 	}
 
+	/**
+	 * Reads resources from Json file
+	 * @param resourceJson object
+	 * @return Resource object
+	 */
 	public static Resource readResourceFromJSON(JSONObject resourceJson){
 	    Resource resource;
 	    
@@ -506,6 +511,10 @@ public class ReadFile extends IO {
         return videoGamesList;
     }
 
+	/**
+	 * Reads ratings from a file
+	 * @return ArrayList<String[]> of ratings
+	 */
 	public static ArrayList<String[]> readRatings() {
 		JSONParser parser = new JSONParser();
 		ArrayList<String[]> ratingList = new ArrayList<>();
@@ -543,6 +552,7 @@ public class ReadFile extends IO {
 		
 		return ratingList;
 	}
+
 	/**
 	 * Returns a list of events which have been read from a file.
 	 * @return eventsList the list of events read from file.

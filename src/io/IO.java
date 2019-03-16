@@ -39,8 +39,16 @@ public abstract class IO {
 		return RATINGS_FILEPATH;
 	}
 
+	/**
+	 * This method returns the file path of the data file that holds the resource information.
+	 * @return a String which contains the file path of the resource.
+	 */
 	public static String getResourceFilePath() { return RESOURCE_FILEPATH; }
 
+	/**
+	 * This method returns the file path of the data file that holds the event information.
+	 * @return a String which contains the file path of the event.
+	 */
 	public static String getEventFilepath() {
 		return EVENT_FILEPATH;
 	}
