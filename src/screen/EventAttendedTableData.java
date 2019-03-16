@@ -21,7 +21,7 @@ public class EventAttendedTableData {
      * @return resourceID
      * The resource's ID.
      */
-    public String geteventID1() {
+    public String getEventID1() {
         return eventID1.get();
     }
 
@@ -30,7 +30,7 @@ public class EventAttendedTableData {
      * @return resourcetitle1
      * The resource's title1.
      */
-    public String gettitle1() {
+    public String getTitle1() {
         return title1.get();
     }
 
@@ -39,7 +39,7 @@ public class EventAttendedTableData {
      * @return borrowdate11
      * The date1 the resource was borrowed.
      */
-    public String getdate1() {
+    public String getDate1() {
         return date1.get();
     }
 

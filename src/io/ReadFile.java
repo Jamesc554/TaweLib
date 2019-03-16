@@ -150,6 +150,7 @@ public class ReadFile extends IO {
 		JSONArray borrowHistoryArray = new JSONArray();
 		JSONArray requestedArray = new JSONArray();
 		JSONArray reservedArray = new JSONArray();
+		JSONArray eventsArray = new JSONArray();
 		ArrayList<Librarian> librarianList = new ArrayList<>();
 		try {
 			file = new FileReader(IO.getLibrarianFilePath());
@@ -224,6 +225,13 @@ public class ReadFile extends IO {
 					for (Object reservedResource : requestedArray) {
 						String reservedResourceID = (String) reservedResource;
 						librarian.addToReserved(reservedResourceID);
+					}
+				}
+				eventsArray = (JSONArray) object.get("events");
+				if(eventsArray != null){
+					for(Object event : eventsArray){
+						librarian.addEvent((String) event);
+						System.out.println("Event added to "+librarian.getUserName()+ ":" + (String) event);
 					}
 				}
 				librarianList.add(librarian);
