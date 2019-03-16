@@ -56,7 +56,7 @@ public class WriteFile extends IO {
         object.put("townName", user.getTownName());
         object.put("imageAddress", user.getProfImage());
         object.put("accountBalance", String.valueOf(user.getAccountBalanceDouble()));
-        Date date = Calendar.getInstance().getTime();
+        Date date = user.getLastLogin();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = dateFormat.format(date);
         object.put("lastLogin", strDate);
@@ -153,7 +153,7 @@ public class WriteFile extends IO {
         object.put("empYear", String.valueOf(librarian.getEmploymentYear()));
         object.put("staffNumber", librarian.getStaffNumber());
         object.put("noOfEmploys", String.valueOf(librarian.getNumberOfEmploys()));
-        Date date = Calendar.getInstance().getTime();
+        Date date = librarian.getLastLogin();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = dateFormat.format(date);
         object.put("lastLogin", strDate);

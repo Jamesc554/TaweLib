@@ -1,5 +1,10 @@
 package screen;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -38,6 +43,8 @@ public class LoginScreen extends Screen {
 		// TODO: remove test username once readAllUsers is finished
 		if (Library.checkForUser(usernameTextField.getText())) {
 			Library.onLogin(usernameTextField.getText());
+			Date date = Calendar.getInstance().getTime();
+	        Library.getUser(usernameTextField.getText()).setLastLogin(date);
 			ScreenManager.changeScreen(new HomeScreen());
 		} else {
 			statusLabel.setText("Username is invalid!");
