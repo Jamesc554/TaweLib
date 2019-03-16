@@ -152,22 +152,42 @@ public class EventScreen extends Screen implements Initializable {
 		
 		eventTable.setOnMouseClicked((MouseEvent event) -> {
 			//if user double clicked
-			if (event.getClickCount() == 2 && eventTable.getSelectionModel().getSelectedItems().get(0) != null) {
+			if (event.getClickCount() == 1 && eventTable.getSelectionModel().getSelectedItems().get(0) != null) {
 				
+				//check if event is full
 				String eventID = eventTable.getSelectionModel().getSelectedItems().get(0).getEventID();
-				System.out.println(eventID);
+				Event currentEvent = LibraryEvents.getEvent(eventID);
 				
-				//add user to event...
-				loggedInUser.addNewEvent(eventID);
-				//update table
+				//if there are less people than the maximum attending, you can attend.
+				if (currentEvent.getCurrentNumberOfAttending() < currentEvent.getMaxNumberOfAttending()) {
+					System.out.println(eventID);
+					
+					//add user to event...
+					loggedInUser.addNewEvent(eventID);
+					//update table
+					try {
+						updateEventTableData();
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			} else if (event.getClickCount() == 2 && eventTable.getSelectionModel().getSelectedItems().get(0) != null) {
+				//if double clicked, delete event from user
+				//check if event is full
+				String eventID = eventTable.getSelectionModel().getSelectedItems().get(0).getEventID();
+				Event currentEvent = LibraryEvents.getEvent(eventID);
+				loggedInUser.removeEvent(eventID);
+				
 				try {
 					updateEventTableData();
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}});
-		}
+			}
+		});
+	}
 	
 	
 

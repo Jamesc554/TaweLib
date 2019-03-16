@@ -717,8 +717,19 @@ public class User {
      * Sets this user to attend an event.
      * @param eventID the eventID of the event to attend.
      */
-    public void addEvent(String eventID){
+    public void addEvent(String eventID) {
         this.eventsAttended.add(eventID);
+    }
+    
+    /**
+     * Remove an event from a user's currently attending list.
+     * @param eventID the event to remove
+     */
+    public void removeEvent(String eventID) {
+    	//if user is attending, remove.
+    	if (checkAttended(eventID)) {
+    		this.eventsAttended.remove(eventID);
+    	}
     }
     
     /**
