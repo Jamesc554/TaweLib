@@ -116,6 +116,7 @@ public class ReadFile extends IO {
 				if(eventsArray != null){
 				    for(Object event : eventsArray){
 				        user.addEvent((String) event);
+				        System.out.println("Event added to "+user.getUserName()+ ":" + (String) event);
                     }
                 }
 				System.out.println(user.getUserName() + " is added");

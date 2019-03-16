@@ -64,7 +64,10 @@ public class EventScreen extends Screen implements Initializable {
 	private ListView pastEvents;
 	
 	@FXML
-	TableView<EventTableData> eventTable;
+	private TableView<EventTableData> eventTable;
+
+	@FXML
+	private TableView<EventAttendedTableData> eventTable1;
 	
 	@FXML
 	private TableColumn<EventTableData, String> eventID;
@@ -83,6 +86,16 @@ public class EventScreen extends Screen implements Initializable {
 
 	@FXML
 	private TableColumn<EventTableData, String> eventAttendees;
+
+	@FXML
+	private TableColumn<EventAttendedTableData, String> eventID1;
+
+	@FXML
+	private TableColumn<EventAttendedTableData, String> name1;
+
+	@FXML
+	private TableColumn<EventAttendedTableData, String> date1;
+
 
 	@Override
 	/**
@@ -110,6 +123,14 @@ public class EventScreen extends Screen implements Initializable {
 		} catch (IOException e) {
 			System.out.println("IOException"+e.getStackTrace());
 		}
+
+		User loggedInUser = Library.getCurrentLoggedInUser();
+		try {
+			updateEventTableData();
+			updateEventTablePastData();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 		//populate tables
 		eventID.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventID"));
@@ -119,19 +140,10 @@ public class EventScreen extends Screen implements Initializable {
 		eventAttendees.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventAttendees"));
 		description.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("description"));
 
-		User loggedInUser = Library.getCurrentLoggedInUser();
-		try {
-			updateEventTableData();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		eventID1.setCellValueFactory(new PropertyValueFactory<EventAttendedTableData, String>("eventID1"));
+		name1.setCellValueFactory(new PropertyValueFactory<EventAttendedTableData, String>("title1"));
+		date1.setCellValueFactory(new PropertyValueFactory<EventAttendedTableData, String>("date1"));
 
-//		eventID.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventID"));
-//		title.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventName"));
-//		date.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventDate"));
-//		time.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventEnd"));
-//		eventAttendees.setCellValueFactory(new PropertyValueFactory<EventTableData, String>("eventAttendees"));
-//		
 		if (Library.currentUserIsLibrarian()) {
 			issueDeskBtn.setVisible(true);
 		}
@@ -185,6 +197,32 @@ public class EventScreen extends Screen implements Initializable {
 				eventTable.getItems().add(etd);
 			}
 		}
+	}
+
+	private void updateEventTablePastData() throws ParseException {
+		eventTable1.getItems().clear();
+
+		ArrayList<String> userEvents = Library.getCurrentLoggedInUser().getAllEventsAttended();
+		System.out.println("Current user is: " + Library.getCurrentLoggedInUser().getUserName());
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date currentDate = sdf.parse(Library.getCurrentDate());
+		Date eventDate;
+
+		for(String s : userEvents){
+			Event event = LibraryEvents.getEvent(s);
+			eventDate = sdf.parse(event.getDate());
+			if(currentDate.after(eventDate)){
+				String id = event.getEventID();
+				String title = event.getTitle();
+				String date = event.getDate();
+				System.out.println(id + " " + title + " " + date);
+				EventAttendedTableData eatd = new EventAttendedTableData(id, title, date);
+				eventTable1.getItems().add(eatd);
+			}
+		}
+
 	}
 	
 	public void onEnter(ActionEvent actionEvent) {

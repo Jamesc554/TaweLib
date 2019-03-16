@@ -1,3 +1,6 @@
 {"date":"2019-02-10","eventID":"EventID:0","currentNumberOfAttending":"0","description":"Ya know","maxNumberOfAttending":"100","time":"12:00:00","title":"Ground Opening"}
-{"date":"2019-03-22","eventID":"EventID:1","currentNumberOfAttending":"1","description":"Will he be there?","maxNumberOfAttending":"1","time":"15-00-00","title":"Dom's Life"}
-{"date":"2019-03-22","eventID":"EventID:2","currentNumberOfAttending":"0","description":"Get some Huge dealzzz","maxNumberOfAttending":"1","time":"22000","title":"'uge Deals"}
+{"date":"2019-01-22","eventID":"EventID:1","currentNumberOfAttending":"1","description":"Will he be there?","maxNumberOfAttending":"1","time":"15-00-00","title":"Dom's Life"}
+{"date":"2019-01-22","eventID":"EventID:2","currentNumberOfAttending":"1","description":"Get some Huge dealzzz","maxNumberOfAttending":"1","time":"22-00-00","title":"'uge Deals"}
+{"date":"2019-03-17","eventID":"EventID:3","currentNumberOfAttending":"1","description":"Test1","maxNumberOfAttending":"100","time":"15-00-00","title":"Test1"}
+{"date":"2019-03-17","eventID":"EventID:4","currentNumberOfAttending":"0","description":"Test2","maxNumberOfAttending":"100","time":"15-00-00","title":"Test2"}
+{"date":"2019-03-17","eventID":"EventID:5","currentNumberOfAttending":"0","description":"Hello","maxNumberOfAttending":"100","time":"15-00-00","title":"Hello"}

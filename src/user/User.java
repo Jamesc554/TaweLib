@@ -715,7 +715,7 @@ public class User {
 
 	/**
      * Sets this user to attend an event.
-     * @param title the title of the event to attend.
+     * @param eventID the eventID of the event to attend.
      */
     public void addEvent(String eventID){
         this.eventsAttended.add(eventID);

@@ -42,14 +42,11 @@
                                     <Font name="System Bold" size="17.0" />
                                  </font>
                               </Text>
-                              <TableView layoutX="6.0" layoutY="83.0" prefHeight="571.0" prefWidth="404.0">
+                              <TableView fx:id="eventTable1" layoutX="6.0" layoutY="83.0" prefHeight="571.0" prefWidth="404.0">
                                  <columns>
                                     <TableColumn fx:id="eventID1" editable="false" prefWidth="87.0" text="Event-ID" />
                                     <TableColumn fx:id="name1" editable="false" minWidth="0.0" prefWidth="155.0" text="Event Name" />
                                     <TableColumn fx:id="date1" editable="false" maxWidth="161.0" prefWidth="161.0" text="Date" />
-									<TableColumn fx:id="time1" editable="false" maxWidth="161.0" prefWidth="161.0" text="Time" />
-									<TableColumn fx:id="attendees1" editable="false" maxWidth="161.0" prefWidth="161.0" text="Event Attendees" />
-									<TableColumn fx:id="descriptions1" editable="false" maxWidth="161.0" prefWidth="161.0" text="Description" />
                                  </columns>
                               </TableView>
                            </children>
