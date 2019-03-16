@@ -38,12 +38,10 @@ public class User {
     protected ArrayList<String>[] resourcesBorrowStats = new ArrayList[3]; // [0] - Day, [1] - Week, [2] - Month. Value = Resource ID, NOT COPY ID
     protected int[] resourceTypeStats = new int[4]; // [0] - Book, [1] - DVD, [2] - Laptop, [3] - Video Game
     protected ArrayList<Integer> fineHistory = new ArrayList<>(); // History on Fines this user has had
-    protected ArrayList<String> eventsAttended = new ArrayList<>();
-
-    //TODO eventsAttended
+    protected ArrayList<String> eventsAttended = new ArrayList<>(); // A list of events the user has attended.
 
     /**
-     * Generic constructor
+     * The constructor which initialises a user and all their parameters.
      *
      * @param userName          unique username of the user
      * @param firstName         first name of the user
@@ -56,8 +54,9 @@ public class User {
      * @param accountBalance    current account balance of the user
      * @param profImage         path to the profile image of the user
      */
-    public User(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
-                String secondLineAddress, String postCode, String townName, double accountBalance, String profImage) {
+    public User(String userName, String firstName, String lastName, 
+    		String mobileNumber, String firstLineAddress, String secondLineAddress, 
+    		String postCode, String townName, double accountBalance, String profImage) {
         setUserName(userName);
         setFirstName(firstName);
         setLastName(lastName);
@@ -95,7 +94,7 @@ public class User {
     /**
      * This sets the user name of the user. Can only be done once.
      *
-     * @param userName username of the user.
+     * @param userName the username of the user.
      */
     protected void setUserName(String userName) {
         this.userName = userName;
@@ -104,7 +103,7 @@ public class User {
     /**
      * Returns the first name of the user.
      *
-     * @return first name as String.
+     * @return firstName the first name of the user as String.
      */
     public String getFirstName() {
         return this.firstName;
@@ -378,7 +377,7 @@ public class User {
     }
 
     /**
-     * Returns resource.
+     * Returns resource from a user to the library.
      *
      * @param resourceID ID of resource to return
      */
@@ -472,7 +471,7 @@ public class User {
      *
      * @return The Resource Type stats
      */
-    public int[] getResourceTypeStats(){
+    public int[] getResourceTypeStats() {
         return resourceTypeStats;
     }
 
@@ -514,7 +513,7 @@ public class User {
     }
 
     /**
-     * Add's to borrow history on start up.
+     * Adds to borrow history on start up.
      *
      * @param data Information about the user's borrow history
      */
@@ -681,7 +680,7 @@ public class User {
      * Returns a list of fine history of this user
      * @return fineHistory a list of all the fines this user has accumulated.
      */
-    public ArrayList<Integer> getFineHistory(){
+    public ArrayList<Integer> getFineHistory() {
         return fineHistory;
     }
 
@@ -740,7 +739,7 @@ public class User {
      * Returns a list of all the events this user attended.
      * @return eventsAttanded the list of events this user attended.
      */
-    public ArrayList<String> getAllEventsAttended(){
+    public ArrayList<String> getAllEventsAttended() {
         return this.eventsAttended;
     }
     
@@ -748,7 +747,7 @@ public class User {
      * Sets a list of events this user has attended.
      * @param eventsAttanded the list of events this user has attended.
      */
-    public void setEventsAttanded(ArrayList<String> eventsAttended){
+    public void setEventsAttanded(ArrayList<String> eventsAttended) {
         this.eventsAttended = eventsAttended;
     }
 }
