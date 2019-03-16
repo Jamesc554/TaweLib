@@ -155,6 +155,10 @@ public class StatsScreen extends Screen implements Initializable {
         }
     }
 
+    /**
+     *  Updates the popular resources list view based on the chosen date period.
+     * @param actionEvent Event from the action
+     */
     public void updatePopularResources(ActionEvent actionEvent) {
 
         List<String> mostPopularResource;

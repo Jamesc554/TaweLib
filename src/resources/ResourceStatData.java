@@ -43,6 +43,11 @@ public class ResourceStatData {
         return total;
     }
 
+    /**
+     *  Gets how many times this resource has been borrowed within the given days
+     * @param numDays How many days to check for
+     * @return How many times this resource was borrowed
+     */
     public int getTimeBorrowedWithin(int numDays){
         int numTimes = 0;
         SimpleDateFormat dateFormatDMY = new SimpleDateFormat("dd-MM-yyyy");
