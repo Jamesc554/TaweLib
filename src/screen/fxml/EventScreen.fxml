@@ -32,7 +32,7 @@
                     </columns>
                   </TableView>
                   <Label fx:id="eventLabel1" layoutX="731.0" layoutY="24.0" prefHeight="59.0" prefWidth="110.0" text="To sign up to an &#10;event click once on &#10;any event" />
-                  <Label layoutX="731.0" layoutY="83.0" text="To cancel your &#10;attandance for an &#10;event double click&#10;on an event&#10;" />
+                  <Label layoutX="731.0" layoutY="83.0" text="To cancel your &#10;attandance for an &#10;event click again&#10;on an event&#10;" />
                </children></AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
           <children>
