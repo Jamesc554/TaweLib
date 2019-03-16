@@ -1,13 +1,17 @@
 package screen;
 
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.Pane;
 import library.Library;
+import library.LibraryResources;
 import resources.Resource;
 import user.User;
 
@@ -16,10 +20,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+
+import static java.util.stream.Collectors.*;
+import static java.util.Map.Entry.*;
 
 /**
  * <h1>StatsScreen</h1>
@@ -37,6 +41,8 @@ public class StatsScreen extends Screen implements Initializable {
     public BarChart finesChat; // Bar Chart for showing Librarians stats about fines
     public PieChart adminChart; // Pie Chart showing what Librarians pay off fines
     public Tab detailedTab; // The Librarian only tab
+    public ComboBox<String> timeCB;
+    public ListView popularLV;
 
     /**
      * Initialises the scene.
@@ -65,6 +71,10 @@ public class StatsScreen extends Screen implements Initializable {
         assert img != null;
         userIcon.setImage(SwingFXUtils.toFXImage(img, null));
         usernameText.setText(loggedInUser.getUserName());
+
+        // Popular Resources
+        timeCB.getItems().setAll("Day", "Week", "Month","All Time");
+        timeCB.setValue("All Time");
 
         // Bar Chart for Borrow Stats
         XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -143,5 +153,59 @@ public class StatsScreen extends Screen implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void updatePopularResources(ActionEvent actionEvent) {
+
+        List<String> mostPopularResource;
+        HashMap<String, Integer> resourcesTimesBorrowed = new HashMap<>();
+        Map<String, Integer> sortedMap;
+        popularLV.getItems().clear();
+
+        switch (timeCB.getValue()){
+            case ("Day"):
+                resourcesTimesBorrowed = new HashMap<>();
+                for (Resource r : LibraryResources.getAllResources()){
+                    resourcesTimesBorrowed.put(r.getUniqueID(), r.getResourceStatData().getTimeBorrowedWithin(1));
+                }
+
+                break;
+            case ("Week"):
+                resourcesTimesBorrowed = new HashMap<>();
+                for (Resource r : LibraryResources.getAllResources()){
+                    resourcesTimesBorrowed.put(r.getUniqueID(), r.getResourceStatData().getTimeBorrowedWithin(7));
+                }
+                break;
+            case ("Month"):
+                resourcesTimesBorrowed = new HashMap<>();
+                for (Resource r : LibraryResources.getAllResources()) {
+                    resourcesTimesBorrowed.put(r.getUniqueID(), r.getResourceStatData().getTimeBorrowedWithin(30));
+                }
+                break;
+            case ("All Time"):
+                resourcesTimesBorrowed = new HashMap<>();
+                for (Resource r : LibraryResources.getAllResources()){
+                    resourcesTimesBorrowed.put(r.getUniqueID(), r.getResourceStatData().getTotalTimesBorrowed());
+                }
+
+                break;
+        }
+
+        mostPopularResource = new ArrayList<>();
+        sortedMap = resourcesTimesBorrowed.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).collect(toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
+                LinkedHashMap::new));
+
+        for (String id : sortedMap.keySet()){
+            mostPopularResource.add(id);
+        }
+
+        System.out.println(mostPopularResource);
+
+        for (int i = 0; i < (mostPopularResource.size() < 10 ? mostPopularResource.size() : 10); i++){
+            if (sortedMap.get(mostPopularResource.get(i)) <= 0) continue;
+            System.out.println("Name: " + (Library.getResource(mostPopularResource.get(i)).getTitle()) + " Times Borrowed: " + (sortedMap.get(mostPopularResource.get(i))));
+            popularLV.getItems().add((Library.getResource(mostPopularResource.get(i)).getTitle()) + " Times Borrowed: " + (sortedMap.get(mostPopularResource.get(i))));
+        }
+
     }
 }
