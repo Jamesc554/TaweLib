@@ -729,6 +729,10 @@ public class User {
     	//if user is attending, remove.
     	if (checkAttended(eventID)) {
     		this.eventsAttended.remove(eventID);
+    		LibraryEvents.getEvent(eventID).cancelRSVP();
+    		System.out.println("Cancelled RSVP");
+    	} else {
+    		System.out.println("Not attending.");
     	}
     }
     

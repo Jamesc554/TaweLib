@@ -183,6 +183,13 @@ public class Event {
     public void RSVP(){
         this.currentNumberOfAttending += 1;
     }
+    
+    /**
+     * Adds a response by user - to cancel attendance.
+     */
+    public void cancelRSVP(){
+        this.currentNumberOfAttending -= 1;
+    }
 
     /**
      * Generates the unique id of this event.
