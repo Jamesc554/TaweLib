@@ -8,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import library.Library;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -104,6 +107,7 @@ public abstract class Screen {
 	 * The event of pressing the logout button.
 	 */
 	protected void logoutButton(Event event) {
+		
 		logout();
 	}
 

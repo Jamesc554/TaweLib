@@ -43,8 +43,6 @@ public class LoginScreen extends Screen {
 		// TODO: remove test username once readAllUsers is finished
 		if (Library.checkForUser(usernameTextField.getText())) {
 			Library.onLogin(usernameTextField.getText());
-			Date date = Calendar.getInstance().getTime();
-	        Library.getUser(usernameTextField.getText()).setLastLogin(date);
 			ScreenManager.changeScreen(new HomeScreen());
 		} else {
 			statusLabel.setText("Username is invalid!");

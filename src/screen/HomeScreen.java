@@ -7,6 +7,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -167,6 +168,9 @@ public class HomeScreen extends Screen implements Initializable {
 				}
 			}
 		}
+		
+		Date date = Calendar.getInstance().getTime();
+	    Library.getCurrentLoggedInUser().setLastLogin(date);
 		
 	}
 
