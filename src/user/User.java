@@ -38,12 +38,10 @@ public class User {
     protected ArrayList<String>[] resourcesBorrowStats = new ArrayList[3]; // [0] - Day, [1] - Week, [2] - Month. Value = Resource ID, NOT COPY ID
     protected int[] resourceTypeStats = new int[4]; // [0] - Book, [1] - DVD, [2] - Laptop, [3] - Video Game
     protected ArrayList<Integer> fineHistory = new ArrayList<>(); // History on Fines this user has had
-    protected ArrayList<String> eventsAttended = new ArrayList<>();
-
-    //TODO eventsAttended
+    protected ArrayList<String> eventsAttended = new ArrayList<>(); // A list of events the user has attended.
 
     /**
-     * Generic constructor
+     * The constructor which initialises a user and all their parameters.
      *
      * @param userName          unique username of the user
      * @param firstName         first name of the user
@@ -56,8 +54,9 @@ public class User {
      * @param accountBalance    current account balance of the user
      * @param profImage         path to the profile image of the user
      */
-    public User(String userName, String firstName, String lastName, String mobileNumber, String firstLineAddress,
-                String secondLineAddress, String postCode, String townName, double accountBalance, String profImage) {
+    public User(String userName, String firstName, String lastName, 
+    		String mobileNumber, String firstLineAddress, String secondLineAddress, 
+    		String postCode, String townName, double accountBalance, String profImage) {
         setUserName(userName);
         setFirstName(firstName);
         setLastName(lastName);
