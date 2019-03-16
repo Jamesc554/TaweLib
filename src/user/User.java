@@ -739,7 +739,7 @@ public class User {
      * Returns a list of all the events this user attended.
      * @return eventsAttanded the list of events this user attended.
      */
-    public ArrayList<String> getAllEventsAttended(){
+    public ArrayList<String> getAllEventsAttended() {
         return this.eventsAttended;
     }
     
@@ -747,7 +747,7 @@ public class User {
      * Sets a list of events this user has attended.
      * @param eventsAttanded the list of events this user has attended.
      */
-    public void setEventsAttanded(ArrayList<String> eventsAttended){
+    public void setEventsAttanded(ArrayList<String> eventsAttended) {
         this.eventsAttended = eventsAttended;
     }
 }
