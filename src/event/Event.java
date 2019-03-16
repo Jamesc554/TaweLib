@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * This class provides the framework for creating an event - provided by the library -  which users can attend.
- * @author Dominik R Wojtasiewicz, Deyan Naydenov, Peter Daish.
+ * @author Dominik R Wojtasiewicz, Peter Daish, Deyan Naydenov
  *
  */
 public class Event {
@@ -62,7 +62,7 @@ public class Event {
      * The description of this event.
      */
     public Event(String eventID, String title, String date, String time, int maxNumberOfAttending, int currentNumberOfAttending,
-                 String description){
+                 String description) {
         this.eventID = eventID;
         this.title = title;
         this.date = date;
@@ -197,7 +197,7 @@ public class Event {
      */
     public String generateEventID(){
         ArrayList<Event> list = LibraryEvents.getAllEvents();
-        if(list.size() == 0){
+        if (list.size() == 0) {
             return "EventID:0";
         }
         int eventID = Integer.valueOf(list.get(list.size()-1).getEventID().split(":")[1]) + 1;
