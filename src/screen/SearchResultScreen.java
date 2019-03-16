@@ -318,8 +318,8 @@ public class SearchResultScreen extends Screen implements Initializable {
                     String[] languageArray = languageString1.split(", ");
                     languages1 = new ArrayList<>(Arrays.asList(languageArray));
                 }
-                Library.editBook(uIDTf.getText(), titleTf.getText(), yearTf.getText(), rs1Tf.getText(),
-                        rs2Tf.getText(), rs3Tf.getText(), rs4Tf.getText(), languages1);
+                Library.editVideoGame(uIDTf.getText(), titleTf.getText(), yearTf.getText(), rs1Tf.getText(),
+                        rs2Tf.getText(), rs4Tf.getText(), rs3Tf.getText(), languages1);
             default:
                 break;
         }
@@ -468,7 +468,8 @@ public class SearchResultScreen extends Screen implements Initializable {
                 rs4Lbl.setText("Multiplayer Support: ");
                 rs4Tf.setText(g.getMultiplayerSupport());
 
-                rs5Lbl.setText("Languages: ");
+                rs5Lbl.setVisible(false);
+                rs5Tf.setVisible(false);
 
                 if (g.getLanguages().isEmpty()) {
                     rs5Tf.setText("N/A");

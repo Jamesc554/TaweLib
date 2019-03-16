@@ -686,7 +686,7 @@ public class User {
 
     /**
      * Sets this user to attend a new event.
-     * @param title the title of the event to attend.
+     * @param eventID the title of the event to attend.
      */
     public void addNewEvent(String eventID) {
     	if (!checkAttended(eventID)) {
@@ -745,7 +745,7 @@ public class User {
     
     /**
      * Sets a list of events this user has attended.
-     * @param eventsAttanded the list of events this user has attended.
+     * @param eventsAttended the list of events this user has attended.
      */
     public void setEventsAttanded(ArrayList<String> eventsAttended) {
         this.eventsAttended = eventsAttended;

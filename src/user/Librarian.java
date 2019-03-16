@@ -134,11 +134,19 @@ public class Librarian extends User {
 	public String getProfImage() {
 		return this.profImage;
 	}
-	
+
+	/**
+	 * The last login date
+	 * @return Date object
+	 */
 	public Date getLastLogin() {
 		return lastLogin;
 	}
 
+	/**
+	 * Sets the date of last login
+	 * @param lastLogin date
+	 */
 	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
 	}
