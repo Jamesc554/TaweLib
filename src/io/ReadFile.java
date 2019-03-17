@@ -56,10 +56,10 @@ public class ReadFile extends IO {
 						(String) object.get("postCode"), (String) object.get("townName"),
 						Double.parseDouble((String) object.get("accountBalance")), (String) object.get("imageAddress"));
 				Date login = null;
+				//Translate the string date format to a Date object
 				try {
 					login = new SimpleDateFormat("dd/MM/yyyy").parse((String) object.get("lastLogin"));
 				} catch (java.text.ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				user.setLastLogin(login);
@@ -171,10 +171,10 @@ public class ReadFile extends IO {
 						Integer.parseInt((String) object.get("empYear")), (String) object.get("staffNumber"),
 						Integer.parseInt((String) object.get("noOfEmploys")));
 				Date login = null;
+				//Translate the string date format to a Date object
 				try {
 					login = new SimpleDateFormat("dd/MM/yyyy").parse((String) object.get("lastLogin"));
 				} catch (java.text.ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				librarian.setLastLogin(login);

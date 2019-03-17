@@ -143,19 +143,25 @@ public class HomeScreen extends Screen implements Initializable {
 		}
 	}
 	
+	/**
+	 * This method reads in all resources within the library and compares
+	 * each date that they were added to the last login date of the user 
+	 * If the date the resource was added is greater than the date the 
+	 * user last logged in then the resource is displayed within the 
+	 * recently added window on the home screen.
+	 */
 	private void setRecentlyAdded() {
 		List<Resource> resources = LibraryResources.getAllResources();
 		
 		for (Resource r : resources) {
 			Date bookDate = null;
+			//Get the date the resource was added, stored as string so we have to parse to a Date object
 			try {
 				bookDate = new SimpleDateFormat("dd/MM/yyyy").parse(r.getDateAdded());
-				System.out.println(r.getTitle()  + " " + r.getDateAdded());
-				System.out.println(Library.getCurrentLoggedInUser().getLastLogin());
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			//Date one comes after date two
 			if(bookDate.compareTo(Library.getCurrentLoggedInUser().getLastLogin()) > 0) {
 				if(r instanceof Book) {
 					recentlyAddedList.getItems().add("Book:" + " " + r.getTitle());
@@ -169,6 +175,7 @@ public class HomeScreen extends Screen implements Initializable {
 			}
 		}
 		
+		//Update the date the user last logged in
 		Date date = Calendar.getInstance().getTime();
 	    Library.getCurrentLoggedInUser().setLastLogin(date);
 		
