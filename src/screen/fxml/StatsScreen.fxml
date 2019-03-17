@@ -23,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.StatsScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.StatsScreen">
   <children>
     <ToolBar prefHeight="35.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;">
       <items>
@@ -64,7 +64,7 @@
         <tabs>
           <Tab text="Basic View">
                <content>
-                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;">
                      <children>
                         <BarChart fx:id="statsChart" alternativeColumnFillVisible="true" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendSide="TOP" title="Borrow Statistics" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
                           <xAxis>
@@ -84,7 +84,7 @@
             </Tab>
             <Tab fx:id="detailedTab" text="Detailed View">
                <content>
-                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;">
                      <children>
                         <BarChart fx:id="finesChat">
                            <xAxis>
