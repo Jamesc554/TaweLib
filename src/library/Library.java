@@ -144,7 +144,7 @@ public class Library {
 	 * @param genre The genre of the video game.
 	 * @param multiplayerSupport The multiplayer support of the video game.
 	 * @param certificateRating the rating of the video game
-	 * @param lang a list of languages
+	 * @param lang a list of languages of the video game
 	 * @param noOfCopies The number of copies this library owns of this video game
 	 * @param loanDuration The default loan duration of all copies of this video game.
 	 * @param borrowHistory The borrow history associated with this video game.
@@ -356,7 +356,7 @@ public class Library {
 	
 	/**
 	 * Returns all Laptops in the library.
-	 * @return ArrayList of all books.
+	 * @return ArrayList of all Laptops.
 	 */
 	public static ArrayList<Laptop> getAllLaptops() {
 		return LibraryResources.getListOfLaptops();
@@ -364,15 +364,15 @@ public class Library {
 	
 	/**
 	 * Returns all DVD in the library.
-	 * @return ArrayList of all books.
+	 * @return ArrayList of all DVD.
 	 */
 	public static ArrayList<DVD> getAllDVD() {
 		return LibraryResources.getListOfDVD();
 	}
 
 	/**
-	 * Returns all DVD in the library.
-	 * @return ArrayList of all books.
+	 * Returns all Video Game in the library.
+	 * @return ArrayList of all Video Games.
 	 */
 	public static ArrayList<VideoGame> getAllVideoGames() {
 		return LibraryResources.getListOfVideoGames();
@@ -381,7 +381,7 @@ public class Library {
 	
 	/**
 	 * Returns all users in the library.
-	 * @return ArrayList of all books.
+	 * @return ArrayList of all users.
 	 */
 	public static ArrayList<User> getAllUsers() {
 		return LibraryResources.getAllUsers();
@@ -389,7 +389,7 @@ public class Library {
 
 	/**
 	 * Returns all librarians in the library.
-	 * @return ArrayList
+	 * @return ArrayList of all librarians.
 	 */
 	public static ArrayList<Librarian> getAllLibrarians() {
 		return LibraryResources.getAllLibrarians();
