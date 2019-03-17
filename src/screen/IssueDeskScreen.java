@@ -1060,7 +1060,8 @@ public class IssueDeskScreen extends Screen implements Initializable {
         eventSuccess.setVisible(false);
 
         String event = eventName.getText();
-        String d = date.getValue().toString();
+        String[] d = date.getValue().toString().split("-");
+        String da = d[2]+"/"+d[1]+"/"+d[0];
         String timeOfEvent = time.getText();
         String desc = description.getText();
         int maxNum = Integer.valueOf(maxNumberOfSpaces.getText());
@@ -1069,7 +1070,7 @@ public class IssueDeskScreen extends Screen implements Initializable {
         if(!event.equals("") && !d.equals("") && !timeOfEvent.equals("")
         		&& !desc.equals("") && maxNum != 0) {
         	
-            Library.addNewEvent(event, d, timeOfEvent, maxNum, desc);
+            Library.addNewEvent(event, da, timeOfEvent, maxNum, desc);
             eventSuccess.setVisible(true);
             
         } else {
