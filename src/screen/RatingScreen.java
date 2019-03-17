@@ -92,8 +92,14 @@ public class RatingScreen extends Screen implements Initializable {
 			}
 		}
 		
+		for(String[] temp : rRatings) {
+			if(temp[3].equals(Library.getCurrentLoggedInUser().getUserName())) {
+				leaveRating.setDisable(true);
+			}
+		}
+		
 		if(leaveRating.isDisabled()) {
-			messageBox.setText("Need to borrow resource to leave review.");
+			messageBox.setText("Need to borrow resource to leave review / Already left a review.");
 		}
 		
 		BufferedImage img = null;
