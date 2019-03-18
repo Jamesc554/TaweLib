@@ -513,7 +513,7 @@ public class ReadFile extends IO {
 
 	/**
 	 * Reads ratings from a file
-	 * @return ArrayList<String[]> of ratings
+	 * @return An array list of ratings
 	 */
 	public static ArrayList<String[]> readRatings() {
 		JSONParser parser = new JSONParser();

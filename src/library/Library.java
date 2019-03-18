@@ -54,6 +54,7 @@ public class Library {
 	
 	/**
 	 * This methods adds a new book to the library.
+	 * @param dateAdded the date this book was added.
 	 * @param year	Year published.
 	 * @param title Book title.
 	 * @param thumbnailImg Path to the image of the book.

@@ -224,7 +224,7 @@ public class Resource {
 
     /**
      * returns a list of borrow history data
-     * @return
+     * @return list of borrow data for this resource.
      */
     public List<BorrowHistoryData> getCurrentBorrowData(){
         return this.currentBorrowData;
@@ -497,7 +497,7 @@ public class Resource {
 
     /**
      * Returns loan duration
-     * @return List<String>
+     * @return List of loan durations for this resource.
      */
     public List<String> getLoanDurations(){
         return this.loanDurations;

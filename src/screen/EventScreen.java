@@ -195,6 +195,7 @@ public class EventScreen extends Screen implements Initializable {
 
 	/**
 	 * Updates the event table with information regarding all events.
+	 * @throws ParseException for whether the date format of event can be parsed.
 	 */
 	private void updateEventTableData() throws ParseException {
 		ArrayList<Event> listOfEvents = LibraryEvents.getAllEvents();

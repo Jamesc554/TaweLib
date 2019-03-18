@@ -486,6 +486,7 @@ public class User {
 
     /**
      * Sets the user last login to current date.
+     * @param login the date the user last logged in.
      */
     public void setLastLogin(Date login) {
         this.lastLogin = login;
@@ -644,7 +645,8 @@ public class User {
     /**
      * Method that determines if limit of resources has been reached.
      *
-     * @param id Id of resource to be borrowe
+     * @param id Id of resource to be borrow.
+     * @return true or false depending whether the user has reached borrow limit.
      */
     public boolean canBorrow(String id) {
         String subString = id.substring(0, 1).toLowerCase();
@@ -701,7 +703,7 @@ public class User {
     
     /**
      * Checks whether this user has already attended this event.
-     * @param eventID
+     * @param eventID the id of the event the user wishes to attend.
      * @return true or false whether the user has already attended.
      */
     private boolean checkAttended(String eventID) {

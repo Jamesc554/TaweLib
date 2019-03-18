@@ -79,9 +79,9 @@ public class EventTableData {
 
 	/**
 	 * Gets the current attending information.
-	 * @returns attending (String)
+	 * @return attending whether the user is attending this event(String)
 	 */
-	public String getAttending(){
+	public String getAttending() {
 		return attending.get();
 	}
 }

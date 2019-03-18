@@ -29,14 +29,15 @@ public class VideoGame extends Resource {
 	/**
 	 * <h1>The constructor for a Video Game.</h1>
 	 * 
+	 * @param dateAdded			The date this game was added.
 	 * @param year              The year this game was published.
 	 * @param title             The title of this game.
 	 * @param thumbnailImg      The filepath of the avatar of this game.
 	 * @param uniqueID          The unique ID of this game.
-	 * @param dateAdded			The six digit integer specifying when the video game was added.
 	 * @param genre             The genre of this game.
 	 * @param certRating        The certificate rating of this game.
 	 * @param publisher         The publisher of this book.
+	 * @param multSupp			The multiplayer support this game offers.
 	 * @param lang              The languages this book is available in.
 	 * @param noOfCopies        The number of copies of this book currently owned by
 	 *                          the library.

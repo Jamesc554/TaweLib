@@ -454,6 +454,7 @@ public class WriteFile extends IO {
      * @param books   an ArrayList of books from the library.
      * @param dvds    an ArrayList of dvds from the library.
      * @param laptops an ArrayList of laptops from the library.
+     * @param videoGames an ArrayList of videogames from the library.
      */
     public static void overwriteResources(ArrayList<Book> books, ArrayList<DVD> dvds, ArrayList<Laptop> laptops, ArrayList<VideoGame> videoGames) {
         File[] resourceFiles = {new File(IO.getResourceFilePath())};
@@ -474,7 +475,9 @@ public class WriteFile extends IO {
      * @param books      an ArrayList of the books from the library.
      * @param dvds       an ArrayList of dvds from the library.
      * @param laptops    an ArrayList of laptops from the library.
+     * @param videoGames an ArrayList of videogames from the library.
      * @param librarians an ArrayList of librarians from the library.
+     * @param events     an ArrayList of events hosted by the library. 
      */
     public static void fullWrite(ArrayList<User> users, ArrayList<Book> books, ArrayList<DVD> dvds,
                                  ArrayList<Laptop> laptops,ArrayList<VideoGame> videoGames, ArrayList<Librarian> librarians, ArrayList<Event> events) {
@@ -527,6 +530,9 @@ public class WriteFile extends IO {
     
     /**
      * This method writes a new rating to the file.
+     * @param id the id of the rating
+     * @param message the rating details i.e. the written rating.
+     * @param rating the number rating of resources i.e. 5/5 etc
      */
     public static void writeRatingToFile(String id, String message, String rating) {
     	JSONObject object = new JSONObject();
