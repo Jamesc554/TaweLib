@@ -339,7 +339,7 @@ public class WriteFile extends IO {
      * @param book the resource to be converted.
      * @return bookObject the JSON object of the converted Resource
      */
-    private static JSONObject writeBookToObject(Book book){
+    public static JSONObject writeBookToObject(Book book){
         JSONObject bookObject = writeResourceToObject(book);
 
         bookObject.put("Author", book.getAuthor());
@@ -360,7 +360,7 @@ public class WriteFile extends IO {
      * @param dvd the resource to be converted.
      * @return dvdObject the JSON object of the converted Resource
      */
-    private static JSONObject writeDVDToObject(DVD dvd){
+    public static JSONObject writeDVDToObject(DVD dvd){
         JSONObject dvdObject = writeResourceToObject(dvd);
 
         dvdObject.put("Director", dvd.getDirector());
@@ -382,7 +382,7 @@ public class WriteFile extends IO {
      * @param laptop the resource to be converted.
      * @return laptopObject the JSON object of the converted Resource
      */
-    private static JSONObject writeLaptopToObject(Laptop laptop){
+    public static JSONObject writeLaptopToObject(Laptop laptop){
         JSONObject laptopObject = writeResourceToObject(laptop);
 
         laptopObject.put("Manufacturer", laptop.getManufacturer());
@@ -397,7 +397,7 @@ public class WriteFile extends IO {
      * @param videoGame the resource to be converted.
      * @return videoGameObject the converted resource.
      */
-    private static JSONObject writeVideoGameToObject(VideoGame videoGame){
+    public static JSONObject writeVideoGameToObject(VideoGame videoGame){
         JSONObject videoGameObject = writeResourceToObject(videoGame);
 
         videoGameObject.put("Publisher", videoGame.getPublisher());

@@ -1,4 +1,6 @@
 package resources;
+import io.WriteFile;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,7 +149,11 @@ public class DVD extends Resource {
 	public String toSingleString() {
 		return super.toSingleString() + this.director + this.runtime + this.language;
 	}
-	
+
+    public String toJSON(){
+        return WriteFile.writeDVDToObject(this).toJSONString();
+    }
+
 	/**
 	 * Finds the director of the DVD
 	 * @return director 

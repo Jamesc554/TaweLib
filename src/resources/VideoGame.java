@@ -1,5 +1,7 @@
 package resources;
 
+import io.WriteFile;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -276,6 +278,10 @@ public class VideoGame extends Resource {
 	public String toSingleString() {
 		return super.toSingleString() + this.publisher + this.genre + this.certificateRating + this.multiplayerSupport;
 	}
+
+    public String toJSON(){
+        return WriteFile.writeVideoGameToObject(this).toJSONString();
+    }
 
 	/**
 	 * Returns the daily fine rate of this resource.

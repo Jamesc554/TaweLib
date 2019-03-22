@@ -1,4 +1,6 @@
 package resources;
+import io.WriteFile;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,6 +153,9 @@ public class Laptop extends Resource {
 		return super.toSingleString() + this.manufacturer + this.model + this.operatingSys;
 	}
 
+    public String toJSON(){
+        return WriteFile.writeLaptopToObject(this).toJSONString();
+    }
 	/**
 	 * Finds the manufacturer of the laptop
 	 * @return manufacturer 

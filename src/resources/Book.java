@@ -1,4 +1,6 @@
 package resources;
+import io.WriteFile;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -315,8 +317,12 @@ public class Book extends Resource {
 	 * Returns the details of this book.
 	 */
 	public String toSingleString() {
-		return super.toSingleString() + this.author + this.publisher + this.genre + this.isbn;
+		return super.toSingleString() + ", Author:" + this.author + ", Publisher:" + this.publisher + ", Genre:" + this.genre + ", ISBN:" + this.isbn;
 	}
+
+	public String toJSON(){
+        return WriteFile.writeBookToObject(this).toJSONString();
+    }
 	/**
 	 * Returns the daily fine rate of this resource.
 	 * @return FINE

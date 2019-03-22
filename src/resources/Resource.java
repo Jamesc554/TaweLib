@@ -1,5 +1,6 @@
 package resources;
 
+import io.WriteFile;
 import library.Library;
 import user.User;
 import utils.Queue;
@@ -347,7 +348,11 @@ public class Resource {
      * The year and title of this resource.
      */
     public String toSingleString() {
-        return year + title;
+        return "Year:" + year + ", Title:" + title;
+    }
+
+    public String toJSON(){
+        return "";
     }
 
     /**
