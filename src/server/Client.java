@@ -70,8 +70,7 @@ public class Client implements Runnable {
                     out.println("SERVER LOGIN_UNSUCCESSFUL");
                 } else {
                     out.println("SERVER LOGIN_SUCCESSFUL " +
-                            (user instanceof Librarian ? "LIBRARIAN " : "USER ")+
-                            user.getUserName());
+                            (user instanceof Librarian ? "LIBRARIAN " : "USER ")+ user.getUserName());
                 }
                 break;
         }
