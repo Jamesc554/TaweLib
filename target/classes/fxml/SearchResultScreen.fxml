@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.SearchResultScreen">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="1280.0">
+         <children>
+            <ToolBar prefHeight="33.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;">
+               <items>
+                  <ComboBox fx:id="resourceTypeCB" onAction="#updateSearchResults" prefHeight="25.0" prefWidth="139.0" promptText="Resource Type" visibleRowCount="4" />
+                  <TextField fx:id="searchBar" onAction="#updateSearchResults" prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." />
+                  <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchButton" style="-fx-background-color: #ef9d39;" text="Search" textFill="#0e0056" />
+                  <Text fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Tawe Library">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="340.0">
+                     <image>
+                        <Image url="@../../../data/images/james/testImg442.png" />
+                     </image>
+                  </ImageView>
+                  <Text fx:id="usernameText" fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" translateX="360.0" />
+                  <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: #0e0056;" text="Logout" textFill="#fff1f1" translateX="380.0" underline="true" />
+               </items>
+            </ToolBar>
+            <ToolBar prefHeight="35.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;">
+               <items>
+                  <HBox prefHeight="25.0" prefWidth="1268.0" spacing="20.0" style="-fx-background-color: #0e0056;">
+                     <children>
+                        <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#homeButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Home" textFill="#fff1f1" underline="true" />
+                        <Button fx:id="accountBtn" mnemonicParsing="false" onAction="#accountDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Account" textFill="#fff1f1" underline="true" />
+                        <Button fx:id="drawAppBtn" mnemonicParsing="false" onAction="#drawAppButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Draw App" textFill="#fff1f1" underline="true" />
+                        <Button fx:id="statsBtn" mnemonicParsing="false" onAction="#statsButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Stats" textFill="#fff1f1" underline="true" />
+                        <Button fx:id="eventsButton" mnemonicParsing="false" onAction="#goToEventsButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Events" textFill="#fff1f1" underline="true" />
+                        <Button fx:id="issueDeskBtn" mnemonicParsing="false" onAction="#issueDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Issue Desk" textFill="#fff1f1" underline="true" visible="false" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </items>
+            </ToolBar>
+            <HBox prefHeight="650.0" prefWidth="1280.0">
+               <children>
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="650.0" prefWidth="392.0">
+                     <content>
+                        <VBox fx:id="resourcesVBox" prefHeight="634.0" prefWidth="339.0" style="-fx-background-color: #f4f5ff;" />
+                     </content>
+                  </ScrollPane>
+                  <GridPane prefHeight="650.0" prefWidth="992.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="491.0" minWidth="10.0" prefWidth="244.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="844.0" minWidth="10.0" prefWidth="696.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="320.0" minHeight="10.0" prefHeight="276.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="432.0" minHeight="10.0" prefHeight="374.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #f4f5ff;">
+                           <children>
+                              <ImageView fx:id="resourceThumbnailImage" fitHeight="212.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../data/images/dvd/A%20Star%20Is%20Born.jpg" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="requestButton" disable="true" mnemonicParsing="false" onAction="#requestResource" prefHeight="25.0" prefWidth="630.0" style="-fx-background-color: #ef9d39;" text="Request" textFill="#0e0056" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #f4f5ff;" GridPane.columnIndex="1">
+                           <children>
+                              <Label text="Resource Info" />
+                              <HBox alignment="CENTER" prefHeight="200.0" prefWidth="782.0" style="-fx-background-color: #f4f5ff;">
+                                 <children>
+                                    <Button fx:id="trailerButton" mnemonicParsing="false" onAction="#watchTrailer" text="Watch Trailer" visible="false" />
+                                    <Button fx:id="ratingsButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#viewRatings" text="Add Rating" />
+                                    <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="9.0">
+                                       <children>
+                                          <Label fx:id="titleLbl" text="Title:" />
+                                          <Label fx:id="uIDLbl" text="UniqueID: " />
+                                          <Label fx:id="yearLbl" text="Year:" />
+                                          <Label fx:id="rs1Lbl" text="RS1: " />
+                                          <Label fx:id="rs2Lbl" text="RS2: " />
+                                          <Label fx:id="rs3Lbl" text="RS3: " />
+                                          <Label fx:id="rs4Lbl" text="RS4: " />
+                                          <Label fx:id="rs5Lbl" text="RS5: " />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="273.0">
+                                       <children>
+                                          <TextField fx:id="titleTf" editable="false" />
+                                          <TextField fx:id="uIDTf" editable="false" />
+                                          <TextField fx:id="yearTf" editable="false" />
+                                          <TextField fx:id="rs1Tf" editable="false" />
+                                          <TextField fx:id="rs2Tf" editable="false" />
+                                          <TextField fx:id="rs3Tf" editable="false" />
+                                          <TextField fx:id="rs4Tf" editable="false" />
+                                          <TextField fx:id="rs5Tf" editable="false" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <Button fx:id="editResourceButton" mnemonicParsing="false" onAction="#editResource" style="-fx-background-color: #ef9d39;" text="Edit" textFill="#0e0056" translateX="50.0" translateY="30.0" visible="false" />
+                           </children>
+                        </VBox>
+                        <ListView fx:id="copiesList" prefHeight="426.0" prefWidth="170.0" style="-fx-background-color: #f4f5ff;" GridPane.rowIndex="1" />
+                        <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <ListView fx:id="copyHistoryList" prefHeight="374.0" prefWidth="380.0" style="-fx-background-color: #f4f5ff;" />
+                              <ScrollPane prefHeight="374.0" prefWidth="312.0">
+                                 <content>
+                                    <VBox fx:id="ratingViewBox" prefHeight="369.0" prefWidth="307.0" />
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </GridPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>
