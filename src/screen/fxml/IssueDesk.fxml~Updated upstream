@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.IssueDeskScreen">
+   <children>
+      <ToolBar prefHeight="33.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;">
+         <items>
+            <TextField fx:id="searchBar" prefHeight="25.0" prefWidth="458.0" promptText="Book, DVD, Laptop, year, ..." />
+            <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchButton" style="-fx-background-color: #ef9d39;" text="Search" textFill="#0e0056" />
+            <Text fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Tawe Library">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="470.0">
+               <image>
+                  <Image url="@../../../data/images/james/testImg442.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="usernameText" fill="#fff1f1" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" translateX="490.0" />
+            <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutButton" style="-fx-background-color: #0e0056;" text="Logout" textFill="#fff1f1" translateX="520.0" underline="true" />
+         </items>
+      </ToolBar>
+      <ToolBar layoutY="35.0" prefHeight="35.0" prefWidth="1280.0" style="-fx-background-color: #0e0056;">
+         <items>
+            <HBox prefHeight="25.0" prefWidth="1268.0" spacing="20.0" style="-fx-background-color: #0e0056;">
+               <children>
+                  <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#homeButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Home" textFill="#fff1f1" underline="true" />
+                  <Button fx:id="accountBtn" mnemonicParsing="false" onAction="#accountDeskButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Account" textFill="#fff1f1" underline="true" />
+                  <Button fx:id="drawAppBtn" mnemonicParsing="false" onAction="#drawAppButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Draw App" textFill="#fff1f1" underline="true" />
+                  <Button fx:id="statsBtn" mnemonicParsing="false" onAction="#statsButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Stats" textFill="#fff1f1" underline="true" />
+                  <Button fx:id="eventsButton" mnemonicParsing="false" onAction="#goToEventsButton" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Events" textFill="#fff1f1" underline="true" />
+                  <Button fx:id="issueDeskBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #0e0056;" text="Issue Desk" textFill="#fff1f1" underline="true" visible="false" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </padding>
+            </HBox>
+         </items>
+      </ToolBar>
+      <TabPane layoutY="70.0" prefHeight="652.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Loans/Returns">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;">
+                     <children>
+                        <Text layoutX="202.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loan A Resource">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="loanUsername" layoutX="198.0" layoutY="223.0" />
+                        <TextField fx:id="loanCopyID" layoutX="198.0" layoutY="255.0" promptText="ex: DVD:1-1" />
+                        <Text layoutX="96.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="96.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Copy ID:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Button layoutX="297.0" layoutY="291.0" mnemonicParsing="false" onAction="#loanButton" style="-fx-background-color: #ef9d39;" text="Loan" textFill="#0e0056">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Text layoutX="828.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Return a Copy">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="490.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="returnUsername" layoutX="574.0" layoutY="223.0" />
+                        <ListView fx:id="userBorrowList" layoutX="828.0" layoutY="223.0" prefHeight="238.0" prefWidth="235.0" style="-fx-background-color: #f4f5ff;" />
+                        <Button layoutX="1001.0" layoutY="474.0" mnemonicParsing="false" onAction="#returnButton" style="-fx-background-color: #ef9d39;" text="Return" textFill="#0e0056">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="loanUserError" layoutX="359.0" layoutY="227.0" text="Invalid Username!" textFill="RED" visible="false" />
+                        <Label fx:id="loanCopyError" layoutX="359.0" layoutY="259.0" text="Invalid Copy ID!" textFill="RED" visible="false" />
+                        <Label fx:id="loanSuccess" layoutX="359.0" layoutY="298.0" text="Loan succesful! " textFill="#34972b" visible="false" />
+                        <Label fx:id="outstandingFineMsg" layoutX="359.0" layoutY="298.0" text="User has outstanding fines!" textFill="RED" visible="false" />
+                        <Label fx:id="toManyResourcesError" layoutX="379.0" layoutY="259.0" text="Too many resources currently borrowed" textFill="RED" visible="false" />
+                        <Button layoutX="737.0" layoutY="221.0" mnemonicParsing="false" onAction="#returnSearchButton" style="-fx-background-color: #ef9d39;" text="Search" textFill="#0e0056">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="returnSearchError" layoutX="574.0" layoutY="259.0" text="Invalid Username!" textFill="RED" visible="false" />
+                        <Label fx:id="returnSuccess" layoutX="904.0" layoutY="481.0" text="Return succesful! " textFill="#34972b" visible="false" />
+                        <Label fx:id="overdueCopyMsg" layoutX="359.0" layoutY="298.0" text="User has overdue copies!" textFill="RED" visible="false" />
+                        <Label fx:id="unavailableCopyMsg" layoutX="359.0" layoutY="298.0" text="Copy Unavailable!" textFill="RED" visible="false" />
+                        <Label fx:id="toManyResources" layoutX="359.0" layoutY="298.0" text="Too many resources borrowed" textFill="RED" visible="false" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Payments">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;">
+                     <children>
+                        <Text layoutX="552.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Authorise a Payment">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="130.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="130.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Amount:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="paymentUsername" layoutX="289.0" layoutY="208.0" />
+                        <TextField fx:id="paymentAmount" layoutX="289.0" layoutY="241.0" />
+                        <Button layoutX="318.0" layoutY="282.0" mnemonicParsing="false" onAction="#paymentButton" style="-fx-background-color: #ef9d39;" text="Accept Payment" textFill="#0e0056">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="paymentUserError" layoutX="461.0" layoutY="289.0" text="Invalid username!" textFill="RED" visible="false" />
+                        <Label fx:id="paymentAmountError" layoutX="457.0" layoutY="245.0" text="Invalid amount!" textFill="RED" visible="false" />
+                        <Label fx:id="paymentSuccess" layoutX="457.0" layoutY="289.0" text="Payment accepted!" textFill="#34972b" visible="false" />
+                        <Button layoutX="457.0" layoutY="206.0" mnemonicParsing="false" onAction="#paymentSearchButton" style="-fx-background-color: #ef9d39;" text="Show user balance" textFill="#0e0056">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Text fx:id="paymentSearchBalance" layoutX="614.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Users">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;">
+                     <children>
+                        <Text layoutX="294.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add User">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="userUsername" layoutX="258.0" layoutY="131.0" />
+                        <TextField fx:id="userFirstName" layoutX="258.0" layoutY="165.0" />
+                        <TextField fx:id="userLastName" layoutX="258.0" layoutY="198.0" />
+                        <TextField fx:id="userMobile" layoutX="258.0" layoutY="232.0" />
+                        <TextField fx:id="userAddr1" layoutX="258.0" layoutY="265.0" />
+                        <TextField fx:id="userAddr2" layoutX="258.0" layoutY="299.0" />
+                        <TextField fx:id="userPstCd" layoutX="258.0" layoutY="332.0" />
+                        <TextField fx:id="userTown" layoutX="258.0" layoutY="367.0" />
+                        <Text layoutX="127.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Username:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="128.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*First Name:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="128.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Last Name:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="127.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Mobile Number:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="127.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Address Line 1:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="129.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address Line 2:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="127.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Postcode:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="127.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Town:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Button layoutX="315.0" layoutY="404.0" mnemonicParsing="false" onAction="#createUserButton" style="-fx-background-color: #ef9d39;" text="Create User" textFill="#0e0056">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="userUsernameError" layoutX="425.0" layoutY="135.0" text="Username already taken" textFill="RED" visible="false" />
+                        <Label fx:id="userError" layoutX="425.0" layoutY="411.0" text="Please fill all required fields" textFill="RED" visible="false" />
+                        <Label fx:id="userSuccess" layoutX="425.0" layoutY="411.0" text="User added!" textFill="#34972b" visible="false" />
+                        <Button layoutX="505.0" layoutY="131.0" mnemonicParsing="false" onAction="#userAvatarButton" style="-fx-background-color: #ef9d39;" text="Choose Avatar" textFill="#0e0056" />
+                        <ImageView fx:id="userAvatar" fitHeight="256.0" fitWidth="256.0" layoutX="505.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true" />
+                        <Text fx:id="userAvatarName" layoutX="633.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Resources">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane layoutX="-1.0" layoutY="-1.0" prefHeight="622.0" prefWidth="1286.0" style="-fx-background-color: #f4f5ff;" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab text="Books">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;">
+                                       <children>
+                                          <Text layoutX="221.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Book">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="bookTitle" layoutX="182.0" layoutY="149.0" />
+                                          <TextField fx:id="bookAuthor" layoutX="182.0" layoutY="183.0" />
+                                          <TextField fx:id="bookYear" layoutX="182.0" layoutY="220.0" />
+                                          <TextField fx:id="bookPublisher" layoutX="182.0" layoutY="258.0" />
+                                          <TextField fx:id="bookGenre" layoutX="182.0" layoutY="294.0" />
+                                          <TextField fx:id="bookISBN" layoutX="182.0" layoutY="333.0" />
+                                          <TextField fx:id="bookLanguage" layoutX="182.0" layoutY="368.0" promptText="English, French, ..." />
+                                          <Text layoutX="78.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Title:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="77.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Author:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="78.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Year:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="78.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Publisher:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="82.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="84.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="83.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Language(s):">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Button layoutX="182.0" layoutY="489.0" mnemonicParsing="false" onAction="#createBookButton" style="-fx-background-color: #ef9d39;" text="Create Book" textFill="#0e0056">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
+                                          <Button layoutX="379.0" layoutY="149.0" mnemonicParsing="false" onAction="#bookImageButton" style="-fx-background-color: #ef9d39;" text="*Choose thumbnail image" textFill="#0e0056" />
+                                          <Label fx:id="bookError" layoutX="297.0" layoutY="441.0" text="Please fill all required fields" textFill="RED" visible="false" />
+                                          <Label fx:id="bookSuccess" layoutX="297.0" layoutY="441.0" text="Book added!" textFill="#34972b" visible="false" />
+                                          <Text fx:id="bookImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
+                                          <ImageView fx:id="bookImg" fitHeight="200.0" fitWidth="200.0" layoutX="629.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" />
+                                          <TextField fx:id="bookNumCopies" layoutX="182.0" layoutY="406.0" />
+                                          <Text layoutX="82.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="bookCopiesError" layoutX="305.0" layoutY="441.0" text="Invalid amount(s)!" textFill="RED" visible="false" />
+                                          <TextField fx:id="book1Day" layoutX="498.0" layoutY="285.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="book1Week" layoutX="498.0" layoutY="318.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="book2Weeks" layoutX="498.0" layoutY="352.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="book4Weeks" layoutX="498.0" layoutY="389.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <Text layoutX="430.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 day:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 week:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 weeks:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4 weeks:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="bookDurationError" layoutX="498.0" layoutY="433.0" text="Total should equal no. of Copies" textFill="RED" visible="false" />
+                                          <Text layoutX="976.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overdue Books">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <ListView fx:id="bookOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" style="-fx-background-color: #f4f5ff;" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="DVDs">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;">
+                                       <children>
+                                          <Text layoutX="85.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Title:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="85.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Director:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="dvdTitle" layoutX="188.0" layoutY="149.0" />
+                                          <TextField fx:id="dvdDirector" layoutX="188.0" layoutY="183.0" />
+                                          <TextField fx:id="dvdYear" layoutX="188.0" layoutY="217.0" />
+                                          <Text layoutX="85.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Year:" wrappingWidth="36.9228515625">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="dvdRuntime" layoutX="188.0" layoutY="251.0" />
+                                          <Text layoutX="85.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Runtime:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="dvdLanguage" layoutX="188.0" layoutY="285.0" />
+                                          <Text layoutX="85.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Language:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="dvdSubs" layoutX="188.0" layoutY="318.0" promptText="English, French, ..." />
+                                          <Text layoutX="85.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtitles:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Button layoutX="188.0" layoutY="429.0" mnemonicParsing="false" onAction="#createDVDButton" style="-fx-background-color: #ef9d39;" text="Create DVD" textFill="#0e0056">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
+                                          <Button layoutX="379.0" layoutY="149.0" mnemonicParsing="false" onAction="#dvdImageButton" style="-fx-background-color: #ef9d39;" text="*Choose thumbnail image" textFill="#0e0056" />
+                                          <Text layoutX="221.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add DVD">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="dvdError" layoutX="299.0" layoutY="401.0" text="Please fill all required fields" textFill="RED" visible="false" />
+                                          <Label fx:id="dvdSuccess" layoutX="299.0" layoutY="401.0" text="DVD added!" textFill="#34972b" visible="false" />
+                                          <Text fx:id="dvdImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
+                                          <TextField fx:id="dvdNumCopies" layoutX="188.0" layoutY="352.0" />
+                                          <Text layoutX="85.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="dvdCopiesError" layoutX="299.0" layoutY="401.0" text="Invalid amount(s)!" textFill="RED" visible="false" />
+                                          <TextField fx:id="dvd1Day" layoutX="498.0" layoutY="251.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="dvd1Week" layoutX="498.0" layoutY="285.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="dvd2Weeks" layoutX="498.0" layoutY="318.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="dvd4Weeks" layoutX="498.0" layoutY="352.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <Text layoutX="430.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 day:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 week:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 weeks:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4 weeks:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="dvdDurationError" layoutX="498.0" layoutY="401.0" text="Total should equal no. of Copies" textFill="RED" visible="false" />
+                                          <ImageView fx:id="dvdImg" fitHeight="200.0" fitWidth="200.0" layoutX="629.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Text layoutX="978.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overdue DVDs">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <ListView fx:id="dvdOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" style="-fx-background-color: #f4f5ff;" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                              <Tab text="Laptops">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;">
+                                       <children>
+                                          <TextField fx:id="laptopTitle" layoutX="188.0" layoutY="149.0" />
+                                          <Text layoutX="85.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Title:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="laptopYear" layoutX="188.0" layoutY="183.0" />
+                                          <Text layoutX="85.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Year:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="laptopManuf" layoutX="188.0" layoutY="217.0" />
+                                          <Text layoutX="85.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Manufacturer:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="laptopModel" layoutX="188.0" layoutY="251.0" />
+                                          <Text layoutX="85.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Model:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="laptopOS" layoutX="188.0" layoutY="285.0" />
+                                          <Text layoutX="85.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*OS:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Button layoutX="188.0" layoutY="397.0" mnemonicParsing="false" onAction="#createLaptopButton" style="-fx-background-color: #ef9d39;" text="Create Laptop" textFill="#0e0056">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
+                                          <Button layoutX="379.0" layoutY="149.0" mnemonicParsing="false" onAction="#laptopImageButton" style="-fx-background-color: #ef9d39;" text="*Choose thumbnail image" textFill="#0e0056" />
+                                          <Text layoutX="221.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Laptop">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="laptopError" layoutX="314.0" layoutY="368.0" text="Please fill all required fields" textFill="RED" visible="false" />
+                                          <Label fx:id="laptopSuccess" layoutX="314.0" layoutY="368.0" text="Laptop added!" textFill="#34972b" visible="false" />
+                                          <Text fx:id="laptopImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
+                                          <TextField fx:id="laptopNumCopies" layoutX="188.0" layoutY="319.0" />
+                                          <Text layoutX="85.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="laptopCopiesError" layoutX="320.0" layoutY="368.0" text="Invalid Amount(s)!" textFill="RED" visible="false" />
+                                          <TextField fx:id="laptop1Day" layoutX="498.0" layoutY="217.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="laptop1Week" layoutX="498.0" layoutY="251.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="laptop2Weeks" layoutX="498.0" layoutY="285.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="laptop4Weeks" layoutX="498.0" layoutY="321.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <Text layoutX="430.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 day:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 week:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 weeks:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4 weeks:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="laptopDurationError" layoutX="498.0" layoutY="368.0" text="Total should equal no. of Copies" textFill="RED" visible="false" />
+                                          <ImageView fx:id="laptopImg" fitHeight="200.0" fitWidth="200.0" layoutX="829.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Text layoutX="968.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overdue Laptops">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <ListView fx:id="laptopOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" style="-fx-background-color: #f4f5ff;" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab text="Video Games">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;">
+                                       <children>
+                                          <TextField fx:id="videoGameTitle" layoutX="204.0" layoutY="149.0" />
+                                          <Text layoutX="100.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Title:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="videoGameYear" layoutX="204.0" layoutY="183.0" />
+                                          <Text layoutX="99.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Year:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="videoGamePublisher" layoutX="204.0" layoutY="217.0" />
+                                          <Text layoutX="85.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Publisher:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="videoGameGenre" layoutX="204.0" layoutY="250.0" />
+                                          <Text layoutX="94.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Genre:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="videoGameCertificateRating" layoutX="204.0" layoutY="285.0" />
+                                          <Text layoutX="62.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*CertificateRating:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Button layoutX="205.0" layoutY="447.0" mnemonicParsing="false" onAction="#createVideoGameButton" style="-fx-background-color: #ef9d39;" text="Create Video Game" textFill="#0e0056">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
+                                          <Button layoutX="379.0" layoutY="149.0" mnemonicParsing="false" onAction="#videoGameImageButton" style="-fx-background-color: #ef9d39;" text="*Choose thumbnail image" textFill="#0e0056" />
+                                          <Text layoutX="207.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Video Game">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="videoGameError" layoutX="350.0" layoutY="420.0" text="Please fill all required fields" textFill="RED" visible="false" />
+                                          <Label fx:id="videoGameSuccess" layoutX="350.0" layoutY="420.0" text="Video game added!" textFill="#34972b" visible="false" />
+                                          <Text fx:id="videoGameImgName" layoutX="829.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
+                                          <TextField fx:id="videoGameMultiplayerSupport" layoutX="204.0" layoutY="321.0" />
+                                          <Text layoutX="58.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Multiplayer Support">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="videoGameCopiesError" layoutX="320.0" layoutY="368.0" text="Invalid Amount(s)!" textFill="RED" visible="false" />
+                                          <TextField fx:id="videoGame1Day" layoutX="498.0" layoutY="217.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="videoGame1Week" layoutX="498.0" layoutY="251.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="videoGame2Weeks" layoutX="498.0" layoutY="285.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <TextField fx:id="videoGame4Weeks" layoutX="498.0" layoutY="321.0" prefHeight="25.0" prefWidth="61.0" />
+                                          <Text layoutX="430.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 day:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 week:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 weeks:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="430.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4 weeks:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="videoGameDurationError" layoutX="498.0" layoutY="368.0" text="Total should equal no. of Copies" textFill="RED" visible="false" />
+                                          <ImageView fx:id="videoGameImg" fitHeight="200.0" fitWidth="200.0" layoutX="829.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Text layoutX="946.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overdue Video Games">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <ListView fx:id="videoGameOverdueList" layoutX="892.0" layoutY="149.0" prefHeight="370.0" prefWidth="296.0" style="-fx-background-color: #f4f5ff;" />
+                                          <TextField fx:id="videoGameNumCopies" layoutX="204.0" layoutY="364.0" />
+                                          <Text layoutX="77.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Copies:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Events">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f4f5ff;">
+                     <children>
+                        <Text layoutX="294.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Event">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="eventName" layoutX="258.0" layoutY="131.0" />
+                        <TextField fx:id="time" layoutX="258.0" layoutY="198.0" promptText="hh-mm-ss" />
+                        <TextField fx:id="maxNumberOfSpaces" layoutX="258.0" layoutY="231.0" promptText="Only numbers" />
+                        <TextField fx:id="description" layoutX="258.0" layoutY="265.0" prefHeight="101.0" prefWidth="278.0" />
+                        <Text layoutX="126.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Event Name:" wrappingWidth="85.71582317352295">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="127.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Date:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="127.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Time:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="126.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Maximum number of attendes:" textAlignment="CENTER" wrappingWidth="128.1982421875">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="129.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Description">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Button layoutX="315.0" layoutY="370.0" mnemonicParsing="false" onAction="#createEventButton" style="-fx-background-color: #ef9d39;" text="Creat Event" textFill="#0e0056">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="eventError" layoutX="425.0" layoutY="377.0" text="Please fill all required fields" textFill="RED" visible="false" />
+                        <Label fx:id="eventSuccess" layoutX="425.0" layoutY="377.0" text="Event Created!" textFill="#34972b" visible="false" />
+                        <DatePicker fx:id="date" layoutX="258.0" layoutY="165.0" onInputMethodTextChanged="#checkDate" prefHeight="25.0" prefWidth="149.0" promptText="15/03/2019" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
